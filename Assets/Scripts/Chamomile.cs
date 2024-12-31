@@ -64,14 +64,30 @@ public class Chamomile : MonoBehaviour {
     private void MoveToSell(Vector2Int target) {
         Vector3 target3 = new Vector3(target.x, target.y);
         Vector3 diff = target3 - transform.position;
-        transform.position = target3 * CELL_SIZE;
+        //transform.position = target3 * CELL_SIZE;
+        StartCoroutine(LerpFromTo(transform.position, target3 * CELL_SIZE, 0.2f));
         if (diff.x < 0) {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
         }
 
         if (diff.x > 0) {
+           
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
+    }
+    private IEnumerator LerpFromTo(Vector3 from, Vector3 to, float time)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < time)
+        {
+            float t = elapsedTime / time;
+            transform.position = Vector3.Lerp(from, to, t);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = to;
     }
 
     private void TryStartPerform(Action callback) {
@@ -96,6 +112,7 @@ public class Chamomile : MonoBehaviour {
         TakenCommand = null;
         if (_performingCoroutine != null) {
             StopCoroutine(_performingCoroutine);
+            _performingCoroutine = null;
         }
     }
 }

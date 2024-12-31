@@ -41,6 +41,10 @@ public class CommandsManager : MonoBehaviour {
 
     private void RemoveCommand(CommandData data) {
         _plannedCommands.Remove(data);
+        if (data.PlannedCommandView != null) {
+            data.PlannedCommandView.Release();
+        }
+        
         if (!_takenCommands.Contains(data)) {
             return;
         }
@@ -48,9 +52,6 @@ public class CommandsManager : MonoBehaviour {
         _takenCommands.Remove(data);
         data.Settler.ClearCommand();
         data.Settler = null;
-        if (data.PlannedCommandView != null) {
-            data.PlannedCommandView.Release();
-        }
     }
 
     private void Update() {

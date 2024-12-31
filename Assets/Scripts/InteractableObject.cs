@@ -67,6 +67,9 @@ public class InteractableObject : MonoBehaviour {
     }
 
     public void ExecuteCommand() {
+        if (CommandToExecute == null) {
+            return;
+        }
         OnCommandPerformed?.Invoke(CommandToExecute.CommandType);
         CommandToExecute = null;
     }
