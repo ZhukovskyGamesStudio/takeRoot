@@ -6,4 +6,5 @@ public class CommandData {
     public Command CommandType;
     public InteractableObject InteractableObject;
     public Chamomile Settler;
+    public PlannedCommandView PlannedCommandView;
 }

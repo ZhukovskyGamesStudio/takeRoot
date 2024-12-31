@@ -27,7 +27,7 @@ public class Chamomile : MonoBehaviour {
             _mood = global::Mood.Neutral;
 
             if (_performingCoroutine == null) {
-                if ((TakenCommand.InteractableObject.GetCellOnGrid - GetCellOnGrid).magnitude < 2) {
+                if (ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenCommand.InteractableObject)) {
                     TryStartPerform(() => { CommandsManager.Instance.PerformedCommand(TakenCommand); });
                 } else {
                     TryMoveToCommandTarget();
@@ -42,16 +42,12 @@ public class Chamomile : MonoBehaviour {
 
     private void TryMoveToCommandTarget() {
         Vector2Int target = TakenCommand.InteractableObject.GetCellOnGrid;
-        Vector2Int direction = target - GetCellOnGrid;
-        if (direction.x != 0) {
-            direction.x = Mathf.RoundToInt(Mathf.Sign(direction.x));
+
+        if (TakenCommand.CommandType == Command.Search) {
+            target = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.InteractableObject);
         }
 
-        if (direction.y != 0) {
-            direction.y = Mathf.RoundToInt(Mathf.Sign(direction.y));
-        }
-
-        TryStartPerform(() => { MoveStep(direction); });
+        TryStartPerform(() => { MoveToSell(target); });
     }
 
     private void MoveStep(Vector2Int direction) {
@@ -61,6 +57,19 @@ public class Chamomile : MonoBehaviour {
         }
 
         if (direction.x > 0) {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+    }
+
+    private void MoveToSell(Vector2Int target) {
+        Vector3 target3 = new Vector3(target.x, target.y);
+        Vector3 diff = target3 - transform.position;
+        transform.position = target3 * CELL_SIZE;
+        if (diff.x < 0) {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
+        }
+
+        if (diff.x > 0) {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }

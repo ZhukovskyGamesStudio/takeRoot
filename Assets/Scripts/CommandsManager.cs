@@ -15,6 +15,9 @@ public class CommandsManager : MonoBehaviour {
     [SerializeField]
     private CommandsPanel _commandsPanel;
 
+    [SerializeField]
+    private PlannedCommandView _plannedCommandView;
+
     private List<Chamomile> _settlers;
 
     private void Awake() {
@@ -29,6 +32,11 @@ public class CommandsManager : MonoBehaviour {
     private void AddCommand(CommandData data) {
         _plannedCommands.Add(data);
         _untakenCommands.Add(data);
+        if (data.PlannedCommandView == null) {
+            PlannedCommandView commandView = Instantiate(_plannedCommandView);
+            commandView.Init(data.CommandType, data.InteractableObject.transform.position, data.InteractableObject.Size);
+            data.PlannedCommandView = commandView;
+        }
     }
 
     private void RemoveCommand(CommandData data) {
@@ -40,6 +48,9 @@ public class CommandsManager : MonoBehaviour {
         _takenCommands.Remove(data);
         data.Settler.ClearCommand();
         data.Settler = null;
+        if (data.PlannedCommandView != null) {
+            data.PlannedCommandView.Release();
+        }
     }
 
     private void Update() {

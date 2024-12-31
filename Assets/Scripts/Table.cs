@@ -24,6 +24,7 @@ public class Table : MonoBehaviour {
         }
 
         _interactableObject.AddToPossibleCommands(Command.Search);
+        _interactableObject.AddToPossibleCommands(Command.Attack);
         _interactableObject.OnCommandPerformed += OnCommandPerformed;
     }
 

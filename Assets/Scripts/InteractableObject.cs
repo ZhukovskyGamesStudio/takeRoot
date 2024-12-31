@@ -8,10 +8,28 @@ public class InteractableObject : MonoBehaviour {
 
     public CommandData CommandToExecute { get; private set; }
 
-    public Vector2Int GetCellOnGrid => new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+    public Vector2Int GetCellOnGrid => new Vector2Int(Mathf.RoundToInt(transform.position.x - Size.x / 2f + 0.5f),
+        Mathf.RoundToInt(transform.position.y - Size.y / 2f + 0.5f));
+
+    public Vector2Int GetInteractableSell => GetCellOnGrid + Vector2Int.down;
+
+    public List<Vector2Int> GetOccupiedPositions() {
+        Vector2Int pos = GetCellOnGrid;
+        List<Vector2Int> r = new List<Vector2Int>();
+        for (int i = 0; i < Size.x; i++) {
+            for (int j = 0; j < Size.y; j++) {
+                r.Add(new Vector2Int(pos.x + i, pos.y + j));
+            }
+        }
+
+        return r;
+    }
+
+    [field: SerializeField]
+    public Vector2Int Size { get; private set; } = Vector2Int.one;
 
     public Action<Command> OnCommandPerformed;
-    
+
     public bool CanBeCommanded(Command command) {
         if (CommandToExecute != null && CommandToExecute.CommandType == command) {
             return false;
