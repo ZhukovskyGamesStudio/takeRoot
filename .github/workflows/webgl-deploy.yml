@@ -29,6 +29,7 @@ jobs:
       uses: game-ci/unity-builder@v4.3.0  # The official Unity action for CI/CD
       with:
         version: '6000.0.31f1'  # Set your Unity version
+        targetPlatform: 'WebGL'
 
     - name: Build WebGL
       run: |
