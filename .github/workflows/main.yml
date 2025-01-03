@@ -19,6 +19,9 @@ jobs:
     name: Unity Build 👽
     runs-on: ubuntu-latest
     steps:
+      - name: Test GITHUB_TOKEN
+        run: |
+          echo "Token: ${GITHUB_TOKEN}"
       # Checkout (without LFS)
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -83,6 +86,7 @@ jobs:
       - name: Cleaning gh-pages branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           echo "Switch to ${{ vars.DEPLOYMENT_BRANCH }}"
           git switch -f ${{ vars.DEPLOYMENT_BRANCH }}
@@ -91,7 +95,7 @@ jobs:
           rm -r *
           git add *
           git commit -m "cleaning branch"
-          git push https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${{ github.repository }} ${{ vars.DEPLOYMENT_BRANCH }}
+          git push https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }} ${{ vars.DEPLOYMENT_BRANCH }}
       - name: Applying stashed files to ${{ vars.DEPLOYMENT_BRANCH }}
         run: |
           echo "Applying stash"
