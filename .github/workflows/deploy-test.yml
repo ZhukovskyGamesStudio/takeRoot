@@ -34,5 +34,23 @@ jobs:
       # Output
       - uses: actions/upload-artifact@v3
         with:
-          name: Build
+          name: webgl-build
           path: build
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build  # Ensure the build job is completed first
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: webgl-build
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.1.0
+        with:
+          branch: gh-pages  # Deploy to the gh-pages branch
+          folder: Build/WebGL  # The folder that contains the WebGL build
+          token: ${{ secrets.GITHUB_TOKEN }}
