@@ -4,29 +4,35 @@ on:
     branches:
       - 'main'
   pull_request:
-    branches:    
+    branches:
       - 'main'
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: "pages"
   cancel-in-progress: false
+
 jobs:
   build:
     name: Unity Build 👽
     runs-on: ubuntu-latest
     steps:
+      # Debug GITHUB_TOKEN
       - name: Test GITHUB_TOKEN
         run: |
           echo "Token: ${GITHUB_TOKEN}"
+
       # Checkout (without LFS)
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
       # Git LFS
       - name: Create LFS file list
         run: git lfs ls-files -l | cut -d' ' -f1 | sort > .lfs-assets-id
@@ -44,7 +50,7 @@ jobs:
           git add .
           git reset --hard
 
-      # # Cache
+      # Cache
       - uses: actions/cache@v4
         with:
           path: Library
@@ -52,7 +58,7 @@ jobs:
           restore-keys: |
             Library-
 
-      # # Build
+      # Build
       - name: Build project
         uses: game-ci/unity-builder@v4
         env:
@@ -63,13 +69,15 @@ jobs:
           targetPlatform: ${{ vars.TARGET_PLATFORM }}
           buildsPath: ${{ vars.BUILD_PATH }}
           allowDirtyBuild: true
-      # Output: Artifact
+
+      # Upload Build Artifact
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ vars.ARTIFACT_NAME }}
           path: ${{ vars.BUILD_PATH }}
-      # Deployment
+
+      # Stash build result and reset local changes
       - name: Stash build result and reset local changes
         run: |
           echo "Applying initial configs"
@@ -82,7 +90,8 @@ jobs:
           git stash list
           git reset --hard
           sudo git clean -d -x -f
-    # Deployment
+
+      # Cleaning gh-pages branch
       - name: Cleaning gh-pages branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -96,10 +105,14 @@ jobs:
           git add *
           git commit -m "cleaning branch"
           git push https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }} ${{ vars.DEPLOYMENT_BRANCH }}
+
+      # Applying stashed files to ${{ vars.DEPLOYMENT_BRANCH }}
       - name: Applying stashed files to ${{ vars.DEPLOYMENT_BRANCH }}
         run: |
           echo "Applying stash"
           git stash apply stash@{0}
+
+      # Copying files to root directory
       - name: Copying files to root directory
         run: |
           cd ${{ vars.BUILD_PATH }}/${{ vars.TARGET_PLATFORM }}/${{ vars.TARGET_PLATFORM }}
@@ -109,12 +122,14 @@ jobs:
           rm -r ${{ vars.BUILD_PATH }}
           ls
           pwd
+
+      # Pushing deployment to gh-pages branch
       - name: Pushing deployment to gh-pages branch
         run: |
           pwd
           git status
           git add *
           git commit -m "Deployment"
-          git push
+          git push https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }}
           git reset --hard
           sudo git clean -d -x -f
