@@ -26,6 +26,10 @@ jobs:
       - name: Test GITHUB_TOKEN
         run: |
           echo "Token: ${GITHUB_TOKEN}"
+      # Debug PAT_TOKEN
+      - name: Test PAT_TOKEN
+        run: |
+          echo "PAT_Token: ${PAT_TOKEN}"
 
       # Checkout (without LFS)
       - name: Checkout repository
