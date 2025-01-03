@@ -80,13 +80,25 @@ jobs:
           git reset --hard
           sudo git clean -d -x -f
       # Deployment
+      
       - name: Cleaning gh-pages branch
         run: |
           echo "Switch to ${{ vars.DEPLOYMENT_BRANCH }}"
           git switch -f ${{ vars.DEPLOYMENT_BRANCH }}
           git reset --hard
           sudo git clean -d -x -f
-          rm -r *
+          
+          # Check if files exist before trying to remove them
+          echo "Listing files in the current directory"
+          ls -l  # List files before removal
+
+          if [ "$(ls -A)" ]; then
+            echo "Files found, proceeding with cleanup"
+            rm -rf *  # Remove files if they exist
+          else
+            echo "No files to remove"
+          fi
+          
           git add *
           git commit -m "cleaning branch"
           git push
