@@ -90,10 +90,14 @@ jobs:
           git add *
           git commit -m "cleaning branch"
           git push
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Applying stashed files to ${{ vars.DEPLOYMENT_BRANCH }}
         run: |
           echo "Applying stash"
           git stash apply stash@{0}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Copying files to root directory
         run: |
           cd ${{ vars.BUILD_PATH }}/${{ vars.TARGET_PLATFORM }}/${{ vars.TARGET_PLATFORM }}
@@ -112,3 +116,5 @@ jobs:
           git push
           git reset --hard
           sudo git clean -d -x -f
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
