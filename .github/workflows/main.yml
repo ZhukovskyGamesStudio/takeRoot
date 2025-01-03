@@ -22,15 +22,14 @@ jobs:
     name: Unity Build 👽
     runs-on: ubuntu-latest
     steps:
-      # Debug GITHUB_TOKEN
-      - name: Test GITHUB_TOKEN
+      # Debug Tokens
+      - name: Test Tokens
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
-          echo "Token: ${GITHUB_TOKEN}"
-      # Debug PAT_TOKEN
-      - name: Test PAT_TOKEN
-        run: |
-          echo "PAT_Token: ${PAT_TOKEN}"
-
+          echo "Github token: ${GITHUB_TOKEN}"
+          echo "PAT token: ${PAT_TOKEN}"
       # Checkout (without LFS)
       - name: Checkout repository
         uses: actions/checkout@v4
