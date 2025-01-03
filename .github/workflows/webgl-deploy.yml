@@ -15,6 +15,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Unity - Activate
+      uses: game-ci/unity-activate@v2.0.0
+            
+
 #    - name: Set up Unity
 #      uses: game-ci/unity-action@v2
 #      with:
