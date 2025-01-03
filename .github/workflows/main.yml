@@ -99,9 +99,18 @@ jobs:
             echo "No files to remove"
           fi
           
+          # Check if there are any changes to commit
+          git diff --exit-code || echo "Changes detected"
+
+          # Only commit if there are changes
+          if [ "$(git status --porcelain)" ]; then
+          echo "Changes detected, committing..."
           git add *
           git commit -m "cleaning branch"
           git push
+          else
+          echo "No changes to commit"
+          fi
       - name: Applying stashed files to ${{ vars.DEPLOYMENT_BRANCH }}
         run: |
           echo "Applying stash"
