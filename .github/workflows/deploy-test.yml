@@ -32,7 +32,7 @@ jobs:
           targetPlatform: WebGL
 
       # Output
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4.5.0
         with:
           name: webgl-build
           path: build
