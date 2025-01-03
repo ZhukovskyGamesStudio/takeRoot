@@ -15,21 +15,26 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+#    - name: Set up Unity
+#      uses: game-ci/unity-action@v2
+#      with:
+#        version: '6000.0.31f1'  # Specify the Unity version you are using
+#        github_token: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Set up Unity
-      uses: game-ci/unity-action@v2
+      uses: game-ci/unity-builder@v4.3.0  # The official Unity action for CI/CD
       with:
-        version: '6000.0.31f1'  # Specify the Unity version you are using
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        version: '6000.0.31f1'  # Set your Unity version
 
     - name: Build WebGL
       run: |
         ./unity -batchmode -nographics -silent-crashes -logFile build.log -projectPath . -executeMethod WebGLBuild.BuildWebGL
 
     - name: Upload build artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: webgl-build
-        path: Build/WebGL
+        path: Build/WebGLGithubPages
 
   deploy:
     runs-on: ubuntu-latest
