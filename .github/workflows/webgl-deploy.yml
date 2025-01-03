@@ -47,5 +47,5 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4.1.0
       with:
         branch: gh-pages  # Deploy to the gh-pages branch
-        folder: Build/WebGL  # The folder that contains the WebGL build
+        folder: Build/WebGLGithubPages  # The folder that contains the WebGL build
         token: ${{ secrets.GITHUB_TOKEN }}
