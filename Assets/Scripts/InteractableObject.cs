@@ -6,12 +6,17 @@ public class InteractableObject : MonoBehaviour {
     [SerializeField]
     private List<Command> _availableCommands = new List<Command>() { };
 
+    [SerializeField]
+    private Vector2Int _interactableShift;
+    
+    public Func<InfoBookData> GetInfoFunc;
+    
     public CommandData CommandToExecute { get; private set; }
 
     public Vector2Int GetCellOnGrid => new Vector2Int(Mathf.RoundToInt(transform.position.x - Size.x / 2f + 0.5f),
         Mathf.RoundToInt(transform.position.y - Size.y / 2f + 0.5f));
 
-    public Vector2Int GetInteractableSell => GetCellOnGrid + Vector2Int.down;
+    public Vector2Int GetInteractableSell => GetCellOnGrid + _interactableShift;
 
     public List<Vector2Int> GetOccupiedPositions() {
         Vector2Int pos = GetCellOnGrid;
@@ -71,7 +76,6 @@ public class InteractableObject : MonoBehaviour {
             return;
         }
         OnCommandPerformed?.Invoke(CommandToExecute.CommandType);
-        CommandToExecute = null;
     }
 
     private void OnMouseEnter() {
@@ -80,5 +84,15 @@ public class InteractableObject : MonoBehaviour {
 
     private void OnMouseExit() {
         SelectionManager.Instance.TryClearSelected(this);
+    }
+    
+    public InfoBookData GetInfoData() {
+        return GetInfoFunc?.Invoke();
+    }
+
+    public void OnDestroyed() {
+        _availableCommands.Clear();
+        CommandToExecute?.TriggerCancel?.Invoke();
+        Destroy(gameObject);
     }
 }

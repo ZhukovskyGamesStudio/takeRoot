@@ -54,6 +54,24 @@ MonoBehaviour:
   - {fileID: 6919778486652554165}
   _isSelectingRandomViewVariant: 1
   _interactableObject: {fileID: 2405998529698194953}
+  _dropOnSearch:
+  - ResourceType: 2
+    Amount: 1
+  _dropOnDestroyed:
+  - ResourceType: 1
+    Amount: 3
+  - ResourceType: 2
+    Amount: 1
+  _icon: {fileID: 6562016439336350548}
+  <Health>k__BackingField: 3
+  _resorceStorage:
+    ResorceDatas:
+    - ResourceType: 0
+      Amount: 0
+    - ResourceType: 0
+      Amount: 0
+    MaxStackAmount: 50
+  IsStorageActive: 0
 --- !u!61 &1537339080423128982
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -113,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _availableCommands: 
+  _interactableShift: {x: 0, y: -1}
   <Size>k__BackingField: {x: 2, y: 1}
 --- !u!1 &829027192957257136
 GameObject:

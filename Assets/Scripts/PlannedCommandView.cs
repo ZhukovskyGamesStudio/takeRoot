@@ -5,7 +5,7 @@ public class PlannedCommandView : MonoBehaviour {
     private SpriteRenderer _spriteRenderer;
 
     [SerializeField]
-    private Sprite _searchIcon, _attackIcon;
+    private Sprite _searchIcon, _attackIcon, _storeIcon;
 
     [SerializeField]
     private Transform _lb, _lt, _rt, _rb;

@@ -27,7 +27,13 @@ public class Chamomile : MonoBehaviour {
             _mood = global::Mood.Neutral;
 
             if (_performingCoroutine == null) {
-                if (ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenCommand.InteractableObject)) {
+                bool canPerfrom;
+                if (TakenCommand.CommandType == Command.Store) {
+                    canPerfrom = ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenCommand.AdditionalObject);
+                } else {
+                    canPerfrom = ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenCommand.InteractableObject);
+                }
+                if (canPerfrom) {
                     TryStartPerform(() => { CommandsManager.Instance.PerformedCommand(TakenCommand); });
                 } else {
                     TryMoveToCommandTarget();
@@ -45,6 +51,9 @@ public class Chamomile : MonoBehaviour {
 
         if (TakenCommand.CommandType == Command.Search) {
             target = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.InteractableObject);
+        }
+        if (TakenCommand.CommandType == Command.Store) {
+            target = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.AdditionalObject);
         }
 
         TryStartPerform(() => { MoveToSell(target); });
@@ -71,16 +80,14 @@ public class Chamomile : MonoBehaviour {
         }
 
         if (diff.x > 0) {
-           
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
     }
-    private IEnumerator LerpFromTo(Vector3 from, Vector3 to, float time)
-    {
+
+    private IEnumerator LerpFromTo(Vector3 from, Vector3 to, float time) {
         float elapsedTime = 0f;
 
-        while (elapsedTime < time)
-        {
+        while (elapsedTime < time) {
             float t = elapsedTime / time;
             transform.position = Vector3.Lerp(from, to, t);
             elapsedTime += Time.deltaTime;
@@ -105,6 +112,7 @@ public class Chamomile : MonoBehaviour {
     }
 
     public void SetCommand(CommandData data) {
+        ClearCommand();
         TakenCommand = data;
     }
 

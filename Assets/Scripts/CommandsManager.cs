@@ -44,21 +44,26 @@ public class CommandsManager : MonoBehaviour {
         if (data.PlannedCommandView != null) {
             data.PlannedCommandView.Release();
         }
-        
+
         if (!_takenCommands.Contains(data)) {
             return;
         }
 
         _takenCommands.Remove(data);
+
         data.Settler.ClearCommand();
         data.Settler = null;
     }
 
     private void Update() {
         if (Input.GetMouseButtonDown(0) && _commandsPanel.SelectedCommand != Command.None) {
-            TryAddCommand(_commandsPanel.SelectedCommand);
+            TryAddCommandFromMouseClick(_commandsPanel.SelectedCommand);
         }
 
+        TryGiveUnjobedSettlerCommand();
+    }
+
+    private void TryGiveUnjobedSettlerCommand() {
         if (_untakenCommands.Count == 0) {
             return;
         }
@@ -69,14 +74,18 @@ public class CommandsManager : MonoBehaviour {
             }
 
             CommandData nextCommand = _untakenCommands.First();
-            nextCommand.Settler = settler;
-            _untakenCommands.Remove(nextCommand);
-            _takenCommands.Add(nextCommand);
-            settler.SetCommand(  nextCommand);
+            SetSettlerCommand(settler, nextCommand);
         }
     }
 
-    private void TryAddCommand(Command command) {
+    private void SetSettlerCommand(Chamomile settler, CommandData nextCommand) {
+        nextCommand.Settler = settler;
+        _untakenCommands.Remove(nextCommand);
+        _takenCommands.Add(nextCommand);
+        settler.SetCommand(nextCommand);
+    }
+
+    private void TryAddCommandFromMouseClick(Command command) {
         InteractableObject interactable = SelectionManager.Instance.InteractableObject;
         if (interactable == null) {
             return;
@@ -100,8 +109,16 @@ public class CommandsManager : MonoBehaviour {
         interactable.AssignCommand(data);
     }
 
+    public void AddSubsequentCommand(CommandData changedCommand) {
+        AddCommand(changedCommand);
+        SetSettlerCommand(changedCommand.Settler, changedCommand);
+    }
+
     public void PerformedCommand(CommandData data) {
+        bool hasSubsequent = data.HasSubsequentCommand;
         data.InteractableObject.ExecuteCommand();
-        RemoveCommand(data);
+        if (!hasSubsequent) {
+            RemoveCommand(data);
+        }
     }
 }

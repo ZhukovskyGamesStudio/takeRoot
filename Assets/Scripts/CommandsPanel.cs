@@ -27,5 +27,7 @@ public enum Command {
     Search,
     Attack,
     Cancel,
-    Build
+    Build,
+    Store,
+    Transport
 }
