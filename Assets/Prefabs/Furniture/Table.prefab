@@ -12,6 +12,10 @@ GameObject:
   - component: {fileID: 7427906011630539068}
   - component: {fileID: 1537339080423128982}
   - component: {fileID: 2405998529698194953}
+  - component: {fileID: 3035150851169054675}
+  - component: {fileID: 6184584730349941928}
+  - component: {fileID: 4442748941643807885}
+  - component: {fileID: 984130219417740274}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -28,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 516106991386686051}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -47,29 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a89f91ddd942684091d3bf74ffd8034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 1908313810204855913}
-  _objectsPacks:
-  - {fileID: 3093320758356795537}
-  - {fileID: 8700330049228238457}
-  - {fileID: 6919778486652554165}
-  _isSelectingRandomViewVariant: 1
-  _interactableObject: {fileID: 2405998529698194953}
-  _dropOnSearch:
-  - ResourceType: 2
-    Amount: 1
-  _dropOnDestroyed:
-  - ResourceType: 1
-    Amount: 3
-  - ResourceType: 2
-    Amount: 1
   _icon: {fileID: 6562016439336350548}
-  <Health>k__BackingField: 3
-  _resorceStorage:
-    ResorceDatas:
-    - ResourceType: 0
-      Amount: 0
-    - ResourceType: 0
-      Amount: 0
+  ResorceStorage:
+    ResorceDatas: []
     MaxStackAmount: 50
   IsStorageActive: 0
 --- !u!61 &1537339080423128982
@@ -106,7 +90,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.25}
+  m_Offset: {x: 0.4961533, y: 0.2090708}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -116,7 +100,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2, y: 1.5}
+  m_Size: {x: 1.9937588, y: 1.43135}
   m_EdgeRadius: 0
 --- !u!114 &2405998529698194953
 MonoBehaviour:
@@ -130,9 +114,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c3fd03fd1f488b9a05b631f1fb2771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _availableCommands: 
   _interactableShift: {x: 0, y: -1}
   <Size>k__BackingField: {x: 2, y: 1}
+--- !u!114 &3035150851169054675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516106991386686051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dc5691c2377457bb3de67b7550fb01a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <DropOnSearch>k__BackingField:
+  - ResourceType: 2
+    Amount: 1
+--- !u!114 &6184584730349941928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516106991386686051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f24d4e305ef8498b9d2669730127b0d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Health>k__BackingField: 3
+  _dropOnDestroyed:
+  - ResourceType: 1
+    Amount: 1
+--- !u!114 &4442748941643807885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516106991386686051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e45e5250e0345c5b7f9abd2ae40a4b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Animator>k__BackingField: {fileID: 1908313810204855913}
+--- !u!114 &984130219417740274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516106991386686051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9830c9e51ca34fcd9cde8a1e7568492d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _size: {x: 2, y: 1}
 --- !u!1 &829027192957257136
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +183,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4333041589051010790}
   - component: {fileID: 6344974754438935218}
+  - component: {fileID: 1352896787143114721}
   m_Layer: 0
   m_Name: ObjectsContainer
   m_TagString: Untagged
@@ -190,6 +231,23 @@ MonoBehaviour:
   - {fileID: 1463107934861606846}
   IsUpdating: 0
   AlphaValue: 1
+--- !u!114 &1352896787143114721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829027192957257136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e2907b82db4008b3bd96990d283226, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isSelectingRandomViewVariant: 1
+  _objectsPacks:
+  - {fileID: 3093320758356795537}
+  - {fileID: 8700330049228238457}
+  - {fileID: 6919778486652554165}
 --- !u!1 &3093320758356795537
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,7 +568,7 @@ Transform:
   m_GameObject: {fileID: 5259069253047936825}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0.225, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -946,7 +1004,7 @@ Transform:
   m_GameObject: {fileID: 8324428521058310747}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

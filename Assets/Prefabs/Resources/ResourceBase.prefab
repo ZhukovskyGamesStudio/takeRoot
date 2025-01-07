@@ -275,6 +275,7 @@ GameObject:
   - component: {fileID: 6144928068143498264}
   - component: {fileID: 7725886847496985174}
   - component: {fileID: 6722628964612005323}
+  - component: {fileID: 2212878200275619826}
   m_Layer: 0
   m_Name: ResourceBase
   m_TagString: Untagged
@@ -314,7 +315,7 @@ MonoBehaviour:
   <ResourceType>k__BackingField: 0
   _amountText: {fileID: 2130870192563439608}
   IsBeingCarried: 0
-  _interactableObject: {fileID: 7725886847496985174}
+  _interactable: {fileID: 7725886847496985174}
   _icon: {fileID: 7847330853408564800}
 --- !u!114 &7725886847496985174
 MonoBehaviour:
@@ -328,7 +329,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c3fd03fd1f488b9a05b631f1fb2771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _availableCommands: 
   _interactableShift: {x: 0, y: 0}
   <Size>k__BackingField: {x: 1, y: 1}
 --- !u!61 &6722628964612005323
@@ -377,3 +377,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2212878200275619826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897901351859564800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9830c9e51ca34fcd9cde8a1e7568492d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _size: {x: 1, y: 1}
+  <IsBlockingPath>k__BackingField: 0

@@ -2,38 +2,22 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractableObject : MonoBehaviour {
-    [SerializeField]
-    private List<Command> _availableCommands = new List<Command>() { };
-
+public class Interactable : ECSComponent, ISelectable {
     [SerializeField]
     private Vector2Int _interactableShift;
-    
+
+    public Gridable Gridable { get; private set; }
     public Func<InfoBookData> GetInfoFunc;
-    
+
     public CommandData CommandToExecute { get; private set; }
-
-    public Vector2Int GetCellOnGrid => new Vector2Int(Mathf.RoundToInt(transform.position.x - Size.x / 2f + 0.5f),
-        Mathf.RoundToInt(transform.position.y - Size.y / 2f + 0.5f));
-
-    public Vector2Int GetInteractableSell => GetCellOnGrid + _interactableShift;
-
-    public List<Vector2Int> GetOccupiedPositions() {
-        Vector2Int pos = GetCellOnGrid;
-        List<Vector2Int> r = new List<Vector2Int>();
-        for (int i = 0; i < Size.x; i++) {
-            for (int j = 0; j < Size.y; j++) {
-                r.Add(new Vector2Int(pos.x + i, pos.y + j));
-            }
-        }
-
-        return r;
-    }
+    private readonly List<Command> _availableCommands = new List<Command>() { };
 
     [field: SerializeField]
     public Vector2Int Size { get; private set; } = Vector2Int.one;
 
     public Action<Command> OnCommandPerformed;
+    
+    public Vector2Int GetInteractableSell => Gridable.GetBottomLeftOnGrid + _interactableShift;
 
     public bool CanBeCommanded(Command command) {
         if (CommandToExecute != null && CommandToExecute.CommandType == command) {
@@ -75,6 +59,7 @@ public class InteractableObject : MonoBehaviour {
         if (CommandToExecute == null) {
             return;
         }
+
         OnCommandPerformed?.Invoke(CommandToExecute.CommandType);
     }
 
@@ -85,7 +70,7 @@ public class InteractableObject : MonoBehaviour {
     private void OnMouseExit() {
         SelectionManager.Instance.TryClearSelected(this);
     }
-    
+
     public InfoBookData GetInfoData() {
         return GetInfoFunc?.Invoke();
     }
@@ -93,6 +78,15 @@ public class InteractableObject : MonoBehaviour {
     public void OnDestroyed() {
         _availableCommands.Clear();
         CommandToExecute?.TriggerCancel?.Invoke();
+        CancelCommand();
         Destroy(gameObject);
+    }
+
+    public override int GetDependancyPriority() {
+        return 0;
+    }
+
+    public override void Init(ECSEntity entity) {
+        Gridable = entity.GetEcsComponent<Gridable>();
     }
 }

@@ -122,7 +122,7 @@ public class ResourceManager : MonoBehaviour {
     public Table FindEmptyStorageForResorce(ResorceData resource) {
         Table[] storages = FindObjectsByType<Table>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         //TODO если ресурс целикмо не влезает в стол или нет столов - всё ломается
-        Table fittingStorage = storages.Where(s=>s.IsStorageActive && s._resorceStorage.CanFitResource(resource) >= resource.Amount). OrderByDescending(s => s._resorceStorage.CanFitResource(resource))
+        Table fittingStorage = storages.Where(s=>s.IsStorageActive && s.ResorceStorage.CanFitResource(resource) >= resource.Amount). OrderByDescending(s => s.ResorceStorage.CanFitResource(resource))
             .FirstOrDefault();
         return fittingStorage;
     }

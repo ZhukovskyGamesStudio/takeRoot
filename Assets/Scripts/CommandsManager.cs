@@ -34,7 +34,7 @@ public class CommandsManager : MonoBehaviour {
         _untakenCommands.Add(data);
         if (data.PlannedCommandView == null) {
             PlannedCommandView commandView = Instantiate(_plannedCommandView);
-            commandView.Init(data.CommandType, data.InteractableObject.transform.position, data.InteractableObject.Size);
+            commandView.Init(data.CommandType, data.Interactable.Gridable);
             data.PlannedCommandView = commandView;
         }
     }
@@ -86,7 +86,7 @@ public class CommandsManager : MonoBehaviour {
     }
 
     private void TryAddCommandFromMouseClick(Command command) {
-        InteractableObject interactable = SelectionManager.Instance.InteractableObject;
+        Interactable interactable = SelectionManager.Instance.Interactable as Interactable;
         if (interactable == null) {
             return;
         }
@@ -103,7 +103,7 @@ public class CommandsManager : MonoBehaviour {
 
         CommandData data = new CommandData() {
             CommandType = command,
-            InteractableObject = interactable
+            Interactable = interactable
         };
         AddCommand(data);
         interactable.AssignCommand(data);
@@ -116,7 +116,7 @@ public class CommandsManager : MonoBehaviour {
 
     public void PerformedCommand(CommandData data) {
         bool hasSubsequent = data.HasSubsequentCommand;
-        data.InteractableObject.ExecuteCommand();
+        data.Interactable.ExecuteCommand();
         if (!hasSubsequent) {
             RemoveCommand(data);
         }

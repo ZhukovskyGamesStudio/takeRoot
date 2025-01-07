@@ -4,8 +4,8 @@ using UnityEngine;
 [Serializable]
 public class CommandData {
     public Command CommandType;
-    public InteractableObject InteractableObject;
-    public InteractableObject AdditionalObject;
+    public Interactable Interactable;
+    public Interactable Additional;
     public Chamomile Settler;
     public PlannedCommandView PlannedCommandView;
     public Action TriggerCancel;

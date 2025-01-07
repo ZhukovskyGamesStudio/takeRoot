@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1947959107328337288}
   - component: {fileID: 5590831965269210041}
+  - component: {fileID: 1421982924084047609}
   m_Layer: 0
   m_Name: WallTile
   m_TagString: Untagged
@@ -44,5 +45,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c3fd03fd1f488b9a05b631f1fb2771, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _availableCommands: 
+  _interactableShift: {x: 0, y: 0}
   <Size>k__BackingField: {x: 1, y: 1}
+--- !u!114 &1421982924084047609
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7015800240866516106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9830c9e51ca34fcd9cde8a1e7568492d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _size: {x: 1, y: 1}

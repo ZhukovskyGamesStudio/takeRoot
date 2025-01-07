@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlannedCommandView : MonoBehaviour {
@@ -10,25 +11,27 @@ public class PlannedCommandView : MonoBehaviour {
     [SerializeField]
     private Transform _lb, _lt, _rt, _rb;
 
-    public void Init(Command command, Vector3 pos, Vector2Int size) {
+    public void Init(Command command, Gridable gridable) {
         SetIcon(command);
-        transform.position = pos;
-        SetSize(size);
+        transform.position = gridable.GetCenterOnGrid;
+        SetSize(gridable.GetGridEdgePoints());
     }
 
     private void SetIcon(Command command) {
         _spriteRenderer.sprite = command switch {
             Command.Search => _searchIcon,
             Command.Attack => _attackIcon,
+            Command.Transport => _storeIcon,
+            Command.Store => _storeIcon,
             _ => _spriteRenderer.sprite
         };
     }
 
-    private void SetSize(Vector2Int size) {
-        _lb.localPosition = new Vector3(-size.x / 2f, -size.y / 2f);
-        _lt.localPosition = new Vector3(-size.x / 2f, size.y / 2f);
-        _rt.localPosition = new Vector3(size.x / 2f, size.y / 2f);
-        _rb.localPosition = new Vector3(size.x / 2f, -size.y / 2f);
+    private void SetSize(List<Vector3> edgePoints) {
+        _lb.position = edgePoints[0];
+        _lt.position = edgePoints[1];
+        _rt.position = edgePoints[2];
+        _rb.position = edgePoints[3];
     }
 
     public void Release() {

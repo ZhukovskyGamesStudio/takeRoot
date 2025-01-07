@@ -12,26 +12,26 @@ public class SelectionManager : MonoBehaviour {
 
     [SerializeField]
     private InfoBookView _infoPanel;
-    public InteractableObject InteractableObject { get; private set; }
+    public ISelectable Interactable { get; private set; }
 
     private void Awake() {
         Instance = this;
     }
 
-    public void SetSelected(InteractableObject obj) {
-        InteractableObject = obj;
+    public void SetSelected(ISelectable obj) {
+        Interactable = obj;
     }
 
-    public void TryClearSelected(InteractableObject obj) {
-        if (InteractableObject == obj) {
-            InteractableObject = null;
+    public void TryClearSelected(ISelectable obj) {
+        if (Interactable == obj) {
+            Interactable = null;
         }
     }
 
     public void Update() {
-        if (Input.GetMouseButton(0) && _commandsPanel.SelectedCommand == Command.None && InteractableObject != null) {
+        if (Input.GetMouseButton(0) && _commandsPanel.SelectedCommand == Command.None && Interactable != null) {
             _infoToggle.isOn = true;
-            _infoPanel.Init(InteractableObject.GetInfoFunc?.Invoke());
+            _infoPanel.Init(Interactable.GetInfoData());
         }
 
         if (_infoToggle.isOn && _commandsPanel.SelectedCommand != Command.None) {

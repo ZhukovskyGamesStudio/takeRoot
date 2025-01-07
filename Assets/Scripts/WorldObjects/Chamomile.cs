@@ -14,7 +14,7 @@ public class Chamomile : MonoBehaviour {
     private Animator _animator;
 
     [SerializeField]
-    private float _performingTime = 1;
+    private float _performingTime = 1, _moveTime = 0.2f;
 
     private Coroutine _performingCoroutine;
 
@@ -29,10 +29,11 @@ public class Chamomile : MonoBehaviour {
             if (_performingCoroutine == null) {
                 bool canPerfrom;
                 if (TakenCommand.CommandType == Command.Store) {
-                    canPerfrom = ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenCommand.AdditionalObject);
+                    canPerfrom = ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenCommand.Additional);
                 } else {
-                    canPerfrom = ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenCommand.InteractableObject);
+                    canPerfrom = ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenCommand.Interactable);
                 }
+
                 if (canPerfrom) {
                     TryStartPerform(() => { CommandsManager.Instance.PerformedCommand(TakenCommand); });
                 } else {
@@ -47,13 +48,14 @@ public class Chamomile : MonoBehaviour {
     }
 
     private void TryMoveToCommandTarget() {
-        Vector2Int target = TakenCommand.InteractableObject.GetCellOnGrid;
+        Vector2Int target = TakenCommand.Interactable.GetInteractableSell;
 
-        if (TakenCommand.CommandType == Command.Search) {
-            target = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.InteractableObject);
+        if (TakenCommand.CommandType is Command.Search or Command.Attack) {
+            target = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.Interactable);
         }
+
         if (TakenCommand.CommandType == Command.Store) {
-            target = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.AdditionalObject);
+            target = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.Additional);
         }
 
         TryStartPerform(() => { MoveToSell(target); });
@@ -74,7 +76,7 @@ public class Chamomile : MonoBehaviour {
         Vector3 target3 = new Vector3(target.x, target.y);
         Vector3 diff = target3 - transform.position;
         //transform.position = target3 * CELL_SIZE;
-        StartCoroutine(LerpFromTo(transform.position, target3 * CELL_SIZE, 0.2f));
+        StartCoroutine(LerpFromTo(transform.position, target3 * CELL_SIZE, _moveTime));
         if (diff.x < 0) {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
         }
