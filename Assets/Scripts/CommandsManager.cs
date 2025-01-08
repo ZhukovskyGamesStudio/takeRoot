@@ -72,7 +72,9 @@ public class CommandsManager : MonoBehaviour {
             if (settler.TakenCommand != null) {
                 continue;
             }
-
+            if (_untakenCommands.Count == 0) {
+                return;
+            }
             CommandData nextCommand = _untakenCommands.First();
             SetSettlerCommand(settler, nextCommand);
         }
