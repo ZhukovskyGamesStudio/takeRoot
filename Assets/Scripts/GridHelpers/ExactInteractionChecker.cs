@@ -7,8 +7,13 @@ public static class ExactInteractionChecker {
         return from.x == to.GetInteractableSell.x && from.y == to.GetInteractableSell.y;
     }
 
-    public static Vector2Int NextStepOnPath(Vector2Int from, Interactable to) {
-        return  AStarPathfinding.Instance.FindPath(from, to.GetInteractableSell).First();
+    public static Vector2Int? NextStepOnPath(Vector2Int from, Interactable to) {
+        var path = AStarPathfinding.Instance.FindPath(from, to.GetInteractableSell);
+        if (path.Count > 0) {
+            return path.First();
+        }
+
+        return null;
         return CalculatePath(from, to.GetInteractableSell).First();
     }
 

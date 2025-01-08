@@ -8,7 +8,7 @@ public class AStarPathfinding : MonoBehaviour {
     public Vector2Int gridSize = new Vector2Int(10, 10); // Example grid size
     public List<Vector2Int> obstaclePositions = new List<Vector2Int>(); // List of obstacles in the form of grid positions
 
-    private Node[,] grid;
+    private Dictionary<Vector2Int, Node> grid;
     private List<Node> openList = new List<Node>();
     private HashSet<Node> closedList = new HashSet<Node>();
 
@@ -29,12 +29,11 @@ public class AStarPathfinding : MonoBehaviour {
 
     // Initialize the grid with walkable and blocked nodes
     private void InitializeGrid() {
-        grid = new Node[gridSize.x, gridSize.y];
-        for (int x = 0; x < gridSize.x; x++) {
-            for (int y = 0; y < gridSize.y; y++) {
+        grid = new Dictionary<Vector2Int, Node>();
+        for (int x = -gridSize.x; x < gridSize.x; x++) {
+            for (int y = -gridSize.y; y < gridSize.y; y++) {
                 Vector2Int position = new Vector2Int(x, y);
-                bool isWalkable = !obstaclePositions.Contains(position); // Mark the obstacle positions as non-walkable
-                grid[x, y] = new Node(position, isWalkable);
+                grid.Add(position, new Node(position, true));
             }
         }
     }
@@ -48,19 +47,19 @@ public class AStarPathfinding : MonoBehaviour {
     }
 
     private void UpdateWalkable() {
-        for (int x = 0; x < gridSize.x; x++) {
-            for (int y = 0; y < gridSize.y; y++) {
+        for (int x = -gridSize.x; x < gridSize.x; x++) {
+            for (int y = -gridSize.y; y < gridSize.y; y++) {
                 Vector2Int position = new Vector2Int(x, y);
                 bool isWalkable = !obstaclePositions.Contains(position); // Mark the obstacle positions as non-walkable
-                grid[x, y].walkable = isWalkable;
+                grid[position].walkable = isWalkable;
             }
         }
     }
 
     // The A* pathfinding method
     public List<Vector2Int> FindPath(Vector2Int start, Vector2Int end) {
-        Node startNode = grid[start.x, start.y];
-        Node targetNode = grid[end.x, end.y];
+        Node startNode = grid[start];
+        Node targetNode = grid[end];
 
         openList.Clear();
         closedList.Clear();
@@ -123,7 +122,7 @@ public class AStarPathfinding : MonoBehaviour {
         foreach (Vector2Int direction in directions) {
             Vector2Int neighborPos = node.position + direction;
             if (IsValidPosition(neighborPos)) {
-                neighbors.Add(grid[neighborPos.x, neighborPos.y]);
+                neighbors.Add(grid[neighborPos]);
             }
         }
 
@@ -132,7 +131,7 @@ public class AStarPathfinding : MonoBehaviour {
 
     // Check if a position is within the bounds of the grid
     private bool IsValidPosition(Vector2Int position) {
-        return position.x >= 0 && position.x < gridSize.x && position.y >= 0 && position.y < gridSize.y;
+        return grid.ContainsKey(position);
     }
 
     // Get the Manhattan distance (heuristic) between two nodes

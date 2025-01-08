@@ -12227,6 +12227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8a9e61ac3c8a8c4abe010e4b78b2f04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isEdgeMoving: 0
+  _isDragMoving: 1
   _cameraSpeed: 10
   _edgeMargin: 20
   _cameraTransform: {fileID: 817878773}

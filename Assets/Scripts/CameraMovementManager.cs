@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 
 public class CameraMovementManager : MonoBehaviour {
     [SerializeField]
+    private bool _isEdgeMoving = true, _isDragMoving = true;
+    
+    [SerializeField]
     private float _cameraSpeed = 10f;
 
     [SerializeField]
@@ -34,8 +37,10 @@ public class CameraMovementManager : MonoBehaviour {
     }
 
     void Update() {
-        TryDragCameraWithMouse();
-        if (!_isDragging) {
+        if (_isDragMoving) {
+            TryDragCameraWithMouse();
+        }
+        if (!_isDragging && _isEdgeMoving) {
             TryMoveCameraNearScreenEdge();
         }
         ClampCameraPosition();

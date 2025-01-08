@@ -24,7 +24,13 @@ public class Chamomile : MonoBehaviour {
 
     private void Update() {
         if (TakenCommand != null) {
-            _mood = global::Mood.Neutral;
+            _mood = TakenCommand.CommandType switch {
+                Command.Search => global::Mood.Happy,
+                Command.Attack => global::Mood.Angry,
+                Command.Store => global::Mood.Sad,
+                Command.Transport => global::Mood.Sad,
+                _ => _mood
+            };
 
             if (_performingCoroutine == null) {
                 bool canPerfrom;
@@ -41,7 +47,7 @@ public class Chamomile : MonoBehaviour {
                 }
             }
         } else {
-            _mood = global::Mood.Sad;
+            _mood = global::Mood.Neutral;
         }
 
         _animator.SetInteger(Mood, (int)_mood);
@@ -49,13 +55,19 @@ public class Chamomile : MonoBehaviour {
 
     private void TryMoveToCommandTarget() {
         Vector2Int target = TakenCommand.Interactable.GetInteractableSell;
-
+        Vector2Int? pathStep = null;
         if (TakenCommand.CommandType is Command.Search or Command.Attack or Command.Transport) {
-            target = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.Interactable);
+            pathStep = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.Interactable);
         }
 
         if (TakenCommand.CommandType == Command.Store) {
-            target = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.Additional);
+            pathStep = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.Additional);
+        }
+
+        if (pathStep != null) {
+            target = pathStep.Value;
+        } else {
+            Debug.LogWarning("Path is null!");
         }
 
         TryStartPerform(() => { MoveToSell(target); });
@@ -129,5 +141,7 @@ public class Chamomile : MonoBehaviour {
 
 public enum Mood {
     Neutral = 0,
-    Sad = 1
+    Sad = 1,
+    Angry = 2,
+    Happy = 3
 }
