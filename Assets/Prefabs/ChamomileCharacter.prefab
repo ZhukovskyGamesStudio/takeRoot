@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5698498766686307394}
   - component: {fileID: 1531105812477889657}
+  - component: {fileID: 1240021144646528517}
+  - component: {fileID: 5161357846445487122}
   m_Layer: 0
   m_Name: ChamomileCharacter
   m_TagString: Untagged
@@ -48,6 +50,31 @@ MonoBehaviour:
   _mood: 0
   _animator: {fileID: 4221488332138550797}
   _performingTime: 0.3
+  _moveTime: 0.2
+--- !u!114 &1240021144646528517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348353066383099300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ac59c36a2b94dca874859f402dca3ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!210 &5161357846445487122
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348353066383099300}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &3794152961803824134
 GameObject:
   m_ObjectHideFlags: 0

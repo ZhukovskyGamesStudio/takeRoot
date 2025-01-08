@@ -50,7 +50,7 @@ public class Chamomile : MonoBehaviour {
     private void TryMoveToCommandTarget() {
         Vector2Int target = TakenCommand.Interactable.GetInteractableSell;
 
-        if (TakenCommand.CommandType is Command.Search or Command.Attack) {
+        if (TakenCommand.CommandType is Command.Search or Command.Attack or Command.Transport) {
             target = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.Interactable);
         }
 
