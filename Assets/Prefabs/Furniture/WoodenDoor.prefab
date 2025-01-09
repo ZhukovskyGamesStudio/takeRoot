@@ -9,17 +9,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8766468518439866684}
-  - component: {fileID: 5471243814834122836}
+  - component: {fileID: 5162514946840126598}
   - component: {fileID: 1537339080423128982}
   - component: {fileID: 2405998529698194953}
-  - component: {fileID: 6660614743670990361}
   - component: {fileID: 8752665873777503290}
   - component: {fileID: 257466976506754462}
   - component: {fileID: 1073893113818565818}
   - component: {fileID: 2298280483600213943}
   - component: {fileID: 7940237265325840690}
   m_Layer: 0
-  m_Name: GarbageBox
+  m_Name: WoodenDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +40,7 @@ Transform:
   - {fileID: 520519405051904220}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5471243814834122836
+--- !u!114 &5162514946840126598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -50,7 +49,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 516106991386686051}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be00bce9dc0f4588a93859fb87bcfe49, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f059f30328642728cc615b0b187507d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _icon: {fileID: 6562016439336350548}
@@ -113,21 +112,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableShift: {x: 0, y: -1}
---- !u!114 &6660614743670990361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 516106991386686051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dc5691c2377457bb3de67b7550fb01a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <DropOnSearch>k__BackingField:
-  - ResourceType: 2
-    Amount: 1
 --- !u!114 &8752665873777503290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,10 +124,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f24d4e305ef8498b9d2669730127b0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Health>k__BackingField: 5
+  <Health>k__BackingField: 3
   _dropOnDestroyed:
-  - ResourceType: 2
-    Amount: 2
+  - ResourceType: 1
+    Amount: 1
 --- !u!114 &257466976506754462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +222,7 @@ Animator:
   m_GameObject: {fileID: 5259069253047936825}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 7bfe5f7dffc667243b14c11b43eb7959, type: 2}
+  m_Controller: {fileID: 9100000, guid: a3c12b70f98378641a87dd25421a4aab, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -326,7 +310,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2047833644, guid: 410848afac14aa242b12e1b8e6a9d527, type: 3}
+  m_Sprite: {fileID: -1293831617, guid: 410848afac14aa242b12e1b8e6a9d527, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
