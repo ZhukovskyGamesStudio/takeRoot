@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Chamomile : MonoBehaviour {
     private static readonly int Mood = Animator.StringToHash("Mood");
+    private static readonly int IsSleeping = Animator.StringToHash("IsSleeping");
 
     public const float CELL_SIZE = 1f;
 
@@ -24,10 +25,11 @@ public class Chamomile : MonoBehaviour {
 
     private void Update() {
         if (TakenCommand != null) {
+            _animator.SetBool(IsSleeping, false);
             _mood = TakenCommand.CommandType switch {
                 Command.Search => global::Mood.Happy,
                 Command.Attack => global::Mood.Angry,
-                Command.Store => global::Mood.Sad,
+                Command.Store => global::Mood.Neutral,
                 Command.Transport => global::Mood.Sad,
                 _ => _mood
             };
@@ -47,10 +49,12 @@ public class Chamomile : MonoBehaviour {
                 }
             }
         } else {
+            _animator.SetBool(IsSleeping, true);
             _mood = global::Mood.Neutral;
         }
 
         _animator.SetInteger(Mood, (int)_mood);
+      
     }
 
     private void TryMoveToCommandTarget() {
