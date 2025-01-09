@@ -12,11 +12,8 @@ public class Interactable : ECSComponent, ISelectable {
     public CommandData CommandToExecute { get; private set; }
     private readonly List<Command> _availableCommands = new List<Command>() { };
 
-    [field: SerializeField]
-    public Vector2Int Size { get; private set; } = Vector2Int.one;
-
     public Action<Command> OnCommandPerformed;
-    
+
     public Vector2Int GetInteractableSell => Gridable.GetBottomLeftOnGrid + _interactableShift;
 
     public bool CanBeCommanded(Command command) {
