@@ -25,7 +25,6 @@ public class AStarPathfinding : MonoBehaviour {
     private IEnumerator WaitAndInit() {
         yield return new WaitForEndOfFrame();
         InitializeGrid();
-        FindObstacles();
         InvokeRepeating(nameof(UpdateWalkable), 0, 1);
     }
 
@@ -52,6 +51,7 @@ public class AStarPathfinding : MonoBehaviour {
     }
 
     private void UpdateWalkable() {
+        FindObstacles();
         foreach (Vector2Int key in grid.Keys) {
             grid[key].walkable = true; // Assume walkable by default
         }

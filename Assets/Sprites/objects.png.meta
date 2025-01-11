@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: objects_0
+      name: rf_0
       rect:
         serializedVersion: 2
         x: 4
@@ -145,7 +145,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: objects_1
+      name: rf_1
       rect:
         serializedVersion: 2
         x: 40
@@ -519,7 +519,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: objects_18
+      name: rf_2
       rect:
         serializedVersion: 2
         x: 4
@@ -541,7 +541,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: objects_19
+      name: rf_3
       rect:
         serializedVersion: 2
         x: 40
@@ -695,7 +695,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: objects_26
+      name: rf_4
       rect:
         serializedVersion: 2
         x: 4
@@ -717,7 +717,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: objects_27
+      name: rf_5
       rect:
         serializedVersion: 2
         x: 40
@@ -1104,8 +1104,6 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      objects_0: 848702527
-      objects_1: 1841733473
       objects_10: 357962100
       objects_11: 6262758
       objects_12: -2025961778
@@ -1114,8 +1112,6 @@ TextureImporter:
       objects_15: 1797394506
       objects_16: 632071318
       objects_17: -1982543363
-      objects_18: 1695757745
-      objects_19: -1362147302
       objects_2: -769504706
       objects_20: 279944599
       objects_21: -1854441314
@@ -1123,8 +1119,6 @@ TextureImporter:
       objects_23: -1263161510
       objects_24: 27227567
       objects_25: -1421242902
-      objects_26: -1845933197
-      objects_27: 602820695
       objects_28: 1353304137
       objects_29: 1745398843
       objects_3: 2094292814
@@ -1148,6 +1142,12 @@ TextureImporter:
       objects_7: -1724391783
       objects_8: 1908692366
       objects_9: -1293831617
+      rf_0: 848702527
+      rf_1: 1841733473
+      rf_2: 1695757745
+      rf_3: -1362147302
+      rf_4: -1845933197
+      rf_5: 602820695
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
