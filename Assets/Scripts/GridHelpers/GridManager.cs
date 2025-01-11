@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -13,8 +14,17 @@ public class GridManager : MonoBehaviour {
     [SerializeField]
     private TileBase _grassRandomTile;
 
+    [SerializeField]
+    private Material _tilemapTransparentMaterial;
+
+    private Camera _mainCamera;
+
+    [SerializeField]
+    private float _transparencyRadius = 5.0f;
+
     private void Awake() {
         Instance = this;
+        _mainCamera = Camera.main!;
         FillGrass();
     }
 
@@ -34,5 +44,19 @@ public class GridManager : MonoBehaviour {
 
         // Set the tiles in bulk
         _grassTilemap.SetTilesBlock(bounds, tiles);
+    }
+
+    private void Update() {
+        UpdateWallsTransparency();
+    }
+
+    private void UpdateWallsTransparency() {
+        // Get the world-space cursor position
+        Vector3 cursorWorldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+        cursorWorldPosition.z = 0; // We are working in 2D, so set the Z value to 0
+
+        // Pass the cursor position and radius to the shader
+        _tilemapTransparentMaterial.SetVector("_CursorPosition", cursorWorldPosition);
+        _tilemapTransparentMaterial.SetFloat("_Radius", _transparencyRadius);
     }
 }
