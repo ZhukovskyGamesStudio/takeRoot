@@ -2,12 +2,13 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class CameraMovementManager : MonoBehaviour {
+public class CameraMovementManager : MonoBehaviour
+{
     [SerializeField]
     private bool _isEdgeMoving = true, _isDragMoving = true;
-    
+
     [SerializeField]
-    private float _cameraSpeed = 10f;
+    private float _cameraSpeed = 10f, _dragMultiplier = 2;
 
     [SerializeField]
     private float _edgeMargin = 20f;
@@ -18,13 +19,21 @@ public class CameraMovementManager : MonoBehaviour {
     [SerializeField]
     private Rect _cameraBounds;
 
+    [SerializeField]
+    private float _zoomSpeed = 2f; // Zoom speed
+    [SerializeField]
+    private float _minZoom = 5f; // Minimum zoom level
+    [SerializeField]
+    private float _maxZoom = 20f; // Maximum zoom level
+
     private Vector2 _startPosition;
     private Vector2 _currentPosition;
     private bool _isDragging;
     private Camera _main;
 
     [Serializable]
-    public enum MouseButton {
+    public enum MouseButton
+    {
         RightButton,
         MiddleButton
     }
@@ -32,48 +41,64 @@ public class CameraMovementManager : MonoBehaviour {
     [SerializeField]
     private MouseButton _mouseButtonToUse = MouseButton.RightButton;
 
-    void Start() {
-        _main = Camera.main!;  // Cache Camera.main once in Start
+    void Start()
+    {
+        _main = Camera.main;  // Cache Camera.main once in Start
     }
 
-    void Update() {
-        if (_isDragMoving) {
+    void Update()
+    {
+        if (_isDragMoving)
+        {
             TryDragCameraWithMouse();
         }
-        if (!_isDragging && _isEdgeMoving) {
+        if (!_isDragging && _isEdgeMoving)
+        {
             TryMoveCameraNearScreenEdge();
         }
         ClampCameraPosition();
+        HandleZoom(); // Add zoom handling here
     }
 
-    private void TryMoveCameraNearScreenEdge() {
+    private void TryMoveCameraNearScreenEdge()
+    {
         Vector3 cameraMovement = Vector3.zero;
         Vector3 mousePosition = Input.mousePosition;
 
-        if (mousePosition.x <= _edgeMargin) {
+        if (mousePosition.x <= _edgeMargin)
+        {
             cameraMovement.x = -1;
-        } else if (mousePosition.x >= Screen.width - _edgeMargin) {
+        }
+        else if (mousePosition.x >= Screen.width - _edgeMargin)
+        {
             cameraMovement.x = 1;
         }
 
-        if (mousePosition.y <= _edgeMargin) {
+        if (mousePosition.y <= _edgeMargin)
+        {
             cameraMovement.y = -1;
-        } else if (mousePosition.y >= Screen.height - _edgeMargin) {
+        }
+        else if (mousePosition.y >= Screen.height - _edgeMargin)
+        {
             cameraMovement.y = 1;
         }
 
-        if (cameraMovement != Vector3.zero) {
+        if (cameraMovement != Vector3.zero)
+        {
             _cameraTransform.position += cameraMovement * _cameraSpeed * Time.deltaTime;
         }
     }
 
-    private void TryDragCameraWithMouse() {
-        bool isPressed = _mouseButtonToUse == MouseButton.RightButton 
-                         ? Mouse.current.rightButton.isPressed 
+    private void TryDragCameraWithMouse()
+    {
+        bool isPressed = _mouseButtonToUse == MouseButton.RightButton
+                         ? Mouse.current.rightButton.isPressed
                          : Mouse.current.middleButton.isPressed;
 
-        if (isPressed) {
-            if (!_isDragging) {
+        if (isPressed)
+        {
+            if (!_isDragging)
+            {
                 _startPosition = Mouse.current.position.ReadValue();
                 _isDragging = true;
             }
@@ -82,20 +107,23 @@ public class CameraMovementManager : MonoBehaviour {
             DragCamera();
         }
 
-        if (Mouse.current.rightButton.wasReleasedThisFrame || Mouse.current.middleButton.wasReleasedThisFrame) {
+        if (Mouse.current.rightButton.wasReleasedThisFrame || Mouse.current.middleButton.wasReleasedThisFrame)
+        {
             _isDragging = false;
         }
     }
 
-    private void DragCamera() {
+    private void DragCamera()
+    {
         Vector2 delta = _currentPosition - _startPosition;
         Vector3 movement = new Vector3(delta.x, delta.y, 0);
-        _cameraTransform.position -= movement * Time.deltaTime;
+        _cameraTransform.position -= movement * _dragMultiplier * (_main.orthographicSize / _minZoom) * Time.deltaTime;
 
         _startPosition = _currentPosition;
     }
 
-    private void ClampCameraPosition() {
+    private void ClampCameraPosition()
+    {
         float cameraWidth = _main.orthographicSize * 2 * _main.aspect;
         float cameraHeight = _main.orthographicSize * 2;
 
@@ -104,7 +132,20 @@ public class CameraMovementManager : MonoBehaviour {
         _cameraTransform.position = new Vector3(clampedX, clampedY, _cameraTransform.position.z);
     }
 
-    private void OnDrawGizmos() {
+    private void HandleZoom()
+    {
+        float scrollInput = Mouse.current.scroll.ReadValue().y; // Get the scroll wheel input
+
+        if (scrollInput != 0)
+        {
+            // Adjust the camera's orthographic size based on the scroll input
+            _main.orthographicSize -= scrollInput * _zoomSpeed;
+            _main.orthographicSize = Mathf.Clamp(_main.orthographicSize, _minZoom, _maxZoom); // Clamp zoom level to min/max
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
         Gizmos.color = Color.white;
         Gizmos.DrawWireCube(new Vector3(_cameraBounds.center.x, _cameraBounds.center.y, 0),
             new Vector3(_cameraBounds.width, _cameraBounds.height, 0));
