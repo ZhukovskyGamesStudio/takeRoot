@@ -34,6 +34,14 @@ public class PlannedCommandView : MonoBehaviour {
         _rb.position = edgePoints[3];
     }
 
+    public void SetUnreachableState(bool isUnreachable) {
+        SetColor(isUnreachable ? Color.grey : Color.white);
+    }
+
+    public void SetColor(Color color) {
+        _spriteRenderer.color = color;
+    }
+
     public void Release() {
         Destroy(gameObject);
     }

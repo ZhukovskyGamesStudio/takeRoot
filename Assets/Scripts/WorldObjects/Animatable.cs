@@ -19,9 +19,9 @@ public class Animatable : ECSComponent {
         Animator.SetTrigger(Explored);
     }
     public void TriggerDamaged() {
-        Animator.SetTrigger(Damaged);
+        //Animator.SetTrigger(Damaged);
     }
     public void TriggerDied() {
-        Animator.SetTrigger(Died);
+        //Animator.SetTrigger(Died);
     }
 }

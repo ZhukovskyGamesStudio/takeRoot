@@ -20,15 +20,16 @@ public class ResourceView : ECSEntity {
     [SerializeField]
     private SpriteRenderer _icon;
 
-    private ResorceData _resorceData = new ResorceData();
+    public ResorceData ResorceData { get; private set; } = new ResorceData();
 
     protected override void Awake() {
         base.Awake();
         _interactable = GetEcsComponent<Interactable>();
         _interactable.GetInfoFunc = GetInfoData;
         _interactable.OnCommandPerformed += OnCommandPerformed;
+        _interactable.OnCommandCanceled += OnCommandCanceled;
         _interactable.AddToPossibleCommands(Command.Transport);
-        _resorceData.ResourceType = ResourceType;
+        ResorceData.ResourceType = ResourceType;
     }
 
     private InfoBookData GetInfoData() {
@@ -43,15 +44,14 @@ public class ResourceView : ECSEntity {
     public void SetAmount(int amount) {
         _amountText.text = amount.ToString();
         Amount = amount;
-        _resorceData.Amount = amount;
+        ResorceData.Amount = amount;
     }
 
     private void OnCommandPerformed(Command obj) {
         if (obj == Command.Transport) {
             IsBeingCarried = true;
             _interactable.CommandToExecute.CommandType = Command.Store;
-            _interactable.CommandToExecute.Additional =
-                ResourceManager.Instance.FindEmptyStorageForResorce(_resorceData).GetEcsComponent<Interactable>();
+            
             CommandsManager.Instance.AddSubsequentCommand(_interactable.CommandToExecute);
             transform.SetParent(_interactable.CommandToExecute.Settler.transform);
             if (_interactable.CommandToExecute.PlannedCommandView != null) {
@@ -61,11 +61,29 @@ public class ResourceView : ECSEntity {
 
         if (obj == Command.Store) {
             IsBeingCarried = false;
-            _interactable.CommandToExecute.Additional.GetComponent<Table>().ResorceStorage.Add(_resorceData);
+            _interactable.CommandToExecute.Additional.GetComponent<Table>().ResorceStorage.Add(ResorceData);
             _interactable.CancelCommand();
             _interactable.OnDestroyed();
             Destroy(gameObject);
         }
+    }
+
+    private void OnCommandCanceled(Command type) {
+        if (IsBeingCarried) {
+            IsBeingCarried = false;
+            transform.SetParent(ResourceManager.Instance.transform);
+            _interactable.CommandToExecute.CommandType = Command.Transport;
+        }
+    }
+
+    public void DropOnGround() {
+        if (!IsBeingCarried) {
+            return;
+        }
+
+        IsBeingCarried = false;
+        transform.SetParent(ResourceManager.Instance.transform);
+        _interactable.CommandToExecute.CommandType = Command.Transport;
     }
 }
 

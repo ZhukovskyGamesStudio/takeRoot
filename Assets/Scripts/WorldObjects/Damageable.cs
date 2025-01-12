@@ -28,13 +28,13 @@ public class Damageable : ECSComponent {
     }
 
     public void OnAttacked(int damageAmount) {
-        _interactable.CancelCommand();
+        //_interactable.CancelCommand();
         Health -= damageAmount;
         if (Health > 0) {
             _animatable?.TriggerDamaged();
         } else {
             OnDied();
-
+            _interactable.CancelCommand();
             _animatable?.TriggerDied();
         }
     }

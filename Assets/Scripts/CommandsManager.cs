@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class CommandsManager : MonoBehaviour {
 
     private List<CommandData> _untakenCommands = new List<CommandData>();
     private List<CommandData> _takenCommands = new List<CommandData>();
+    private List<CommandData> _unreachableCommands = new List<CommandData>();
 
     [SerializeField]
     private CommandsPanel _commandsPanel;
@@ -37,6 +39,10 @@ public class CommandsManager : MonoBehaviour {
             commandView.Init(data.CommandType, data.Interactable.Gridable);
             data.PlannedCommandView = commandView;
         }
+
+        data.TriggerCancel += delegate {
+            RemoveCommand(data);
+        };
     }
 
     private void RemoveCommand(CommandData data) {
@@ -53,6 +59,32 @@ public class CommandsManager : MonoBehaviour {
 
         data.Settler.ClearCommand();
         data.Settler = null;
+    }
+
+    public void RevokeCommandBecauseItsUnreachable(CommandData data) {
+        _takenCommands.Remove(data);
+        if (data.Settler != null) {
+            data.Settler.ClearCommand();
+            data.Settler = null;
+        }
+        _unreachableCommands.Add(data);
+        if (data.PlannedCommandView != null) {
+            data.PlannedCommandView.SetUnreachableState(true);
+        }
+        StartCoroutine(TryAddToCommandsAgain(data));
+    }
+
+    private IEnumerator TryAddToCommandsAgain(CommandData data) {
+        yield return new WaitForSeconds(3);
+        if (!_unreachableCommands.Contains(data)) {
+            yield break;
+        }
+
+        _unreachableCommands.Remove(data);
+        AddCommand(data);
+        if (data.PlannedCommandView != null) {
+            data.PlannedCommandView.SetUnreachableState(false);
+        }
     }
 
     private void Update() {
@@ -100,6 +132,9 @@ public class CommandsManager : MonoBehaviour {
         if (command == Command.Cancel) {
             RemoveCommand(interactable.CommandToExecute);
             interactable.CancelCommand();
+            if (_unreachableCommands.Contains(interactable.CommandToExecute)) {
+                _unreachableCommands.Remove(interactable.CommandToExecute);
+            }
             return;
         }
 

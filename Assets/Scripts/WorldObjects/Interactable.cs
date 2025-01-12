@@ -12,7 +12,7 @@ public class Interactable : ECSComponent, ISelectable {
     public CommandData CommandToExecute { get; private set; }
     private readonly List<Command> _availableCommands = new List<Command>() { };
 
-    public Action<Command> OnCommandPerformed;
+    public Action<Command> OnCommandPerformed, OnCommandCanceled;
 
     public Vector2Int GetInteractableSell => Gridable.GetBottomLeftOnGrid + _interactableShift;
 
@@ -49,6 +49,11 @@ public class Interactable : ECSComponent, ISelectable {
     }
 
     public void CancelCommand() {
+        if (CommandToExecute == null) {
+            return;
+        }
+
+        OnCommandCanceled?.Invoke(CommandToExecute.CommandType);
         CommandToExecute = null;
     }
 
