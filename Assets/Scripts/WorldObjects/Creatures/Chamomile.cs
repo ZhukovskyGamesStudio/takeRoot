@@ -59,19 +59,21 @@ public class Chamomile : MonoBehaviour {
 
     private void TryMoveToCommandTarget() {
         Vector2Int target = TakenCommand.Interactable.GetInteractableSell;
-        Vector2Int? pathStep = null;
+        Vector2Int targetCell = TakenCommand.Interactable.GetInteractableSell;
         if (TakenCommand.CommandType is Command.Search or Command.Attack or Command.Transport) {
-            pathStep = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.Interactable);
+            targetCell = TakenCommand.Interactable.GetInteractableSell;
         }
 
         if (TakenCommand.CommandType == Command.Store) {
-            pathStep = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, TakenCommand.Additional);
+            targetCell = TakenCommand.Additional.GetInteractableSell;
         }
+
+        Vector2Int? pathStep = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, targetCell);
 
         if (pathStep != null) {
             target = pathStep.Value;
         } else {
-            Debug.LogWarning("Path is null!");
+            Debug.LogWarning($"Path is null! from:{GetCellOnGrid} to:{targetCell}");
         }
 
         TryStartPerform(() => { MoveToSell(target); });

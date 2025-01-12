@@ -44,7 +44,7 @@ public class AStarPathfinding : MonoBehaviour {
 
     private void FindObstacles() {
         obstaclePositions.Clear();
-        Gridable[] r = FindObjectsByType<Gridable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        Gridable[] r = FindObjectsByType<Gridable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Where(r=>r.IsBlockingPath).ToArray();
         foreach (Gridable gridable in r) {
             obstaclePositions. AddRange(gridable.GetOccupiedPositions());
         }
