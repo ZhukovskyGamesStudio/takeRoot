@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ public class Damageable : ECSComponent {
     protected List<ResorceData> _dropOnDestroyed;
 
     private Animatable _animatable;
+    public Action  OnDiedAction;
 
     public override int GetDependancyPriority() {
         return 2;
@@ -40,8 +42,12 @@ public class Damageable : ECSComponent {
     }
 
     private void OnDied() {
-        ResourceManager.SpawnResourcesAround(_dropOnDestroyed, _gridable.GetBottomLeftOnGrid);
+        Vector2Int pos = _gridable.GetBottomLeftOnGrid;
+        ResourceManager.SpawnResourcesAround(_dropOnDestroyed, pos);
         _interactable.OnDestroyed();
-        Destroy(gameObject);
+        OnDiedAction?.Invoke();
+        if (this != null) {
+            Destroy(gameObject);
+        }
     }
 }

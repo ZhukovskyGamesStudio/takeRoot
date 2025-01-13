@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -9,7 +8,7 @@ public class GridManager : MonoBehaviour {
     public Rect GridSize { get; private set; } = new Rect(-10, -10, 10, 10); // Example grid size
 
     [SerializeField]
-    private Tilemap _grassTilemap;
+    private Tilemap _grassTilemap, _wallsTilemap;
 
     [SerializeField]
     private TileBase _grassRandomTile;
@@ -58,5 +57,9 @@ public class GridManager : MonoBehaviour {
         // Pass the cursor position and radius to the shader
         _tilemapTransparentMaterial.SetVector("_CursorPosition", cursorWorldPosition);
         _tilemapTransparentMaterial.SetFloat("_Radius", _transparencyRadius);
+    }
+
+    public void RemoveWall(Vector2Int pos) {
+        _wallsTilemap.SetTile((Vector3Int)pos, null);
     }
 }

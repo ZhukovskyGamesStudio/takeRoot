@@ -1,17 +1,16 @@
 using UnityEngine;
 
-public class Node
-{
-    public Vector2Int position;  // The grid position (X, Y)
-    public bool walkable;        // Whether the node is walkable or not
-    public int gCost;            // Cost from the start node
-    public int hCost;            // Heuristic cost to the end node
-    public int fCost => gCost + hCost;  // Total cost (f = g + h)
-    public Node parent;          // The parent node for path reconstruction
+public class Node {
+    public readonly short PosX, PosY; // The grid position (X, Y)
+    public bool Walkable; // Whether the node is walkable or not
+    public short GCost; // Cost from the start node
+    public short HCost; // Heuristic cost to the end node
+    public short FCost => (short)(GCost + HCost); // Total cost (f = g + h)
+    public Node Parent; // The parent node for path reconstruction
 
-    public Node(Vector2Int pos, bool isWalkable)
-    {
-        position = pos;
-        walkable = isWalkable;
+    public Node(Vector2Int pos, bool isWalkable) {
+        PosX = (short)pos.x;
+        PosY = (short)pos.y;
+        Walkable = isWalkable;
     }
 }

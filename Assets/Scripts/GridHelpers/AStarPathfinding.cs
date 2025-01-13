@@ -1,18 +1,16 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 
 public class AStarPathfinding : MonoBehaviour {
     public static AStarPathfinding Instance;
 
-    public HashSet<Vector2Int> obstaclePositions = new HashSet<Vector2Int>(); // List of obstacles in the form of grid positions
+    private readonly HashSet<Vector2Int> _obstaclePositions = new HashSet<Vector2Int>(); // List of obstacles in the form of grid positions
 
-    private Dictionary<Vector2Int, Node> grid;
-    private List<Node> openList = new List<Node>();
-    private HashSet<Node> closedList = new HashSet<Node>();
+    private Dictionary<Vector2Int, Node> _grid;
+    private readonly HashSet<Node> _openList = new HashSet<Node>();
+    private readonly HashSet<Node> _closedList = new HashSet<Node>();
 
     private void Awake() {
         Instance = this;
@@ -30,72 +28,77 @@ public class AStarPathfinding : MonoBehaviour {
 
     // Initialize the grid with walkable and blocked nodes
     private void InitializeGrid() {
-        grid = new Dictionary<Vector2Int, Node>();
         Rect rect = GridManager.Instance.GridSize;
         Vector2Int min = new Vector2Int((int)rect.x, (int)rect.y);
         Vector2Int max = new Vector2Int((int)rect.width, (int)rect.height);
+        _grid = new Dictionary<Vector2Int, Node>((max.x-min.x) * (max.y-min.y));
+       
         for (int x = min.x; x < max.x; x++) {
             for (int y = min.x; y < max.y; y++) {
                 Vector2Int position = new Vector2Int(x, y);
-                grid.Add(position, new Node(position, true));
+                _grid.Add(position, new Node(position, true));
             }
         }
     }
 
     private void FindObstacles() {
-        obstaclePositions.Clear();
-        Gridable[] r = FindObjectsByType<Gridable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Where(r=>r.IsBlockingPath).ToArray();
+        _obstaclePositions.Clear();
+        Gridable[] r = FindObjectsByType<Gridable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Where(r => r.IsBlockingPath)
+            .ToArray();
         foreach (Gridable gridable in r) {
-            obstaclePositions. AddRange(gridable.GetOccupiedPositions());
+            foreach (Vector2Int blockedPos in gridable.GetOccupiedPositions()) {
+                _obstaclePositions.Add(blockedPos);
+            }
         }
     }
 
     private void UpdateWalkable() {
         FindObstacles();
-        foreach (Vector2Int key in grid.Keys) {
-            grid[key].walkable = true; // Assume walkable by default
+        foreach (Vector2Int key in _grid.Keys) {
+            _grid[key].Walkable = true; // Assume walkable by default
         }
 
-        foreach (Vector2Int obstacle in obstaclePositions.Where(obstacle => grid.ContainsKey(obstacle))) {
-            grid[obstacle].walkable = false;
+        foreach (Vector2Int obstacle in _obstaclePositions.Where(obstacle => _grid.ContainsKey(obstacle))) {
+            _grid[obstacle].Walkable = false;
         }
     }
 
     // The A* pathfinding method
     public List<Vector2Int> FindPath(Vector2Int start, Vector2Int end) {
-        Node startNode = grid[start];
-        Node targetNode = grid[end];
+        Node startNode = _grid[start];
+        Node targetNode = _grid[end];
 
-        openList.Clear();
-        closedList.Clear();
+        _openList.Clear();
+        _closedList.Clear();
 
-        openList.Add(startNode);
+        _openList.Add(startNode);
 
-        while (openList.Count > 0) {
+        while (_openList.Count > 0) {
             // Get the node with the lowest fCost
-            Node currentNode = GetNodeWithLowestFCost(openList);
-            openList.Remove(currentNode);
-            closedList.Add(currentNode);
+            Node currentNode = GetNodeWithLowestFCost(_openList);
+            _openList.Remove(currentNode);
+            _closedList.Add(currentNode);
 
             // If we reach the target, reconstruct the path
-            if (currentNode.position == targetNode.position) {
+            if (currentNode.PosX == targetNode.PosX && currentNode.PosY == targetNode.PosY) {
                 return RetracePath(startNode, currentNode);
             }
 
             // Evaluate each of the neighbors
             foreach (Node neighbor in GetNeighbors(currentNode)) {
-                if (!neighbor.walkable || closedList.Contains(neighbor))
+                if (!neighbor.Walkable || _closedList.Contains(neighbor))
                     continue;
 
-                int newGCost = currentNode.gCost + GetDistance(currentNode, neighbor);
-                if (newGCost < neighbor.gCost || !openList.Contains(neighbor)) {
-                    neighbor.gCost = newGCost;
-                    neighbor.hCost = GetDistance(neighbor, targetNode);
-                    neighbor.parent = currentNode;
-
-                    if (!openList.Contains(neighbor))
-                        openList.Add(neighbor);
+                short newGCost = (short)(currentNode.GCost + GetDistance(currentNode, neighbor));
+                if (newGCost >= neighbor.GCost && _openList.Contains(neighbor)) {
+                    continue;
                 }
+
+                neighbor.GCost = newGCost;
+                neighbor.HCost = GetDistance(neighbor, targetNode);
+                neighbor.Parent = currentNode;
+
+                _openList.Add(neighbor);
             }
         }
 
@@ -103,19 +106,18 @@ public class AStarPathfinding : MonoBehaviour {
     }
 
     // Get the node with the lowest fCost from the open list
-    private Node GetNodeWithLowestFCost(List<Node> list) {
-        Node lowestFCostNode = list[0];
-        foreach (Node node in list) {
-            if (node.fCost < lowestFCostNode.fCost)
-                lowestFCostNode = node;
+    private Node GetNodeWithLowestFCost(HashSet<Node> list) {
+        Node lowestFCostNode = list.First();
+        foreach (Node node in list.Where(node => node.FCost < lowestFCostNode.FCost)) {
+            lowestFCostNode = node;
         }
 
         return lowestFCostNode;
     }
 
     // Get the neighbors of a node (up, down, left, right)
-    private List<Node> GetNeighbors(Node node) {
-        List<Node> neighbors = new List<Node>();
+    private HashSet<Node> GetNeighbors(Node node) {
+        HashSet<Node> neighbors = new HashSet<Node>();
 
         Vector2Int[] directions = new Vector2Int[] {
             new Vector2Int(0, 1), // Up
@@ -125,9 +127,9 @@ public class AStarPathfinding : MonoBehaviour {
         };
 
         foreach (Vector2Int direction in directions) {
-            Vector2Int neighborPos = node.position + direction;
+            Vector2Int neighborPos = new Vector2Int(node.PosX, node.PosY) + direction;
             if (IsValidPosition(neighborPos)) {
-                neighbors.Add(grid[neighborPos]);
+                neighbors.Add(_grid[neighborPos]);
             }
         }
 
@@ -136,12 +138,12 @@ public class AStarPathfinding : MonoBehaviour {
 
     // Check if a position is within the bounds of the grid
     private bool IsValidPosition(Vector2Int position) {
-        return grid.ContainsKey(position);
+        return _grid.ContainsKey(position);
     }
 
     // Get the Manhattan distance (heuristic) between two nodes
-    private int GetDistance(Node a, Node b) {
-        return Mathf.Abs(a.position.x - b.position.x) + Mathf.Abs(a.position.y - b.position.y);
+    private short GetDistance(Node a, Node b) {
+        return (short)(Mathf.Abs(a.PosX - b.PosX) + Mathf.Abs(a.PosY - b.PosY));
     }
 
     // Retrace the path from the target to the start
@@ -150,8 +152,8 @@ public class AStarPathfinding : MonoBehaviour {
         Node currentNode = endNode;
 
         while (currentNode != startNode) {
-            path.Add(currentNode.position);
-            currentNode = currentNode.parent;
+            path.Add(new Vector2Int(currentNode.PosX, currentNode.PosY));
+            currentNode = currentNode.Parent;
         }
 
         path.Reverse();
