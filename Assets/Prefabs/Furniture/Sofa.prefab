@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 6184584730349941928}
   - component: {fileID: 4442748941643807885}
   - component: {fileID: 984130219417740274}
-  - component: {fileID: 5399106452621311021}
   - component: {fileID: 6951839102071904633}
   m_Layer: 0
   m_Name: Sofa
@@ -155,18 +154,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _size: {x: 5, y: 1}
   <IsBlockingPath>k__BackingField: 1
---- !u!114 &5399106452621311021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 516106991386686051}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ac59c36a2b94dca874859f402dca3ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!210 &6951839102071904633
 SortingGroup:
   m_ObjectHideFlags: 0

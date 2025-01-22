@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 8752665873777503290}
   - component: {fileID: 257466976506754462}
   - component: {fileID: 1073893113818565818}
-  - component: {fileID: 2298280483600213943}
   - component: {fileID: 7940237265325840690}
   m_Layer: 0
   m_Name: MetalDoor
@@ -155,18 +154,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _size: {x: 2, y: 1}
   <IsBlockingPath>k__BackingField: 1
---- !u!114 &2298280483600213943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 516106991386686051}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ac59c36a2b94dca874859f402dca3ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!210 &7940237265325840690
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -311,7 +298,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 14f1a06a6a07f63499e649a04b303512, type: 3}
-  m_Color: {r: 0.26415092, g: 0.26415092, b: 0.26415092, a: 1}
+  m_Color: {r: 0.57924527, g: 0.69132835, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
