@@ -11,6 +11,7 @@ public class Chamomile : MonoBehaviour {
     [SerializeField]
     private Mood _mood;
 
+    [SerializeField] private Mode _mode;
     [SerializeField]
     private Animator _animator;
 
@@ -172,6 +173,25 @@ public class Chamomile : MonoBehaviour {
             _performingCoroutine = null;
         }
     }
+    public void ChangeMode(Mode mode)
+    {
+        if (mode == Mode.Planning)
+        {
+            CommandsManager.Instance.SetActivePanel(true);
+            TacticalCommandsManager.Instance.SetActivePanel(false);
+            TacticalCommandsManager.Instance.CancelCommand();
+            if (TakenTacticalCommand != null)
+                TakenTacticalCommand = null;
+        }
+        if (mode == Mode.Tactical)
+        {
+            CommandsManager.Instance.SetActivePanel(false);
+            TacticalCommandsManager.Instance.SetActivePanel(true);
+            if (TakenCommand != null)
+                CommandsManager.Instance.RevokeCommandBecauseItsUnreachable(TakenCommand);
+        }
+        _mode = mode;
+    }
 }
 
 public enum Mood {
@@ -179,4 +199,10 @@ public enum Mood {
     Sad = 1,
     Angry = 2,
     Happy = 3
+}
+
+public enum Mode
+{
+    Planning,
+    Tactical
 }
