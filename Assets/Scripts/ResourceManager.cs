@@ -7,10 +7,7 @@ public class ResourceManager : MonoBehaviour {
     public static ResourceManager Instance;
 
     [SerializeField]
-    private List<ResourceView> _resourceViewPrefabs;
-
-    [SerializeField]
-    private List<ResouseUiView> _resourceUiViewPrefabs;
+    private ResourcesTable _resourcesTable;
 
     private Dictionary<Vector2Int, ResourceView> _scatteredResources = new Dictionary<Vector2Int, ResourceView>();
 
@@ -22,7 +19,7 @@ public class ResourceManager : MonoBehaviour {
     }
 
     private static ResourceView SpawnResource(ResourceType resourceType, Vector2Int cell) {
-        var prefab = Instance._resourceViewPrefabs.First(s => s.ResourceType == resourceType);
+        var prefab = Instance._resourcesTable.ResourceViewPrefabs.First(s => s.ResourceType == resourceType);
         //TODO add pool
         ResourceView r = Instantiate(prefab, Instance._resourcesHolder);
         Instance._scatteredResources.Add(cell, r);
@@ -30,7 +27,7 @@ public class ResourceManager : MonoBehaviour {
     }
 
     public static ResouseUiView SpawnResourceUi(ResourceType resourceType) {
-        var prefab = Instance._resourceUiViewPrefabs.First(s => s.ResourceType == resourceType);
+        var prefab = Instance._resourcesTable.ResourceUiViewPrefabs.First(s => s.ResourceType == resourceType);
         //TODO add pool
         ResouseUiView r = Instantiate(prefab);
         return r;
@@ -121,7 +118,8 @@ public class ResourceManager : MonoBehaviour {
 
     public Table FindEmptyStorageForResorce(ResorceData resource) {
         Table[] storages = FindObjectsByType<Table>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        //TODO если ресурс целикмо не влезает в стол или нет столов - всё ломается
+        //TODO если ресурс целиком не влезает в стол или нет столов - всё ломается
+        //TODO стол выбирается случайно, а не ближайший
         Table fittingStorage = storages.Where(s=>s.IsStorageActive && s.ResorceStorage.CanFitResource(resource) >= resource.Amount). OrderByDescending(s => s.ResorceStorage.CanFitResource(resource))
             .FirstOrDefault();
         return fittingStorage;
