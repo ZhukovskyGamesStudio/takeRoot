@@ -159,4 +159,13 @@ public class CommandsManager : MonoBehaviour {
             RemoveCommand(data);
         }
     }
+
+    public void SetActivePanel(bool value)
+    {
+        _commandsPanel.gameObject.SetActive(value);
+        if (value == false)
+        {
+            _commandsPanel.ClearSelectedCommand(_commandsPanel.SelectedCommand);
+        }
+    }
 }
