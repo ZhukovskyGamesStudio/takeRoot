@@ -103,6 +103,8 @@ public class CommandsManager : MonoBehaviour {
             if (settler.TakenCommand != null) {
                 continue;
             }
+            if (settler.Mode == Mode.Tactical) continue;
+            
             if (_untakenCommands.Count == 0) {
                 return;
             }
