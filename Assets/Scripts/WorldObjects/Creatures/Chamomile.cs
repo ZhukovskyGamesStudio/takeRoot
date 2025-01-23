@@ -21,6 +21,7 @@ public class Chamomile : MonoBehaviour {
     private Coroutine _performingCoroutine;
 
     public CommandData TakenCommand { get; private set; }
+    public TacticalCommandData TakenTacticalCommand { get; private set; }
 
     public Vector2Int GetCellOnGrid => new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
 
@@ -51,6 +52,48 @@ public class Chamomile : MonoBehaviour {
             }
         }
 
+        if (TakenTacticalCommand != null) {
+            if (_performingCoroutine == null)
+            {
+                if (TakenTacticalCommand.TacticalCommandType != TacticalCommand.Move)
+                {
+                    var canPerform =
+                        ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenTacticalCommand.TacticalInteractable);
+                    if (canPerform)
+                    {
+                        TryStartPerform(
+                            () => { TacticalCommandsManager.Instance.PerformedCommand(TakenTacticalCommand); },
+                            _performingTime);
+                    }
+                    else
+                    {
+                        Vector2Int? nextStepCell = TryMoveToTacticalCommandTarget();
+                        if (nextStepCell == null)
+                        {
+                            ClearTacticalCommand();
+                        }
+                        else
+                        {
+                            if (_performingCoroutine != null) return;
+                            _performingCoroutine = StartCoroutine(MoveToSell(nextStepCell.Value));
+                        }
+                    }
+                }
+                else
+                {
+                    Vector2Int? nextStepCell = TryMoveToTacticalCommandTarget();
+                    if (nextStepCell == null)
+                    {
+                        ClearTacticalCommand();
+                    }
+                    else
+                    {
+                        if (_performingCoroutine != null) return;
+                        _performingCoroutine = StartCoroutine(MoveToSell(nextStepCell.Value));
+                    }
+                }
+            }
+        }
         UpdateMoodAndAnimations();
     }
 
@@ -64,7 +107,17 @@ public class Chamomile : MonoBehaviour {
                 Command.Transport => global::Mood.Sad,
                 _ => _mood
             };
-        }else {
+        }
+        else if (TakenTacticalCommand != null && _performingCoroutine != null)
+        {
+            _animator.SetBool(IsSleeping, false);
+            _mood = TakenTacticalCommand.TacticalCommandType switch
+            {
+                TacticalCommand.Move => global::Mood.Neutral,
+                TacticalCommand.TacticalAttack => global::Mood.Angry,
+            };
+        }
+        else {
             _animator.SetBool(IsSleeping, true);
             _mood = global::Mood.Neutral;
         }
@@ -102,6 +155,24 @@ public class Chamomile : MonoBehaviour {
 
         return target;
         
+    }
+
+    private Vector2Int? TryMoveToTacticalCommandTarget()
+    {
+        Vector2Int target;
+        Vector2Int targetCell = TakenTacticalCommand.TargetPosition;
+        Vector2Int? pathStep = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, targetCell);
+        if (pathStep != null)
+        {
+            target = pathStep.Value;
+        }
+        else
+        {
+            //Debug.LogWarning($"Path is null! from:{GetCellOnGrid} to:{targetCell}");
+            return null;
+        }
+
+        return target;
     }
 
     private void MoveStep(Vector2Int direction) {
@@ -173,6 +244,27 @@ public class Chamomile : MonoBehaviour {
             _performingCoroutine = null;
         }
     }
+
+    public void SetTacticalCommand(TacticalCommandData data)
+    {
+        ClearCommand();
+        TakenTacticalCommand = data;
+        Vector2Int? nextStepCell = TryMoveToTacticalCommandTarget();
+        if (nextStepCell == null) {
+            ClearTacticalCommand();
+        }
+    }
+
+    public void ClearTacticalCommand()
+    {
+        TakenTacticalCommand = null;
+        if (_performingCoroutine != null)
+        {
+            StopCoroutine(_performingCoroutine);
+            _performingCoroutine = null;
+        }
+    }
+
     public void ChangeMode(Mode mode)
     {
         if (mode == Mode.Planning)
