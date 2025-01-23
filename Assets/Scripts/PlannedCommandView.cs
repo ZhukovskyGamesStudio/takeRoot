@@ -15,6 +15,10 @@ public class PlannedCommandView : MonoBehaviour {
         SetIcon(command);
         transform.position = gridable.GetCenterOnGrid;
         SetSize(gridable.GetGridEdgePoints());
+    }    
+    public void Init(TacticalCommand command, Gridable gridable) {
+        transform.position = gridable.GetCenterOnGrid;
+        SetSize(gridable.GetGridEdgePoints());
     }
 
     private void SetIcon(Command command) {
