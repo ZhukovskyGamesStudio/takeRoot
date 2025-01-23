@@ -14,7 +14,7 @@ public class Interactable : ECSComponent, ISelectable {
 
     public Action<Command> OnCommandPerformed, OnCommandCanceled;
 
-    public Vector2Int GetInteractableSell => Gridable.GetBottomLeftOnGrid + _interactableShift;
+    public Vector2Int GetInteractableCell => Gridable.GetBottomLeftOnGrid + _interactableShift;
 
     public bool CanBeCommanded(Command command) {
         if (CommandToExecute != null && CommandToExecute.CommandType == command) {

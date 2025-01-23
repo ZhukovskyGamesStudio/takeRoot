@@ -108,6 +108,8 @@ public class CommandsManager : MonoBehaviour {
             if (_untakenCommands.Count == 0) {
                 return;
             }
+            
+            
             CommandData nextCommand = _untakenCommands.First();
             SetSettlerCommand(settler, nextCommand);
         }

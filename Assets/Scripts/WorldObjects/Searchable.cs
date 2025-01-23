@@ -24,7 +24,7 @@ public class Searchable : ECSComponent {
     public void OnExplored() {
         _interactable.RemoveFromPossibleCommands(Command.Search);
         _interactable.CancelCommand();
-        ResourceManager.SpawnResourcesAround(DropOnSearch, _interactable.GetInteractableSell);
+        ResourceManager.SpawnResourcesAround(DropOnSearch, _interactable.GetInteractableCell);
 
         _animatable?.TriggerExplored();
     }

@@ -12,6 +12,7 @@ public class Chamomile : MonoBehaviour {
     private Mood _mood;
 
     [SerializeField] private Mode _mode;
+
     [SerializeField]
     private Animator _animator;
 
@@ -22,26 +23,33 @@ public class Chamomile : MonoBehaviour {
 
     public CommandData TakenCommand { get; private set; }
     public TacticalCommandData TakenTacticalCommand { get; private set; }
+    public Mode Mode => _mode;
 
     public Vector2Int GetCellOnGrid => new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
 
-    private void Update() {
+    private void Update()
+    {
         if (TakenCommand != null) {
             if (_performingCoroutine == null) {
                 bool canPerform;
                 if (TakenCommand.CommandType == Command.Store) {
                     canPerform = ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenCommand.Additional);
-                } else {
+                }
+                else {
                     canPerform = ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenCommand.Interactable);
                 }
 
                 if (canPerform) {
-                    TryStartPerform(() => { CommandsManager.Instance.PerformedCommand(TakenCommand); }, _performingTime);
-                } else {
+                    TryStartPerform(() => { CommandsManager.Instance.PerformedCommand(TakenCommand); },
+                        _performingTime);
+                }
+                else {
                     Vector2Int? nextStepCell = TryMoveToCommandTarget();
-                    if (nextStepCell == null) {
+                    if (nextStepCell == null)
+                    {
                         CommandsManager.Instance.RevokeCommandBecauseItsUnreachable(TakenCommand);
-                    } else {
+                    }
+                    else {
                         if (_performingCoroutine != null) {
                             return;
                         }
@@ -126,10 +134,10 @@ public class Chamomile : MonoBehaviour {
     }
 
     private Vector2Int? TryMoveToCommandTarget() {
-        Vector2Int target = TakenCommand.Interactable.GetInteractableSell;
-        Vector2Int targetCell = TakenCommand.Interactable.GetInteractableSell;
+        Vector2Int target = TakenCommand.Interactable.GetInteractableCell;
+        Vector2Int targetCell = TakenCommand.Interactable.GetInteractableCell;
         if (TakenCommand.CommandType is Command.Search or Command.Attack or Command.Transport) {
-            targetCell = TakenCommand.Interactable.GetInteractableSell;
+            targetCell = TakenCommand.Interactable.GetInteractableCell;
         }
 
         if (TakenCommand.CommandType == Command.Store) {
@@ -141,7 +149,7 @@ public class Chamomile : MonoBehaviour {
 
             var interactableStorage = st.GetEcsComponent<Interactable>();
             TakenCommand.Additional = interactableStorage;
-            targetCell = interactableStorage.GetInteractableSell;
+            targetCell = interactableStorage.GetInteractableCell;
         }
 
         Vector2Int? pathStep = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, targetCell);
