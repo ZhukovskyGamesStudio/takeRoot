@@ -11,7 +11,7 @@ public class SettlersSelectionManager : MonoBehaviour
     [SerializeField]private TacticalCommandPanel _tacticalCommandPanel;
     [SerializeField]private ChangeModeToggle _changeModeToggle;
 
-    public Chamomile SelectedSettler { get; private set; }
+    public Settler SelectedSettler { get; private set; }
         
     private void Awake()
     {
@@ -29,7 +29,7 @@ public class SettlersSelectionManager : MonoBehaviour
                 TryUnselectSettler();
                 return;
             }
-            if (hit.transform.TryGetComponent(out Chamomile settler))
+            if (hit.transform.TryGetComponent(out Settler settler))
             {
                 TryUnselectSettler();
                 SelectSettler(settler);
@@ -42,7 +42,7 @@ public class SettlersSelectionManager : MonoBehaviour
         }
     }
 
-    private void SelectSettler(Chamomile settler)
+    private void SelectSettler(Settler settler)
     {
         if (SelectedSettler == null)
         {

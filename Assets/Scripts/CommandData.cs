@@ -5,7 +5,7 @@ public class CommandData {
     public Command CommandType;
     public Interactable Interactable;
     public Interactable Additional;
-    public Chamomile Settler;
+    public Settler Settler;
     public PlannedCommandView PlannedCommandView;
     public Action TriggerCancel;
 

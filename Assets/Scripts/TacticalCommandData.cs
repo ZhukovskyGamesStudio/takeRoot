@@ -8,7 +8,7 @@ public class TacticalCommandData
     public TacticalCommand TacticalCommandType;
     public Vector2Int TargetPosition;
     public TacticalInteractable TacticalInteractable;
-    public Chamomile Settler;
+    public Settler Settler;
     public PlannedCommandView PlannedCommandView;
     public Action TriggerCancel;
 }

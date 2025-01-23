@@ -129,5 +129,5 @@ public class ResourceManager : MonoBehaviour {
 [Serializable]
 public class ResorceData {
     public ResourceType ResourceType;
-    public int Amount;
+    public int Amount = 1;
 }

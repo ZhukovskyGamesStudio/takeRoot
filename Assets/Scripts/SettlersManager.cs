@@ -9,5 +9,5 @@ public class SettlersManager : MonoBehaviour {
         Instance = this;
     }
 
-    public List<Chamomile> Settlers => FindObjectsByType<Chamomile>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList();
+    public List<Settler> Settlers => FindObjectsByType<Settler>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList();
 }

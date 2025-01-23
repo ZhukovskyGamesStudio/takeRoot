@@ -2,6 +2,6 @@ using UnityEngine;
 
 public class SelectableSettler : MonoBehaviour
 {
-    [SerializeField] Chamomile _settler;
+    [SerializeField] Settler _settler;
     
 }

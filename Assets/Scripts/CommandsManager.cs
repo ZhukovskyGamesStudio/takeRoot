@@ -19,7 +19,7 @@ public class CommandsManager : MonoBehaviour {
     [SerializeField]
     private PlannedCommandView _plannedCommandView;
 
-    private List<Chamomile> _settlers;
+    private List<Settler> _settlers;
 
     private void Awake() {
         Instance = this;
@@ -99,7 +99,7 @@ public class CommandsManager : MonoBehaviour {
             return;
         }
 
-        foreach (Chamomile settler in _settlers) {
+        foreach (Settler settler in _settlers) {
             if (settler.TakenCommand != null) {
                 continue;
             }
@@ -115,7 +115,7 @@ public class CommandsManager : MonoBehaviour {
         }
     }
 
-    private void SetSettlerCommand(Chamomile settler, CommandData nextCommand) {
+    private void SetSettlerCommand(Settler settler, CommandData nextCommand) {
         nextCommand.Settler = settler;
         _untakenCommands.Remove(nextCommand);
         _takenCommands.Add(nextCommand);
