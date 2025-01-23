@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 
 public class ResourceView : ECSEntity {
+    [field: SerializeField]
     public int Amount { get; private set; }
 
     [field: SerializeField]
@@ -29,6 +30,7 @@ public class ResourceView : ECSEntity {
         _interactable.OnCommandCanceled += OnCommandCanceled;
         _interactable.AddToPossibleCommands(Command.Transport);
         ResorceData.ResourceType = ResourceType;
+        SetAmount(Amount);
     }
 
     private InfoBookData GetInfoData() {
@@ -86,9 +88,3 @@ public class ResourceView : ECSEntity {
     }
 }
 
-[SerializeField]
-public enum ResourceType {
-    None = 0,
-    Planks = 1,
-    MetalScraps = 2,
-}
