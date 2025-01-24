@@ -110,7 +110,7 @@ public class Settler : MonoBehaviour {
             _animator.SetBool(IsSleeping, false);
             _mood = TakenCommand.CommandType switch {
                 Command.Search => global::Mood.Happy,
-                Command.Attack => global::Mood.Angry,
+                Command.Break => global::Mood.Angry,
                 Command.Store => global::Mood.Neutral,
                 Command.Transport => global::Mood.Sad,
                 _ => _mood
@@ -137,7 +137,7 @@ public class Settler : MonoBehaviour {
     private Vector2Int? TryMoveToCommandTarget() {
         Vector2Int target = TakenCommand.Interactable.GetInteractableCell;
         Vector2Int targetCell = TakenCommand.Interactable.GetInteractableCell;
-        if (TakenCommand.CommandType is Command.Search or Command.Attack or Command.Transport) {
+        if (TakenCommand.CommandType is Command.Search or Command.Break or Command.Transport) {
             targetCell = TakenCommand.Interactable.GetInteractableCell;
         }
 

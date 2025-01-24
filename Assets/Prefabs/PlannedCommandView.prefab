@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 1617308948767964693}
   - component: {fileID: 8620759073659885360}
   m_Layer: 0
-  m_Name: searchIcon
+  m_Name: icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -399,6 +399,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 8620759073659885360}
   _searchIcon: {fileID: 21300000, guid: cabb72bf7a36ae34380095da4433b85b, type: 3}
+  _breakIcon: {fileID: 21300000, guid: 61ce13a5a78d33e44b88c62bc97c4ee0, type: 3}
   _attackIcon: {fileID: 21300000, guid: 8650436a9ace7714289edc46a2cde827, type: 3}
   _storeIcon: {fileID: 21300000, guid: 6bfa6bd2271ebb040aad519626932376, type: 3}
   _lb: {fileID: 8431525578330463734}

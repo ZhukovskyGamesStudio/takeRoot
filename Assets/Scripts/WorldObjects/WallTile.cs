@@ -25,7 +25,7 @@ public class WallTile : ECSEntity, IInteractable, IDamageable {
 
     private void OnCommandPerformed(Command obj) {
         switch (obj) {
-            case Command.Attack:
+            case Command.Break:
                 int fakeDamage = 1;
                 GetEcsComponent<Damageable>().OnAttacked(fakeDamage);
                 OnAttacked(1);

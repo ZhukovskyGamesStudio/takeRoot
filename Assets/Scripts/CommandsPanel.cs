@@ -8,7 +8,7 @@ public class CommandsPanel : MonoBehaviour {
         SelectedCommand = command;
         if (command == Command.Search) {
             CursorManager.ChangeCursor(CursorType.Search);
-        }else if (command == Command.Attack) {
+        }else if (command == Command.Break) {
             CursorManager.ChangeCursor(CursorType.Wakeup);
         }
     }
@@ -25,7 +25,7 @@ public class CommandsPanel : MonoBehaviour {
 public enum Command {
     None,
     Search,
-    Attack,
+    Break,
     Cancel,
     Build,
     Store,

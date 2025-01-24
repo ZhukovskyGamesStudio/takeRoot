@@ -21,7 +21,7 @@ public class Damageable : ECSComponent {
 
     public override void Init(ECSEntity entity) {
         if (entity is IInteractable) {
-            entity.GetEcsComponent<Interactable>().AddToPossibleCommands(Command.Attack);
+            entity.GetEcsComponent<Interactable>().AddToPossibleCommands(Command.Break);
             _interactable = entity.GetEcsComponent<Interactable>();
         }
 

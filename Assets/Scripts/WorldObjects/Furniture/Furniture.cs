@@ -18,7 +18,7 @@ public abstract class Furniture : ECSEntity, IInteractable, IDamageable {
                 GetEcsComponent<Searchable>().OnExplored();
                 OnExplored();
                 break;
-            case Command.Attack:
+            case Command.Break:
                 int fakeDamage = 1;
                 GetEcsComponent<Damageable>().OnAttacked(fakeDamage);
                 OnAttacked(1);
