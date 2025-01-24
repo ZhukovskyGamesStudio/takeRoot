@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,5 +18,30 @@ public class ChangeModeToggle : MonoBehaviour {
 
     public void OnValueChanged(bool val) {
         SettlersSelectionManager.Instance.TryChangeSelectedSettlerMode(val);
+        ChangeCommandsPanelsWithSettlerMode();
+    }
+    
+    private void ChangeCommandsPanelsWithSettlerMode()
+    {
+        var settler = SettlersSelectionManager.Instance.SelectedSettler;
+        if (settler != null)
+        {
+            switch (settler.Mode)
+            {
+                case Mode.Planning:
+                    ChangePanels(false);
+                    break;
+                case Mode.Tactical:
+                    ChangePanels(true);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(settler.Mode), settler.Mode, null);
+            }
+        }
+    }
+    
+    private void ChangePanels(bool isTactical) {
+        TacticalCommandsManager.Instance.SetActivePanel(isTactical);
+        CommandsManager.Instance.SetActivePanel(!isTactical);
     }
 }
