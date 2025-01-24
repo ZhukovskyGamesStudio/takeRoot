@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlannedCommandView : MonoBehaviour {
@@ -9,16 +8,17 @@ public class PlannedCommandView : MonoBehaviour {
     private Sprite _searchIcon, _breakIcon, _attackIcon, _storeIcon;
 
     [SerializeField]
-    private Transform _lb, _lt, _rt, _rb;
+    private SelectionView _selectionView;
 
     public void Init(Command command, Gridable gridable) {
         transform.position = gridable.GetCenterOnGrid;
-        SetSize(gridable.GetGridEdgePoints());
+        _selectionView.Init(gridable);
         SetIcon(command);
-    }    
+    }
+
     public void Init(TacticalCommand command, Gridable gridable) {
         transform.position = gridable.GetCenterOnGrid;
-        SetSize(gridable.GetGridEdgePoints());
+        _selectionView.Init(gridable);
         SetIcon(command);
     }
 
@@ -31,19 +31,12 @@ public class PlannedCommandView : MonoBehaviour {
             _ => _spriteRenderer.sprite
         };
     }
-    
+
     private void SetIcon(TacticalCommand command) {
         _spriteRenderer.sprite = command switch {
             TacticalCommand.TacticalAttack => _attackIcon,
             _ => _spriteRenderer.sprite
         };
-    }
-
-    private void SetSize(List<Vector3> edgePoints) {
-        _lb.position = edgePoints[0];
-        _lt.position = edgePoints[1];
-        _rt.position = edgePoints[2];
-        _rb.position = edgePoints[3];
     }
 
     public void SetUnreachableState(bool isUnreachable) {

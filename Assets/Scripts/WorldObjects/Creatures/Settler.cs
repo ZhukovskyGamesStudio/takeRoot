@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-public class Settler : MonoBehaviour {
+public class Settler : ECSEntity {
     private static readonly int Mood = Animator.StringToHash("Mood");
     private static readonly int IsSleeping = Animator.StringToHash("IsSleeping");
 
@@ -106,6 +106,14 @@ public class Settler : MonoBehaviour {
     }
 
     private void UpdateMoodAndAnimations() {
+        //упростил пока-что, так более заметно
+        if (_mode == Mode.Tactical) {
+            _animator.SetBool(IsSleeping, false);
+            _mood = global::Mood.Angry;
+            _animator.SetInteger(Mood, (int)_mood);
+            return;
+        }
+        
         if (TakenCommand != null && _performingCoroutine != null) {
             _animator.SetBool(IsSleeping, false);
             _mood = TakenCommand.CommandType switch {
@@ -278,18 +286,20 @@ public class Settler : MonoBehaviour {
     {
         if (mode == Mode.Planning)
         {
-            CommandsManager.Instance.SetActivePanel(true);
-            TacticalCommandsManager.Instance.SetActivePanel(false);
-            TacticalCommandsManager.Instance.CancelCommand();
-            if (TakenTacticalCommand != null)
+           
+            //TacticalCommandsManager.Instance.SetActivePanel(false);
+            //TacticalCommandsManager.Instance.CancelCommand();
+            if (TakenTacticalCommand != null) {
                 TakenTacticalCommand = null;
+            }
         }
         if (mode == Mode.Tactical)
         {
-            CommandsManager.Instance.SetActivePanel(false);
-            TacticalCommandsManager.Instance.SetActivePanel(true);
-            if (TakenCommand != null)
+            //CommandsManager.Instance.SetActivePanel(false);
+            //TacticalCommandsManager.Instance.SetActivePanel(true);
+            if (TakenCommand != null) {
                 CommandsManager.Instance.RevokeCommandBecauseItsUnreachable(TakenCommand);
+            }
         }
         _mode = mode;
     }

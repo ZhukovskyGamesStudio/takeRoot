@@ -9,7 +9,7 @@ public class TacticalCommandPanel : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(SelectedTacticalCommand);
+       //Debug.Log(SelectedTacticalCommand);
     }
 
     public void SelectTacticalCommand(TacticalCommand tacticalCommand)
