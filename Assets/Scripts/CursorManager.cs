@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class CursorManager : MonoBehaviour {
     public static CursorManager Instance;
-
+    
     [SerializeField]
     private Texture2D _normal, _search;
+    
+    [SerializeField]
+    private Texture2D _move, _attack;
 
     [SerializeField]
     private List<Texture2D> _wakeupAnimation;
@@ -32,6 +35,12 @@ public class CursorManager : MonoBehaviour {
                 break;
             case CursorType.Search:
                 newTexture = Instance._search;
+                break;
+            case CursorType.TacticalMove:
+                newTexture = Instance._move;
+                break;
+            case CursorType.TacticalAttack:
+                newTexture = Instance._attack;
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(type), type, null);
@@ -64,5 +73,7 @@ public class CursorManager : MonoBehaviour {
 public enum CursorType {
     Normal,
     Search,
-    Wakeup
+    Wakeup,
+    TacticalMove,
+    TacticalAttack
 }

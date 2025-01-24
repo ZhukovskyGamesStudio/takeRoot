@@ -6,16 +6,15 @@ using UnityEngine;
 public class TacticalCommandPanel : MonoBehaviour
 {
     public TacticalCommand SelectedTacticalCommand { get; private set; }
-
-    private void Update()
-    {
-       //Debug.Log(SelectedTacticalCommand);
-    }
+    
 
     public void SelectTacticalCommand(TacticalCommand tacticalCommand)
     {
         SelectedTacticalCommand = tacticalCommand;
-        //TODO: Change Cursor
+        if (tacticalCommand == TacticalCommand.Move)
+            CursorManager.ChangeCursor(CursorType.TacticalMove);
+        if (tacticalCommand == TacticalCommand.TacticalAttack)
+            CursorManager.ChangeCursor(CursorType.TacticalAttack);
     }
 
     public void ClearSelectedTacticalCommand(TacticalCommand tacticalCommand)
