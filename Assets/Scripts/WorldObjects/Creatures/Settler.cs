@@ -20,6 +20,7 @@ public class Settler : ECSEntity {
     private float _performingTime = 1, _moveTime = 0.2f;
 
     private Coroutine _performingCoroutine;
+    private bool _isMoving;
 
     public CommandData TakenCommand { get; private set; }
     public TacticalCommandData TakenTacticalCommand { get; private set; }
@@ -53,8 +54,8 @@ public class Settler : ECSEntity {
                         if (_performingCoroutine != null) {
                             return;
                         }
-
-                        _performingCoroutine = StartCoroutine(MoveToSell(nextStepCell.Value));
+                        if (!_isMoving)
+                            _performingCoroutine = StartCoroutine(MoveToSell(nextStepCell.Value));
                     }
                 }
             }
@@ -97,7 +98,8 @@ public class Settler : ECSEntity {
                     else
                     {
                         if (_performingCoroutine != null) return;
-                        _performingCoroutine = StartCoroutine(MoveToSell(nextStepCell.Value));
+                        if (!_isMoving)
+                            _performingCoroutine = StartCoroutine(MoveToSell(nextStepCell.Value));
                     }
                 }
             }
@@ -220,7 +222,8 @@ public class Settler : ECSEntity {
 
     private IEnumerator LerpFromTo(Vector3 from, Vector3 to, float time) {
         float elapsedTime = 0f;
-
+        _isMoving = true;
+        
         while (elapsedTime < time) {
             float t = elapsedTime / time;
             transform.position = Vector3.Lerp(from, to, t);
@@ -229,6 +232,7 @@ public class Settler : ECSEntity {
         }
 
         transform.position = to;
+        _isMoving = false;
     }
 
     private void TryStartPerform(Action callback, float delay) {
