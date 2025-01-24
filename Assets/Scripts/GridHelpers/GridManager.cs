@@ -3,6 +3,8 @@ using UnityEngine.Tilemaps;
 
 public class GridManager : MonoBehaviour {
     public static GridManager Instance;
+    private static readonly int CursorPosition = Shader.PropertyToID("_CursorPosition");
+    private static readonly int Radius = Shader.PropertyToID("_Radius");
 
     [field: SerializeField]
     public Rect GridSize { get; private set; } = new Rect(-10, -10, 10, 10); // Example grid size
@@ -55,11 +57,16 @@ public class GridManager : MonoBehaviour {
         cursorWorldPosition.z = 0; // We are working in 2D, so set the Z value to 0
 
         // Pass the cursor position and radius to the shader
-        _tilemapTransparentMaterial.SetVector("_CursorPosition", cursorWorldPosition);
-        _tilemapTransparentMaterial.SetFloat("_Radius", _transparencyRadius);
+        _tilemapTransparentMaterial.SetVector(CursorPosition, cursorWorldPosition);
+        _tilemapTransparentMaterial.SetFloat(Radius, _transparencyRadius);
     }
 
     public void RemoveWall(Vector2Int pos) {
         _wallsTilemap.SetTile((Vector3Int)pos, null);
+    }
+
+    private void OnApplicationQuit() {
+         _tilemapTransparentMaterial.SetVector(CursorPosition, Vector3.zero);
+        _tilemapTransparentMaterial.SetFloat(Radius, 0);
     }
 }

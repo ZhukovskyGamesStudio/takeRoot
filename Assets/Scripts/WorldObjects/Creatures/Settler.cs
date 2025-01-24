@@ -123,6 +123,7 @@ public class Settler : MonoBehaviour {
             {
                 TacticalCommand.Move => global::Mood.Neutral,
                 TacticalCommand.TacticalAttack => global::Mood.Angry,
+                _ => _mood
             };
         }
         else {
