@@ -13,8 +13,10 @@ public class Interactable : ECSComponent, ISelectable {
     private readonly List<Command> _availableCommands = new List<Command>() { };
 
     public Action<Command> OnCommandPerformed, OnCommandCanceled;
-
+    
+    public HashSet<Vector2Int> InteractableCells => Gridable.InteractableCells;
     public Vector2Int GetInteractableCell => Gridable.GetBottomLeftOnGrid + _interactableShift;
+    
 
     public bool CanBeCommanded(Command command) {
         if (CommandToExecute != null && CommandToExecute.CommandType == command) {
@@ -27,7 +29,7 @@ public class Interactable : ECSComponent, ISelectable {
 
         return _availableCommands.Contains(command);
     }
-
+    
     public void RemoveFromPossibleCommands(Command command) {
         if (!_availableCommands.Contains(command)) {
             return;
@@ -91,4 +93,5 @@ public class Interactable : ECSComponent, ISelectable {
     public override void Init(ECSEntity entity) {
         Gridable = entity.GetEcsComponent<Gridable>();
     }
+    
 }

@@ -11,6 +11,8 @@ public class Gridable : ECSComponent {
 
     public Vector2Int GetBottomLeftOnGrid => VectorUtils.ToVector2Int(transform.position);
     public Vector3 GetCenterOnGrid => transform.position + new Vector3(_size.x / 2f, _size.y / 2f, 0) - Vector3.one / 2;
+    
+    public HashSet<Vector2Int> InteractableCells = new HashSet<Vector2Int>();
 
     public List<Vector2Int> GetOccupiedPositions() {
         Vector2Int pos = GetBottomLeftOnGrid;
@@ -34,6 +36,8 @@ public class Gridable : ECSComponent {
     }
 
     private void OnDrawGizmos() {
+        //DrawInteractableCells();
+        
         // Set Gizmo color to yellow
         Gizmos.color = Color.yellow;
         // Draw a wireframe box representing the entire occupied area
@@ -44,7 +48,42 @@ public class Gridable : ECSComponent {
         return 0;
     }
 
-    public override void Init(ECSEntity entity) { }
+    public override void Init(ECSEntity entity)
+    {
+        GetNeighbors(GetOccupiedPositions());
+    }
+
+    private void DrawInteractableCells()
+    {
+        Gizmos.color = Color.green;
+        foreach (var cell in InteractableCells)
+        {
+            Gizmos.DrawWireCube(new Vector3(cell.x, cell.y) + new Vector3(1 / 2f, 1 / 2f, 0)- Vector3.one / 2, new Vector3(1, 1, 0));
+        }
+    }
+
+    private void GetNeighbors(List<Vector2Int> cells)
+    {
+        HashSet<Vector2Int> neighbors = new HashSet<Vector2Int>();
+        foreach (Vector2Int cell in cells)
+        {
+            neighbors.Add(new Vector2Int(cell.x - 1, cell.y - 1));  // Top-Left  
+            neighbors.Add(new Vector2Int(cell.x, cell.y - 1));      // Top
+            neighbors.Add(new Vector2Int(cell.x + 1, cell.y - 1));  // Top-Right
+            neighbors.Add(new Vector2Int(cell.x - 1, cell.y));      // Left
+            neighbors.Add(new Vector2Int(cell.x + 1, cell.y));      // Right
+            neighbors.Add(new Vector2Int(cell.x - 1, cell.y + 1));  // Bottom-Left
+            neighbors.Add(new Vector2Int(cell.x, cell.y + 1));      // Bottom
+            neighbors.Add(new Vector2Int(cell.x + 1, cell.y + 1));  // Bottom-Right
+        }
+
+        foreach (var cell in GetOccupiedPositions())
+        {
+            neighbors.Remove(cell);
+        }
+        InteractableCells = neighbors;
+        
+    }
 }
 
 public static class VectorUtils {
