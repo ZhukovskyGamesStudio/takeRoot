@@ -11,6 +11,17 @@ public static class ExactInteractionChecker {
         return from.x == to.GetInteractableCell.x && from.y == to.GetInteractableCell.y;
     }
 
+    public static bool CanInteractFromNeighborCell(Vector2Int from, Interactable to)
+    {
+        return to.InteractableCells.Contains(from);
+    }
+
+    public static bool CanInteractFromNeighborCell(Vector2Int from, TacticalInteractable to)
+    {
+        return to.InteractableCells.Contains(from);
+    }
+
+
     public static Vector2Int? NextStepOnPath(Vector2Int from, Vector2Int to) {
         var path = AStarPathfinding.Instance.FindPath(from, to);
         if (path.Count > 0) {
