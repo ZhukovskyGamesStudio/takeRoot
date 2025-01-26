@@ -18,7 +18,7 @@ namespace WorldObjects
         public Action<TacticalCommand> OnCommandPerformed, OnCommandCanceled;
         
         public Vector2Int GetInteractableCell => Gridable.GetBottomLeftOnGrid + _interactableShift;
-
+        public HashSet<Vector2Int> InteractableCells => Gridable.InteractableCells;
         public bool CanBeCommanded(TacticalCommand command)
         {
             if (CommandToExecute != null && CommandToExecute.TacticalCommandType == command) {

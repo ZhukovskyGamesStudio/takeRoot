@@ -18,7 +18,7 @@ public static class ExactInteractionChecker {
 
     public static bool CanInteractFromNeighborCell(Vector2Int from, TacticalInteractable to)
     {
-        return to.InteractableCells.Contains(from);
+        return to.InteractableCells.Contains(from); 
     }
 
 
