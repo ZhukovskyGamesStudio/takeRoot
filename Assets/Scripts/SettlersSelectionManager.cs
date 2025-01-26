@@ -56,7 +56,8 @@ public class SettlersSelectionManager : MonoBehaviour {
         SelectedSettler = settler;
         _changeModeToggle.gameObject.SetActive(true);
         _changeModeToggle.SetToggleValue(SelectedSettler.Mode == Mode.Tactical);
-        _selectionView.Init(SelectedSettler.GetEcsComponent<Gridable>());
+        Gridable gridable = SelectedSettler.GetEcsComponent<Gridable>();
+        _selectionView.Init(gridable,gridable.transform);
         ChangePanels(SelectedSettler.Mode == Mode.Tactical);
     }
 

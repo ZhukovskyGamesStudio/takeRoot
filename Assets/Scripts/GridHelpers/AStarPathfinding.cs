@@ -104,6 +104,54 @@ public class AStarPathfinding : MonoBehaviour {
 
         return new List<Vector2Int>(); // Return an empty path if no path is found
     }
+    public List<Vector2Int> FindPath(Vector2Int start, IEnumerable<Vector2Int> endCells) {
+        Node startNode = _grid[start];
+
+        // Convert endCells to a HashSet for faster lookups
+        HashSet<Node> targetNodes = new HashSet<Node>(endCells.Select(cell => _grid[cell]));
+
+        _openList.Clear();
+        _closedList.Clear();
+
+        _openList.Add(startNode);
+
+        while (_openList.Count > 0) {
+            // Get the node with the lowest fCost
+            Node currentNode = GetNodeWithLowestFCost(_openList);
+            _openList.Remove(currentNode);
+            _closedList.Add(currentNode);
+
+            // Check if the current node is one of the target nodes
+            if (targetNodes.Contains(currentNode)) {
+                return RetracePath(startNode, currentNode); // Found the path to the nearest end cell
+            }
+
+            // Evaluate each of the neighbors
+            foreach (Node neighbor in GetNeighbors(currentNode)) {
+                if (!neighbor.Walkable || _closedList.Contains(neighbor))
+                    continue;
+
+                short newGCost = (short)(currentNode.GCost + GetDistance(currentNode, neighbor));
+                if (newGCost >= neighbor.GCost && _openList.Contains(neighbor)) {
+                    continue;
+                }
+
+                neighbor.GCost = newGCost;
+                neighbor.HCost = GetDistance(neighbor, targetNodes); // Modified to consider multiple targets
+                neighbor.Parent = currentNode;
+
+                if (!_openList.Contains(neighbor)) {
+                    _openList.Add(neighbor);
+                }
+            }
+        }
+
+        return new List<Vector2Int>(); // Return an empty list if no path is found
+    }
+
+
+    
+    
 
     // Get the node with the lowest fCost from the open list
     private Node GetNodeWithLowestFCost(HashSet<Node> list) {
@@ -141,7 +189,14 @@ public class AStarPathfinding : MonoBehaviour {
         return _grid.ContainsKey(position);
     }
 
+    public static bool IsWalkable(Vector2Int position) {
+        return Instance._grid[position].Walkable;
+    }
+
     // Get the Manhattan distance (heuristic) between two nodes
+    private short GetDistance(Node a, HashSet<Node> targets) {
+        return targets.Min(target => GetDistance(a, target));
+    }
     private short GetDistance(Node a, Node b) {
         return (short)(Mathf.Abs(a.PosX - b.PosX) + Mathf.Abs(a.PosY - b.PosY));
     }
@@ -158,5 +213,20 @@ public class AStarPathfinding : MonoBehaviour {
 
         path.Reverse();
         return path;
+    }
+
+    public static Vector2Int FindClosestCellFromList(Vector2Int target, IEnumerable<Vector2Int> list) {
+        float closestDistance = float.PositiveInfinity;
+        Vector2Int closestCell = Vector2Int.zero;
+        foreach (Vector2Int cell in list) {
+            float distance = (cell - target).sqrMagnitude;
+            if (distance >= closestDistance)
+                continue;
+
+            closestDistance = distance;
+            closestCell = cell;
+        }
+
+        return closestCell;
     }
 }

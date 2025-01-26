@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Settler : ECSEntity {
@@ -32,13 +34,7 @@ public class Settler : ECSEntity {
     {
         if (TakenCommand != null) {
             if (_performingCoroutine == null) {
-                bool canPerform;
-                if (TakenCommand.CommandType == Command.Store) {
-                    canPerform = ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenCommand.Additional);
-                }
-                else {
-                    canPerform = ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenCommand.Interactable);
-                }
+                bool canPerform = CanPerform();
 
                 if (canPerform) {
                     TryStartPerform(() => { CommandsManager.Instance.PerformedCommand(TakenCommand); },
@@ -107,6 +103,11 @@ public class Settler : ECSEntity {
         UpdateMoodAndAnimations();
     }
 
+    private bool CanPerform() {
+        return ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid,
+            TakenCommand.CommandType == Command.Store ? TakenCommand.Additional : TakenCommand.Interactable);
+    }
+
     private void UpdateMoodAndAnimations() {
         //упростил пока-что, так более заметно
         if (_mode == Mode.Tactical) {
@@ -145,41 +146,41 @@ public class Settler : ECSEntity {
     }
 
     private Vector2Int? TryMoveToCommandTarget() {
-        Vector2Int target = TakenCommand.Interactable.FindClosestCell(GetCellOnGrid);
-        Vector2Int targetCell = TakenCommand.Interactable.GetInteractableCell;
-        if (TakenCommand.CommandType is Command.Search or Command.Break or Command.Transport) {
-            targetCell = TakenCommand.Interactable.GetInteractableCell;
-        }
+        HashSet<Vector2Int> targetCell = new HashSet<Vector2Int>();
 
-        if (TakenCommand.CommandType == Command.Store) {
+        if (TakenCommand.CommandType is Command.Search or Command.Transport) {
+            targetCell.Add(TakenCommand.Interactable.GetInteractableCell);
+        } else if (TakenCommand.CommandType == Command.Store) {
             Table st = ResourceManager.Instance.FindEmptyStorageForResorce(TakenCommand.Interactable.GetComponent<ResourceView>().ResorceData);
             if (st == null) {
                 TakenCommand.Interactable.GetComponent<ResourceView>().DropOnGround();
                 return null;
             }
 
-            var interactableStorage = st.GetEcsComponent<Interactable>();
+            Interactable interactableStorage = st.GetEcsComponent<Interactable>();
             TakenCommand.Additional = interactableStorage;
-            targetCell = interactableStorage.GetInteractableCell;
+            targetCell.Add(  interactableStorage.GetInteractableCell);
+        } else {
+            HashSet<Vector2Int> possibleTargets = TakenCommand.Interactable.InteractableCells;
+            targetCell = possibleTargets.Where(AStarPathfinding.IsWalkable).ToHashSet();
         }
+
+        
 
         Vector2Int? pathStep = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, targetCell);
 
         if (pathStep != null) {
-            target = pathStep.Value;
-        } else {
-            //Debug.LogWarning($"Path is null! from:{GetCellOnGrid} to:{targetCell}");
-            return null;
+            return pathStep;
         }
 
-        return target;
-        
+        //Debug.LogWarning($"Path is null! from:{GetCellOnGrid} to:{targetCell}");
+        return null;
     }
 
     private Vector2Int? TryMoveToTacticalCommandTarget()
     {
         Vector2Int target;
-        Vector2Int targetCell = TakenTacticalCommand.TargetPosition;
+        HashSet<Vector2Int> targetCell = new HashSet<Vector2Int>() { TakenTacticalCommand.TargetPosition };
         Vector2Int? pathStep = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, targetCell);
         if (pathStep != null)
         {
@@ -252,6 +253,10 @@ public class Settler : ECSEntity {
     public void SetCommand(CommandData data) {
         ClearCommand();
         TakenCommand = data;
+        if (CanPerform()) {
+            return;
+        }
+
         Vector2Int? nextStepCell = TryMoveToCommandTarget();
         if (nextStepCell == null) {
             CommandsManager.Instance.RevokeCommandBecauseItsUnreachable(TakenCommand);

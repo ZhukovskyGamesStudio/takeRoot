@@ -1426,6 +1426,7 @@ GameObject:
   - component: {fileID: 3043161758740926934}
   - component: {fileID: 692865444299117615}
   - component: {fileID: 1098299198398955012}
+  - component: {fileID: 1937120615558934717}
   m_Layer: 5
   m_Name: Repair Toggle
   m_TagString: Untagged
@@ -1538,6 +1539,18 @@ MonoBehaviour:
   _targetImage: {fileID: 4441330456324221972}
   _onSprite: {fileID: 21300000, guid: f2ca729c8c73ddd4bb5682da1e78ef1a, type: 3}
   _offSprite: {fileID: 21300000, guid: 635fcdefa50fca04cb0e92b310cabae9, type: 3}
+--- !u!225 &1937120615558934717
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2317015944390019374}
+  m_Enabled: 1
+  m_Alpha: 0.18
+  m_Interactable: 0
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2614555492444069607
 GameObject:
   m_ObjectHideFlags: 0

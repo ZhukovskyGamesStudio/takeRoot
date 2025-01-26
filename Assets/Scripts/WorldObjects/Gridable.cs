@@ -42,6 +42,8 @@ public class Gridable : ECSComponent {
         Gizmos.color = Color.yellow;
         // Draw a wireframe box representing the entire occupied area
         Gizmos.DrawWireCube(GetCenterOnGrid, new Vector3(_size.x, _size.y, 0));
+
+        DrawInteractableCells();
     }
 
     public override int GetDependancyPriority() {
@@ -56,9 +58,10 @@ public class Gridable : ECSComponent {
     private void DrawInteractableCells()
     {
         Gizmos.color = Color.green;
-        foreach (var cell in InteractableCells)
+        Vector3 centerShift = new Vector3(1 / 2f, 1 / 2f, 0) - Vector3.one / 2; 
+        foreach (Vector2Int cell in InteractableCells)
         {
-            Gizmos.DrawWireCube(new Vector3(cell.x, cell.y) + new Vector3(1 / 2f, 1 / 2f, 0)- Vector3.one / 2, new Vector3(1, 1, 0));
+            Gizmos.DrawWireCube(new Vector3(cell.x, cell.y) + centerShift, new Vector3(1, 1, 0));
         }
     }
 

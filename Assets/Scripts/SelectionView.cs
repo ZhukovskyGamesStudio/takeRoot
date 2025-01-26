@@ -5,10 +5,12 @@ public class SelectionView : MonoBehaviour {
     [SerializeField]
     private Transform _lb, _lt, _rt, _rb;
 
-    public void Init(Gridable gridable) {
+    public void Init(Gridable gridable, Transform parent = null) {
         gameObject.SetActive(true);
         transform.position = gridable.GetCenterOnGrid;
-        transform.SetParent(gridable.transform);
+        if (parent != null) {
+            transform.SetParent(parent);
+        }
         SetSize(gridable.GetGridEdgePoints());
     }
 
