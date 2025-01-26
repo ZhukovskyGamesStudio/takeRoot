@@ -34,10 +34,10 @@ public class Settler : ECSEntity {
             if (_performingCoroutine == null) {
                 bool canPerform;
                 if (TakenCommand.CommandType == Command.Store) {
-                    canPerform = ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenCommand.Additional);
+                    canPerform = ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenCommand.Additional);
                 }
                 else {
-                    canPerform = ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenCommand.Interactable);
+                    canPerform = ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenCommand.Interactable);
                 }
 
                 if (canPerform) {
@@ -145,7 +145,7 @@ public class Settler : ECSEntity {
     }
 
     private Vector2Int? TryMoveToCommandTarget() {
-        Vector2Int target = TakenCommand.Interactable.GetInteractableCell;
+        Vector2Int target = TakenCommand.Interactable.FindClosestCell(GetCellOnGrid);
         Vector2Int targetCell = TakenCommand.Interactable.GetInteractableCell;
         if (TakenCommand.CommandType is Command.Search or Command.Break or Command.Transport) {
             targetCell = TakenCommand.Interactable.GetInteractableCell;

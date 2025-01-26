@@ -67,6 +67,22 @@ public class Interactable : ECSComponent, ISelectable {
         OnCommandPerformed?.Invoke(CommandToExecute.CommandType);
     }
 
+    public Vector2Int FindClosestCell(Vector2Int target)
+    {
+        float closestDistance = float.PositiveInfinity;
+        Vector2Int closestCell = GetInteractableCell;
+        foreach (Vector2Int cell in InteractableCells)
+        {
+            float distance = (cell - target).sqrMagnitude;
+            if (distance < closestDistance)
+                continue;
+
+            closestDistance = distance;
+            closestCell = cell;
+        }
+        return closestCell;
+    }
+
     private void OnMouseEnter() {
         SelectionManager.Instance.SetSelected(this);
     }
