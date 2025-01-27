@@ -8,10 +8,15 @@ public class Gridable : ECSComponent {
 
     [field: SerializeField]
     public bool IsBlockingPath { get; private set; } = true;
-
-    public Vector2Int GetBottomLeftOnGrid => VectorUtils.ToVector2Int(transform.position);
-    public Vector3 GetCenterOnGrid => transform.position + new Vector3(_size.x / 2f, _size.y / 2f, 0) - Vector3.one / 2;
     
+    public Vector2Int GetBottomLeftOnGrid { get => VectorUtils.ToVector2Int(transform.position);
+        private set{}
+    }
+
+    public Vector3 GetCenterOnGrid { get => transform.position + new Vector3(_size.x / 2f, _size.y / 2f, 0) - Vector3.one / 2;
+        private set{}
+    }
+
     public HashSet<Vector2Int> InteractableCells = new HashSet<Vector2Int>();
 
     public List<Vector2Int> GetOccupiedPositions() {
@@ -51,7 +56,12 @@ public class Gridable : ECSComponent {
     }
 
     public override void Init(ECSEntity entity)
+    { }
+
+    private void Start()
     {
+        GetBottomLeftOnGrid = VectorUtils.ToVector2Int(transform.position);
+        GetCenterOnGrid = transform.position + new Vector3(_size.x / 2f, _size.y / 2f, 0) - Vector3.one / 2;
         GetNeighbors(GetOccupiedPositions());
     }
 
