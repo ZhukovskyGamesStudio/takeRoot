@@ -46,6 +46,7 @@ public class CommandsManager : MonoBehaviour {
 
     private void RemoveCommand(CommandData data) {
         _plannedCommands.Remove(data);
+        _untakenCommands.Remove(data);
         if (data.PlannedCommandView != null) {
             data.PlannedCommandView.Release();
         }
