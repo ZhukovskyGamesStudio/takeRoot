@@ -1,8 +1,12 @@
 using System;
+using System.Collections;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 
 public class PrepareGamePanel : MonoBehaviour {
+    [SerializeField]
+    private NetworkManager _networkManager;
     [SerializeField]
     private Animation _animation;
 
@@ -12,12 +16,16 @@ public class PrepareGamePanel : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _codeText;
 
+    [SerializeField]
+    private NetworkObject _networkCanvas;
+
     private State _state = State.Choosing;
 
     private string _serverCode;
 
     public void Show() {
-        _animation.Play(_show.ToString());
+        gameObject.SetActive(true);
+        _animation.Play(_show.name);
     }
 
     public void Back() {
@@ -36,27 +44,48 @@ public class PrepareGamePanel : MonoBehaviour {
     }
 
     private void Close() {
-        _animation.Play(_hide.ToString());
+        _animation.Play(_hide.name);
+        StartCoroutine(DisableAfterHide());
     }
 
     private void StopHosting() {
         _state = State.Choosing;
-        _animation.Play(_stopServer.ToString());
+        _animation.Play(_stopServer.name);
     }
 
     private void StopJoining() {
         _state = State.Choosing;
-        _animation.Play(_stopJoin.ToString());
+        _animation.Play(_stopJoin.name);
     }
     
     public void Host() {
         _state = State.Hosting;
-        _animation.Play(_startServer.ToString());
+        _animation.Play(_startServer.name);
+        _networkManager.StartHost();
+        _networkManager.SpawnManager.InstantiateAndSpawn(_networkCanvas);
+        _codeText.text = IpConnection.GetLocalIPAddress();
+    }
+
+    private IEnumerator DisableAfterHide() {
+        yield return new WaitWhile(() => _animation.isPlaying);
+        gameObject.SetActive(false);
+    }
+
+    private void Update() {
+        if (_state != State.Hosting) {
+            return;
+        }
+
+        if (_networkManager.ConnectedClients.Count > 1) {
+            Menu.Instance.Play();
+            _state = State.Choosing;
+        }
+       
     }
 
     public void Join() {
         _state = State.Joining;
-        _animation.Play(_startJoin.ToString());
+        _animation.Play(_startJoin.name);
     }
 
     public void CopyHostCode() {
@@ -67,6 +96,12 @@ public class PrepareGamePanel : MonoBehaviour {
 
     public void OnCodeInputted(string code) {
         //TODO start joining with this code
+        Client(code);
+    }
+    
+    public void Client(string serverIp) {
+        IpConnection.SetIpAddress(serverIp);
+        _networkManager.StartClient();
     }
     
     private enum State {
