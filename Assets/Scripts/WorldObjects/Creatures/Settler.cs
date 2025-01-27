@@ -15,6 +15,8 @@ public class Settler : ECSEntity {
 
     [SerializeField] private Mode _mode;
 
+    public Race Race;
+
     [SerializeField]
     private Animator _animator;
 

@@ -1,23 +1,31 @@
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCursor : NetworkBehaviour {
     [SerializeField]
     private RectTransform _rectTransform;
+
     private readonly NetworkVariable<CursorNetworkData> _netData = new(writePerm: NetworkVariableWritePermission.Owner);
 
+    [SerializeField]
+    private PlayerRaceSelection _playerRaceSelection;
+
+    [SerializeField]
+    private Image _image;
+
     public override void OnNetworkSpawn() {
-        GameObject holder = GameObject.Find("CursorHolder");
-        if(holder!= null) {
-            _rectTransform.SetParent(GameObject.Find("CursorHolder").transform);
+        CursorHolder holder = FindAnyObjectByType<CursorHolder>();
+        if (holder != null) {
+            _rectTransform.SetParent(holder.transform);
         }
     }
 
     private void Update() {
         if (IsOwner) {
-            _rectTransform.position = Input.mousePosition;
+            _image.enabled = false;
             _netData.Value = new CursorNetworkData() {
-                Pos = _rectTransform.position
+                Pos = Input.mousePosition
             };
         } else {
             _rectTransform.position = _netData.Value.Pos;

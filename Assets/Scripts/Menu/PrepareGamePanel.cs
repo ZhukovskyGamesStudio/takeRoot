@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
 using TMPro;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
 public class PrepareGamePanel : MonoBehaviour {
-    [SerializeField]
-    private NetworkManager _networkManager;
     [SerializeField]
     private Animation _animation;
 
@@ -19,6 +18,11 @@ public class PrepareGamePanel : MonoBehaviour {
     [SerializeField]
     private NetworkObject _networkCanvas;
 
+    [SerializeField]
+    private ChooseRacePanel _chooseRacePanel;
+    [SerializeField]
+    private PlayerRaceSelection _playerRaceSelection;
+    
     private State _state = State.Choosing;
 
     private string _serverCode;
@@ -31,12 +35,13 @@ public class PrepareGamePanel : MonoBehaviour {
     public void Back() {
         switch (_state) {
             case State.Choosing:
-                Close(); break;
+                Close();
+                break;
             case State.Hosting:
                 StopHosting();
                 break;
             case State.Joining:
-                StopJoining(); 
+                StopJoining();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -51,19 +56,30 @@ public class PrepareGamePanel : MonoBehaviour {
     private void StopHosting() {
         _state = State.Choosing;
         _animation.Play(_stopServer.name);
+        NetworkManager.Singleton.Shutdown();
     }
 
     private void StopJoining() {
         _state = State.Choosing;
         _animation.Play(_stopJoin.name);
+        NetworkManager.Singleton.Shutdown();
     }
-    
+
     public void Host() {
         _state = State.Hosting;
         _animation.Play(_startServer.name);
-        _networkManager.StartHost();
-        _networkManager.SpawnManager.InstantiateAndSpawn(_networkCanvas);
-        _codeText.text = IpConnection.GetLocalIPAddress();
+        NetworkManager.Singleton.StartHost();
+        NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(_networkCanvas);
+        _serverCode = IpConnection.GetLocalIPAddress();
+        _codeText.text = _serverCode;
+        SpawnDataHolder();
+    }
+
+    [ServerRpc]
+    private void SpawnDataHolder() {
+        if (FindAnyObjectByType<PlayerRaceSelection>() == null) {
+            NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(_playerRaceSelection.GetComponent<NetworkObject>());
+        }
     }
 
     private IEnumerator DisableAfterHide() {
@@ -76,11 +92,23 @@ public class PrepareGamePanel : MonoBehaviour {
             return;
         }
 
-        if (_networkManager.ConnectedClients.Count > 1) {
-            Menu.Instance.Play();
-            _state = State.Choosing;
+        if (NetworkManager.Singleton.ConnectedClients.Count > 1) {
+            NetworkManager.Singleton.CustomMessagingManager.SendNamedMessageToAll(nameof(OpenChooseRace),
+                new FastBufferWriter(1024, Allocator.Temp));
+            OpenChRc();
         }
-       
+    }
+
+    private void OpenChooseRace(ulong senderClientId, FastBufferReader reader) {
+        // Read the data sent by the server
+        //reader.ReadValueSafe(out string receivedMessage);
+        //Debug.Log($"Received message from server: {receivedMessage}");
+        OpenChRc();
+    }
+
+    private void OpenChRc() {
+        gameObject.SetActive(false);
+        _chooseRacePanel.gameObject.SetActive(true);
     }
 
     public void Join() {
@@ -98,16 +126,16 @@ public class PrepareGamePanel : MonoBehaviour {
         //TODO start joining with this code
         Client(code);
     }
-    
+
     public void Client(string serverIp) {
         IpConnection.SetIpAddress(serverIp);
-        _networkManager.StartClient();
+        NetworkManager.Singleton.StartClient();
+        NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler(nameof(OpenChooseRace), OpenChooseRace);
     }
-    
+
     private enum State {
         Choosing,
         Hosting,
         Joining
     }
-    
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1322141409569178887}
   - component: {fileID: 2950424065392950116}
   - component: {fileID: 6023615563047527960}
+  - component: {fileID: 2000737010028990669}
   m_Layer: 5
   m_Name: CursorHolder
   m_TagString: Untagged
@@ -84,7 +85,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!222 &6023615563047527960
 CanvasRenderer:
@@ -94,3 +95,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4958315630592291963}
   m_CullTransparentMesh: 1
+--- !u!114 &2000737010028990669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4958315630592291963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d97ad259e2d9f63469745d7bfc623024, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

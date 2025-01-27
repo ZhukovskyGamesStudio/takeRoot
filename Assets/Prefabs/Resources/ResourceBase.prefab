@@ -276,6 +276,8 @@ GameObject:
   - component: {fileID: 7725886847496985174}
   - component: {fileID: 6722628964612005323}
   - component: {fileID: 2212878200275619826}
+  - component: {fileID: 7187171943130503284}
+  - component: {fileID: 7043057240193369625}
   m_Layer: 0
   m_Name: ResourceBase
   m_TagString: Untagged
@@ -312,10 +314,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 102d29f758a1a5c46af1d1b9c98873b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Amount>k__BackingField: 0
   <ResourceType>k__BackingField: 0
   _amountText: {fileID: 2130870192563439608}
   IsBeingCarried: 0
-  _interactable: {fileID: 7725886847496985174}
   _icon: {fileID: 7847330853408564800}
 --- !u!114 &7725886847496985174
 MonoBehaviour:
@@ -330,7 +332,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableShift: {x: 0, y: 0}
-  <Size>k__BackingField: {x: 1, y: 1}
 --- !u!61 &6722628964612005323
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -391,3 +392,64 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _size: {x: 1, y: 1}
   <IsBlockingPath>k__BackingField: 0
+--- !u!114 &7187171943130503284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897901351859564800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 0
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!114 &7043057240193369625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7897901351859564800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkTransformExpanded: 0
+  AuthorityMode: 0
+  TickSyncChildren: 0
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 1
+  SyncRotAngleZ: 1
+  SyncScaleX: 1
+  SyncScaleY: 1
+  SyncScaleZ: 1
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  SwitchTransformSpaceWhenParented: 0
+  Interpolate: 1
+  SlerpPosition: 0
