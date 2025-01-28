@@ -115,7 +115,9 @@ public class AStarPathfinding : MonoBehaviour {
 
         _openList.Add(startNode);
 
-        while (_openList.Count > 0) {
+        int counter = 0;
+        while (_openList.Count > 0 && counter < 500) {
+            counter++;
             // Get the node with the lowest fCost
             Node currentNode = GetNodeWithLowestFCost(_openList);
             _openList.Remove(currentNode);
