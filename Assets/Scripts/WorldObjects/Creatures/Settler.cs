@@ -256,14 +256,14 @@ public class Settler : ECSEntity {
     public void SetCommand(CommandData data) {
         ClearCommand();
         TakenCommand = data;
-        if (CanPerform()) {
-            return;
-        }
+        //if (CanPerform()) {
+        //    return;
+        //}
 
-        Vector2Int? nextStepCell = TryMoveToCommandTarget();
-        if (nextStepCell == null) {
-            CommandsManager.Instance.RevokeCommandBecauseItsUnreachable(TakenCommand);
-        }
+        //Vector2Int? nextStepCell = TryMoveToCommandTarget();
+        //if (nextStepCell == null) {
+        //    CommandsManager.Instance.RevokeCommandBecauseItsUnreachable(TakenCommand);
+        //}
     }
 
     public void ClearCommand() {
