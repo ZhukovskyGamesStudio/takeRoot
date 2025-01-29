@@ -7,14 +7,14 @@ public class ResourceGridView : MonoBehaviour {
     [SerializeField]
     private ResouseUiView _emptyCell;
 
-    public void FillGrid(List<ResorceData> resources) {
+    public void FillGrid(List<ResourceData> resources) {
         foreach (ResouseUiView uiView in _cells) {
             Destroy(uiView.gameObject);
         }
 
         _cells.Clear();
         gameObject.SetActive(resources.Count > 0);
-        foreach (ResorceData res in resources) {
+        foreach (ResourceData res in resources) {
             if (res == null) {
                 ResouseUiView r = Instantiate(_emptyCell, transform);
                 _cells.Add(r);

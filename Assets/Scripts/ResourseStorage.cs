@@ -5,21 +5,21 @@ using UnityEngine;
 
 [Serializable]
 public class ResourseStorage {
-    public ResorceData[] ResorceDatas;
+    public ResourceData[] ResorceDatas;
     public int MaxStackAmount = 50;
 
-    public void Init(int cells, List<ResorceData> resorceDatas) {
-        ResorceDatas = new ResorceData[cells];
-        foreach (ResorceData r in resorceDatas) {
+    public void Init(int cells, List<ResourceData> resorceDatas) {
+        ResorceDatas = new ResourceData[cells];
+        foreach (ResourceData r in resorceDatas) {
             Add(r);
         }
     }
 
-    public void Add(ResorceData data) {
+    public void Add(ResourceData data) {
         int cell = 0;
         ResorceDatas = ResorceDatas.OrderByDescending(r => r != null).ToArray();
         while (data.Amount > 0 && cell < ResorceDatas.Length) {
-            ResorceDatas[cell] ??= new ResorceData {
+            ResorceDatas[cell] ??= new ResourceData {
                 ResourceType = data.ResourceType
             };
 

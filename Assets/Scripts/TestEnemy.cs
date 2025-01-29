@@ -33,7 +33,7 @@ namespace Settlers
             var d = new InfoBookData() {
                 Icon = _icon.sprite,
                 Name = gameObject.name,
-                Resources = new List<ResorceData>()
+                Resources = new List<ResourceData>()
             };
             return d;
         }

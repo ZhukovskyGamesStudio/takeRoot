@@ -25,5 +25,5 @@ public class InfoBookData {
     public Sprite Icon;
     public string Name;
 
-    public List<ResorceData> Resources;
+    public List<ResourceData> Resources;
 }

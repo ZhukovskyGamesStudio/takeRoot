@@ -154,7 +154,7 @@ public class Settler : ECSEntity {
         if (TakenCommand.CommandType is Command.Search or Command.Transport) {
             targetCell.Add(TakenCommand.Interactable.GetInteractableCell);
         } else if (TakenCommand.CommandType == Command.Store) {
-            Table st = ResourceManager.Instance.FindEmptyStorageForResorce(TakenCommand.Interactable.GetComponent<ResourceView>().ResorceData);
+            Table st = ResourceManager.Instance.FindEmptyStorageForResorce(TakenCommand.Interactable.GetComponent<ResourceView>().ResourceData);
             if (st == null) {
                 TakenCommand.Interactable.GetComponent<ResourceView>().DropOnGround();
                 return null;

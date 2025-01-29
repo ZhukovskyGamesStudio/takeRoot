@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Searchable : ECSComponent {
     [field: SerializeField]
-    public List<ResorceData> DropOnSearch { get; private set; }
+    public List<ResourceData> DropOnSearch { get; private set; }
 
     private Interactable _interactable;
     private Animatable _animatable;

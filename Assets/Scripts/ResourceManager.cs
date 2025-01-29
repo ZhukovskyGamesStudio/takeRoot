@@ -33,11 +33,11 @@ public class ResourceManager : MonoBehaviour {
         return r;
     }
 
-    public static List<ResourceView> SpawnResourcesAround(List<ResorceData> resources, Vector2Int centerCell) {
+    public static List<ResourceView> SpawnResourcesAround(List<ResourceData> resources, Vector2Int centerCell) {
         const int maxResourceInCell = 10;
         List<ResourceView> spawnedResources = new List<ResourceView>();
         int checkedN = 0;
-        foreach (ResorceData resourceData in resources) {
+        foreach (ResourceData resourceData in resources) {
             int remainingAmount = resourceData.Amount;
 
             while (remainingAmount > 0) {
@@ -116,7 +116,7 @@ public class ResourceManager : MonoBehaviour {
         return new Vector2Int(x, y);
     }
 
-    public Table FindEmptyStorageForResorce(ResorceData resource) {
+    public Table FindEmptyStorageForResorce(ResourceData resource) {
         Table[] storages = FindObjectsByType<Table>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         //TODO если ресурс целиком не влезает в стол или нет столов - всё ломается
         //TODO стол выбирается случайно, а не ближайший
@@ -127,7 +127,7 @@ public class ResourceManager : MonoBehaviour {
 }
 
 [Serializable]
-public class ResorceData {
+public class ResourceData {
     public ResourceType ResourceType;
     public int Amount = 1;
 }

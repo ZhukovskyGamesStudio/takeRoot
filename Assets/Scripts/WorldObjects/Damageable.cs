@@ -10,7 +10,7 @@ public class Damageable : ECSComponent {
     private Gridable _gridable;
 
     [SerializeField]
-    protected List<ResorceData> _dropOnDestroyed;
+    protected List<ResourceData> _dropOnDestroyed;
 
     private Animatable _animatable;
     public Action  OnDiedAction;

@@ -39,7 +39,7 @@ public class WallTile : ECSEntity, IInteractable, IDamageable {
         var d = new InfoBookData() {
             Icon = _icon,
             Name = gameObject.name,
-            Resources = new List<ResorceData>()
+            Resources = new List<ResourceData>()
         };
         return d;
     }

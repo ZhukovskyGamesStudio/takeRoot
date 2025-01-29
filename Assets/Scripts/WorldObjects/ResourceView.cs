@@ -20,7 +20,7 @@ public class ResourceView : ECSEntity {
     [SerializeField]
     private SpriteRenderer _icon;
 
-    public ResorceData ResorceData { get; private set; } = new ResorceData();
+    public ResourceData ResourceData { get; private set; } = new ResourceData();
 
     protected override void Awake() {
         base.Awake();
