@@ -46,7 +46,8 @@ public class Settler : ECSEntity {
                     Vector2Int? nextStepCell = TryMoveToCommandTarget();
                     if (nextStepCell == null)
                     {
-                        CommandsManager.Instance.RevokeCommandBecauseItsUnreachable(TakenCommand);
+                        TakenCommand.UnablePerformSettlers.Add(this);
+                        CommandsManager.Instance.ReturnCommand(TakenCommand);
                     }
                     else {
                         if (_performingCoroutine != null) {

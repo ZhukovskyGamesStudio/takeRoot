@@ -61,8 +61,18 @@ public class CommandsManager : MonoBehaviour {
         data.Settler = null;
     }
 
+    public void ReturnCommand(CommandData data)
+    {
+        _takenCommands.Remove(data);
+        _untakenCommands.Add(data);
+        data.Settler.ClearCommand();
+        data.Settler = null;
+    }
+
     public void RevokeCommandBecauseItsUnreachable(CommandData data) {
         _takenCommands.Remove(data);
+        _untakenCommands.Remove(data);
+        _plannedCommands.Remove(data);
         if (data.Settler != null) {
             data.Settler.ClearCommand();
             data.Settler = null;
@@ -81,6 +91,7 @@ public class CommandsManager : MonoBehaviour {
         }
 
         _unreachableCommands.Remove(data);
+        data.UnablePerformSettlers.Clear();
         AddCommand(data);
         if (data.PlannedCommandView != null) {
             data.PlannedCommandView.SetUnreachableState(false);
@@ -92,11 +103,24 @@ public class CommandsManager : MonoBehaviour {
             TryAddCommandFromMouseClick(_commandsPanel.SelectedCommand);
         }
 
+        SetUnreachableCommands();
         TryGiveUnjobedSettlerCommand();
     }
 
+    private void SetUnreachableCommands()
+    {
+        foreach (CommandData command in _untakenCommands.ToList())
+        {
+            if (_untakenCommands.First().UnablePerformSettlers.Count == _settlers.Count)
+            {
+                RevokeCommandBecauseItsUnreachable(command);
+            }
+        }
+    }
+
     private void TryGiveUnjobedSettlerCommand() {
-        if (_untakenCommands.Count == 0) {
+        if (_untakenCommands.Count == 0)
+        {
             return;
         }
 
@@ -109,9 +133,10 @@ public class CommandsManager : MonoBehaviour {
             if (_untakenCommands.Count == 0) {
                 return;
             }
-            
-            
             CommandData nextCommand = _untakenCommands.First();
+            if (nextCommand.UnablePerformSettlers.Contains(settler))
+                continue;
+
             SetSettlerCommand(settler, nextCommand);
         }
     }
