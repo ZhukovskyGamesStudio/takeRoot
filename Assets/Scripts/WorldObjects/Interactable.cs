@@ -16,7 +16,8 @@ public class Interactable : ECSComponent, ISelectable {
     
     public HashSet<Vector2Int> InteractableCells => Gridable.InteractableCells;
     public Vector2Int GetInteractableCell => Gridable.GetBottomLeftOnGrid + _interactableShift;
-    
+    public bool CanSelect { get; set; } = true;
+
 
     public bool CanBeCommanded(Command command) {
         if (CommandToExecute != null && CommandToExecute.CommandType == command) {
@@ -68,11 +69,13 @@ public class Interactable : ECSComponent, ISelectable {
     }
 
     private void OnMouseEnter() {
-        SelectionManager.Instance.SetSelected(this);
+        if (CanSelect)
+            SelectionManager.Instance.SetSelected(this);
     }
 
     private void OnMouseExit() {
-        SelectionManager.Instance.TryClearSelected(this);
+        if (CanSelect)
+            SelectionManager.Instance.TryClearSelected(this);
     }
 
     public InfoBookData GetInfoData() {
