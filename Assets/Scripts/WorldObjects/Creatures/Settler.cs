@@ -106,9 +106,13 @@ public class Settler : ECSEntity {
         UpdateMoodAndAnimations();
     }
 
-    private bool CanPerform() {
-        return ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid,
-            TakenCommand.CommandType == Command.Store ? TakenCommand.Additional : TakenCommand.Interactable);
+    private bool CanPerform()
+    {
+        if (TakenCommand.CommandType == Command.Store)
+        {
+            return TakenCommand.Additional && ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenCommand.Additional);
+        }
+        return ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenCommand.Interactable);
     }
 
     private void UpdateMoodAndAnimations() {
