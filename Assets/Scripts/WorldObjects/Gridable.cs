@@ -65,6 +65,12 @@ public class Gridable : ECSComponent {
         GetNeighbors(GetOccupiedPositions());
     }
 
+    public void PositionChanged()
+    {
+        GetBottomLeftOnGrid = VectorUtils.ToVector2Int(transform.position);
+        GetCenterOnGrid = transform.position + new Vector3(_size.x / 2f, _size.y / 2f, 0) - Vector3.one / 2;
+        GetNeighbors(GetOccupiedPositions());
+    }
     private void DrawInteractableCells()
     {
         Gizmos.color = Color.green;
