@@ -151,16 +151,16 @@ public class Settler : ECSEntity {
     private Vector2Int? TryMoveToCommandTarget() {
         HashSet<Vector2Int> targetCell = new HashSet<Vector2Int>();
 
-        if (TakenCommand.CommandType is Command.Search or Command.Transport) {
+        if (TakenCommand.CommandType is Command.Transport) {
             targetCell.Add(TakenCommand.Interactable.GetInteractableCell);
         } else if (TakenCommand.CommandType == Command.Store) {
-            Table st = ResourceManager.Instance.FindEmptyStorageForResorce(TakenCommand.Interactable.GetComponent<ResourceView>().ResourceData);
+            Storagable st = ResourceManager.Instance.FindClosestAvailableStorage(TakenCommand.Interactable.GetComponent<ResourceView>().ResourceData, GetCellOnGrid);
             if (st == null) {
                 TakenCommand.Interactable.GetComponent<ResourceView>().DropOnGround();
                 return null;
             }
 
-            Interactable interactableStorage = st.GetEcsComponent<Interactable>();
+            Interactable interactableStorage = st.GetComponent<Interactable>();
             TakenCommand.Additional = interactableStorage;
             targetCell.Add(  interactableStorage.GetInteractableCell);
         } else {

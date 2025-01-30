@@ -33,7 +33,7 @@ public class ResourseStorage {
         }
     }
 
-    public int CanFitResource(ResorceData data) {
+    public int CanFitResource(ResourceData data) {
         int cell = 0;
         int res = 0;
         while (data.Amount > 0 && cell < ResorceDatas.Length) {

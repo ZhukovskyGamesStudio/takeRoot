@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ResourceManager : MonoBehaviour {
     public static ResourceManager Instance;
-
+    
     [SerializeField]
     private ResourcesTable _resourcesTable;
 
@@ -13,6 +13,8 @@ public class ResourceManager : MonoBehaviour {
 
     [SerializeField]
     private Transform _resourcesHolder;
+    
+    public Transform ResourcesHolder => _resourcesHolder;
 
     private void Awake() {
         Instance = this;
@@ -122,7 +124,30 @@ public class ResourceManager : MonoBehaviour {
         //TODO стол выбирается случайно, а не ближайший
         Table fittingStorage = storages.Where(s=>s.IsStorageActive && s.ResorceStorage.CanFitResource(resource) >= resource.Amount). OrderByDescending(s => s.ResorceStorage.CanFitResource(resource))
             .FirstOrDefault();
+        Debug.Log(fittingStorage);
         return fittingStorage;
+    }
+
+    public Storagable FindClosestAvailableStorage(ResourceData resource, Vector2Int from)
+    {
+        Storagable[] storages = FindObjectsByType<Storagable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        if (storages.Length == 0) return null;
+        List<Storagable> fittingStorage = storages.Where(s => s.CanStore(resource)).ToList();
+        if (fittingStorage.Count == 0) return null;
+        float shortestPath = Mathf.Infinity;
+        Storagable closestStorage = null;
+        for (int i = 0; i < fittingStorage.Count; i++)
+        {
+            if (i == 10) break;
+            var pathLength = AStarPathfinding.Instance.FindPath(from, fittingStorage[i].GetComponent<Interactable>().InteractableCells).Count;
+            if (pathLength < shortestPath)
+            {
+                shortestPath = pathLength;
+                closestStorage = fittingStorage[i];
+            }
+        }
+        //TODO find closest
+        return closestStorage;
     }
 }
 
