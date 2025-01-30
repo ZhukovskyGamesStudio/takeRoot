@@ -34,7 +34,7 @@ public class CommandsManager : MonoBehaviour {
         _plannedCommands.Add(data);
         _untakenCommands.Add(data);
         if (data.PlannedCommandView == null) {
-            PlannedCommandView commandView = Instantiate(_plannedCommandView);
+            PlannedCommandView commandView = Instantiate(_plannedCommandView, data.Interactable.transform);
             commandView.Init(data.CommandType, data.Interactable.Gridable);
             data.PlannedCommandView = commandView;
         }
