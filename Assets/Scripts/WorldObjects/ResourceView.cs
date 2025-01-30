@@ -29,7 +29,7 @@ public class ResourceView : ECSEntity {
         _interactable.OnCommandPerformed += OnCommandPerformed;
         _interactable.OnCommandCanceled += OnCommandCanceled;
         _interactable.AddToPossibleCommands(Command.Transport);
-        ResorceData.ResourceType = ResourceType;
+        ResourceData.ResourceType = ResourceType;
         SetAmount(Amount);
     }
 
@@ -37,7 +37,7 @@ public class ResourceView : ECSEntity {
         InfoBookData d = new InfoBookData() {
             Icon = _icon.sprite,
             Name = gameObject.name,
-            Resources = new List<ResorceData>()
+            Resources = new List<ResourceData>()
         };
         return d;
     }
@@ -61,8 +61,7 @@ public class ResourceView : ECSEntity {
         }
 
         if (obj == Command.Store) {
-            IsBeingCarried = false;
-            _interactable.CommandToExecute.Additional.GetComponent<Table>().ResorceStorage.Add(ResorceData);
+            _interactable.CommandToExecute.Additional.GetComponent<Storagable>().AddResource(ResourceData);
             _interactable.CancelCommand();
             _interactable.OnDestroyed();
             Destroy(gameObject);
