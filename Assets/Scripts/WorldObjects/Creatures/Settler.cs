@@ -39,12 +39,12 @@ public class Settler : ECSEntity {
                 bool canPerform = CanPerform();
 
                 if (canPerform) {
-                    TryStartPerform(() => { CommandsManager.Instance.PerformedCommand(TakenCommand); });
+                    TryStartPerform(() => { CommandsManagersHolder.Instance.CommandsManager.PerformedCommand(TakenCommand); });
                 } else {
                     Vector2Int? nextStepCell = TryMoveToCommandTarget();
                     if (nextStepCell == null) {
                         TakenCommand.UnablePerformSettlers.Add(this);
-                        CommandsManager.Instance.ReturnCommand(TakenCommand);
+                        CommandsManagersHolder.Instance.CommandsManager.ReturnCommand(TakenCommand);
                     } else {
                         if (_performingCoroutine != null) {
                             return;
@@ -62,7 +62,9 @@ public class Settler : ECSEntity {
                 if (TakenTacticalCommand.TacticalCommandType != TacticalCommand.Move) {
                     var canPerform = ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenTacticalCommand.TacticalInteractable);
                     if (canPerform) {
-                        TryStartPerform(() => { TacticalCommandsManager.Instance.PerformedCommand(TakenTacticalCommand); });
+                        TryStartPerform(() => {
+                            CommandsManagersHolder.Instance.TacticalCommandsManager.PerformedCommand(TakenTacticalCommand);
+                        });
                     } else {
                         Vector2Int? nextStepCell = TryMoveToTacticalCommandTarget();
                         if (nextStepCell == null) {
@@ -274,7 +276,7 @@ public class Settler : ECSEntity {
 
         //Vector2Int? nextStepCell = TryMoveToCommandTarget();
         //if (nextStepCell == null) {
-        //    CommandsManager.Instance.RevokeCommandBecauseItsUnreachable(TakenCommand);
+        //    CommandsManagersHolder.Instance.CommandsManager.RevokeCommandBecauseItsUnreachable(TakenCommand);
         //}
     }
 
@@ -305,18 +307,18 @@ public class Settler : ECSEntity {
 
     public void ChangeMode(Mode mode) {
         if (mode == Mode.Planning) {
-            //TacticalCommandsManager.Instance.SetActivePanel(false);
-            //TacticalCommandsManager.Instance.CancelCommand();
+            //TacticalCommandsManagersHolder.Instance.CommandsManager.SetActivePanel(false);
+            //TacticalCommandsManagersHolder.Instance.CommandsManager.CancelCommand();
             if (TakenTacticalCommand != null) {
                 TakenTacticalCommand = null;
             }
         }
 
         if (mode == Mode.Tactical) {
-            //CommandsManager.Instance.SetActivePanel(false);
-            //TacticalCommandsManager.Instance.SetActivePanel(true);
+            //CommandsManagersHolder.Instance.CommandsManager.SetActivePanel(false);
+            //TacticalCommandsManagersHolder.Instance.CommandsManager.SetActivePanel(true);
             if (TakenCommand != null) {
-                CommandsManager.Instance.RevokeCommandBecauseItsUnreachable(TakenCommand);
+                CommandsManagersHolder.Instance.CommandsManager.RevokeCommandBecauseItsUnreachable(TakenCommand);
             }
         }
 

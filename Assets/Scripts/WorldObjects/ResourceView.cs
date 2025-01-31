@@ -75,7 +75,7 @@ public class ResourceView : ECSEntity {
             //var storage = ResourceManager.Instance.FindEmptyStorageForResorce(ResourceData);
             //Interactable interactableStorage = storage.GetEcsComponent<Interactable>();
             //_interactable.CommandToExecute.Additional = interactableStorage;
-            CommandsManager.Instance.AddSubsequentCommand(_interactable.CommandToExecute);
+            CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(_interactable.CommandToExecute);
             GetEcsComponent<Networkable>().ChangeParent(_interactable.CommandToExecute.Settler.ResourceHolder);
             transform.localPosition = Vector3.zero;
             if (_interactable.CommandToExecute.PlannedCommandView != null) {

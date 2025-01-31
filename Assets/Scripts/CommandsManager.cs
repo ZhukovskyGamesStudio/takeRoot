@@ -4,30 +4,33 @@ using System.Linq;
 using UnityEngine;
 
 public class CommandsManager : MonoBehaviour {
-    public static CommandsManager Instance;
+    private CommandsPanel _commandsPanel;
 
-    [SerializeField]
     private List<CommandData> _plannedCommands = new List<CommandData>();
+    private PlannedCommandView _plannedCommandView;
+    private Race _race;
 
-    private List<CommandData> _untakenCommands = new List<CommandData>();
+    private List<Settler> _settlers;
     private List<CommandData> _takenCommands = new List<CommandData>();
     private List<CommandData> _unreachableCommands = new List<CommandData>();
 
-    [SerializeField]
-    private CommandsPanel _commandsPanel;
+    private List<CommandData> _untakenCommands = new List<CommandData>();
 
-    [SerializeField]
-    private PlannedCommandView _plannedCommandView;
+    private void Update() {
+        if (Input.GetMouseButtonDown(0) && _commandsPanel.SelectedCommand != Command.None) {
+            TryAddCommandFromMouseClick(_commandsPanel.SelectedCommand);
+        }
 
-    private List<Settler> _settlers;
-
-    private void Awake() {
-        Instance = this;
-        _plannedCommands = new List<CommandData>();
+        SetUnreachableCommands();
+        TryGiveUnjobedSettlerCommand();
     }
 
-    private void Start() {
-        _settlers = SettlersManager.Instance.Settlers;
+    public void Init(Race race, CommandsPanel commandsPanel, PlannedCommandView plannedCommandView) {
+        _race = race;
+        _commandsPanel = commandsPanel;
+        _plannedCommandView = plannedCommandView;
+        _plannedCommands = new List<CommandData>();
+        _settlers = SettlersManager.Instance.Settlers.Where(s => s.Race == _race).ToList();
     }
 
     private void AddCommand(CommandData data) {
@@ -39,9 +42,7 @@ public class CommandsManager : MonoBehaviour {
             data.PlannedCommandView = commandView;
         }
 
-        data.TriggerCancel += delegate {
-            RemoveCommand(data);
-        };
+        data.TriggerCancel += delegate { RemoveCommand(data); };
     }
 
     private void RemoveCommand(CommandData data) {
@@ -61,8 +62,7 @@ public class CommandsManager : MonoBehaviour {
         data.Settler = null;
     }
 
-    public void ReturnCommand(CommandData data)
-    {
+    public void ReturnCommand(CommandData data) {
         _takenCommands.Remove(data);
         _untakenCommands.Add(data);
         data.Settler.ClearCommand();
@@ -77,10 +77,12 @@ public class CommandsManager : MonoBehaviour {
             data.Settler.ClearCommand();
             data.Settler = null;
         }
+
         _unreachableCommands.Add(data);
         if (data.PlannedCommandView != null) {
             data.PlannedCommandView.SetUnreachableState(true);
         }
+
         StartCoroutine(TryAddToCommandsAgain(data));
     }
 
@@ -98,29 +100,16 @@ public class CommandsManager : MonoBehaviour {
         }
     }
 
-    private void Update() {
-        if (Input.GetMouseButtonDown(0) && _commandsPanel.SelectedCommand != Command.None) {
-            TryAddCommandFromMouseClick(_commandsPanel.SelectedCommand);
-        }
-
-        SetUnreachableCommands();
-        TryGiveUnjobedSettlerCommand();
-    }
-
-    private void SetUnreachableCommands()
-    {
-        foreach (CommandData command in _untakenCommands.ToList())
-        {
-            if (_untakenCommands.First().UnablePerformSettlers.Count == _settlers.Count)
-            {
+    private void SetUnreachableCommands() {
+        foreach (CommandData command in _untakenCommands.ToList()) {
+            if (_untakenCommands.First().UnablePerformSettlers.Count == _settlers.Count) {
                 RevokeCommandBecauseItsUnreachable(command);
             }
         }
     }
 
     private void TryGiveUnjobedSettlerCommand() {
-        if (_untakenCommands.Count == 0)
-        {
+        if (_untakenCommands.Count == 0) {
             return;
         }
 
@@ -128,11 +117,13 @@ public class CommandsManager : MonoBehaviour {
             if (settler.TakenCommand != null) {
                 continue;
             }
+
             if (settler.Mode == Mode.Tactical) continue;
-            
+
             if (_untakenCommands.Count == 0) {
                 return;
             }
+
             CommandData nextCommand = _untakenCommands.First();
             if (nextCommand.UnablePerformSettlers.Contains(settler))
                 continue;
@@ -149,6 +140,10 @@ public class CommandsManager : MonoBehaviour {
     }
 
     private void TryAddCommandFromMouseClick(Command command) {
+        if (Core.Instance.MyRace() != _race) {
+            return;
+        }
+
         Interactable interactable = SelectionManager.Instance.Interactable as Interactable;
         if (interactable == null) {
             return;
@@ -164,6 +159,7 @@ public class CommandsManager : MonoBehaviour {
             if (_unreachableCommands.Contains(interactable.CommandToExecute)) {
                 _unreachableCommands.Remove(interactable.CommandToExecute);
             }
+
             return;
         }
 
@@ -188,11 +184,9 @@ public class CommandsManager : MonoBehaviour {
         }
     }
 
-    public void SetActivePanel(bool value)
-    {
+    public void SetActivePanel(bool value) {
         _commandsPanel.gameObject.SetActive(value);
-        if (value == false)
-        {
+        if (value == false) {
             _commandsPanel.ClearSelectedCommand(_commandsPanel.SelectedCommand);
         }
     }

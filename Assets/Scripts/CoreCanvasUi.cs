@@ -1,18 +1,21 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class CoreCanvasUi : NetworkBehaviour {
+public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
     [field: SerializeField]
     public NetworkReplacementUi NetworkReplacement { get; private set; }
 
-    private void Awake() {
+    public void Init() {
+        Core.UI = this;
+        InitRace();
+
         if (NetworkManager.Singleton == null) {
             NetworkReplacement.gameObject.SetActive(true);
             NetworkReplacement.OnChangeRace += SetRace;
         }
     }
 
-    public void InitRace() {
+    private void InitRace() {
         if (NetworkManager.Singleton != null) {
             SetRace(PlayerRaceSelection.GetRace());
         } else {

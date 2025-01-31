@@ -4,22 +4,14 @@ using UnityEngine.Tilemaps;
 using WorldObjects;
 
 public class TacticalCommandsManager : MonoBehaviour {
-    public static TacticalCommandsManager Instance;
-
-    [SerializeField]
+    private TacticalCommandData _currentCommand;
     private PlannedCommandView _plannedCommandView;
 
+    private Race _race;
+
+    private TacticalCommandPanel _tacticalCommandPanel;
+
     private Tilemap _tilemap;
-
-    [SerializeField]
-    TacticalCommandPanel _tacticalCommandPanel;
-
-    private TacticalCommandData _currentCommand;
-
-    private void Awake() {
-        Instance = this;
-        _tilemap = FindAnyObjectByType<Tilemap>();
-    }
 
     private void Update() {
         if (EventSystem.current?.IsPointerOverGameObject() == true) return;
@@ -27,6 +19,13 @@ public class TacticalCommandsManager : MonoBehaviour {
             if (SettlersSelectionManager.Instance.SelectedSettler)
                 TryAddTacticalCommandFromMouseClick(_tacticalCommandPanel.SelectedTacticalCommand);
         }
+    }
+
+    public void Init(Race race, TacticalCommandPanel commandsPanel, PlannedCommandView plannedCommandView) {
+        _race = race;
+        _tacticalCommandPanel = commandsPanel;
+        _plannedCommandView = plannedCommandView;
+        _tilemap = FindAnyObjectByType<Tilemap>();
     }
 
     private void TryAddTacticalCommandFromMouseClick(TacticalCommand tacticalCommand) {

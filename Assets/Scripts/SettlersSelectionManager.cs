@@ -13,19 +13,17 @@ public class SettlersSelectionManager : MonoBehaviour {
 
     [SerializeField]
     private ChangeModeToggle _changeModeToggle;
+
     [SerializeField]
     private SelectionView _selectionViewPrefab;
-    public Settler SelectedSettler { get; private set; }
 
     private SelectionView _selectionView;
+
+    public Settler SelectedSettler { get; private set; }
+
     private void Awake() {
         Instance = this;
         CreateSelectionView();
-    }
-
-    private void CreateSelectionView() {
-        _selectionView = Instantiate(_selectionViewPrefab, transform);
-        _selectionView.gameObject.SetActive(false);
     }
 
     private void Update() {
@@ -48,8 +46,17 @@ public class SettlersSelectionManager : MonoBehaviour {
         }
     }
 
+    private void CreateSelectionView() {
+        _selectionView = Instantiate(_selectionViewPrefab, transform);
+        _selectionView.gameObject.SetActive(false);
+    }
+
     private void SelectSettler(Settler settler) {
         if (SelectedSettler != null) {
+            return;
+        }
+
+        if (settler.Race != Core.Instance.MyRace() && settler.Race != Race.Both) {
             return;
         }
 
@@ -57,7 +64,7 @@ public class SettlersSelectionManager : MonoBehaviour {
         _changeModeToggle.gameObject.SetActive(true);
         _changeModeToggle.SetToggleValue(SelectedSettler.Mode == Mode.Tactical);
         Gridable gridable = SelectedSettler.GetEcsComponent<Gridable>();
-        _selectionView.Init(gridable,gridable.transform);
+        _selectionView.Init(gridable, gridable.transform);
         ChangePanels(SelectedSettler.Mode == Mode.Tactical);
     }
 
@@ -65,6 +72,7 @@ public class SettlersSelectionManager : MonoBehaviour {
         if (SelectedSettler == null || _tacticalCommandPanel.SelectedTacticalCommand != TacticalCommand.None) {
             return;
         }
+
         ChangePanels(false);
         _changeModeToggle.gameObject.SetActive(false);
         _changeModeToggle.SetToggleValue(false);
@@ -74,14 +82,15 @@ public class SettlersSelectionManager : MonoBehaviour {
     }
 
     private void ChangePanels(bool isTactical) {
-        TacticalCommandsManager.Instance.SetActivePanel(isTactical);
-        CommandsManager.Instance.SetActivePanel(!isTactical);
+        CommandsManagersHolder.Instance.TacticalCommandsManager.SetActivePanel(isTactical);
+        CommandsManagersHolder.Instance.CommandsManager.SetActivePanel(!isTactical);
     }
 
     public void TryChangeSelectedSettlerMode(bool isTactical) {
         if (SelectedSettler == null) {
             return;
         }
+
         SelectedSettler.ChangeMode(isTactical ? Mode.Tactical : Mode.Planning);
     }
 }
