@@ -52,6 +52,18 @@ PrefabInstance:
       propertyPath: <ResourceType>k__BackingField
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7043057240193369625, guid: fe90e8a96c3f09043a75f91672663e9e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187171943130503284, guid: fe90e8a96c3f09043a75f91672663e9e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7187171943130503284, guid: fe90e8a96c3f09043a75f91672663e9e, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3804120198
+      objectReference: {fileID: 0}
     - target: {fileID: 7847330853408564800, guid: fe90e8a96c3f09043a75f91672663e9e, type: 3}
       propertyPath: m_Size.x
       value: 1

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 
 public class ResourceView : ECSEntity {
@@ -15,10 +16,10 @@ public class ResourceView : ECSEntity {
 
     public bool IsBeingCarried;
 
-    private Interactable _interactable;
-
     [SerializeField]
     private SpriteRenderer _icon;
+
+    private Interactable _interactable;
 
     public ResourceData ResourceData { get; private set; } = new ResourceData();
 
@@ -57,7 +58,7 @@ public class ResourceView : ECSEntity {
             //Interactable interactableStorage = storage.GetEcsComponent<Interactable>();
             //_interactable.CommandToExecute.Additional = interactableStorage;
             CommandsManager.Instance.AddSubsequentCommand(_interactable.CommandToExecute);
-            transform.SetParent(_interactable.CommandToExecute.Settler.transform);
+            GetEcsComponent<Networkable>().ChangeParent(_interactable.CommandToExecute.Settler.gameObject);
             if (_interactable.CommandToExecute.PlannedCommandView != null) {
                 _interactable.CommandToExecute.PlannedCommandView.Release();
             }
@@ -67,13 +68,13 @@ public class ResourceView : ECSEntity {
             _interactable.CommandToExecute.Additional.GetComponent<Storagable>().AddResource(ResourceData);
             _interactable.CancelCommand();
             SetAmount(ResourceData.Amount);
-            if(ResourceData.Amount == 0)
+            if (ResourceData.Amount == 0)
                 _interactable.OnDestroyed();
         }
     }
 
     private void OnCommandCanceled(Command type) {
-            DropOnGround();
+        DropOnGround();
     }
 
     public void DropOnGround() {
@@ -84,7 +85,6 @@ public class ResourceView : ECSEntity {
         IsBeingCarried = false;
         _interactable.CanSelect = true;
         _interactable.Gridable.PositionChanged();
-        transform.SetParent(ResourceManager.Instance.ResourcesHolder);
+        GetEcsComponent<Networkable>().ChangeParent(ResourceManager.Instance.ResourcesHolder.gameObject);
     }
 }
-

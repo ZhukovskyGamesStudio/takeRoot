@@ -171,6 +171,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776118259}
     m_Modifications:
+    - target: {fileID: -601068189367398297, guid: 478f95b1f64921e429aa76512cd7c618, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2532821073
+      objectReference: {fileID: 0}
+    - target: {fileID: -601068189367398297, guid: 478f95b1f64921e429aa76512cd7c618, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2654000151
+      objectReference: {fileID: 0}
     - target: {fileID: 516106991386686051, guid: 478f95b1f64921e429aa76512cd7c618, type: 3}
       propertyPath: m_Name
       value: Sofa
@@ -345,6 +353,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 314469107}
     m_Modifications:
+    - target: {fileID: -2217372693413329764, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 293950129
+      objectReference: {fileID: 0}
+    - target: {fileID: -2217372693413329764, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3980186427
+      objectReference: {fileID: 0}
     - target: {fileID: 4983002690571163926, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17
@@ -465,6 +481,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bookshhelf
       objectReference: {fileID: 0}
+    - target: {fileID: 4767999753869831626, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4050824345
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767999753869831626, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2547860960
+      objectReference: {fileID: 0}
     - target: {fileID: 8766468518439866684, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12
@@ -515,6 +539,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8766468518439866684, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
   m_PrefabInstance: {fileID: 177296160}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &189840076
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1776118259}
+    m_Modifications:
+    - target: {fileID: -6026083430636824095, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 155405144
+      objectReference: {fileID: 0}
+    - target: {fileID: -6026083430636824095, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 4084557474
+      objectReference: {fileID: 0}
+    - target: {fileID: 516106991386686051, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+      propertyPath: m_Name
+      value: Storage
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766468518439866684, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766468518439866684, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766468518439866684, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766468518439866684, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766468518439866684, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766468518439866684, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766468518439866684, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766468518439866684, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766468518439866684, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8766468518439866684, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
 --- !u!114 &204911451 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5715854520525625784, guid: 71d5477656095674191ccd469ca0cae6, type: 3}
@@ -614,6 +703,7 @@ Transform:
   - {fileID: 1666726205}
   - {fileID: 1889373257}
   - {fileID: 394607538}
+  - {fileID: 420812271}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &314469106
@@ -758,6 +848,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776118259}
     m_Modifications:
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2292525503
+      objectReference: {fileID: 0}
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3670508486
+      objectReference: {fileID: 0}
     - target: {fileID: 516106991386686051, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
       propertyPath: m_Name
       value: WoodenDoor (1)
@@ -880,6 +978,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8766468518439866684, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
   m_PrefabInstance: {fileID: 419872691}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &420812270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 420812271}
+  - component: {fileID: 420812272}
+  m_Layer: 0
+  m_Name: ConfigManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &420812271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420812270}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 284322939}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &420812272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420812270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf83085d7e9496f80ba4d23cd4287d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <CreaturesParametersConfig>k__BackingField: {fileID: 11400000, guid: 9a73c58c66d82834bb7779145fed908d, type: 2}
 --- !u!114 &441793463 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2676938252474782531, guid: 71d5477656095674191ccd469ca0cae6, type: 3}
@@ -29356,6 +29499,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -2.423
       objectReference: {fileID: 0}
+    - target: {fileID: 4767999753869831626, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4000939995
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767999753869831626, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2547860960
+      objectReference: {fileID: 0}
     - target: {fileID: 8766468518439866684, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
       propertyPath: m_LocalPosition.x
       value: 23
@@ -29425,6 +29576,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776118259}
     m_Modifications:
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 254806506
+      objectReference: {fileID: 0}
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3670508486
+      objectReference: {fileID: 0}
     - target: {fileID: 516106991386686051, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
       propertyPath: m_Name
       value: WoodenDoor
@@ -29498,6 +29657,14 @@ PrefabInstance:
     - target: {fileID: 1073893113818565818, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
       propertyPath: _size.x
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767999753869831626, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4269345654
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767999753869831626, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2547860960
       objectReference: {fileID: 0}
     - target: {fileID: 8766468518439866684, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
       propertyPath: m_LocalScale.x
@@ -29644,6 +29811,14 @@ PrefabInstance:
     - target: {fileID: 2620457339838943383, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -2.423
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767999753869831626, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2954908057
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767999753869831626, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2547860960
       objectReference: {fileID: 0}
     - target: {fileID: 8766468518439866684, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
       propertyPath: m_LocalPosition.x
@@ -36657,6 +36832,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -2.423
       objectReference: {fileID: 0}
+    - target: {fileID: 4767999753869831626, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2147283217
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767999753869831626, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2547860960
+      objectReference: {fileID: 0}
     - target: {fileID: 8766468518439866684, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15
@@ -36813,6 +36996,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776118259}
     m_Modifications:
+    - target: {fileID: -2823219378352449954, guid: bdbec5d71e6f2e74eb566f2034a4f080, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2655314871
+      objectReference: {fileID: 0}
+    - target: {fileID: -2823219378352449954, guid: bdbec5d71e6f2e74eb566f2034a4f080, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 857065930
+      objectReference: {fileID: 0}
     - target: {fileID: 516106991386686051, guid: bdbec5d71e6f2e74eb566f2034a4f080, type: 3}
       propertyPath: m_Name
       value: Wardrobe
@@ -36959,6 +37150,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -2.423
       objectReference: {fileID: 0}
+    - target: {fileID: 4767999753869831626, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 317298160
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767999753869831626, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2547860960
+      objectReference: {fileID: 0}
     - target: {fileID: 8766468518439866684, guid: c446772ef47bd26419fd6a691a2b5c84, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4
@@ -37017,6 +37216,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776118259}
     m_Modifications:
+    - target: {fileID: -6026083430636824095, guid: 01948a1871410d446868f7029bafb3d6, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2589251428
+      objectReference: {fileID: 0}
+    - target: {fileID: -6026083430636824095, guid: 01948a1871410d446868f7029bafb3d6, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2251762936
+      objectReference: {fileID: 0}
     - target: {fileID: 516106991386686051, guid: 01948a1871410d446868f7029bafb3d6, type: 3}
       propertyPath: m_Name
       value: Table
@@ -37130,6 +37337,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bush
       objectReference: {fileID: 0}
+    - target: {fileID: 8699226785258941739, guid: d003cc518e85b0a45bd010fdf009c4b4, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2434963004
+      objectReference: {fileID: 0}
+    - target: {fileID: 8699226785258941739, guid: d003cc518e85b0a45bd010fdf009c4b4, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 105754829
+      objectReference: {fileID: 0}
     - target: {fileID: 8766468518439866684, guid: d003cc518e85b0a45bd010fdf009c4b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7
@@ -37188,6 +37403,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776118259}
     m_Modifications:
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 834755102
+      objectReference: {fileID: 0}
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3670508486
+      objectReference: {fileID: 0}
     - target: {fileID: 516106991386686051, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
       propertyPath: m_Name
       value: WoodenDoor (6)
@@ -37254,6 +37477,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MetalDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 8354057269758807117, guid: 5bc7962d4d153ee45bf6b5a9a9b4280c, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 800005465
+      objectReference: {fileID: 0}
+    - target: {fileID: 8354057269758807117, guid: 5bc7962d4d153ee45bf6b5a9a9b4280c, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 641177704
+      objectReference: {fileID: 0}
     - target: {fileID: 8766468518439866684, guid: 5bc7962d4d153ee45bf6b5a9a9b4280c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10
@@ -37312,6 +37543,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776118259}
     m_Modifications:
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1987599252
+      objectReference: {fileID: 0}
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3670508486
+      objectReference: {fileID: 0}
     - target: {fileID: 516106991386686051, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
       propertyPath: m_Name
       value: WoodenDoor (2)
@@ -37446,6 +37685,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GarbageBox
       objectReference: {fileID: 0}
+    - target: {fileID: 846923431505245075, guid: 33cffc5d8eb4a0c4ebeef8c6a10e1604, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3676445012
+      objectReference: {fileID: 0}
+    - target: {fileID: 846923431505245075, guid: 33cffc5d8eb4a0c4ebeef8c6a10e1604, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 1691437564
+      objectReference: {fileID: 0}
     - target: {fileID: 8766468518439866684, guid: 33cffc5d8eb4a0c4ebeef8c6a10e1604, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4
@@ -37508,6 +37755,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bush (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8699226785258941739, guid: d003cc518e85b0a45bd010fdf009c4b4, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1468232796
+      objectReference: {fileID: 0}
+    - target: {fileID: 8699226785258941739, guid: d003cc518e85b0a45bd010fdf009c4b4, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 105754829
+      objectReference: {fileID: 0}
     - target: {fileID: 8766468518439866684, guid: d003cc518e85b0a45bd010fdf009c4b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10
@@ -37569,6 +37824,14 @@ PrefabInstance:
     - target: {fileID: 516106991386686051, guid: 597d93b8ffc33c4439eab8f3779e58bf, type: 3}
       propertyPath: m_Name
       value: TV
+      objectReference: {fileID: 0}
+    - target: {fileID: 7039336436148323224, guid: 597d93b8ffc33c4439eab8f3779e58bf, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4142398043
+      objectReference: {fileID: 0}
+    - target: {fileID: 7039336436148323224, guid: 597d93b8ffc33c4439eab8f3779e58bf, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 968422535
       objectReference: {fileID: 0}
     - target: {fileID: 8766468518439866684, guid: 597d93b8ffc33c4439eab8f3779e58bf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -37672,6 +37935,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8867692210770758636, guid: 1447beb473b07094ab82e42cb8c62dcc, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2921675400
+      objectReference: {fileID: 0}
+    - target: {fileID: 8867692210770758636, guid: 1447beb473b07094ab82e42cb8c62dcc, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 350184352
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37690,6 +37961,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776118259}
     m_Modifications:
+    - target: {fileID: -3876920707624708720, guid: da801a62f7a546c409d1cd2110955a7f, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 284088962
+      objectReference: {fileID: 0}
+    - target: {fileID: -3876920707624708720, guid: da801a62f7a546c409d1cd2110955a7f, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 474237520
+      objectReference: {fileID: 0}
     - target: {fileID: 516106991386686051, guid: da801a62f7a546c409d1cd2110955a7f, type: 3}
       propertyPath: m_Name
       value: Toilet
@@ -37752,6 +38031,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776118259}
     m_Modifications:
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2560353550
+      objectReference: {fileID: 0}
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3670508486
+      objectReference: {fileID: 0}
     - target: {fileID: 516106991386686051, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
       propertyPath: m_Name
       value: WoodenDoor (5)
@@ -38032,6 +38319,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776118259}
     m_Modifications:
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 996745935
+      objectReference: {fileID: 0}
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3670508486
+      objectReference: {fileID: 0}
     - target: {fileID: 516106991386686051, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
       propertyPath: m_Name
       value: WoodenDoor (4)
@@ -38207,6 +38502,7 @@ Transform:
   - {fileID: 1484735877}
   - {fileID: 1026527726}
   - {fileID: 2132335837}
+  - {fileID: 2116889700}
   m_Father: {fileID: 71934222}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1778838689 stripped
@@ -40611,6 +40907,11 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!4 &2116889700 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8766468518439866684, guid: 455ecd038bc059f4e91390f34a3701af, type: 3}
+  m_PrefabInstance: {fileID: 189840076}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2125816186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40619,6 +40920,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776118259}
     m_Modifications:
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1434249179
+      objectReference: {fileID: 0}
+    - target: {fileID: -2939361289152425533, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3670508486
+      objectReference: {fileID: 0}
     - target: {fileID: 516106991386686051, guid: 82a487f737713c9488dd61a3a9ead9d6, type: 3}
       propertyPath: m_Name
       value: WoodenDoor (3)
@@ -40753,6 +41062,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shower
       objectReference: {fileID: 0}
+    - target: {fileID: 2533642747860182985, guid: c6512622b2fdf3f4dbfb782d464ec461, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3169629394
+      objectReference: {fileID: 0}
+    - target: {fileID: 2533642747860182985, guid: c6512622b2fdf3f4dbfb782d464ec461, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2906873958
+      objectReference: {fileID: 0}
     - target: {fileID: 8766468518439866684, guid: c6512622b2fdf3f4dbfb782d464ec461, type: 3}
       propertyPath: m_LocalPosition.x
       value: 21
@@ -40811,6 +41128,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1776118259}
     m_Modifications:
+    - target: {fileID: -601068189367398297, guid: 478f95b1f64921e429aa76512cd7c618, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4038875260
+      objectReference: {fileID: 0}
+    - target: {fileID: -601068189367398297, guid: 478f95b1f64921e429aa76512cd7c618, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2654000151
+      objectReference: {fileID: 0}
     - target: {fileID: 516106991386686051, guid: 478f95b1f64921e429aa76512cd7c618, type: 3}
       propertyPath: m_Name
       value: Sofa (1)
