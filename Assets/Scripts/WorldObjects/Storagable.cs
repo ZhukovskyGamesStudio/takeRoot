@@ -1,77 +1,77 @@
 using System;
 using UnityEngine;
 
-public class Storagable : ECSComponent
-{
-    public int maxStack = 10;
-    public ResourceData resource;
-    public void AddResource(ResourceData resourceData)
-    {
-        if (resourceData.ResourceType != resource.ResourceType && !IsEmpty()) 
+public class Storagable : ECSComponent {
+    [field: SerializeField]
+    public int MaxStack { get; private set; } = 10;
+
+    //TODO тут должен быть список
+    public ResourceData Resource { get; private set; } = ResourceData.Empty;
+
+    public void AddResource(ResourceData resourceData) {
+        if (resourceData.ResourceType != Resource.ResourceType && !IsEmpty())
             return;
         if (IsEmpty())
-            resource.ResourceType = resourceData.ResourceType;
-        
-        var canAdd = maxStack - resource.Amount;
-        if (resourceData.Amount <= canAdd)
-        {
-            resource.Amount += resourceData.Amount;
+            Resource.ResourceType = resourceData.ResourceType;
+
+        var canAdd = MaxStack - Resource.Amount;
+        if (resourceData.Amount <= canAdd) {
+            Resource.Amount += resourceData.Amount;
             resourceData.Amount -= resourceData.Amount;
-        }
-        else
-        {
-            resource.Amount += canAdd;
+        } else {
+            Resource.Amount += canAdd;
             resourceData.Amount -= canAdd;
         }
     }
-    
+
     //Work in progress
-    public ResourceData RemoveResource(ResourceData resourceData)
-    {
+    public ResourceData RemoveResource(ResourceData resourceData) {
         if (IsEmpty())
             return null;
-        if (resourceData.ResourceType != resource.ResourceType) 
+        if (resourceData.ResourceType != Resource.ResourceType)
             return null;
-        if (resource.Amount - resourceData.Amount < 0)
+        if (Resource.Amount - resourceData.Amount < 0)
             return null;
-        
-        int canRemove = Math.Min(resourceData.Amount, resource.Amount);
-        resource.Amount -= resourceData.Amount;
-        if (resource.Amount == 0)
-            resource.ResourceType = ResourceType.None;
-        
-        var removedResource = new ResourceData
-        {
-            ResourceType = resource.ResourceType,
+
+        int canRemove = Math.Min(resourceData.Amount, Resource.Amount);
+        Resource.Amount -= resourceData.Amount;
+        if (Resource.Amount == 0)
+            Resource.ResourceType = ResourceType.None;
+
+        var removedResource = new ResourceData {
+            ResourceType = Resource.ResourceType,
             Amount = resourceData.Amount
         };
-        
+
         if (IsEmpty())
-            resource.ResourceType = ResourceType.None;
-        
+            Resource.ResourceType = ResourceType.None;
+
         return removedResource;
     }
 
-    public bool CanRemove(ResourceData resourceData)
-    {
-        return !IsEmpty() && resourceData.ResourceType == resource.ResourceType;
-    }
-    public bool CanStore(ResourceData resourceData)
-    {
-        return IsEmpty() && resource.ResourceType == ResourceType.None 
-               || resourceData.ResourceType == resource.ResourceType && !IsFull();
-    }
-    
-    private bool IsFull()
-    {
-        return resource.Amount == maxStack;
+    public bool CanRemove(ResourceData resourceData) {
+        return !IsEmpty() && resourceData.ResourceType == Resource.ResourceType;
     }
 
-    private bool IsEmpty()
-    {
-        return resource.Amount == 0;
+    public bool CanStore(ResourceData resourceData) {
+        if (IsEmpty()) {
+            return true;
+        }
+
+        return resourceData.ResourceType == Resource.ResourceType && !IsFull();
     }
 
-    public override int GetDependancyPriority() { return 0;}
+    private bool IsFull() {
+        return Resource.Amount == MaxStack;
+    }
+
+    private bool IsEmpty() {
+        return Resource.Amount == 0;
+    }
+
+    public override int GetDependancyPriority() {
+        return 0;
+    }
+
     public override void Init(ECSEntity entity) { }
 }
