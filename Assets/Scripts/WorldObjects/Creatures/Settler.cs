@@ -20,8 +20,8 @@ public class Settler : ECSEntity {
     [SerializeField]
     private Animator _animator;
 
-    [SerializeField]
-    private float _performingTime = 1, _moveTime = 0.2f;
+    [field: SerializeField]
+    public GameObject ResourceHolder { get; private set; }
 
     private bool _isMoving;
 
@@ -190,7 +190,8 @@ public class Settler : ECSEntity {
         Vector3 target3 = new Vector3(target.x, target.y);
         Vector3 diff = target3 - transform.position;
         //transform.position = target3 * CELL_SIZE;
-        yield return StartCoroutine(LerpFromTo(transform.position, target3 * CELL_SIZE, _moveTime));
+        yield return StartCoroutine(LerpFromTo(transform.position, target3 * CELL_SIZE,
+            ConfigManager.Instance.CreaturesParametersConfig.MoveTime));
         if (diff.x < 0) {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
         }

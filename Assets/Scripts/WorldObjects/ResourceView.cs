@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using Unity.Netcode;
@@ -34,6 +35,23 @@ public class ResourceView : ECSEntity {
         SetAmount(Amount);
     }
 
+    private void Update() {
+        SetScaleNotInverted();
+    }
+
+    private void SetScaleNotInverted() {
+        Vector3 scale = transform.localScale;
+        if (scale.x < 0) {
+            scale.x *= -1;
+        }
+
+        if (scale.y < 0) {
+            scale.y *= -1;
+        }
+
+        transform.localScale = scale;
+    }
+
     private InfoBookData GetInfoData() {
         InfoBookData d = new InfoBookData() {
             Icon = _icon.sprite,
@@ -58,7 +76,8 @@ public class ResourceView : ECSEntity {
             //Interactable interactableStorage = storage.GetEcsComponent<Interactable>();
             //_interactable.CommandToExecute.Additional = interactableStorage;
             CommandsManager.Instance.AddSubsequentCommand(_interactable.CommandToExecute);
-            GetEcsComponent<Networkable>().ChangeParent(_interactable.CommandToExecute.Settler.gameObject);
+            GetEcsComponent<Networkable>().ChangeParent(_interactable.CommandToExecute.Settler.ResourceHolder);
+            transform.localPosition = Vector3.zero;
             if (_interactable.CommandToExecute.PlannedCommandView != null) {
                 _interactable.CommandToExecute.PlannedCommandView.Release();
             }
