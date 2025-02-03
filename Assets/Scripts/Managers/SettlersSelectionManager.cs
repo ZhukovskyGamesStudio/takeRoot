@@ -56,7 +56,7 @@ public class SettlersSelectionManager : MonoBehaviour {
             return;
         }
 
-        if (settler.Race != Core.Instance.MyRace() && settler.Race != Race.Both) {
+        if (settler.SettlerData.Race != Core.Instance.MyRace() && settler.SettlerData.Race != Race.Both) {
             return;
         }
 

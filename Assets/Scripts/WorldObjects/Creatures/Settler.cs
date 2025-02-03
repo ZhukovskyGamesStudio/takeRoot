@@ -10,14 +10,6 @@ public class Settler : ECSEntity {
     private static readonly int IsSleeping = Animator.StringToHash("IsSleeping");
 
     [SerializeField]
-    private Mood _mood;
-
-    [SerializeField]
-    private Mode _mode;
-
-    public Race Race;
-
-    [SerializeField]
     private Animator _animator;
 
     [field: SerializeField]
@@ -29,9 +21,15 @@ public class Settler : ECSEntity {
 
     public CommandData TakenCommand { get; private set; }
     public TacticalCommandData TakenTacticalCommand { get; private set; }
-    public Mode Mode => _mode;
+    public Mode Mode => SettlerData._mode;
 
     public Vector2Int GetCellOnGrid => new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+    public SettlerData SettlerData { get; private set; }
+
+    protected override void Awake() {
+        base.Awake();
+        SettlerData = GetEcsComponent<SettlerData>();
+    }
 
     private void Update() {
         if (TakenCommand != null) {
@@ -101,35 +99,35 @@ public class Settler : ECSEntity {
 
     private void UpdateMoodAndAnimations() {
         //упростил пока-что, так более заметно
-        if (_mode == Mode.Tactical) {
+        if (SettlerData._mode == Mode.Tactical) {
             _animator.SetBool(IsSleeping, false);
-            _mood = global::Mood.Angry;
-            _animator.SetInteger(Mood, (int)_mood);
+            SettlerData._mood = global::Mood.Angry;
+            _animator.SetInteger(Mood, (int)SettlerData._mood);
             return;
         }
 
         if (TakenCommand != null && _performingCoroutine != null) {
             _animator.SetBool(IsSleeping, false);
-            _mood = TakenCommand.CommandType switch {
+            SettlerData._mood = TakenCommand.CommandType switch {
                 Command.Search => global::Mood.Happy,
                 Command.Break => global::Mood.Angry,
                 Command.Store => global::Mood.Neutral,
                 Command.Transport => global::Mood.Sad,
-                _ => _mood
+                _ => SettlerData._mood
             };
         } else if (TakenTacticalCommand != null && _performingCoroutine != null) {
             _animator.SetBool(IsSleeping, false);
-            _mood = TakenTacticalCommand.TacticalCommandType switch {
+            SettlerData._mood = TakenTacticalCommand.TacticalCommandType switch {
                 TacticalCommand.Move => global::Mood.Neutral,
                 TacticalCommand.TacticalAttack => global::Mood.Angry,
-                _ => _mood
+                _ => SettlerData._mood
             };
         } else {
             _animator.SetBool(IsSleeping, true);
-            _mood = global::Mood.Neutral;
+            SettlerData._mood = global::Mood.Neutral;
         }
 
-        _animator.SetInteger(Mood, (int)_mood);
+        _animator.SetInteger(Mood, (int)SettlerData._mood);
     }
 
     private Vector2Int? TryMoveToCommandTarget() {
@@ -323,7 +321,7 @@ public class Settler : ECSEntity {
             }
         }
 
-        _mode = mode;
+        SettlerData._mode = mode;
     }
 }
 

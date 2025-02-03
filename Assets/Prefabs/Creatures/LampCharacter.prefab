@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 7152871115437038019}
   - component: {fileID: 2388060875937563352}
   - component: {fileID: 237541960610646282}
+  - component: {fileID: 547271636796563806}
   m_Layer: 0
   m_Name: LampCharacter
   m_TagString: Untagged
@@ -53,9 +54,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f40a76cb760594dba08dcdaba02593, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mood: 0
-  _mode: 0
-  Race: 2
   _animator: {fileID: 972441167343308155}
   <ResourceHolder>k__BackingField: {fileID: 5148087878915357870}
 --- !u!210 &5161357846445487122
@@ -217,6 +215,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b7698f0297d42738fc9d4f39fe1dd5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &547271636796563806
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348353066383099300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512ccb40108d4584ada4a89f8f0bb364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mood: 0
+  _mode: 0
+  Race: 2
 --- !u!1 &2916098624400392523
 GameObject:
   m_ObjectHideFlags: 0

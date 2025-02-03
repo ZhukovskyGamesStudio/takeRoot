@@ -54,12 +54,15 @@ public class AStarPathfinding : MonoBehaviour {
 
     private void UpdateWalkable() {
         FindObstacles();
-        foreach (Vector2Int key in _grid.Keys) {
-            _grid[key].Walkable = true; // Assume walkable by default
+
+        foreach (var cell in _grid.Values) {
+            cell.Walkable = true; // Assume all walkable first
         }
 
-        foreach (Vector2Int obstacle in _obstaclePositions.Where(obstacle => _grid.ContainsKey(obstacle))) {
-            _grid[obstacle].Walkable = false;
+        foreach (Vector2Int obstacle in _obstaclePositions) {
+            if (_grid.TryGetValue(obstacle, out var cell)) {
+                cell.Walkable = false;
+            }
         }
     }
 

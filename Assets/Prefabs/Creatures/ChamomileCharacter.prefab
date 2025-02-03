@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 873740563102561430}
   - component: {fileID: 7614239377033273796}
   - component: {fileID: -3252426223056362193}
+  - component: {fileID: 6673383146514505250}
   m_Layer: 0
   m_Name: ChamomileCharacter
   m_TagString: Untagged
@@ -53,9 +54,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f99f901ed04bfead5e4a2deadc30a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mood: 0
-  _mode: 0
-  Race: 1
   _animator: {fileID: 4221488332138550797}
   <ResourceHolder>k__BackingField: {fileID: 8286370950911557338}
 --- !u!210 &5161357846445487122
@@ -217,6 +215,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b7698f0297d42738fc9d4f39fe1dd5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6673383146514505250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348353066383099300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 512ccb40108d4584ada4a89f8f0bb364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mood: 0
+  _mode: 0
+  Race: 1
 --- !u!1 &1997325108845456548
 GameObject:
   m_ObjectHideFlags: 0
