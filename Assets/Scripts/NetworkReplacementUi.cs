@@ -4,14 +4,12 @@ using UnityEngine;
 public class NetworkReplacementUi : MonoBehaviour {
     public Action<Race> OnChangeRace;
 
-    public Race CurrentRace { get; private set; } = Race.Plants;
-
     public void ChangeRace() {
-        CurrentRace = CurrentRace switch {
+        Core.CurrentNetworkFakeRace = Core.CurrentNetworkFakeRace switch {
             Race.Plants => Race.Robots,
             Race.Robots => Race.Plants,
-            _ => CurrentRace
+            _ => Core.CurrentNetworkFakeRace
         };
-        OnChangeRace?.Invoke(CurrentRace);
+        OnChangeRace?.Invoke(Core.CurrentNetworkFakeRace);
     }
 }

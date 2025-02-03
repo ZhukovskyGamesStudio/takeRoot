@@ -19,7 +19,7 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
         if (NetworkManager.Singleton != null) {
             SetRace(PlayerRaceSelection.GetRace());
         } else {
-            SetRace(NetworkReplacement.CurrentRace);
+            SetRace(Core.CurrentNetworkFakeRace);
         }
     }
 

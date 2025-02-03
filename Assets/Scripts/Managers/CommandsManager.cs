@@ -30,7 +30,7 @@ public class CommandsManager : MonoBehaviour {
         _commandsPanel = commandsPanel;
         _plannedCommandView = plannedCommandView;
         _plannedCommands = new List<CommandData>();
-        _settlers = SettlersManager.Instance.Settlers.Where(s => s.Race == _race).ToList();
+        _settlers = Core.SettlersManager.Settlers.Where(s => s.Race == _race).ToList();
     }
 
     private void AddCommand(CommandData data) {

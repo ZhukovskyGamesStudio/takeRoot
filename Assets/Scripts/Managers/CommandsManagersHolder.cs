@@ -26,7 +26,7 @@ public class CommandsManagersHolder : NetworkBehaviour, IInitableInstance {
         CreateManagers();
     }
 
-    public List<Type> GetDependencies() => new() { typeof(SettlersManager), typeof(CoreCanvasUi) };
+    public List<Type> GetDependencies() => new() { typeof(SettlersManager) };
 
     private void CreateManagers() {
         _commandsManagers = new Dictionary<Race, CommandsManager> {

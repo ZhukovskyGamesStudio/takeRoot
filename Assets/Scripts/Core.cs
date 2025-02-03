@@ -14,6 +14,8 @@ public class Core : MonoBehaviour {
     public static ConfigManager ConfigManager;
     public static FogOfWarManager FogOfWarManager;
 
+    public static Race CurrentNetworkFakeRace = Race.Plants;
+
     private void Awake() {
         Instance = this;
 
@@ -59,7 +61,7 @@ public class Core : MonoBehaviour {
         if (NetworkManager.Singleton != null) {
             return PlayerRaceSelection.GetRace();
         } else {
-            return UI.NetworkReplacement.CurrentRace;
+            return CurrentNetworkFakeRace;
         }
     }
 }
