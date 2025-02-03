@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,10 @@ public class CommandToggle : MonoBehaviour {
         if (Input.GetKeyDown(_keyCode)) {
             _toggle.isOn = !_toggle.isOn;
         }
+    }
+
+    private void OnDisable() {
+        _toggle.SetIsOnWithoutNotify(false);
     }
 
     public void OnValueChanged(bool val) {

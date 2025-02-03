@@ -13,6 +13,9 @@ public class SelectionManager : MonoBehaviour {
     [SerializeField]
     private InfoBookView _infoPanel;
 
+    [SerializeField]
+    private bool _autoOpenInfoPanel = false;
+
     public ISelectable Interactable { get; private set; }
     public ISelectable TacticalInteractable { get; private set; }
 
@@ -21,6 +24,16 @@ public class SelectionManager : MonoBehaviour {
     }
 
     public void Update() {
+        if (_autoOpenInfoPanel) {
+            TryAutoOpenInfoPanel();
+        }
+
+        if (_infoToggle.isOn && _commandsPanel.SelectedCommand != Command.None) {
+            _infoToggle.isOn = false;
+        }
+    }
+
+    private void TryAutoOpenInfoPanel() {
         if (Input.GetMouseButton(0) && _commandsPanel.SelectedCommand == Command.None && Interactable != null) {
             _infoToggle.isOn = true;
             _infoPanel.Init(Interactable.GetInfoData());
@@ -29,10 +42,6 @@ public class SelectionManager : MonoBehaviour {
         if (Input.GetMouseButton(0) && _commandsPanel.SelectedCommand == Command.None && TacticalInteractable != null) {
             _infoToggle.isOn = true;
             _infoPanel.Init(TacticalInteractable.GetInfoData());
-        }
-
-        if (_infoToggle.isOn && _commandsPanel.SelectedCommand != Command.None) {
-            _infoToggle.isOn = false;
         }
     }
 

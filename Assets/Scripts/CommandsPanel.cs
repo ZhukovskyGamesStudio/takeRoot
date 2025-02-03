@@ -1,14 +1,18 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CommandsPanel : MonoBehaviour {
+    [SerializeField]
+    private List<CommandToggle> _commandToggles;
+
     public Command SelectedCommand { get; private set; }
 
     public void SelectCommand(Command command) {
         SelectedCommand = command;
         if (command == Command.Search) {
             CursorManager.ChangeCursor(CursorType.Search);
-        }else if (command == Command.Break) {
+        } else if (command == Command.Break) {
             CursorManager.ChangeCursor(CursorType.Wakeup);
         }
     }

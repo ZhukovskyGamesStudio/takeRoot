@@ -26,7 +26,7 @@ public static class LineOfViewAlgorithm {
                 current.y += sy;
             }
 
-            if (blockingViews.Contains(current)) {
+            if (blockingViews.Contains(current) && current != to) {
                 return false;
             }
         }
