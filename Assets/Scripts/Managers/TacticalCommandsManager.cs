@@ -92,7 +92,7 @@ public class TacticalCommandsManager : MonoBehaviour {
     }
 
     private Vector2Int GetFloorCell() {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosition = Vector3.one / 2f + Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3Int gridPosition = _tilemap.WorldToCell(mousePosition);
         return (Vector2Int)gridPosition;
     }
