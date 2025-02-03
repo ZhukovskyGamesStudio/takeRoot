@@ -12,6 +12,15 @@ public class ChangeModeToggle : MonoBehaviour {
     [SerializeField]
     private Toggle _toggle;
 
+    [SerializeField]
+    private KeyCode _hotkey;
+
+    private void Update() {
+        if (Input.GetKeyDown(_hotkey)) {
+            _toggle.isOn = !_toggle.isOn;
+        }
+    }
+
     public void SetToggleValue(bool isOn) {
         _toggle.SetIsOnWithoutNotify(isOn);
     }

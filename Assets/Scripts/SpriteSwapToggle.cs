@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,15 +24,15 @@ public class SpriteSwapToggle : Toggle {
         onValueChanged.AddListener(UpdateSprite);
     }
 
-    private void UpdateSprite(bool isOnArg) {
-        if (_targetImage != null) {
-            _targetImage.sprite = isOnArg ? _onSprite : _offSprite;
-        }
-    }
-
     protected override void OnDestroy() {
         base.OnDestroy();
         // Remove listener to avoid memory leaks
         onValueChanged?.RemoveListener(UpdateSprite);
+    }
+
+    private void UpdateSprite(bool isOnArg) {
+        if (_targetImage != null) {
+            _targetImage.sprite = isOnArg ? _onSprite : _offSprite;
+        }
     }
 }

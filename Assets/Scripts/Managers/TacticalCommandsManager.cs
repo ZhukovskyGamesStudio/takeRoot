@@ -14,10 +14,21 @@ public class TacticalCommandsManager : MonoBehaviour {
     private Tilemap _tilemap;
 
     private void Update() {
-        if (EventSystem.current?.IsPointerOverGameObject() == true) return;
+        if (EventSystem.current?.IsPointerOverGameObject() == true) {
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(1)) {
+            if (SettlersSelectionManager.Instance.SelectedSettler && SettlersSelectionManager.Instance.SelectedSettler.Mode == Mode.Tactical) {
+                TryAddTacticalCommandFromMouseClick(TacticalCommand.Move);
+                return;
+            }
+        }
+
         if (Input.GetMouseButtonDown(0) && _tacticalCommandPanel.SelectedTacticalCommand != TacticalCommand.None) {
-            if (SettlersSelectionManager.Instance.SelectedSettler)
+            if (SettlersSelectionManager.Instance.SelectedSettler) {
                 TryAddTacticalCommandFromMouseClick(_tacticalCommandPanel.SelectedTacticalCommand);
+            }
         }
     }
 

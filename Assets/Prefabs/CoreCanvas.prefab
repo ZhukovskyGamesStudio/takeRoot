@@ -304,7 +304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2128600703365214429
 RectTransform:
   m_ObjectHideFlags: 0
@@ -347,6 +347,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tacticalCommand: 1
   _tacticalCommandPanel: {fileID: 4542745250031471034}
+  _toggle: {fileID: 7612543656164530088}
+  _keyCode: 115
 --- !u!114 &7612543656164530088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -698,6 +700,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _command: 1
   _commandsPanel: {fileID: 1993084439348125257}
+  _toggle: {fileID: 6743547983509007515}
+  _keyCode: 115
 --- !u!114 &6743547983509007515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1280,7 +1284,7 @@ GameObject:
   - component: {fileID: 4448716049026935929}
   - component: {fileID: 3015253121154860668}
   m_Layer: 5
-  m_Name: Attack Toggle
+  m_Name: Destroy Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1328,6 +1332,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _command: 2
   _commandsPanel: {fileID: 1993084439348125257}
+  _toggle: {fileID: 3015253121154860668}
+  _keyCode: 100
 --- !u!114 &3015253121154860668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1466,6 +1472,44 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2296536085403775003
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2541342640480563696}
+  m_Layer: 5
+  m_Name: Commands
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2541342640480563696
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2296536085403775003}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4385885757185513461}
+  - {fileID: 6946521899749997814}
+  - {fileID: 5826729053867735624}
+  m_Father: {fileID: 2650573814424578}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2317015944390019374
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,7 +1524,7 @@ GameObject:
   - component: {fileID: 1098299198398955012}
   - component: {fileID: 1937120615558934717}
   m_Layer: 5
-  m_Name: Repair Toggle
+  m_Name: Transport Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1528,6 +1572,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _command: 6
   _commandsPanel: {fileID: 1993084439348125257}
+  _toggle: {fileID: 1098299198398955012}
+  _keyCode: 114
 --- !u!114 &1098299198398955012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1637,7 +1683,7 @@ RectTransform:
   - {fileID: 2128600703365214429}
   - {fileID: 725935060119916973}
   - {fileID: 6425487401486858738}
-  m_Father: {fileID: 2650573814424578}
+  m_Father: {fileID: 2541342640480563696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -1756,6 +1802,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _command: 3
   _commandsPanel: {fileID: 1993084439348125257}
+  _toggle: {fileID: 7199071991743521764}
+  _keyCode: 99
 --- !u!114 &7199071991743521764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1853,10 +1901,10 @@ RectTransform:
   - {fileID: 3654655350816333668}
   m_Father: {fileID: 4385885757185513461}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 56, y: 56}
+  m_SizeDelta: {x: 0, y: 4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8682710794380798206
 CanvasRenderer:
@@ -1879,7 +1927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.5415094, b: 0.5415094, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1887,7 +1935,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 635fcdefa50fca04cb0e92b310cabae9, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -2153,12 +2201,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 791081305117883420}
-  m_Father: {fileID: 2650573814424578}
+  m_Father: {fileID: 2541342640480563696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1848.1, y: 85.4}
-  m_SizeDelta: {x: 56, y: 51}
+  m_AnchoredPosition: {x: 1649.6798, y: 77.6}
+  m_SizeDelta: {x: 254.4202, y: 51}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &3667375387569461418
 CanvasRenderer:
@@ -2183,6 +2231,7 @@ MonoBehaviour:
   _commandsPanel: {fileID: 1993084439348125257}
   _tacticalCommandPanel: {fileID: 4542745250031471034}
   _toggle: {fileID: 169339717571572678}
+  _hotkey: 32
 --- !u!114 &169339717571572678
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2821,6 +2870,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tacticalCommand: 2
   _tacticalCommandPanel: {fileID: 4542745250031471034}
+  _toggle: {fileID: 8710117316277869729}
+  _keyCode: 97
 --- !u!114 &8710117316277869729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3243,7 +3294,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4644696574908298714}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3253,7 +3304,7 @@ RectTransform:
   - {fileID: 8350670593269448473}
   - {fileID: 8800271186005266958}
   - {fileID: 1195907923706195360}
-  m_Father: {fileID: 2650573814424578}
+  m_Father: {fileID: 2541342640480563696}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -4220,6 +4271,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _command: 4
   _commandsPanel: {fileID: 1993084439348125257}
+  _toggle: {fileID: 7818562017421231472}
+  _keyCode: 98
 --- !u!114 &7818562017421231472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4873,9 +4926,7 @@ RectTransform:
   - {fileID: 3884130767924133832}
   - {fileID: 7333888306485523472}
   - {fileID: 1004004418566995698}
-  - {fileID: 4385885757185513461}
-  - {fileID: 6946521899749997814}
-  - {fileID: 5826729053867735624}
+  - {fileID: 2541342640480563696}
   - {fileID: 3424921265121954983}
   - {fileID: 7774273158134661821}
   - {fileID: 7550508771635484603}
@@ -5182,6 +5233,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tacticalCommand: 3
   _tacticalCommandPanel: {fileID: 4542745250031471034}
+  _toggle: {fileID: 5538707231530370181}
+  _keyCode: 99
 --- !u!114 &5538707231530370181
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5355,7 +5408,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 7}
-  m_SizeDelta: {x: 41, y: 33}
+  m_SizeDelta: {x: 100, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1430426921929636769
 CanvasRenderer:
@@ -5385,7 +5438,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ed7b0350678592641b03714045e65c5f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b5a7630e00b269348b9367e43f3dbce9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5431,7 +5484,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -20.5676, y: -112}
+  m_AnchoredPosition: {x: -20.567627, y: -112}
   m_SizeDelta: {x: 133.281, y: 33.9584}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &8723187102293679411
