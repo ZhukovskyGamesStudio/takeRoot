@@ -14,4 +14,8 @@ public class CreaturesParametersConfig : ScriptableObject {
 
     [field: SerializeField]
     public float MoveTime { get; private set; }
+
+    [field: SerializeField]
+    [Min(1)]
+    public int ViewRadius { get; private set; }
 }

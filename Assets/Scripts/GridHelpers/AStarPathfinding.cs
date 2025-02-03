@@ -5,12 +5,12 @@ using System.Linq;
 
 public class AStarPathfinding : MonoBehaviour {
     public static AStarPathfinding Instance;
+    private readonly HashSet<Node> _closedList = new HashSet<Node>();
 
     private readonly HashSet<Vector2Int> _obstaclePositions = new HashSet<Vector2Int>(); // List of obstacles in the form of grid positions
+    private readonly HashSet<Node> _openList = new HashSet<Node>();
 
     private Dictionary<Vector2Int, Node> _grid;
-    private readonly HashSet<Node> _openList = new HashSet<Node>();
-    private readonly HashSet<Node> _closedList = new HashSet<Node>();
 
     private void Awake() {
         Instance = this;
@@ -28,11 +28,11 @@ public class AStarPathfinding : MonoBehaviour {
 
     // Initialize the grid with walkable and blocked nodes
     private void InitializeGrid() {
-        Rect rect = GridManager.Instance.GridSize;
+        Rect rect = Core.GridManager.GridSize;
         Vector2Int min = new Vector2Int((int)rect.x, (int)rect.y);
         Vector2Int max = new Vector2Int((int)rect.width, (int)rect.height);
-        _grid = new Dictionary<Vector2Int, Node>((max.x-min.x) * (max.y-min.y));
-       
+        _grid = new Dictionary<Vector2Int, Node>((max.x - min.x) * (max.y - min.y));
+
         for (int x = min.x; x < max.x; x++) {
             for (int y = min.x; y < max.y; y++) {
                 Vector2Int position = new Vector2Int(x, y);
@@ -104,6 +104,7 @@ public class AStarPathfinding : MonoBehaviour {
 
         return new List<Vector2Int>(); // Return an empty path if no path is found
     }
+
     public List<Vector2Int> FindPath(Vector2Int start, IEnumerable<Vector2Int> endCells) {
         Node startNode = _grid[start];
 
@@ -151,10 +152,6 @@ public class AStarPathfinding : MonoBehaviour {
         return new List<Vector2Int>(); // Return an empty list if no path is found
     }
 
-
-    
-    
-
     // Get the node with the lowest fCost from the open list
     private Node GetNodeWithLowestFCost(HashSet<Node> list) {
         Node lowestFCostNode = list.First();
@@ -199,6 +196,7 @@ public class AStarPathfinding : MonoBehaviour {
     private short GetDistance(Node a, HashSet<Node> targets) {
         return targets.Min(target => GetDistance(a, target));
     }
+
     private short GetDistance(Node a, Node b) {
         return (short)(Mathf.Abs(a.PosX - b.PosX) + Mathf.Abs(a.PosY - b.PosY));
     }

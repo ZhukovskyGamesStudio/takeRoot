@@ -6,11 +6,10 @@ public class WallTile : ECSEntity, IInteractable, IDamageable {
     private Sprite _icon;
 
     private Interactable _interactable;
-   
 
     protected override void Awake() {
         base.Awake();
-      
+
         _interactable = GetEcsComponent<Interactable>();
         _interactable.GetInfoFunc = GetInfoData;
         _interactable.OnCommandPerformed += OnCommandPerformed;
@@ -20,7 +19,7 @@ public class WallTile : ECSEntity, IInteractable, IDamageable {
 
     private void OnDiedAction() {
         Vector2Int pos = GetEcsComponent<Gridable>().GetBottomLeftOnGrid;
-        GridManager.Instance.RemoveWall(pos);
+        Core.GridManager.RemoveWall(pos);
     }
 
     private void OnCommandPerformed(Command obj) {

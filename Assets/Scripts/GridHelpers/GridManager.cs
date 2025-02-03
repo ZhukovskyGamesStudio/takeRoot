@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class GridManager : MonoBehaviour {
-    public static GridManager Instance;
+public class GridManager : MonoBehaviour, IInitableInstance {
     private static readonly int CursorPosition = Shader.PropertyToID("_CursorPosition");
     private static readonly int Radius = Shader.PropertyToID("_Radius");
 
@@ -18,19 +17,28 @@ public class GridManager : MonoBehaviour {
     [SerializeField]
     private Material _tilemapTransparentMaterial;
 
-    private Camera _mainCamera;
-
     [SerializeField]
     private float _transparencyRadius = 5.0f;
 
-    private void Awake() {
-        Instance = this;
+    private Camera _mainCamera;
+
+    private void Update() {
+        UpdateWallsTransparency();
+    }
+
+    private void OnApplicationQuit() {
+        _tilemapTransparentMaterial.SetVector(CursorPosition, Vector3.zero);
+        _tilemapTransparentMaterial.SetFloat(Radius, 0);
+    }
+
+    public void Init() {
+        Core.GridManager = this;
         _mainCamera = Camera.main!;
         FillGrass();
     }
 
     private void FillGrass() {
-        Rect rect = Instance.GridSize;
+        Rect rect = GridSize;
         Vector2Int min = new Vector2Int((int)rect.x, (int)rect.y);
         Vector2Int max = new Vector2Int((int)rect.width, (int)rect.height);
         _grassTilemap.ClearAllTiles();
@@ -47,10 +55,6 @@ public class GridManager : MonoBehaviour {
         _grassTilemap.SetTilesBlock(bounds, tiles);
     }
 
-    private void Update() {
-        UpdateWallsTransparency();
-    }
-
     private void UpdateWallsTransparency() {
         // Get the world-space cursor position
         Vector3 cursorWorldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -63,10 +67,5 @@ public class GridManager : MonoBehaviour {
 
     public void RemoveWall(Vector2Int pos) {
         _wallsTilemap.SetTile((Vector3Int)pos, null);
-    }
-
-    private void OnApplicationQuit() {
-         _tilemapTransparentMaterial.SetVector(CursorPosition, Vector3.zero);
-        _tilemapTransparentMaterial.SetFloat(Radius, 0);
     }
 }

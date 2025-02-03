@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 
 public class Settler : ECSEntity {
-    public const float CELL_SIZE = 1f;
+    public const float CellSize = 1f;
     private static readonly int Mood = Animator.StringToHash("Mood");
     private static readonly int IsSleeping = Animator.StringToHash("IsSleeping");
 
@@ -50,8 +50,9 @@ public class Settler : ECSEntity {
                             return;
                         }
 
-                        if (!_isMoving)
+                        if (!_isMoving) {
                             _performingCoroutine = StartCoroutine(MoveToSell(nextStepCell.Value));
+                        }
                     }
                 }
             }
@@ -178,7 +179,7 @@ public class Settler : ECSEntity {
     }
 
     private void MoveStep(Vector2Int direction) {
-        transform.position += new Vector3(direction.x, direction.y) * CELL_SIZE;
+        transform.position += new Vector3(direction.x, direction.y) * CellSize;
         if (direction.x < 0) {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
         }
@@ -192,8 +193,7 @@ public class Settler : ECSEntity {
         Vector3 target3 = new Vector3(target.x, target.y);
         Vector3 diff = target3 - transform.position;
         //transform.position = target3 * CELL_SIZE;
-        yield return StartCoroutine(LerpFromTo(transform.position, target3 * CELL_SIZE,
-            ConfigManager.Instance.CreaturesParametersConfig.MoveTime));
+        yield return StartCoroutine(LerpFromTo(transform.position, target3 * CellSize, Core.ConfigManager.CreaturesParametersConfig.MoveTime));
         if (diff.x < 0) {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
         }
@@ -202,6 +202,7 @@ public class Settler : ECSEntity {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
 
+        Core.FogOfWarManager.OpenAroundMovedSettler(this);
         _performingCoroutine = null;
     }
 
@@ -231,9 +232,9 @@ public class Settler : ECSEntity {
     private IEnumerator PerformingCoroutine(Action after) {
         if (TakenCommand?.CommandType == Command.Break || TakenTacticalCommand?.TacticalCommandType == TacticalCommand.TacticalAttack) {
             Transform target = TakenCommand != null ? TakenCommand.Interactable.transform : TakenTacticalCommand.TacticalInteractable.transform;
-            yield return StartCoroutine(Attack(ConfigManager.Instance.CreaturesParametersConfig.AttackTime, target, after));
+            yield return StartCoroutine(Attack(Core.ConfigManager.CreaturesParametersConfig.AttackTime, target, after));
         } else {
-            yield return new WaitForSeconds(ConfigManager.Instance.CreaturesParametersConfig.PerformingTime);
+            yield return new WaitForSeconds(Core.ConfigManager.CreaturesParametersConfig.PerformingTime);
             after?.Invoke();
         }
 
@@ -244,7 +245,7 @@ public class Settler : ECSEntity {
         Transform targetTransform = target.transform;
         Vector3 startPosition = transform.position;
         Vector3 direction = (targetTransform.position - startPosition).normalized;
-        Vector3 targetPosition = startPosition + direction * ConfigManager.Instance.CreaturesParametersConfig.AttackAnimationShift;
+        Vector3 targetPosition = startPosition + direction * Core.ConfigManager.CreaturesParametersConfig.AttackAnimationShift;
 
         float elapsedTime = 0f;
         while (elapsedTime < delay / 2f) {

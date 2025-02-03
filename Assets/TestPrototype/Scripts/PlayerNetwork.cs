@@ -1,33 +1,22 @@
+using System;
 using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
+[Obsolete]
 public class PlayerNetwork : NetworkBehaviour {
+    private NetworkVariable<PlayerNetworkData> _netData = new(writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<Vector3> _netPos = new(writePerm: NetworkVariableWritePermission.Owner);
     private NetworkVariable<Quaternion> _netRot = new(writePerm: NetworkVariableWritePermission.Owner);
-
-    private NetworkVariable<PlayerNetworkData> _netData = new(writePerm: NetworkVariableWritePermission.Owner);
-
-    private InputtedStringControl _playerController;
-    [SerializeField]
-    private PlayerHeadCanvas _playerHeadCanvas;
-
-    private void Awake() {
-        _playerController = GetComponent<InputtedStringControl>();
-    }
 
     private void Update() {
         if (IsOwner) {
             _netPos.Value = transform.position;
             _netRot.Value = transform.rotation;
-            _netData.Value = new PlayerNetworkData() {
-                InputtedString = _playerController.InputtedString
-            };
+            _netData.Value = new PlayerNetworkData() { };
         } else {
             transform.position = _netPos.Value;
             transform.rotation = _netRot.Value;
-            _playerController.InputtedString = _netData.Value.InputtedString.Value;
-            _playerHeadCanvas.SetData(_netData.Value);
         }
     }
 

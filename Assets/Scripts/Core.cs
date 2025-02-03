@@ -10,6 +10,9 @@ public class Core : MonoBehaviour {
     public static CoreCanvasUi UI;
     public static CommandsManagersHolder CommandsManagersHolder;
     public static SettlersManager SettlersManager;
+    public static GridManager GridManager;
+    public static ConfigManager ConfigManager;
+    public static FogOfWarManager FogOfWarManager;
 
     private void Awake() {
         Instance = this;
