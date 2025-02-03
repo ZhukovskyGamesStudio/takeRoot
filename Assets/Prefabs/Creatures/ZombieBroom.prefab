@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2217372693413329764, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 350184352
+      objectReference: {fileID: 0}
     - target: {fileID: 4983002690571163926, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2
@@ -62,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_Name
-      value: ZombieBroom Variant
+      value: ZombieBroom
       objectReference: {fileID: 0}
     - target: {fileID: 9027190584546902724, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_Sprite

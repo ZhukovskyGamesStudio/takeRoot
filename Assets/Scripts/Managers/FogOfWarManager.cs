@@ -11,9 +11,21 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
     [SerializeField]
     private TileBase _blackTile, _greyTile;
 
+    private readonly HashSet<Vector2Int> _blockingViews = new HashSet<Vector2Int>();
+
     private readonly HashSet<Vector2Int> _openedCells = new();
 
     private int ViewRadius => Core.ConfigManager.CreaturesParametersConfig.ViewRadius;
+
+    private void Start() {
+        FindAllBlockingViews();
+        foreach (Settler settler in Core.SettlersManager.MySettlers) {
+            OpenAroundMovedSettler(settler);
+        }
+
+        Core.GridManager.RefreshAllWalls();
+        InvokeRepeating(nameof(FindAllBlockingViews), 0, 1);
+    }
 
     public List<Type> GetDependencies() {
         return new List<Type>() { typeof(SettlersManager), typeof(GridManager), typeof(ConfigManager) };
@@ -23,8 +35,19 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
         Core.FogOfWarManager = this;
         Fill(_blackTilemap, _blackTile);
         Fill(_greyTilemap, _greyTile);
-        foreach (Settler settler in Core.SettlersManager.MySettlers) {
-            OpenAroundMovedSettler(settler);
+    }
+
+    public bool IsOpened(Vector2Int cell) => _openedCells.Contains(cell);
+    public bool IsOpened(Vector3Int cell) => _openedCells.Contains(new Vector2Int(cell.x, cell.y));
+
+    private void FindAllBlockingViews() {
+        _blockingViews.Clear();
+        Gridable[] blockingView = FindObjectsByType<Gridable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+            .Where(r => r.IsBlockingView).ToArray();
+        foreach (Gridable gridable in blockingView) {
+            foreach (Vector2Int pos in gridable.GetOccupiedPositions()) {
+                _blockingViews.Add(pos);
+            }
         }
     }
 
@@ -34,24 +57,41 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
         }
 
         Vector2Int settlerCell = settler.GetCellOnGrid;
-        OpenAround(settlerCell, ViewRadius);
+        OpenAround(settlerCell, ViewRadius + 2, ViewRadius);
         UpdateGreyFog(settlerCell, ViewRadius + 1);
+        RefreshWalls(settlerCell, ViewRadius + 2);
     }
 
-    private void OpenAround(Vector2Int tile, int radius) {
-        for (int i = -radius; i < radius + 1; i++) {
-            for (int j = -radius; j < radius + 1; j++) {
+    private void OpenAround(Vector2Int tile, int updateRadius, int viewRadius) {
+        int sqrViewRadius = viewRadius * viewRadius;
+
+        for (int i = -updateRadius; i <= updateRadius; i++) {
+            for (int j = -updateRadius; j <= updateRadius; j++) {
                 Vector2Int tileCoord = new Vector2Int(tile.x + i, tile.y + j);
+                if ((tileCoord - tile).sqrMagnitude > sqrViewRadius) {
+                    continue;
+                }
+
                 if (_openedCells.Contains(tileCoord)) {
                     continue;
                 }
 
-                if (!(Vector2Int.Distance(tile, tileCoord) <= radius)) {
+                if (!LineOfViewAlgorithm.CanSee(tile, tileCoord, _blockingViews)) {
                     continue;
                 }
 
-                _blackTilemap.SetTile(new Vector3Int(tileCoord.x, tileCoord.y, 0), null);
+                Vector3Int tilePos = new Vector3Int(tileCoord.x, tileCoord.y, 0);
+                _blackTilemap.SetTile(tilePos, null);
                 _openedCells.Add(tileCoord);
+            }
+        }
+    }
+
+    private void RefreshWalls(Vector2Int tile, int updateRadius) {
+        for (int i = -updateRadius; i < updateRadius + 1; i++) {
+            for (int j = -updateRadius; j < updateRadius + 1; j++) {
+                Vector2Int tileCoord = new Vector2Int(tile.x + i, tile.y + j);
+                Core.GridManager.RefreshWalls(new Vector3Int(tileCoord.x, tileCoord.y));
             }
         }
     }
@@ -63,6 +103,12 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
 
                 bool isSeen = Core.SettlersManager.MySettlers.Any(
                     settler => Vector2Int.Distance(settler.GetCellOnGrid, tileCoord) <= ViewRadius);
+
+                if (isSeen) {
+                    if (!LineOfViewAlgorithm.CanSee(tile, tileCoord, _blockingViews)) {
+                        isSeen = false;
+                    }
+                }
 
                 TileBase tileBase = isSeen ? null : _greyTile;
                 _greyTilemap.SetTile(new Vector3Int(tileCoord.x, tileCoord.y, 0), tileBase);

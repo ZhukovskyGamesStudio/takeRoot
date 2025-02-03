@@ -37,6 +37,14 @@ public class GridManager : MonoBehaviour, IInitableInstance {
         FillGrass();
     }
 
+    public void RefreshWalls(Vector3Int cell) {
+        _wallsTilemap.RefreshTile(cell);
+    }
+
+    public void RefreshAllWalls() {
+        _wallsTilemap.RefreshAllTiles();
+    }
+
     private void FillGrass() {
         Rect rect = GridSize;
         Vector2Int min = new Vector2Int((int)rect.x, (int)rect.y);

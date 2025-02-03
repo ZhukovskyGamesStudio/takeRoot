@@ -9,6 +9,9 @@ public class Gridable : ECSComponent {
     [field: SerializeField]
     public bool IsBlockingPath { get; private set; } = true;
 
+    [field: SerializeField]
+    public bool IsBlockingView { get; private set; } = true;
+
     public HashSet<Vector2Int> InteractableCells = new HashSet<Vector2Int>();
 
     public Vector2Int GetBottomLeftOnGrid {

@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d1514134bc4fbd41bb739b1b9a49231, type: 3}
-  m_Name: BigWallTile
+  m_Script: {fileID: 11500000, guid: d36a7fc7784b413b8755f78e841a22b1, type: 3}
+  m_Name: BigWallsTwin
   m_EditorClassIdentifier: 
-  m_DefaultSprite: {fileID: 1683513228, guid: 82425049915043343b625aa4491d520c, type: 3}
-  m_DefaultGameObject: {fileID: 97324615945325911, guid: 7f7b8d87f7571c44e893b63dc6b1a02a, type: 3}
+  m_DefaultSprite: {fileID: 0}
+  m_DefaultGameObject: {fileID: 0}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 8
@@ -588,3 +588,4 @@ MonoBehaviour:
     - {x: -1, y: 1, z: 0}
     - {x: 1, y: 1, z: 0}
     m_RuleTransform: 0
+  _twinRuleTile: {fileID: 11400000, guid: a02ecb0e77dceb24e9f911c622e3a58d, type: 2}
