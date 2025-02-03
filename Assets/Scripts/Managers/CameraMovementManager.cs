@@ -55,8 +55,9 @@ public class CameraMovementManager : MonoBehaviour {
             TryMoveCameraNearScreenEdge();
         }
 
-        ClampCameraPosition();
-        HandleZoom(); // Add zoom handling here
+        HandleZoom();
+
+        ClampCameraPositionAndZoom();
     }
 
     private void OnDrawGizmos() {
@@ -106,6 +107,12 @@ public class CameraMovementManager : MonoBehaviour {
         }
     }
 
+    private void TryMoveCameraToZoom() {
+        Vector2 delta = Mouse.current.position.ReadValue() - new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Vector3 movement = new Vector3(delta.x, delta.y, 0);
+        _cameraTransform.position += movement * _dragMultiplier * (_main.orthographicSize / _minZoom) * Time.deltaTime;
+    }
+
     private void DragCamera() {
         Vector2 delta = _currentPosition - _startPosition;
         Vector3 movement = new Vector3(delta.x, delta.y, 0);
@@ -114,9 +121,17 @@ public class CameraMovementManager : MonoBehaviour {
         _startPosition = _currentPosition;
     }
 
-    private void ClampCameraPosition() {
+    private void ClampCameraPositionAndZoom() {
+        _main.orthographicSize = Mathf.Clamp(_main.orthographicSize, _minZoom, _maxZoom); // Clamp zoom level to min/max
         float cameraWidth = _main.orthographicSize * 2 * _main.aspect;
         float cameraHeight = _main.orthographicSize * 2;
+
+        float screenSeenPercent = cameraWidth / (_cameraBounds.xMax - _cameraBounds.xMin);
+        if (screenSeenPercent > 1) {
+            _main.orthographicSize /= screenSeenPercent;
+            cameraWidth = _main.orthographicSize * 2 * _main.aspect;
+            cameraHeight = _main.orthographicSize * 2;
+        }
 
         float clampedX = Mathf.Clamp(_cameraTransform.position.x, _cameraBounds.xMin + cameraWidth / 2, _cameraBounds.xMax - cameraWidth / 2);
         float clampedY = Mathf.Clamp(_cameraTransform.position.y, _cameraBounds.yMin + cameraHeight / 2, _cameraBounds.yMax - cameraHeight / 2);
@@ -129,7 +144,9 @@ public class CameraMovementManager : MonoBehaviour {
         if (scrollInput != 0) {
             // Adjust the camera's orthographic size based on the scroll input
             _main.orthographicSize -= scrollInput * _zoomSpeed;
-            _main.orthographicSize = Mathf.Clamp(_main.orthographicSize, _minZoom, _maxZoom); // Clamp zoom level to min/max
+            if (scrollInput > 0) {
+                TryMoveCameraToZoom();
+            }
         }
     }
 }
