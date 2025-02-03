@@ -8,7 +8,10 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
     public void Init() {
         Core.UI = this;
         InitRace();
+        InitRaceChangeButton();
+    }
 
+    private void InitRaceChangeButton() {
         if (NetworkManager.Singleton == null) {
             NetworkReplacement.gameObject.SetActive(true);
             NetworkReplacement.OnChangeRace += SetRace;
