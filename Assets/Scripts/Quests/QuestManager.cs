@@ -71,6 +71,16 @@ public class QuestManager : MonoBehaviour, IInitableInstance
     {
         Quest quest = GetQuestById(questId);
         quest.State = QuestState.Completed;
+        _questsView.RedrawQuest(quest);
+        StartCoroutine(FinishQuestWithFadeAway(quest));
+    }
+
+    private IEnumerator FinishQuestWithFadeAway(Quest quest)
+    {
+        float duration = 3f;
+        yield return StartCoroutine(_questsView.FadeAway(quest, duration));
+        if (quest.config.Race == Core.Instance.MyRace() || quest.config.Race == Race.Both)
+            _questsView.RemoveQuestNote(quest);
         foreach (string nextQuest in quest.NextQuests)
         {
             StartQuest(nextQuest);
