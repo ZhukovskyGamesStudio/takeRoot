@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -44,7 +45,7 @@ public class QuestManager : MonoBehaviour, IInitableInstance
         quest.State = QuestState.InProgress;
         quest.InitializeStage();
         if (quest.config.Race == Core.Instance.MyRace() || quest.config.Race == Race.Both)
-            _questsView.AddQuestNote(quest);
+            _questsView.RedrawQuest(quest);
     }
     
     public void AdvanceQuest(string questId, int stageId)
@@ -63,8 +64,7 @@ public class QuestManager : MonoBehaviour, IInitableInstance
             if (quest.config.Race == Core.Instance.MyRace() || quest.config.Race == Race.Both)
                 _questsView.RedrawQuest(quest);
         }
-        else
-            FinishQuest(questId);
+        else FinishQuest(questId);
     }
 
     public void FinishQuest(string questId)
@@ -85,17 +85,15 @@ public class QuestManager : MonoBehaviour, IInitableInstance
         {
             StartQuest(nextQuest);
         }
-        if (quest.config.Race == Core.Instance.MyRace() || quest.config.Race == Race.Both)
-            _questsView.RemoveQuestNote(quest);
     }
 
-    public void UpdateQuestStepStatus(string questId, int stageId, int stepId, QuestStepStatus status)
+    public void UpdateQuestStepStatus(string questId, int stageId, int stepId, string status)
     {
         Quest quest = GetQuestById(questId);
-        quest.Stages[stageId].QuestStepsData[stepId] = status;
+        quest.Stages[stageId].QuestStepsData[stepId].Status = status;
         _questsView.RedrawQuest(quest);
     }
-    public void UpdateQuestStepStatus(string questId, int stageId, int stepId, QuestStepState state)
+    public void UpdateQuestStepState(string questId, int stageId, int stepId, QuestStepState state)
     {
         Quest quest = GetQuestById(questId);
         quest.Stages[stageId].QuestStepsData[stepId].State = state;
@@ -105,10 +103,12 @@ public class QuestManager : MonoBehaviour, IInitableInstance
     private bool CanTakeQuest(Quest quest)
     {
         foreach (QuestConfig questConfig in quest.config.QuestPrerequisites)
-        {
             if (_quests[questConfig.ID].State != QuestState.Completed)
                 return false;
-        }
+        
+        if (quest.State == QuestState.Completed)
+            return false;
+        
         return true;
     }
 

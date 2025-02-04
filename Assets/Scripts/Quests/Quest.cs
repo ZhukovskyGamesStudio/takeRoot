@@ -27,7 +27,7 @@ public class Quest
         var stageConfig = GetCurrentStageConfig();
         var stage = new QuestStage(ID, CurrentStageIndex, stageConfig.QuestStepPrefabs);
         Stages[CurrentStageIndex] = stage;
-        stage.InitializeStage();
+        stage.InitializeSteps();
     }
     private QuestStageConfig GetCurrentStageConfig()
     {
@@ -51,12 +51,19 @@ public class Quest
     //    return new QuestData(config.ID, State, QuestStepData, config.Race, config.IsMain);
     //}
 
+    public string GetQuestName()
+    {
+        if (State == QuestState.Completed)
+            return "<s>" + config.Name + "</s>";
+        return config.Name;
+    }
     public string GetQuestStatusText()
     {
         string status = "";
         foreach (QuestStage stage in Stages)
         {
-            status += stage.GetStageStatusText();
+            if (stage != null)
+                status += stage.GetStageStatusText();
         }
         return status;
     }

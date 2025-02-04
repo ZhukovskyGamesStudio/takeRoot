@@ -22,9 +22,7 @@ public class QuestData
 [Serializable]
 public enum QuestState
 {
-    Unavailable,
-    Available,
+    None,
     InProgress,
-    CanComplete,
     Completed
 }

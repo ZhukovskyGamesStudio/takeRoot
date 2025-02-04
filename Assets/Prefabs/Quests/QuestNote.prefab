@@ -369,8 +369,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11d672b0b1594914a4c6b72206abc90b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questName: {fileID: 7750699441010715254}
-  questStatus: {fileID: 5302950289482956465}
+  QuestName: {fileID: 7750699441010715254}
+  QuestStatus: {fileID: 5302950289482956465}
+  QuestIcon: {fileID: 6194094198423404143}
 --- !u!1 &8348843011128853418
 GameObject:
   m_ObjectHideFlags: 0

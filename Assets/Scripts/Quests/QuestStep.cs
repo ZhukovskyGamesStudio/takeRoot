@@ -8,6 +8,7 @@ public abstract class QuestStep : MonoBehaviour
     private string _questId;
     private int _stageId;
     private int _questStepId;
+    [SerializeField] protected string _status;
 
     public bool IsFinished;
     public void Init(string questId,int stageId, int stepIndex)
@@ -22,14 +23,14 @@ public abstract class QuestStep : MonoBehaviour
         if (IsFinished) return;
         IsFinished = true;
         
-        QuestManager.Instance.UpdateQuestStepStatus(_questId, _stageId, _questStepId, QuestStepState.Finished);
+        QuestManager.Instance.UpdateQuestStepState(_questId, _stageId, _questStepId, QuestStepState.Finished);
         QuestManager.Instance.AdvanceQuest(_questId, _stageId);
         Destroy(gameObject);
         Debug.Log($"{_stageId} step is finished");
     }
 
-    protected void UpdateQuestStepData(QuestStepStatus stepStatus)
+    protected void UpdateQuestStepStatus(string status)
     {
-        QuestManager.Instance.UpdateQuestStepStatus(_questId, _stageId, _questStepId, stepStatus);
+        QuestManager.Instance.UpdateQuestStepStatus(_questId, _stageId, _questStepId, status);
     }
 }

@@ -17,8 +17,9 @@ public class QuestStage
         QuestStepsData = new QuestStepStatus[questStepPrefabs.Length];
         this.questStepPrefabs = questStepPrefabs;
     }
+    
 
-    public void InitializeStage()
+    public void InitializeSteps()
     {
         for (int i = 0; i < questStepPrefabs.Length; i++)
         {

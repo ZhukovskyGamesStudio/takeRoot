@@ -14,7 +14,6 @@ public class QuestStepStatus
 
 public enum QuestStepState
 {
-    NonActive,
     Active,
     Finished
 }
