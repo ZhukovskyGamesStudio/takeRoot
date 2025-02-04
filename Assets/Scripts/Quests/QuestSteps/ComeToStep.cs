@@ -7,14 +7,14 @@ public class ComeToStep : QuestStep
     private void Start()
     {
         transform.position = position;
-        UpdateQuestStepData(new QuestStepStatus(QuestStepState.Active, Race, $"Зайди на точку {position.x} {position.y}"));
+        UpdateQuestStepStatus(_status + $"{position.x} : {position.y}");
     }
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.TryGetComponent<SettlerData>(out var settler))
         {
-            if (settler.Race == Race.Plants)
+            if (settler.Race == Race || Race == Race.Both)
             {
                 FinishStep();
             }

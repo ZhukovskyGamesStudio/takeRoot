@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2535777300465762466}
   - component: {fileID: -2606284796157686729}
-  - component: {fileID: -6934742146241283488}
+  - component: {fileID: 8974507718926394859}
   m_Layer: 0
-  m_Name: ComeToStep
+  m_Name: Mock Find Second Robot Step
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,10 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3d5f5919dc74673928866892254b12e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Race: 1
+  Race: 2
+  _status: "\u041D\u0430\u0439\u0442\u0438 \u0432\u0442\u043E\u0440\u043E\u0433\u043E
+    \u0440\u043E\u0431\u043E\u0442\u0430"
   IsFinished: 0
-  position: {x: 4, y: 10, z: 0}
---- !u!61 &-6934742146241283488
+  position: {x: 4, y: 16, z: 0}
+--- !u!61 &8974507718926394859
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
