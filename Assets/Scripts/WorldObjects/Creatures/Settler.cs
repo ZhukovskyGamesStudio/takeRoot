@@ -85,12 +85,12 @@ public class Settler : ECSEntity {
                 }
             }
         }
-
+        
         UpdateMoodAndAnimations();
     }
 
     private bool CanPerform() {
-        if (TakenCommand.CommandType == Command.Store) {
+        if (TakenCommand.CommandType == Command.Store || TakenCommand.CommandType == Command.Delivery) {
             return TakenCommand.Additional && ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenCommand.Additional);
         }
 
@@ -135,7 +135,12 @@ public class Settler : ECSEntity {
 
         if (TakenCommand.CommandType is Command.Transport) {
             targetCell.Add(TakenCommand.Interactable.GetInteractableCell);
-        } else if (TakenCommand.CommandType == Command.Store) {
+        }
+        else if (TakenCommand.CommandType == Command.Delivery)
+        {
+            targetCell.Add(TakenCommand.Additional.GetInteractableCell);
+        }
+        else if (TakenCommand.CommandType == Command.Store) {
             Storagable st =
                 ResourceManager.Instance.FindClosestAvailableStorage(TakenCommand.Interactable.GetComponent<ResourceView>().ResourceData,
                     GetCellOnGrid);
