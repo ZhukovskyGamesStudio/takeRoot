@@ -33,6 +33,15 @@ public class CommandsManager : MonoBehaviour {
         _settlers = Core.SettlersManager.Settlers.Where(s => s.SettlerData.Race == _race).ToList();
     }
 
+    public void AddCommandManually(CommandData command)
+    {
+        AddCommand(command);
+    }
+
+    public void RemoveCommandManually(CommandData command)
+    {
+        RemoveCommand(command);
+    }
     private void AddCommand(CommandData data) {
         _plannedCommands.Add(data);
         _untakenCommands.Add(data);
