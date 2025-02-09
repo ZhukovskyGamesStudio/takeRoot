@@ -67,6 +67,8 @@ public class CommandsManager : MonoBehaviour {
 
         _takenCommands.Remove(data);
 
+        if (data.Settler == null)
+            return;
         data.Settler.ClearCommand();
         data.Settler = null;
     }

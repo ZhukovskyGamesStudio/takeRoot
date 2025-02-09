@@ -20,6 +20,10 @@ public class AStarPathfinding : MonoBehaviour {
         StartCoroutine(WaitAndInit());
     }
 
+    public bool IsInited()
+    {
+        return _grid != null;
+    }
     private IEnumerator WaitAndInit() {
         yield return new WaitForEndOfFrame();
         InitializeGrid();
