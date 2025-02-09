@@ -11,5 +11,5 @@ public class CommandData {
     public Action TriggerCancel;
     public List<Settler> UnablePerformSettlers = new List<Settler>();
 
-    public bool HasSubsequentCommand => CommandType is Command.Transport or Command.Break;
+    public bool HasSubsequentCommand => CommandType is Command.Transport or Command.Break or Command.GatherResources or Command.Build;
 }

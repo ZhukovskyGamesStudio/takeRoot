@@ -33,5 +33,7 @@ public enum Command {
     Cancel,
     Build,
     Store,
-    Transport
+    Transport,
+    GatherResources,
+    Delivery
 }
