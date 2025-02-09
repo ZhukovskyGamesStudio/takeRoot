@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -23,6 +24,11 @@ public class ResourceView : ECSEntity {
     private Interactable _interactable;
 
     public ResourceData ResourceData { get; private set; } = new ResourceData();
+
+    public Interactable Interactable => _interactable;
+    public int AmountToGather;
+    public Action<ResourceView> OnResourceViewChanged;
+    
 
     protected override void Awake() {
         base.Awake();
@@ -68,6 +74,52 @@ public class ResourceView : ECSEntity {
     }
 
     private void OnCommandPerformed(Command obj) {
+        if (obj == Command.GatherResources)
+        {
+            var resource = new ResourceData()
+            {
+                ResourceType = ResourceType, 
+                Amount = AmountToGather
+            };
+
+            if (AmountToGather == Amount)
+            {
+                IsBeingCarried = true;
+                _interactable.CanSelect = false;
+                GetEcsComponent<Networkable>().ChangeParent(_interactable.CommandToExecute.Settler.ResourceHolder);
+                _interactable.CommandToExecute.CommandType = Command.Delivery;
+                AmountToGather = 0;
+                CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(_interactable.CommandToExecute);
+            }
+            else
+            {
+                var position = _interactable.CommandToExecute.Settler.GetCellOnGrid;
+                var resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
+                resourceToGather.IsBeingCarried = true;
+                resourceToGather._interactable.CanSelect = false;
+                AmountToGather = 0;
+                SetAmount(Amount - resource.Amount);
+                CommandData command = new CommandData() 
+                {
+                    Interactable = resourceToGather.Interactable,
+                    Additional = _interactable.CommandToExecute.Additional,
+                    CommandType = Command.Delivery,
+                    Settler = _interactable.CommandToExecute.Settler
+                };
+                _interactable.CommandToExecute.TriggerCancel?.Invoke();
+                _interactable.CancelCommand();
+                resourceToGather._interactable.AssignCommand(command);
+                resourceToGather.GetEcsComponent<Networkable>().ChangeParent(resourceToGather._interactable.CommandToExecute.Settler.ResourceHolder);
+                CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(resourceToGather._interactable.CommandToExecute);
+                
+            }
+        }
+        if (obj == Command.Delivery)
+        {
+            _interactable.CommandToExecute.Additional.GetComponent<BuildingPlan>().AddResource(ResourceData);
+            _interactable.CancelCommand();
+            _interactable.OnDestroyed();
+        }
         if (obj == Command.Transport) {
             IsBeingCarried = true;
             _interactable.CanSelect = false;
@@ -82,7 +134,6 @@ public class ResourceView : ECSEntity {
                 _interactable.CommandToExecute.PlannedCommandView.Release();
             }
         }
-
         if (obj == Command.Store) {
             _interactable.CommandToExecute.Additional.GetComponent<Storagable>().AddResource(ResourceData);
             _interactable.CancelCommand();
