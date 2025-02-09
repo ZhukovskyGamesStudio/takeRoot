@@ -35,6 +35,13 @@ public class ResourceManager : MonoBehaviour {
         return r;
     }
 
+    public static ResourceView SpawnResourceAt(ResourceData resource, Vector2Int at)
+    {
+        ResourceView resourceView = SpawnResource(resource.ResourceType, at);
+        resourceView.transform.position = new Vector3(at.x, at.y);
+        resourceView.SetAmount(resource.Amount);
+        return resourceView;
+    }
     public static List<ResourceView> SpawnResourcesAround(List<ResourceData> resources, Vector2Int centerCell) {
         const int maxResourceInCell = 10;
         List<ResourceView> spawnedResources = new List<ResourceView>();
