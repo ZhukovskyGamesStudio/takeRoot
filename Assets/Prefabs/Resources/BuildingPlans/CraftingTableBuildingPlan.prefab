@@ -174,16 +174,15 @@ MonoBehaviour:
   _buildPoints: 10
   _requiredResources:
   - ResourceType: 1
-    Amount: 15
+    Amount: 2
   - ResourceType: 2
-    Amount: 10
+    Amount: 2
   _currentResources:
   - ResourceType: 1
     Amount: 0
   - ResourceType: 2
     Amount: 0
   _activeGatherCommands: []
-  _reservedResourceAmount: 0
 --- !u!114 &8773041103846367429
 MonoBehaviour:
   m_ObjectHideFlags: 0
