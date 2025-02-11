@@ -64,6 +64,7 @@ public class GridManager : MonoBehaviour, IInitableInstance {
     }
 
     private void UpdateWallsTransparency() {
+        return;
         // Get the world-space cursor position
         Vector3 cursorWorldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
         cursorWorldPosition.z = 0; // We are working in 2D, so set the Z value to 0
