@@ -85,7 +85,7 @@ public class Settler : ECSEntity {
                 }
             }
         }
-        
+
         UpdateMoodAndAnimations();
     }
 
@@ -135,12 +135,9 @@ public class Settler : ECSEntity {
 
         if (TakenCommand.CommandType is Command.Transport) {
             targetCell.Add(TakenCommand.Interactable.GetInteractableCell);
-        }
-        else if (TakenCommand.CommandType == Command.Delivery)
-        {
+        } else if (TakenCommand.CommandType == Command.Delivery) {
             targetCell.Add(TakenCommand.Additional.GetInteractableCell);
-        }
-        else if (TakenCommand.CommandType == Command.Store) {
+        } else if (TakenCommand.CommandType == Command.Store) {
             Storagable st =
                 ResourceManager.Instance.FindClosestAvailableStorage(TakenCommand.Interactable.GetComponent<ResourceView>().ResourceData,
                     GetCellOnGrid);
@@ -295,6 +292,7 @@ public class Settler : ECSEntity {
     public void SetTacticalCommand(TacticalCommandData data) {
         ClearCommand();
         TakenTacticalCommand = data;
+        data.Settler = this;
         Vector2Int? nextStepCell = TryMoveToTacticalCommandTarget();
         if (nextStepCell == null) {
             ClearTacticalCommand();
@@ -327,6 +325,14 @@ public class Settler : ECSEntity {
         }
 
         SettlerData._mode = mode;
+    }
+
+    public void Equip(ResourceData data) {
+        SettlerData.Equip(data);
+    }
+
+    public void Unequip(EquipmentType equipmentType) {
+        SettlerData.Unequip(equipmentType);
     }
 }
 

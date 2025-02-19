@@ -22,15 +22,14 @@ public class BuildingPlan : ECSEntity {
     private List<ResourceData> _requiredResources;
 
     [SerializeField]
-    private List<ResourceData> _currentResources;
-
-    [SerializeField]
     private List<CommandData> _activeGatherCommands;
 
     private Camera _camera;
     private bool _canBuild;
 
     private bool _canPlace;
+
+    private List<ResourceData> _currentResources;
 
     private Gridable _gridable;
     private Interactable _interactable;
@@ -39,11 +38,16 @@ public class BuildingPlan : ECSEntity {
     [SerializeField]
     private Dictionary<ResourceType, int> _reservedResourceAmount = new Dictionary<ResourceType, int>();
 
+    //TODO cancel удаляет объект
+
     private void Start() {
         _camera = Camera.main;
         _gridable = GetEcsComponent<Gridable>();
         _interactable = GetEcsComponent<Interactable>();
         _interactable.OnCommandPerformed += OnCommandPerformed;
+
+        //TODO создать и наполнить _currentResources пустыми ресурсами из _requiredResources
+
         foreach (var resource in _requiredResources) {
             _reservedResourceAmount.Add(resource.ResourceType, 0);
         }
@@ -232,6 +236,7 @@ public class BuildingPlan : ECSEntity {
     }
 
     private void OnDestroyed() {
+        //TODO надо выбрасывать принесённые ресурсы на землю
         foreach (CommandData command in _activeGatherCommands.ToList()) {
             command.Interactable.CancelCommand();
             CommandsManagersHolder.Instance.CommandsManager.RemoveCommandManually(command);
