@@ -7,4 +7,12 @@ public class WorldObjectsEvents
     {
         onDestroyed?.Invoke(id);
     }
+    
+    public event Action<string> onDied;
+    public void OnDied(string id)
+    {
+        onDied?.Invoke(id);
+    }
+    
+    
 }

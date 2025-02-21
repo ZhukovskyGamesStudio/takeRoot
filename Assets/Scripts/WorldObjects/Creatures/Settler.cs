@@ -29,6 +29,7 @@ public class Settler : ECSEntity {
     protected override void Awake() {
         base.Awake();
         SettlerData = GetEcsComponent<SettlerData>();
+        GetEcsComponent<Damagable>().OnDied += OnDied;
     }
 
     private void Update() {
@@ -330,6 +331,9 @@ public class Settler : ECSEntity {
     }
 
     private void OnDied()
+    {
+        Debug.Log("Settler sleep!", this);
+    }
 }
 
 public enum Mood {
