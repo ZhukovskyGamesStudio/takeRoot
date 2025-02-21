@@ -29,6 +29,27 @@ public static class ExactInteractionChecker {
             return path.First();
         }
 
+        return null;    
+    }
+
+    public static Vector2Int? NextStepOnPathForZombies(Vector2Int from, HashSet<Vector2Int> to, int offsetX)
+    {
+        var path = AStarPathfinding.Instance.FindPathForZombies(from, to, offsetX);
+        if (path.Count > 0)
+        {
+            return path.First();
+        }
+
+        return null;
+    }    
+    public static Vector2Int? NextStepForZombieOnPathWithWallsAsObstacle(Vector2Int from, HashSet<Vector2Int> to, int offsetX)
+    {
+        var path = AStarPathfinding.Instance.FindPathForZombiesWithWallsAsObstacle(from, to, offsetX);
+        if (path.Count > 0)
+        {
+            return path.First();
+        }
+
         return null;
     }
 }

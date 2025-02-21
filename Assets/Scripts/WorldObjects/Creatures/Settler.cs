@@ -328,6 +328,8 @@ public class Settler : ECSEntity {
 
         SettlerData._mode = mode;
     }
+
+    private void OnDied()
 }
 
 public enum Mood {
