@@ -44,6 +44,20 @@ public class SettlersSelectionManager : MonoBehaviour {
                 TryUnselectSettler();
             }
         }
+
+        TryAutoOpenInfoPanel();
+    }
+
+    private void TryAutoOpenInfoPanel() {
+        if (!Input.GetMouseButton(0) || _commandsPanel.SelectedCommand != Command.None || SelectedSettler == null) {
+            return;
+        }
+
+        if (InfoBookView.IsAutoOpenInfoPanel) {
+            Core.UI.InfoPanelView.SetToggle(true);
+        }
+
+        Core.UI.InfoPanelView.Init(SelectedSettler.SettlerData);
     }
 
     private void CreateSelectionView() {
@@ -79,6 +93,10 @@ public class SettlersSelectionManager : MonoBehaviour {
         //SelectedSettler.ChangeMode(Mode.Planning);
         SelectedSettler = null;
         _selectionView.Release(transform);
+
+        if (Core.UI.InfoPanelView.GetToggle()) {
+            Core.UI.InfoPanelView.SetToggle(false);
+        }
     }
 
     private void ChangePanels(bool isTactical) {

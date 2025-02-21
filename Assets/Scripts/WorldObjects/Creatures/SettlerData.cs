@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SettlerData : ECSComponent {
     [field: SerializeField]
+    public Sprite InfoBookIcon;
+
+    [field: SerializeField]
     public Mood _mood;
 
     [field: SerializeField]
@@ -39,7 +42,7 @@ public class SettlerData : ECSComponent {
     }
 
     public void Unequip(EquipmentType equipmentType) {
-        var resType = Equipped[equipmentType];
+        ResourceType resType = Equipped[equipmentType];
         var resData = new ResourceData() {
             Amount = 1,
             ResourceType = resType

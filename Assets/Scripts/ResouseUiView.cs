@@ -2,8 +2,6 @@ using TMPro;
 using UnityEngine;
 
 public class ResouseUiView : MonoBehaviour {
-    public int Amount { get; private set; }
-
     [field: SerializeField]
     public ResourceType ResourceType { get; private set; }
 
@@ -11,7 +9,7 @@ public class ResouseUiView : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _amountText;
 
-   
+    public int Amount { get; private set; }
 
     public void SetAmount(int amount) {
         _amountText.text = amount.ToString();

@@ -1,9 +1,13 @@
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
     [field: SerializeField]
     public NetworkReplacementUi NetworkReplacement { get; private set; }
+
+    [field: SerializeField]
+    public InfoBookView InfoPanelView;
 
     public void Init() {
         Core.UI = this;

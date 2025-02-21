@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class InfoBookView : MonoBehaviour {
+    public static bool IsAutoOpenInfoPanel;
+
     [SerializeField]
     private Image _icon;
 
@@ -13,11 +15,34 @@ public class InfoBookView : MonoBehaviour {
     [SerializeField]
     private ResourceGridView _resourceGridView;
 
+    [SerializeField]
+    private EquipmentGridUiView _equipmentGridView;
+
+    [field: SerializeField]
+    public Toggle _infoToggle;
+
     public void Init(InfoBookData data) {
         _icon.sprite = data.Icon;
         _nameText.text = data.Name;
 
         _resourceGridView.FillGrid(data.Resources);
+        _equipmentGridView.gameObject.SetActive(false);
+    }
+
+    public void Init(SettlerData settlerData) {
+        _icon.sprite = settlerData.InfoBookIcon;
+        _nameText.text = settlerData.name;
+
+        _equipmentGridView.gameObject.SetActive(true);
+        _equipmentGridView.Set(settlerData);
+    }
+
+    public void SetToggle(bool isOn) {
+        _infoToggle.isOn = isOn;
+    }
+
+    public bool GetToggle() {
+        return _infoToggle.isOn;
     }
 }
 

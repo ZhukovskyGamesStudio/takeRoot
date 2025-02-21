@@ -24,9 +24,7 @@ public class SelectionManager : MonoBehaviour {
     }
 
     public void Update() {
-        if (_autoOpenInfoPanel) {
-            TryAutoOpenInfoPanel();
-        }
+        TryAutoOpenInfoPanel();
 
         if (_infoToggle.isOn && _commandsPanel.SelectedCommand != Command.None) {
             _infoToggle.isOn = false;
@@ -35,12 +33,18 @@ public class SelectionManager : MonoBehaviour {
 
     private void TryAutoOpenInfoPanel() {
         if (Input.GetMouseButton(0) && _commandsPanel.SelectedCommand == Command.None && Interactable != null) {
-            _infoToggle.isOn = true;
+            if (_autoOpenInfoPanel) {
+                _infoToggle.isOn = true;
+            }
+
             _infoPanel.Init(Interactable.GetInfoData());
         }
 
         if (Input.GetMouseButton(0) && _commandsPanel.SelectedCommand == Command.None && TacticalInteractable != null) {
-            _infoToggle.isOn = true;
+            if (_autoOpenInfoPanel) {
+                _infoToggle.isOn = true;
+            }
+
             _infoPanel.Init(TacticalInteractable.GetInfoData());
         }
     }

@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
+using WorldObjects;
 
 public class ResourceView : ECSEntity {
     [field: SerializeField]
@@ -21,14 +22,14 @@ public class ResourceView : ECSEntity {
     [SerializeField]
     private SpriteRenderer _icon;
 
+    public int AmountToGather;
+
     private Interactable _interactable;
+    public Action<ResourceView> OnResourceViewChanged;
 
     public ResourceData ResourceData { get; private set; } = new ResourceData();
 
     public Interactable Interactable => _interactable;
-    public int AmountToGather;
-    public Action<ResourceView> OnResourceViewChanged;
-    
 
     protected override void Awake() {
         base.Awake();
@@ -37,6 +38,11 @@ public class ResourceView : ECSEntity {
         _interactable.OnCommandPerformed += OnCommandPerformed;
         _interactable.OnCommandCanceled += OnCommandCanceled;
         _interactable.AddToPossibleCommands(Command.Transport);
+        TacticalInteractable tactical = GetEcsComponent<TacticalInteractable>();
+        if (tactical != null) {
+            tactical.GetInfoFunc = GetInfoData;
+        }
+
         ResourceData.ResourceType = ResourceType;
         SetAmount(Amount);
     }
@@ -74,33 +80,27 @@ public class ResourceView : ECSEntity {
     }
 
     private void OnCommandPerformed(Command obj) {
-        if (obj == Command.GatherResources)
-        {
-            var resource = new ResourceData()
-            {
-                ResourceType = ResourceType, 
+        if (obj == Command.GatherResources) {
+            var resource = new ResourceData() {
+                ResourceType = ResourceType,
                 Amount = AmountToGather
             };
 
-            if (AmountToGather == Amount)
-            {
+            if (AmountToGather == Amount) {
                 IsBeingCarried = true;
                 _interactable.CanSelect = false;
                 GetEcsComponent<Networkable>().ChangeParent(_interactable.CommandToExecute.Settler.ResourceHolder);
                 _interactable.CommandToExecute.CommandType = Command.Delivery;
                 AmountToGather = 0;
                 CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(_interactable.CommandToExecute);
-            }
-            else
-            {
+            } else {
                 var position = _interactable.CommandToExecute.Settler.GetCellOnGrid;
                 var resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
                 resourceToGather.IsBeingCarried = true;
                 resourceToGather._interactable.CanSelect = false;
                 AmountToGather = 0;
                 SetAmount(Amount - resource.Amount);
-                CommandData command = new CommandData() 
-                {
+                CommandData command = new CommandData() {
                     Interactable = resourceToGather.Interactable,
                     Additional = _interactable.CommandToExecute.Additional,
                     CommandType = Command.Delivery,
@@ -109,17 +109,18 @@ public class ResourceView : ECSEntity {
                 _interactable.CommandToExecute.TriggerCancel?.Invoke();
                 _interactable.CancelCommand();
                 resourceToGather._interactable.AssignCommand(command);
-                resourceToGather.GetEcsComponent<Networkable>().ChangeParent(resourceToGather._interactable.CommandToExecute.Settler.ResourceHolder);
+                resourceToGather.GetEcsComponent<Networkable>()
+                    .ChangeParent(resourceToGather._interactable.CommandToExecute.Settler.ResourceHolder);
                 CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(resourceToGather._interactable.CommandToExecute);
-                
             }
         }
-        if (obj == Command.Delivery)
-        {
+
+        if (obj == Command.Delivery) {
             _interactable.CommandToExecute.Additional.GetComponent<BuildingPlan>().AddResource(ResourceData);
             _interactable.CancelCommand();
             _interactable.OnDestroyed();
         }
+
         if (obj == Command.Transport) {
             IsBeingCarried = true;
             _interactable.CanSelect = false;
@@ -134,6 +135,7 @@ public class ResourceView : ECSEntity {
                 _interactable.CommandToExecute.PlannedCommandView.Release();
             }
         }
+
         if (obj == Command.Store) {
             _interactable.CommandToExecute.Additional.GetComponent<Storagable>().AddResource(ResourceData);
             _interactable.CancelCommand();

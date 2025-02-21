@@ -15,6 +15,9 @@ public class Settler : ECSEntity {
     [field: SerializeField]
     public GameObject ResourceHolder { get; private set; }
 
+    [SerializeField]
+    private List<EquipmentView> _equipmentViews = new List<EquipmentView>();
+
     private bool _isMoving;
 
     private Coroutine _performingCoroutine;
@@ -329,10 +332,13 @@ public class Settler : ECSEntity {
 
     public void Equip(ResourceData data) {
         SettlerData.Equip(data);
+        EquipmentType eType = ResourcesHelper.GetEquipmentByResourceType(data.ResourceType);
+        _equipmentViews.First(view => view.Type == eType).SetEquipment(data.ResourceType);
     }
 
-    public void Unequip(EquipmentType equipmentType) {
-        SettlerData.Unequip(equipmentType);
+    public void Unequip(EquipmentType eType) {
+        SettlerData.Unequip(eType);
+        _equipmentViews.First(view => view.Type == eType).SetEquipment(ResourceType.None);
     }
 }
 

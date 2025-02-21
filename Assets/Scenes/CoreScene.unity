@@ -30987,6 +30987,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _resourcesTable: {fileID: 11400000, guid: 4ce8b42e3f65a3b48b75d82c31731554, type: 2}
   _resourcesHolder: {fileID: 1848287950}
+  EquipmentIcons:
+    _keys: 06000000
+    _values:
+    - {fileID: 21300000, guid: 01ead480ff8674f40ae2ac1982349a35, type: 3}
 --- !u!4 &832599719
 Transform:
   m_ObjectHideFlags: 0

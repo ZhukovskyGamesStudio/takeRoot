@@ -1,6 +1,7 @@
+using System;
 using UnityEngine;
 
-[SerializeField]
+[Serializable]
 public enum ResourceType {
     None = 0,
     Planks = 1,
