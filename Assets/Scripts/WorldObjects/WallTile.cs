@@ -13,8 +13,8 @@ public class WallTile : ECSEntity, IInteractable, IDamageable {
         _interactable = GetEcsComponent<Interactable>();
         _interactable.GetInfoFunc = GetInfoData;
         _interactable.OnCommandPerformed += OnCommandPerformed;
-        Damageable damageable = GetEcsComponent<Damageable>();
-        damageable.OnDiedAction += OnDiedAction;
+        Destructable destructable = GetEcsComponent<Destructable>();
+        destructable.OnDiedAction += OnDiedAction;
     }
 
     private void OnDiedAction() {
@@ -26,7 +26,7 @@ public class WallTile : ECSEntity, IInteractable, IDamageable {
         switch (obj) {
             case Command.Break:
                 int fakeDamage = 1;
-                GetEcsComponent<Damageable>().OnAttacked(fakeDamage);
+                GetEcsComponent<Destructable>().OnAttacked(fakeDamage);
                 OnAttacked(1);
                 break;
         }

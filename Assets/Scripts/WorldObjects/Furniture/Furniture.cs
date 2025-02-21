@@ -20,7 +20,7 @@ public abstract class Furniture : ECSEntity, IInteractable, IDamageable {
                 break;
             case Command.Break:
                 int fakeDamage = 1;
-                GetEcsComponent<Damageable>().OnAttacked(fakeDamage);
+                GetEcsComponent<Destructable>().OnAttacked(fakeDamage);
                 OnAttacked(1);
                 break;
         }
