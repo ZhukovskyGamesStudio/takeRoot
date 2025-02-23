@@ -32,6 +32,7 @@ public class Settler : ECSEntity {
     protected override void Awake() {
         base.Awake();
         SettlerData = GetEcsComponent<SettlerData>();
+        GetEcsComponent<Damagable>().OnDied += OnDied;
     }
 
     private void Update() {
@@ -328,6 +329,11 @@ public class Settler : ECSEntity {
         }
 
         SettlerData._mode = mode;
+    }
+
+    private void OnDied()
+    {
+        Debug.Log("Settler sleep!", this);
     }
 
     public void Equip(ResourceData data) {

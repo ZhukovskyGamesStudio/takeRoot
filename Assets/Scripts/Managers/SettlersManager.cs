@@ -16,7 +16,11 @@ public class SettlersManager : MonoBehaviour, IInitableInstance {
             return _settlersDatas.Where(d => d.Race == Race.Both || d.Race == race);
         }
     }
-
+    public Settler GetSettlerAt(Vector2Int position)
+    {
+        return _settlers.FirstOrDefault(d => d.GetCellOnGrid == position);
+    }
+    
     public void Init() {
         Core.SettlersManager = this;
         _settlers = new HashSet<Settler>(FindObjectsByType<Settler>(FindObjectsInactive.Exclude, FindObjectsSortMode.None));

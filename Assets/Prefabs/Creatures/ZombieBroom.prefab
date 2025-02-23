@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8925536323026375811, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+      propertyPath: _id
+      value: zombieBroom
+      objectReference: {fileID: 0}
     - target: {fileID: -2217372693413329764, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 350184352
