@@ -31,7 +31,7 @@ public class InfoBookView : MonoBehaviour {
 
     public void Init(SettlerData settlerData) {
         _icon.sprite = settlerData.InfoBookIcon;
-        _nameText.text = settlerData.name;
+        _nameText.text = settlerData.Name;
 
         _equipmentGridView.gameObject.SetActive(true);
         _equipmentGridView.Set(settlerData);

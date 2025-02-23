@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb308fcfaee74a08a7514c426b8a3854, type: 3}
   m_Name: ZombieConfig
   m_EditorClassIdentifier: 
-  <MoveTime>k__BackingField: 1
+  <MoveTime>k__BackingField: 0.3
+  <MovePause>k__BackingField: 1
   <MoveCooldown>k__BackingField: 2
   <ChangeTargetCooldown>k__BackingField: 5
   <DestroyTime>k__BackingField: 2

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SettlerData : ECSComponent {
     [field: SerializeField]
+    public string Name { get; private set; }
+
+    [field: SerializeField]
     public Sprite InfoBookIcon;
 
     [field: SerializeField]
@@ -47,6 +50,7 @@ public class SettlerData : ECSComponent {
             Amount = 1,
             ResourceType = resType
         };
+        Equipped.Remove(equipmentType);
         ResourceManager.SpawnResourcesAround(new List<ResourceData>() { resData }, GetCellOnGrid);
     }
 }
