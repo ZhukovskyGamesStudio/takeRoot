@@ -13,6 +13,18 @@ public class WorldObjectsEvents
     {
         onDied?.Invoke(id);
     }
-    
-    
+
+    public event Action<Settler> onSettlerModeChanged;
+    public void OnSettlerModeChanged(Settler settler)
+    {
+        onSettlerModeChanged?.Invoke(settler);
+    }
+
+    public event Action onSettlersMerged;
+
+    public void OnSettlersMerged()
+    {
+        onSettlersMerged?.Invoke();
+    }
+
 }
