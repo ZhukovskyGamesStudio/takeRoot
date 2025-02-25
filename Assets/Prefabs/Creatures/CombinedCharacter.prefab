@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5698498766686307394}
-  - component: {fileID: 5982842809008160969}
+  - component: {fileID: 4082209156265162125}
   - component: {fileID: 5161357846445487122}
   - component: {fileID: 1315226754792193234}
   - component: {fileID: 2389124976275916387}
@@ -19,10 +19,10 @@ GameObject:
   - component: {fileID: -3252426223056362193}
   - component: {fileID: 6673383146514505250}
   - component: {fileID: 8089342074805447309}
-  - component: {fileID: -4595942293772232912}
-  - component: {fileID: 6349056453760243531}
+  - component: {fileID: 3405872431325655044}
+  - component: {fileID: -7168169803454243671}
   m_Layer: 0
-  m_Name: ChamomileCharacter
+  m_Name: CombinedCharacter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,7 +45,7 @@ Transform:
   - {fileID: 2709136925302729771}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5982842809008160969
+--- !u!114 &4082209156265162125
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,13 +54,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1348353066383099300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83f99f901ed04bfead5e4a2deadc30a7, type: 3}
+  m_Script: {fileID: 11500000, guid: d2bb887ec2944c29b97990d2773459ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 4221488332138550797}
   <ResourceHolder>k__BackingField: {fileID: 8286370950911557338}
-  _equipmentViews:
-  - {fileID: 6699273587256195358}
+  _equipmentViews: []
 --- !u!210 &5161357846445487122
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -146,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7c0f39d7464bb6a0bf63e2f0088cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settler: {fileID: 5982842809008160969}
+  _settler: {fileID: 0}
 --- !u!114 &873740563102561430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2973892419
+  GlobalObjectIdHash: 579715863
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -232,11 +231,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 512ccb40108d4584ada4a89f8f0bb364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 
+  <Name>k__BackingField: "\u0420\u043E\u0431\u043E-\u0446\u0432\u0435\u0442\u043E\u043A"
   InfoBookIcon: {fileID: 21300000, guid: 5db5ca7982174e64680a61bd56bada19, type: 3}
   _mood: 0
   _mode: 0
-  Race: 1
+  Race: 3
   RoundAttackCooldown: 0
   PossibleEquipment: 01000000
 --- !u!114 &8089342074805447309
@@ -254,7 +253,7 @@ MonoBehaviour:
   <Health>k__BackingField: 1
   _dropOnDestroyed: []
   _id: 
---- !u!114 &-4595942293772232912
+--- !u!114 &3405872431325655044
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -263,10 +262,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1348353066383099300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78776b0eaef5485c8f92e08de482bfd0, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b57adf80acc4b13932c6acfc127e3a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6349056453760243531
+--- !u!114 &-7168169803454243671
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -279,6 +278,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableShift: {x: 0, y: 0}
+  _commandData:
+    TacticalCommandType: 0
+    TargetPosition: {x: 0, y: 0}
+    TacticalInteractable: {fileID: 0}
+    Settler: {fileID: 0}
+    PlannedCommandView: {fileID: 0}
 --- !u!1 &1997325108845456548
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,7 +852,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 83d356dcb467c984380c1c563492f0e8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d091659acda0c645977dc42cc823b72, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
