@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using WorldObjects;
 
 public class SettlerData : ECSComponent {
     [field: SerializeField]
@@ -16,16 +17,30 @@ public class SettlerData : ECSComponent {
     public Mode _mode;
 
     public Race Race;
+    
+    public float RoundAttackCooldown;
+    
     public List<EquipmentType> PossibleEquipment = new List<EquipmentType>();
     public Dictionary<EquipmentType, ResourceType> Equipped = new Dictionary<EquipmentType, ResourceType>();
 
     public Vector2Int GetCellOnGrid => new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
 
+    private void Update()
+    {
+        if (RoundAttackCooldown > 0)
+            RoundAttackCooldown -= Time.deltaTime;
+    }
+
     public override int GetDependancyPriority() {
         return 0;
     }
 
-    public override void Init(ECSEntity entity) { }
+    public override void Init(ECSEntity entity)
+    {
+        var interactable = entity.GetEcsComponent<TacticalInteractable>();
+        if (interactable != null)
+            interactable.GetInfoFunc = GetInfoData;
+    }
 
     public void Equip(ResourceData resource) {
         var equppedType = ResourcesHelper.GetEquipmentByResourceType(resource.ResourceType);
@@ -52,6 +67,17 @@ public class SettlerData : ECSComponent {
         };
         Equipped.Remove(equipmentType);
         ResourceManager.SpawnResourcesAround(new List<ResourceData>() { resData }, GetCellOnGrid);
+    }
+
+    private InfoBookData GetInfoData()
+    {
+        InfoBookData data = new InfoBookData()
+        {
+            Icon = InfoBookIcon,
+            Name = Name,
+            Resources = new List<ResourceData>()
+        };
+        return data;
     }
 }
 

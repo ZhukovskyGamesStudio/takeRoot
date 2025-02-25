@@ -21,7 +21,8 @@ public class Settler : ECSEntity {
     private bool _isMoving;
 
     private Coroutine _performingCoroutine;
-
+    protected Gridable _gridable;
+    
     public CommandData TakenCommand { get; private set; }
     public TacticalCommandData TakenTacticalCommand { get; private set; }
     public Mode Mode => SettlerData._mode;
@@ -32,7 +33,8 @@ public class Settler : ECSEntity {
     protected override void Awake() {
         base.Awake();
         SettlerData = GetEcsComponent<SettlerData>();
-        GetEcsComponent<Damagable>().OnDied += OnDied;
+        _gridable = GetEcsComponent<Gridable>();
+        GetEcsComponent<Damagable>().OnDiedAction += OnDied;
     }
 
     private void Update() {
@@ -62,8 +64,16 @@ public class Settler : ECSEntity {
 
         if (TakenTacticalCommand != null) {
             if (_performingCoroutine == null) {
-                if (TakenTacticalCommand.TacticalCommandType != TacticalCommand.Move) {
-                    var canPerform = ExactInteractionChecker.CanInteract(GetCellOnGrid, TakenTacticalCommand.TacticalInteractable);
+                if (TakenTacticalCommand.TacticalCommandType == TacticalCommand.RoundAttack)
+                {
+                    TryStartPerform(() => {
+                        CommandsManagersHolder.Instance.TacticalCommandsManager.PerformedCommand(TakenTacticalCommand);
+                    });
+                    return;
+                }
+                if (TakenTacticalCommand.TacticalCommandType != TacticalCommand.Move)
+                {
+                    var canPerform = CanPerformTactical();
                     if (canPerform) {
                         TryStartPerform(() => {
                             CommandsManagersHolder.Instance.TacticalCommandsManager.PerformedCommand(TakenTacticalCommand);
@@ -91,6 +101,12 @@ public class Settler : ECSEntity {
         }
 
         UpdateMoodAndAnimations();
+    }
+
+    private bool CanPerformTactical()
+    {
+        var canPerform = ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenTacticalCommand.TacticalInteractable);
+        return canPerform;
     }
 
     private bool CanPerform() {
@@ -170,7 +186,12 @@ public class Settler : ECSEntity {
 
     private Vector2Int? TryMoveToTacticalCommandTarget() {
         Vector2Int target;
-        HashSet<Vector2Int> targetCell = new HashSet<Vector2Int>() { TakenTacticalCommand.TargetPosition };
+        HashSet<Vector2Int> targetCell = new HashSet<Vector2Int>();
+        if (TakenTacticalCommand.TacticalInteractable == null)
+            targetCell.Add(TakenTacticalCommand.TargetPosition);
+        else
+            targetCell = TakenTacticalCommand.TacticalInteractable.InteractableCells;
+        
         Vector2Int? pathStep = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, targetCell);
         if (pathStep != null) {
             target = pathStep.Value;
@@ -205,7 +226,7 @@ public class Settler : ECSEntity {
         if (diff.x > 0) {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
-
+        _gridable.PositionChanged();
         Core.FogOfWarManager.OpenAroundMovedSettler(this);
         _performingCoroutine = null;
     }

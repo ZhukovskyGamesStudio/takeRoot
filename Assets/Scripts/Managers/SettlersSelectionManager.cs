@@ -48,6 +48,14 @@ public class SettlersSelectionManager : MonoBehaviour {
         TryAutoOpenInfoPanel();
     }
 
+    public void TryUnselectSpecificSettler(Settler settler)
+    {
+        _tacticalCommandPanel.ClearSelectedTacticalCommand(_tacticalCommandPanel.SelectedTacticalCommand);
+        if (SelectedSettler == settler) {
+            TryUnselectSettler();
+        }
+    }
+
     private void TryAutoOpenInfoPanel() {
         if (!Input.GetMouseButton(0) || _commandsPanel.SelectedCommand != Command.None || SelectedSettler == null) {
             return;
@@ -110,5 +118,6 @@ public class SettlersSelectionManager : MonoBehaviour {
         }
 
         SelectedSettler.ChangeMode(isTactical ? Mode.Tactical : Mode.Planning);
+        GameEventsManager.Instance.WorldObjectsEvents.OnSettlerModeChanged(SelectedSettler);
     }
 }
