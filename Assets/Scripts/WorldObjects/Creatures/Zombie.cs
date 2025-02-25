@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using WorldObjects;
 using Random = UnityEngine.Random;
 
@@ -12,7 +13,6 @@ public class Zombie : ECSEntity {
     private Vector2Int? _currentAttackTarget;
 
     private HashSet<Vector2Int> _currentMovementTarget;
-    private Gridable _gridable;
 
     private bool _isMoving;
 
@@ -21,15 +21,18 @@ public class Zombie : ECSEntity {
     private object _performingCoroutine;
 
     private SpriteRenderer _spriteRenderer;
+    
+    public Gridable Gridable;
     public ZombieData ZombieData { get; private set; }
+    
 
     protected override void Awake() {
         base.Awake();
         ZombieData = GetEcsComponent<ZombieData>();
-        _gridable = GetEcsComponent<Gridable>();
+        Gridable = GetEcsComponent<Gridable>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         GetEcsComponent<Listener>().HasHeard += HasHeard;
-        GetEcsComponent<Damagable>().OnDied += OnDied;
+        GetEcsComponent<Damagable>().OnDiedAction += OnDied;
     }
 
     private void Update() {
@@ -87,7 +90,7 @@ public class Zombie : ECSEntity {
         if (_changeAttackTargetCooldown > 0)
             return;
         foreach (Settler settler in SettlersManager.Instance.Settlers) {
-            if (_gridable.InteractableCells.Contains(settler.GetCellOnGrid) && settler.SettlerData._mood != Mood.Neutral) {
+            if (Gridable.InteractableCells.Contains(settler.GetCellOnGrid) && settler.SettlerData._mood != Mood.Neutral) {
                 SetRagePoints(ZombieData.PointsToRageState);
                 AddAttackTarget(settler.GetCellOnGrid);
             }
@@ -168,7 +171,7 @@ public class Zombie : ECSEntity {
     }
 
     private bool CanAttackTarget() {
-        return _currentAttackTarget != null && _gridable.InteractableCells.Contains(_currentAttackTarget.Value);
+        return _currentAttackTarget != null && Gridable.InteractableCells.Contains(_currentAttackTarget.Value);
     }
 
     private IEnumerator StartAttack() {
@@ -215,7 +218,7 @@ public class Zombie : ECSEntity {
 
         yield return new WaitForSeconds(Core.ConfigManager.ZombieConfig.MovePause);
         yield return StartCoroutine(LerpFromTo(transform.position, target3 * CellSize, Core.ConfigManager.ZombieConfig.MoveTime));
-        _gridable.PositionChanged();
+        Gridable.PositionChanged();
         _performingCoroutine = null;
     }
 
@@ -242,7 +245,10 @@ public class Zombie : ECSEntity {
             AddAttackTarget(noisePosition);
     }
 
-    private void OnDied() { }
+    private void OnDied()
+    {
+        
+    }
 }
 
 public enum EnemyState {
