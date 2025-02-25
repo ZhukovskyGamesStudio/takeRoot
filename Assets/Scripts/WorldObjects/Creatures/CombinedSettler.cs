@@ -11,6 +11,7 @@ public class CombinedSettler : Settler
 
     public void OnDied()
     {
+        SettlersSelectionManager.Instance.TryUnselectSpecificSettler(this);
         Core.SettlersManager.DestroySettler(this);
         SpawnSettlersAround();
     }
