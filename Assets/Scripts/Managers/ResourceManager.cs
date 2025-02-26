@@ -156,6 +156,18 @@ public class ResourceManager : MonoBehaviour {
         //TODO find closest
         return closestStorage;
     }
+
+    public static List<ResourceView> FindFitResourcesOnGround(ResourceType type) {
+        ResourceView[] resourcesOnGround = FindObjectsByType<ResourceView>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        return resourcesOnGround
+            .Where(r => r.ResourceType == type && r.Amount != 0 && r.GetEcsComponent<Interactable>().CommandToExecute == null).ToList();
+    }
+
+    public static List<Storagable> FindFitStorages(ResourceType type) {
+        Storagable[] storages = FindObjectsByType<Storagable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        return storages.Where(r =>
+            r.Resource.ResourceType == type && r.Resource.Amount != 0 && r.GetComponent<Interactable>().CommandToExecute == null).ToList();
+    }
 }
 
 [Serializable]

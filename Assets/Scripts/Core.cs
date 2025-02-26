@@ -13,6 +13,7 @@ public class Core : MonoBehaviour {
     public static GridManager GridManager;
     public static ConfigManager ConfigManager;
     public static FogOfWarManager FogOfWarManager;
+    public static CraftingManager CraftingManager;
 
     public static Race CurrentNetworkFakeRace = Race.Plants;
 

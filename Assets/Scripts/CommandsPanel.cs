@@ -35,5 +35,6 @@ public enum Command {
     Store,
     Transport,
     GatherResources,
-    Delivery
+    Delivery,
+    Craft
 }

@@ -112,7 +112,7 @@ public class BuildingPlan : ECSEntity {
             var requiredResourceAmount = LeftToBring(requiredResource.ResourceType);
             if (requiredResourceAmount == 0)
                 continue;
-            List<ResourceView> fitResourcesOnGround = FindFitResourcesOnGround(requiredResource.ResourceType);
+            List<ResourceView> fitResourcesOnGround = ResourceManager.FindFitResourcesOnGround(requiredResource.ResourceType);
             foreach (ResourceView resource in fitResourcesOnGround) {
                 if (requiredResourceAmount == 0)
                     break;
@@ -133,7 +133,7 @@ public class BuildingPlan : ECSEntity {
             var requiredResourcesAmount = LeftToBring(requiredResource.ResourceType);
             if (requiredResourceAmount == 0)
                 continue;
-            List<Storagable> fitStorages = FindFitStorages(requiredResource.ResourceType);
+            List<Storagable> fitStorages = ResourceManager.FindFitStorages(requiredResource.ResourceType);
             foreach (Storagable storage in fitStorages) {
                 if (requiredResourceAmount == 0)
                     break;
@@ -180,18 +180,6 @@ public class BuildingPlan : ECSEntity {
     //                 .Where(requiredResource => !ResourcesRequirementReached(requiredResource.ResourceType)))
     //        return requiredResource;
     //}
-
-    public List<ResourceView> FindFitResourcesOnGround(ResourceType type) {
-        ResourceView[] resourcesOnGround = FindObjectsByType<ResourceView>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        return resourcesOnGround
-            .Where(r => r.ResourceType == type && r.Amount != 0 && r.GetEcsComponent<Interactable>().CommandToExecute == null).ToList();
-    }
-
-    private List<Storagable> FindFitStorages(ResourceType type) {
-        Storagable[] storages = FindObjectsByType<Storagable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        return storages.Where(r =>
-            r.Resource.ResourceType == type && r.Resource.Amount != 0 && r.GetComponent<Interactable>().CommandToExecute == null).ToList();
-    }
 
     public void AddResource(ResourceData resource) {
         var currentResource = _currentResources.Find(r => r.ResourceType == resource.ResourceType);
