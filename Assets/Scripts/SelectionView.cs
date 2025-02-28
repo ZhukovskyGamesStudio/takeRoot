@@ -11,14 +11,19 @@ public class SelectionView : MonoBehaviour {
         if (parent != null) {
             transform.SetParent(parent);
         }
+
         SetSize(gridable.GetGridEdgePoints());
     }
 
     private void SetSize(List<Vector3> edgePoints) {
         _lb.position = edgePoints[0];
+        _lb.localScale = Vector3.one;
         _lt.position = edgePoints[1];
+        _lt.localScale = Vector3.one;
         _rt.position = edgePoints[2];
+        _rt.localScale = Vector3.one;
         _rb.position = edgePoints[3];
+        _rb.localScale = Vector3.one;
     }
 
     public void Release(Transform defaltParent) {

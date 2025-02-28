@@ -33,6 +33,10 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
 
     public void Init() {
         Core.FogOfWarManager = this;
+        if (!gameObject.activeSelf) {
+            return;
+        }
+
         Fill(_blackTilemap, _blackTile);
         Fill(_greyTilemap, _greyTile);
     }
@@ -52,10 +56,14 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
     }
 
     public void OpenAroundMovedSettler(Settler settler) {
+        if (!gameObject.activeSelf) {
+            return;
+        }
+
         OpenAroundMovedSettler(settler.SettlerData);
     }
 
-    public void OpenAroundMovedSettler(SettlerData settlerData) {
+    private void OpenAroundMovedSettler(SettlerData settlerData) {
         if (settlerData.Race != Core.Instance.MyRace()) {
             return;
         }
