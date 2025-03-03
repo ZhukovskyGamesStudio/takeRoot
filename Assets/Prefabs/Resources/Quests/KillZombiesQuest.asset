@@ -10,17 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39308480140f4036bb9ecb50d638327a, type: 3}
-  m_Name: QuestConfig1
+  m_Name: KillZombiesQuest
   m_EditorClassIdentifier: 
-  ID: door
-  Name: "\u041E\u0431\u0441\u043B\u0435\u0434\u043E\u0432\u0430\u0442\u044C \u0434\u043E\u043C"
-  Race: 3
+  ID: killZombies
+  Name: "\u041F\u043E\u0431\u0435\u0434\u0438\u0442\u044C \u0437\u043E\u043C\u0431\u0438"
+  Race: 0
   State: 0
   NextQuests: []
   QuestStages:
   - QuestStepPrefabs:
-    - {fileID: 5605529826327624197, guid: cb6a09e8321aa4647afea360e6186c3c, type: 3}
-    - {fileID: 5605529826327624197, guid: c7ba9bfd72d5ca741b9247eb6131704e, type: 3}
-    - {fileID: 5605529826327624197, guid: 1fcb503fc5a9bad4eba8a3dbc6c03aed, type: 3}
+    - {fileID: 5605529826327624197, guid: fd195a38bdab1a74da128a551f0f59f3, type: 3}
+    - {fileID: 5605529826327624197, guid: 316880cc7c29b8c469ceba72a088115a, type: 3}
   QuestPrerequisites: []
-  IsMain: 1
+  IsMain: 0

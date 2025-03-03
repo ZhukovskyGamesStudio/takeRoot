@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Damagable : ECSComponent
 {
-    public Action OnDied;
+    public Action OnDiedAction;
+    
+    private Gridable _gridable;
     
     [field: SerializeField]
     public int Health { get; private set; }
@@ -13,22 +15,35 @@ public class Damagable : ECSComponent
     protected List<ResourceData> _dropOnDestroyed;
     [SerializeField]
     private string _id;
+    
+
+    public override void Init(ECSEntity entity)
+    {
+        _gridable = entity.GetEcsComponent<Gridable>();
+    }
 
     public void OnAttacked(int damageAmount)
     {
         Health -= damageAmount;
         if (Health <= 0)
         {
-            OnDied?.Invoke();
+            OnDiedAction?.Invoke();
+            OnDied();
             GameEventsManager.Instance.WorldObjectsEvents.OnDied(_id);
         }
     }
-    
+
+    private void OnDied()
+    {
+        Vector2Int pos = _gridable.GetBottomLeftOnGrid;
+        ResourceManager.SpawnResourcesAround(_dropOnDestroyed, pos);
+        if (this != null) {
+            Destroy(gameObject);
+        }
+    }
+
     public override int GetDependancyPriority()
     {
         return 0;
     }
-
-    public override void Init(ECSEntity entity)
-    { }
 }

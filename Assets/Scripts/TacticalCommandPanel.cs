@@ -26,5 +26,7 @@ public enum TacticalCommand {
     Move,
     TacticalAttack,
     Cancel,
-    Equip
+    Equip,
+    Merge,
+    RoundAttack
 }
