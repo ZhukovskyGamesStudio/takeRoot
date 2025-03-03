@@ -13,7 +13,9 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
 
     private readonly HashSet<Vector2Int> _blockingViews = new();
 
-    private readonly HashSet<Vector2Int> _openedCells = new();
+    private readonly Dictionary<Race, HashSet<Vector2Int>> _openedCellsD = new();
+
+    private HashSet<Vector2Int> _openedCells => _openedCellsD[Core.Instance.MyRace()];
 
     private int ViewRadius => Core.ConfigManager.CreaturesParametersConfig.ViewRadius;
 
@@ -37,8 +39,17 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
             return;
         }
 
+        _openedCellsD[Race.Robots] = new HashSet<Vector2Int>();
+        _openedCellsD[Race.Plants] = new HashSet<Vector2Int>();
+
         Fill(_blackTilemap, _blackTile);
         Fill(_greyTilemap, _greyTile);
+
+        Core.UI.NetworkReplacement.OnChangeRace += OnChangeRace;
+    }
+
+    private void OnChangeRace(Race race) {
+        ClearAndOpenOpened();
     }
 
     public bool IsOpened(Vector2Int cell) => _openedCells.Contains(cell);
@@ -152,5 +163,19 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
 
         // Set the tiles in bulk
         tilemap.SetTilesBlock(bounds, tiles);
+    }
+
+    private void ClearAndOpenOpened() {
+        Fill(_blackTilemap, _blackTile);
+        Fill(_greyTilemap, _greyTile);
+
+        foreach (var coord in (_openedCells)) {
+            Vector3Int tilePos = new Vector3Int(coord.x, coord.y, 0);
+            _blackTilemap.SetTile(tilePos, null);
+        }
+
+        foreach (SettlerData settler in Core.SettlersManager.MySettlers) {
+            OpenAroundMovedSettler(settler);
+        }
     }
 }
