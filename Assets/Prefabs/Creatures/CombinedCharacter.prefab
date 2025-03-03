@@ -237,7 +237,9 @@ MonoBehaviour:
   _mode: 0
   Race: 3
   RoundAttackCooldown: 0
-  PossibleEquipment: 01000000
+  PossibleEquipment: 
+  AvailableCommands: 
+  CanPerformCommands: 02000000
 --- !u!114 &8089342074805447309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,12 +280,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableShift: {x: 0, y: 0}
-  _commandData:
-    TacticalCommandType: 0
-    TargetPosition: {x: 0, y: 0}
-    TacticalInteractable: {fileID: 0}
-    Settler: {fileID: 0}
-    PlannedCommandView: {fileID: 0}
 --- !u!1 &1997325108845456548
 GameObject:
   m_ObjectHideFlags: 0

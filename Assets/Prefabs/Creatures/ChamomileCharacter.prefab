@@ -239,6 +239,8 @@ MonoBehaviour:
   Race: 1
   RoundAttackCooldown: 0
   PossibleEquipment: 01000000
+  AvailableCommands: 
+  CanPerformCommands: 01000000040000000500000006000000070000000800000009000000
 --- !u!114 &8089342074805447309
 MonoBehaviour:
   m_ObjectHideFlags: 0

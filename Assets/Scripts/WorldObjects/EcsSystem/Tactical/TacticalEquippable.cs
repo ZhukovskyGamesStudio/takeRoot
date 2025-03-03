@@ -30,4 +30,6 @@ public class TacticalEquippable : ECSComponent {
         _tacticalInteractable.CommandToExecute.Settler.Equip(_resourceView.ResourceData);
         _tacticalInteractable.OnDestroyed();
     }
+
+    public EquipmentType GetEquipmentType() => ResourcesHelper.GetEquipmentByResourceType(_resourceView.ResourceType);
 }

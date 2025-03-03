@@ -16,16 +16,14 @@ public class TacticalCommandsManager : MonoBehaviour {
 
     private void Update() {
         if (_tacticalCommandPanel.SelectedTacticalCommand == TacticalCommand.RoundAttack &&
-            SettlersSelectionManager.Instance.SelectedSettler.TakenTacticalCommand == null)
-        {
+            SettlersSelectionManager.Instance.SelectedSettler.TakenTacticalCommand == null) {
             TryAddTacticalCommandFromMouseClick(TacticalCommand.RoundAttack);
         }
-        
+
         if (EventSystem.current?.IsPointerOverGameObject() == true) {
             return;
         }
 
-        
         if (Input.GetMouseButtonDown(1)) {
             if (SettlersSelectionManager.Instance.SelectedSettler && SettlersSelectionManager.Instance.SelectedSettler.Mode == Mode.Tactical) {
                 TryAddTacticalCommandFromMouseClick(TacticalCommand.Move);
@@ -48,31 +46,28 @@ public class TacticalCommandsManager : MonoBehaviour {
     }
 
     private void TryAddTacticalCommandFromMouseClick(TacticalCommand tacticalCommand) {
-        if (Core.Instance.MyRace() != _race) 
+        if (Core.Instance.MyRace() != _race)
             return;
-        
+
         TacticalInteractable interactable = SelectionManager.Instance.TacticalInteractable as TacticalInteractable;
-        if (tacticalCommand == TacticalCommand.RoundAttack)
-        {
+        if (tacticalCommand == TacticalCommand.RoundAttack) {
             interactable = SettlersSelectionManager.Instance.SelectedSettler.GetEcsComponent<TacticalInteractable>();
-            
+
             //Выключает тугл RoundAttack чтобы избежать повторных добавлений команды
             var toggle = _tacticalCommandPanel.GetComponentsInChildren<TacticalCommandToggle>()
                 .FirstOrDefault(t => t.TacticalCommand == TacticalCommand.RoundAttack);
             if (toggle != null) toggle.OnValueChanged(false);
         }
-        
+
         if (tacticalCommand == TacticalCommand.Cancel) {
             //RemoveCommand();
         }
 
-        
         TacticalCommandData data = new TacticalCommandData();
         data.TacticalCommandType = tacticalCommand;
         if (interactable == null && tacticalCommand != TacticalCommand.Move) {
             return;
         }
-        
 
         if (interactable == null) {
             data.TacticalInteractable = null;
@@ -84,15 +79,20 @@ public class TacticalCommandsManager : MonoBehaviour {
                 return;
             }
 
-            if (tacticalCommand == TacticalCommand.Merge && interactable.TryGetComponent(out Settler settler))
-            {
+            if (tacticalCommand == TacticalCommand.Merge && interactable.TryGetComponent(out Settler settler)) {
                 if (settler.SettlerData.Race == Core.Instance.MyRace())
                     return;
                 if (settler.SettlerData._mode == Mode.Planning)
                     return;
             }
-            
-            
+
+            if (tacticalCommand == TacticalCommand.Equip && interactable.TryGetComponent(out TacticalEquippable equippable)) {
+                var equipType = equippable.GetEquipmentType();
+                if (!SettlersSelectionManager.Instance.SelectedSettler.SettlerData.PossibleEquipment.Contains(equipType)) {
+                    return;
+                }
+            }
+
             data.TacticalInteractable = interactable;
             data.TargetPosition = interactable.GetInteractableCell;
             interactable.AssignCommand(data);
@@ -117,7 +117,7 @@ public class TacticalCommandsManager : MonoBehaviour {
         if (_currentCommand != null) {
             if (_currentCommand.PlannedCommandView != null)
                 _currentCommand.PlannedCommandView.Release();
-            
+
             _currentCommand = null;
             SettlersSelectionManager.Instance.SelectedSettler.ClearTacticalCommand();
         }

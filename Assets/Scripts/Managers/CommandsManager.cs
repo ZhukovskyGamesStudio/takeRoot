@@ -33,15 +33,14 @@ public class CommandsManager : MonoBehaviour {
         _settlers = Core.SettlersManager.Settlers.Where(s => s.SettlerData.Race == _race).ToList();
     }
 
-    public void AddCommandManually(CommandData command)
-    {
+    public void AddCommandManually(CommandData command) {
         AddCommand(command);
     }
 
-    public void RemoveCommandManually(CommandData command)
-    {
+    public void RemoveCommandManually(CommandData command) {
         RemoveCommand(command);
     }
+
     private void AddCommand(CommandData data) {
         _plannedCommands.Add(data);
         _untakenCommands.Add(data);
@@ -120,24 +119,27 @@ public class CommandsManager : MonoBehaviour {
     }
 
     private void TryGiveUnjobedSettlerCommand() {
-        if (_untakenCommands.Count == 0) {
-            return;
-        }
-
         foreach (Settler settler in _settlers) {
-            if (settler.TakenCommand != null) {
-                continue;
-            }
-
-            if (settler.Mode == Mode.Tactical) continue;
-
             if (_untakenCommands.Count == 0) {
                 return;
             }
 
-            CommandData nextCommand = _untakenCommands.First();
-            if (nextCommand.UnablePerformSettlers.Contains(settler))
+            if (settler.TakenCommand != null) {
                 continue;
+            }
+
+            if (settler.Mode == Mode.Tactical) {
+                continue;
+            }
+
+            CommandData nextCommand = _untakenCommands.First();
+            if (nextCommand.UnablePerformSettlers.Contains(settler)) {
+                continue;
+            }
+
+            if (!settler.SettlerData.AvailableCommands.Contains(nextCommand.CommandType)) {
+                continue;
+            }
 
             SetSettlerCommand(settler, nextCommand);
         }
