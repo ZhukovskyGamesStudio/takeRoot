@@ -79,8 +79,8 @@ public class ResourceView : ECSEntity {
         ResourceData.Amount = amount;
     }
 
-    private void OnCommandPerformed(Command obj) {
-        if (obj == Command.GatherResources) {
+    private void OnCommandPerformed(CommandData cData) {
+        if (cData.CommandType == Command.GatherResources) {
             var resource = new ResourceData() {
                 ResourceType = ResourceType,
                 Amount = AmountToGather
@@ -89,12 +89,15 @@ public class ResourceView : ECSEntity {
             if (AmountToGather == Amount) {
                 IsBeingCarried = true;
                 _interactable.CanSelect = false;
-                GetEcsComponent<Networkable>().ChangeParent(_interactable.CommandToExecute.Settler.ResourceHolder);
-                _interactable.CommandToExecute.CommandType = Command.Delivery;
+                GetEcsComponent<Networkable>().ChangeParent(cData.Settler.ResourceHolder);
+                cData.CommandType = Command.Delivery;
+                cData.AdditionalData = new DeliveryCommandData() {
+                    TargetPlan = _interactable.CommandToExecute.Additional.GetComponent<BuildingPlan>()
+                };
                 AmountToGather = 0;
-                CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(_interactable.CommandToExecute);
+                CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(cData);
             } else {
-                var position = _interactable.CommandToExecute.Settler.GetCellOnGrid;
+                var position = cData.Settler.GetCellOnGrid;
                 var resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
                 resourceToGather.IsBeingCarried = true;
                 resourceToGather._interactable.CanSelect = false;
@@ -102,11 +105,14 @@ public class ResourceView : ECSEntity {
                 SetAmount(Amount - resource.Amount);
                 CommandData command = new CommandData() {
                     Interactable = resourceToGather.Interactable,
-                    Additional = _interactable.CommandToExecute.Additional,
+                    Additional = cData.Additional,
+                    AdditionalData = new DeliveryCommandData() {
+                        TargetPlan = cData.Additional.GetComponent<BuildingPlan>()
+                    },
                     CommandType = Command.Delivery,
-                    Settler = _interactable.CommandToExecute.Settler
+                    Settler = cData.Settler
                 };
-                _interactable.CommandToExecute.TriggerCancel?.Invoke();
+                cData.TriggerCancel?.Invoke();
                 _interactable.CancelCommand();
                 resourceToGather._interactable.AssignCommand(command);
                 resourceToGather.GetEcsComponent<Networkable>()
@@ -115,29 +121,35 @@ public class ResourceView : ECSEntity {
             }
         }
 
-        if (obj == Command.Delivery) {
-            _interactable.CommandToExecute.Additional.GetComponent<BuildingPlan>().AddResource(ResourceData);
+        if (cData.CommandType == Command.Delivery) {
+            DeliveryCommandData deliveryData = (DeliveryCommandData)cData.AdditionalData;
+            deliveryData.TargetPlan.GetComponent<BuildingPlan>().AddResource(ResourceData);
             _interactable.CancelCommand();
             _interactable.OnDestroyed();
         }
 
-        if (obj == Command.Transport) {
+        if (cData.CommandType == Command.Transport) {
             IsBeingCarried = true;
             _interactable.CanSelect = false;
-            _interactable.CommandToExecute.CommandType = Command.Store;
-            //var storage = ResourceManager.Instance.FindEmptyStorageForResorce(ResourceData);
-            //Interactable interactableStorage = storage.GetEcsComponent<Interactable>();
-            //_interactable.CommandToExecute.Additional = interactableStorage;
-            CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(_interactable.CommandToExecute);
-            GetEcsComponent<Networkable>().ChangeParent(_interactable.CommandToExecute.Settler.ResourceHolder);
+            cData.CommandType = Command.Store;
+            Storagable storage = ResourceManager.Instance.FindClosestAvailableStorage(ResourceData, _interactable.GetInteractableCell);
+            cData.AdditionalData = new StoreCommandData() {
+                TargetStorage = storage,
+                Resource = this
+            };
+            CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(cData);
+            GetEcsComponent<Networkable>().ChangeParent(cData.Settler.ResourceHolder);
             transform.localPosition = Vector3.zero;
-            if (_interactable.CommandToExecute.PlannedCommandView != null) {
-                _interactable.CommandToExecute.PlannedCommandView.Release();
+            if (cData.PlannedCommandView != null) {
+                cData.PlannedCommandView.Release();
             }
+
+            return;
         }
 
-        if (obj == Command.Store) {
-            _interactable.CommandToExecute.Additional.GetComponent<Storagable>().AddResource(ResourceData);
+        if (cData.CommandType == Command.Store) {
+            StoreCommandData storeData = (StoreCommandData)cData.AdditionalData;
+            storeData.TargetStorage.AddResource(ResourceData);
             _interactable.CancelCommand();
             SetAmount(ResourceData.Amount);
             if (ResourceData.Amount == 0)
@@ -145,7 +157,7 @@ public class ResourceView : ECSEntity {
         }
     }
 
-    private void OnCommandCanceled(Command type) {
+    private void OnCommandCanceled(CommandData type) {
         DropOnGround();
     }
 

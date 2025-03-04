@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 856779236606590816}
   - component: {fileID: 5590831965269210041}
   - component: {fileID: 1421982924084047609}
-  - component: {fileID: 5937769120803031951}
   - component: {fileID: 8235431858876820353}
   m_Layer: 0
   m_Name: WallTile
@@ -48,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d79be80d52c1bd343a6699ba3f92770f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _icon: {fileID: 0}
 --- !u!114 &5590831965269210041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,20 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _size: {x: 1, y: 1}
   <IsBlockingPath>k__BackingField: 1
---- !u!114 &5937769120803031951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7015800240866516106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f24d4e305ef8498b9d2669730127b0d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Health>k__BackingField: 10
-  _dropOnDestroyed: []
+  <IsBlockingView>k__BackingField: 1
 --- !u!61 &8235431858876820353
 BoxCollider2D:
   m_ObjectHideFlags: 0

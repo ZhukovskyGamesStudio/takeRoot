@@ -16,7 +16,7 @@ public class CraftingStationable : ECSComponent {
         _interactable.OnCommandPerformed += OnCommandPerformed;
     }
 
-    private void OnCommandPerformed(Command obj) {
+    private void OnCommandPerformed(CommandData obj) {
         _craftingCombinedCommand?.OnCommandPerformed(obj);
     }
 }

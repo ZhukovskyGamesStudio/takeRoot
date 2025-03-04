@@ -8,10 +8,10 @@ public class AStarPathfinding : MonoBehaviour {
     private readonly HashSet<Node> _closedList = new HashSet<Node>();
 
     private readonly HashSet<Vector2Int> _obstaclePositions = new HashSet<Vector2Int>(); // List of obstacles in the form of grid positions
-    private HashSet<Vector2Int> _wallsPositions = new HashSet<Vector2Int>();
     private readonly HashSet<Node> _openList = new HashSet<Node>();
 
     private Dictionary<Vector2Int, Node> _grid;
+    private HashSet<Vector2Int> _wallsPositions = new HashSet<Vector2Int>();
 
     private void Awake() {
         Instance = this;
@@ -21,10 +21,10 @@ public class AStarPathfinding : MonoBehaviour {
         StartCoroutine(WaitAndInit());
     }
 
-    public bool IsInited()
-    {
+    public bool IsInited() {
         return _grid != null;
     }
+
     private IEnumerator WaitAndInit() {
         yield return new WaitForEndOfFrame();
         InitializeGrid();
@@ -57,13 +57,12 @@ public class AStarPathfinding : MonoBehaviour {
             }
         }
     }
-    private void FindWalls()
-    {
-        Gridable[] walls = FindObjectsByType<Gridable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Where(w => w.GetComponent<WallTile>() != null)
-            .ToArray();
+
+    private void FindWalls() {
+        Gridable[] walls = FindObjectsByType<Gridable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+            .Where(w => w.GetComponent<WallTile>() != null).ToArray();
         foreach (Gridable gridable in walls)
-        foreach (Vector2Int wallPos in gridable.GetOccupiedPositions())
-        {
+        foreach (Vector2Int wallPos in gridable.GetOccupiedPositions()) {
             _wallsPositions.Add(wallPos);
         }
     }
@@ -125,7 +124,8 @@ public class AStarPathfinding : MonoBehaviour {
         return new List<Vector2Int>(); // Return an empty path if no path is found
     }
 
-    public List<Vector2Int> FindPath(Vector2Int start, IEnumerable<Vector2Int> endCells) {
+    public List<Vector2Int> FindPath(Vector2Int start, IEnumerable<Vector2Int> endCells, out bool isPathExist) {
+        isPathExist = true;
         Node startNode = _grid[start];
 
         // Convert endCells to a HashSet for faster lookups
@@ -169,8 +169,10 @@ public class AStarPathfinding : MonoBehaviour {
             }
         }
 
+        isPathExist = false;
         return new List<Vector2Int>(); // Return an empty list if no path is found
     }
+
     public List<Vector2Int> FindPathForZombies(Vector2Int start, IEnumerable<Vector2Int> endCells, int offsetX) {
         Node startNode = _grid[start];
 
@@ -189,20 +191,20 @@ public class AStarPathfinding : MonoBehaviour {
             Node currentNode = GetNodeWithLowestFCost(_openList);
             _openList.Remove(currentNode);
             _closedList.Add(currentNode);
-            
+
             // Check if the current node is one of the target nodes
             if (targetNodes.Contains(currentNode)) {
                 return RetracePath(startNode, currentNode); // Found the path to the nearest end cell
             }
-            
+
             // Evaluate each of the neighbors
             foreach (Node neighbor in GetNeighbors(currentNode)) {
                 if (!neighbor.Walkable || _closedList.Contains(neighbor))
                     continue;
-                
+
                 if (!IsWalkable(new Vector2Int(neighbor.PosX + offsetX, neighbor.PosY)))
                     continue;
-                
+
                 short newGCost = (short)(currentNode.GCost + GetDistance(currentNode, neighbor));
                 if (newGCost >= neighbor.GCost && _openList.Contains(neighbor)) {
                     continue;
@@ -221,15 +223,14 @@ public class AStarPathfinding : MonoBehaviour {
         return new List<Vector2Int>(); // Return an empty list if no path is found
     }
 
-    public List<Vector2Int> FindPathForZombiesWithWallsAsObstacleOld(Vector2Int start, IEnumerable<Vector2Int> endCells, int offsetX, IEnumerable<Vector2Int> occupiedCells)
-    {
+    public List<Vector2Int> FindPathForZombiesWithWallsAsObstacleOld(Vector2Int start, IEnumerable<Vector2Int> endCells, int offsetX,
+        IEnumerable<Vector2Int> occupiedCells) {
         HashSet<Node> occupiedStartNodes = new HashSet<Node>(occupiedCells.Select(cell => _grid[cell]));
         // Convert endCells to a HashSet for faster lookups
         HashSet<Node> targetNodes = new HashSet<Node>(endCells.Select(cell => _grid[cell]));
 
         Node closestNode = new Node(new Vector2Int(999, 999), true);
-        foreach (Node occupiedStartNode in occupiedStartNodes)
-        {
+        foreach (Node occupiedStartNode in occupiedStartNodes) {
             if (GetDistance(occupiedStartNode, targetNodes) < GetDistance(closestNode, targetNodes))
                 closestNode = occupiedStartNode;
         }
@@ -242,23 +243,20 @@ public class AStarPathfinding : MonoBehaviour {
         _openList.Add(startNode);
 
         int counter = 0;
-        while (_openList.Count > 0 && counter < 500)
-        {
+        while (_openList.Count > 0 && counter < 500) {
             counter++;
             // Get the node with the lowest fCost
             Node currentNode = GetNodeWithLowestFCost(_openList);
             _openList.Remove(currentNode);
             _closedList.Add(currentNode);
-            
+
             // Check if the current node is one of the target nodes
-            if (targetNodes.Contains(currentNode))
-            {
+            if (targetNodes.Contains(currentNode)) {
                 return RetracePath(startNode, currentNode); // Found the path to the nearest end cell
             }
 
             // Evaluate each of the neighbors
-            foreach (Node neighbor in GetNeighbors(currentNode))
-            {
+            foreach (Node neighbor in GetNeighbors(currentNode)) {
                 var neigbourPos = new Vector2Int(neighbor.PosX, neighbor.PosY);
                 if (occupiedStartNodes.Contains(neighbor))
                     continue;
@@ -266,10 +264,9 @@ public class AStarPathfinding : MonoBehaviour {
                     continue;
                 if (_wallsPositions.Contains(new Vector2Int(neighbor.PosX + offsetX, neighbor.PosY)))
                     continue;
-                
+
                 short newGCost = (short)(currentNode.GCost + GetDistance(currentNode, neighbor));
-                if (newGCost >= neighbor.GCost && _openList.Contains(neighbor))
-                {
+                if (newGCost >= neighbor.GCost && _openList.Contains(neighbor)) {
                     continue;
                 }
 
@@ -277,8 +274,7 @@ public class AStarPathfinding : MonoBehaviour {
                 neighbor.HCost = GetDistance(neighbor, targetNodes); // Modified to consider multiple targets
                 neighbor.Parent = currentNode;
 
-                if (!_openList.Contains(neighbor))
-                {
+                if (!_openList.Contains(neighbor)) {
                     _openList.Add(neighbor);
                 }
             }
@@ -286,9 +282,8 @@ public class AStarPathfinding : MonoBehaviour {
 
         return new List<Vector2Int>();
     }
-    
-    public List<Vector2Int> FindPathForZombiesWithWallsAsObstacle(Vector2Int start, IEnumerable<Vector2Int> endCells, int offsetX)
-    {
+
+    public List<Vector2Int> FindPathForZombiesWithWallsAsObstacle(Vector2Int start, IEnumerable<Vector2Int> endCells, int offsetX) {
         Node startNode = _grid[start];
 
         // Convert endCells to a HashSet for faster lookups
@@ -300,8 +295,7 @@ public class AStarPathfinding : MonoBehaviour {
         _openList.Add(startNode);
 
         int counter = 0;
-        while (_openList.Count > 0 && counter < 500)
-        {
+        while (_openList.Count > 0 && counter < 500) {
             counter++;
             // Get the node with the lowest fCost
             Node currentNode = GetNodeWithLowestFCost(_openList);
@@ -309,14 +303,12 @@ public class AStarPathfinding : MonoBehaviour {
             _closedList.Add(currentNode);
 
             // Check if the current node is one of the target nodes
-            if (targetNodes.Contains(currentNode))
-            {
+            if (targetNodes.Contains(currentNode)) {
                 return RetracePath(startNode, currentNode); // Found the path to the nearest end cell
             }
 
             // Evaluate each of the neighbors
-            foreach (Node neighbor in GetNeighbors(currentNode))
-            {
+            foreach (Node neighbor in GetNeighbors(currentNode)) {
                 if (_closedList.Contains(neighbor))
                     continue;
                 if (_wallsPositions.Contains(new Vector2Int(neighbor.PosX, neighbor.PosY)))
@@ -325,8 +317,7 @@ public class AStarPathfinding : MonoBehaviour {
                     continue;
 
                 short newGCost = (short)(currentNode.GCost + GetDistance(currentNode, neighbor));
-                if (newGCost >= neighbor.GCost && _openList.Contains(neighbor))
-                {
+                if (newGCost >= neighbor.GCost && _openList.Contains(neighbor)) {
                     continue;
                 }
 
@@ -334,14 +325,15 @@ public class AStarPathfinding : MonoBehaviour {
                 neighbor.HCost = GetDistance(neighbor, targetNodes); // Modified to consider multiple targets
                 neighbor.Parent = currentNode;
 
-                if (!_openList.Contains(neighbor))
-                {
+                if (!_openList.Contains(neighbor)) {
                     _openList.Add(neighbor);
                 }
             }
         }
+
         return new List<Vector2Int>(); // Return an empty list if no path is found
     }
+
     // Get the node with the lowest fCost from the open list
     private Node GetNodeWithLowestFCost(HashSet<Node> list) {
         Node lowestFCostNode = list.First();

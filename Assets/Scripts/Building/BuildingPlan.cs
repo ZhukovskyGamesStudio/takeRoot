@@ -29,7 +29,7 @@ public class BuildingPlan : ECSEntity {
 
     private bool _canPlace;
 
-    private List<ResourceData> _currentResources;
+    private List<ResourceData> _currentResources = new List<ResourceData>();
 
     private Gridable _gridable;
     private Interactable _interactable;
@@ -37,6 +37,8 @@ public class BuildingPlan : ECSEntity {
 
     [SerializeField]
     private Dictionary<ResourceType, int> _reservedResourceAmount = new Dictionary<ResourceType, int>();
+
+    public Interactable Interactable => _interactable;
 
     //TODO cancel удаляет объект
 
@@ -50,6 +52,10 @@ public class BuildingPlan : ECSEntity {
 
         foreach (var resource in _requiredResources) {
             _reservedResourceAmount.Add(resource.ResourceType, 0);
+            _currentResources.Add(new ResourceData() {
+                Amount = 0,
+                ResourceType = resource.ResourceType
+            });
         }
     }
 
@@ -207,8 +213,8 @@ public class BuildingPlan : ECSEntity {
         return true;
     }
 
-    private void OnCommandPerformed(Command obj) {
-        if (obj == Command.Build) {
+    private void OnCommandPerformed(CommandData obj) {
+        if (obj.CommandType == Command.Build) {
             int fakeBuildPoints = 1;
             _buildPoints -= fakeBuildPoints;
             if (_buildPoints == 0) {

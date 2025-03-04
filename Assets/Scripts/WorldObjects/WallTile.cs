@@ -14,7 +14,9 @@ public class WallTile : ECSEntity, IInteractable, IDamageable {
         _interactable.GetInfoFunc = GetInfoData;
         _interactable.OnCommandPerformed += OnCommandPerformed;
         Destructable destructable = GetEcsComponent<Destructable>();
-        destructable.OnDiedAction += OnDiedAction;
+        if (destructable != null) {
+            destructable.OnDiedAction += OnDiedAction;
+        }
     }
 
     private void OnDiedAction() {
@@ -22,8 +24,8 @@ public class WallTile : ECSEntity, IInteractable, IDamageable {
         Core.GridManager.RemoveWall(pos);
     }
 
-    private void OnCommandPerformed(Command obj) {
-        switch (obj) {
+    private void OnCommandPerformed(CommandData obj) {
+        switch (obj.CommandType) {
             case Command.Break:
                 int fakeDamage = 1;
                 GetEcsComponent<Destructable>().OnAttacked(fakeDamage);

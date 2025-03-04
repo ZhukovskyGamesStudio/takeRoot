@@ -12,8 +12,8 @@ public abstract class Furniture : ECSEntity, IInteractable, IDamageable {
         interactable.OnCommandPerformed += OnCommandPerformed;
     }
 
-    private void OnCommandPerformed(Command obj) {
-        switch (obj) {
+    private void OnCommandPerformed(CommandData obj) {
+        switch (obj.CommandType) {
             case Command.Search:
                 GetEcsComponent<Searchable>().OnExplored();
                 OnExplored();

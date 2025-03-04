@@ -9,24 +9,21 @@ public class Storagable : ECSComponent {
     //TODO тут должен быть список
     [field: SerializeField]
     public ResourceData Resource { get; private set; } = ResourceData.Empty;
-    
+
     public int AmountToGather;
     private Interactable _interactable;
 
+    public Interactable Interactable => _interactable;
 
-    private void Awake()
-    {
+    private void Awake() {
         _interactable = GetComponent<Interactable>();
         _interactable.OnCommandPerformed += OnCommandPerformed;
     }
 
-    private void OnCommandPerformed(Command obj)
-    {
-        if (obj == Command.GatherResources)
-        {
-            var resource = new ResourceData()
-            {
-                ResourceType = Resource.ResourceType, 
+    private void OnCommandPerformed(CommandData cData) {
+        if (cData.CommandType == Command.GatherResources) {
+            var resource = new ResourceData() {
+                ResourceType = Resource.ResourceType,
                 Amount = AmountToGather
             };
             var position = _interactable.CommandToExecute.Settler.GetCellOnGrid;
@@ -35,11 +32,13 @@ public class Storagable : ECSComponent {
             resourceToGather.Interactable.CanSelect = false;
             AmountToGather = 0;
             Resource.Amount -= resource.Amount;
-            CommandData command = new CommandData() 
-            {
+            CommandData command = new CommandData() {
                 Interactable = resourceToGather.Interactable,
                 Additional = _interactable.CommandToExecute.Additional,
                 CommandType = Command.Delivery,
+                AdditionalData = new DeliveryCommandData() {
+                    TargetPlan = _interactable.CommandToExecute.Additional.GetComponent<BuildingPlan>()
+                },
                 Settler = _interactable.CommandToExecute.Settler
             };
             _interactable.CommandToExecute.TriggerCancel?.Invoke();
@@ -47,10 +46,9 @@ public class Storagable : ECSComponent {
             resourceToGather.Interactable.AssignCommand(command);
             resourceToGather.GetEcsComponent<Networkable>().ChangeParent(resourceToGather.Interactable.CommandToExecute.Settler.ResourceHolder);
             CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(resourceToGather.Interactable.CommandToExecute);
-            
         }
     }
-    
+
     public void AddResource(ResourceData resourceData) {
         if (resourceData.ResourceType != Resource.ResourceType && !IsEmpty())
             return;
@@ -104,8 +102,7 @@ public class Storagable : ECSComponent {
         return resourceData.ResourceType == Resource.ResourceType && !IsFull();
     }
 
-    public bool HasResources(ResourceData resourceData)
-    {
+    public bool HasResources(ResourceData resourceData) {
         return resourceData.ResourceType == Resource.ResourceType && resourceData.Amount <= Resource.Amount;
     }
 
@@ -116,7 +113,7 @@ public class Storagable : ECSComponent {
     private bool IsEmpty() {
         return Resource.Amount == 0;
     }
-    
+
     public override int GetDependancyPriority() {
         return 0;
     }

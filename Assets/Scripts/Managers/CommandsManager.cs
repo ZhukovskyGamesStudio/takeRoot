@@ -44,7 +44,7 @@ public class CommandsManager : MonoBehaviour {
     private void AddCommand(CommandData data) {
         _plannedCommands.Add(data);
         _untakenCommands.Add(data);
-        if (data.PlannedCommandView == null) {
+        if (data.PlannedCommandView == null && data.CommandType != Command.Store && data.CommandType != Command.Delivery) {
             PlannedCommandView commandView = Instantiate(_plannedCommandView, data.Interactable.transform);
             commandView.Init(data.CommandType, data.Interactable.Gridable);
             data.PlannedCommandView = commandView;
@@ -191,7 +191,7 @@ public class CommandsManager : MonoBehaviour {
 
     public void PerformedCommand(CommandData data) {
         bool hasSubsequent = data.HasSubsequentCommand;
-        data.Interactable.ExecuteCommand();
+        data.Interactable.ExecuteCommand(data);
         if (!hasSubsequent) {
             RemoveCommand(data);
         }

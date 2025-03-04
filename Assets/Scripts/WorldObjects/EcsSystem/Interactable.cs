@@ -9,10 +9,11 @@ public class Interactable : ECSComponent, ISelectable {
     private readonly List<Command> _availableCommands = new List<Command>() { };
     public Func<InfoBookData> GetInfoFunc;
 
-    public Action<Command> OnCommandPerformed, OnCommandCanceled;
+    public Action<CommandData> OnCommandPerformed, OnCommandCanceled;
 
     public Gridable Gridable { get; private set; }
 
+    //TODO get rid of it
     public CommandData CommandToExecute { get; private set; }
 
     public HashSet<Vector2Int> InteractableCells => Gridable.InteractableCells;
@@ -70,23 +71,23 @@ public class Interactable : ECSComponent, ISelectable {
             return;
         }
 
-        OnCommandCanceled?.Invoke(CommandToExecute.CommandType);
+        OnCommandCanceled?.Invoke(CommandToExecute);
         CommandToExecute = null;
     }
 
-    public void ExecuteCommand() {
-        if (CommandToExecute == null) {
-            return;
-        }
-
-        OnCommandPerformed?.Invoke(CommandToExecute.CommandType);
+    public void ExecuteCommand(CommandData data) {
+        OnCommandPerformed?.Invoke(data);
     }
 
     public void OnDestroyed() {
         _availableCommands.Clear();
         CommandToExecute?.TriggerCancel?.Invoke();
         CancelCommand();
-        Destroy(gameObject);
+        try {
+            Destroy(gameObject);
+        } catch {
+            Debug.LogWarning("Double destroy happened.");
+        }
     }
 
     public override int GetDependancyPriority() {

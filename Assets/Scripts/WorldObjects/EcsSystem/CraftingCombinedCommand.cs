@@ -41,7 +41,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                 CommandsManagersHolder.Instance.CommandsManager.AddCommandManually(command);
             }
 
-            var requiredResourcesAmount = LeftToBring(requiredResource.ResourceType);
+            int requiredResourcesAmount = LeftToBring(requiredResource.ResourceType);
             if (requiredResourceAmount == 0)
                 continue;
             List<Storagable> fitStorages = ResourceManager.FindFitStorages(requiredResource.ResourceType);
@@ -87,8 +87,8 @@ public class CraftingCombinedCommand : CombinedCommandData {
             _reservedResourceAmount[storage.Resource.ResourceType] -= resource.AmountToGather;
     }
 
-    public void OnCommandPerformed(Command obj) {
-        if (obj == Command.GatherResources) {
+    public void OnCommandPerformed(CommandData obj) {
+        if (obj.CommandType == Command.GatherResources) {
             /*
             var resource = new ResourceData()
             {

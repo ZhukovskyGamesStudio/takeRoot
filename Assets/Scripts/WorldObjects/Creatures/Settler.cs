@@ -18,11 +18,12 @@ public class Settler : ECSEntity {
     [SerializeField]
     private List<EquipmentView> _equipmentViews = new List<EquipmentView>();
 
+    protected Gridable _gridable;
+
     private bool _isMoving;
 
     private Coroutine _performingCoroutine;
-    protected Gridable _gridable;
-    
+
     public CommandData TakenCommand { get; private set; }
     public TacticalCommandData TakenTacticalCommand { get; private set; }
     public Mode Mode => SettlerData._mode;
@@ -64,15 +65,12 @@ public class Settler : ECSEntity {
 
         if (TakenTacticalCommand != null) {
             if (_performingCoroutine == null) {
-                if (TakenTacticalCommand.TacticalCommandType == TacticalCommand.RoundAttack)
-                {
-                    TryStartPerform(() => {
-                        CommandsManagersHolder.Instance.TacticalCommandsManager.PerformedCommand(TakenTacticalCommand);
-                    });
+                if (TakenTacticalCommand.TacticalCommandType == TacticalCommand.RoundAttack) {
+                    TryStartPerform(() => { CommandsManagersHolder.Instance.TacticalCommandsManager.PerformedCommand(TakenTacticalCommand); });
                     return;
                 }
-                if (TakenTacticalCommand.TacticalCommandType != TacticalCommand.Move)
-                {
+
+                if (TakenTacticalCommand.TacticalCommandType != TacticalCommand.Move) {
                     var canPerform = CanPerformTactical();
                     if (canPerform) {
                         TryStartPerform(() => {
@@ -103,15 +101,22 @@ public class Settler : ECSEntity {
         UpdateMoodAndAnimations();
     }
 
-    private bool CanPerformTactical()
-    {
+    private bool CanPerformTactical() {
         var canPerform = ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenTacticalCommand.TacticalInteractable);
         return canPerform;
     }
 
     private bool CanPerform() {
-        if (TakenCommand.CommandType == Command.Store || TakenCommand.CommandType == Command.Delivery) {
-            return TakenCommand.Additional && ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenCommand.Additional);
+        if (TakenCommand.CommandType == Command.Store) {
+            StoreCommandData cData = (StoreCommandData)TakenCommand.AdditionalData;
+            return cData.TargetStorage != null &&
+                   ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, cData.TargetStorage.Interactable);
+        }
+
+        if (TakenCommand.CommandType == Command.Delivery) {
+            DeliveryCommandData cData = (DeliveryCommandData)TakenCommand.AdditionalData;
+            return cData.TargetPlan != null &&
+                   ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, cData.TargetPlan.Interactable);
         }
 
         return ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenCommand.Interactable);
@@ -156,11 +161,15 @@ public class Settler : ECSEntity {
         if (TakenCommand.CommandType is Command.Transport) {
             targetCell.Add(TakenCommand.Interactable.GetInteractableCell);
         } else if (TakenCommand.CommandType == Command.Delivery) {
-            targetCell.Add(TakenCommand.Additional.GetInteractableCell);
+            DeliveryCommandData data = (DeliveryCommandData)TakenCommand.AdditionalData;
+            targetCell.Add(data.TargetPlan.Interactable.GetInteractableCell);
         } else if (TakenCommand.CommandType == Command.Store) {
-            Storagable st =
-                ResourceManager.Instance.FindClosestAvailableStorage(TakenCommand.Interactable.GetComponent<ResourceView>().ResourceData,
-                    GetCellOnGrid);
+            StoreCommandData data = (StoreCommandData)TakenCommand.AdditionalData;
+            Storagable st = data.TargetStorage;
+            if (st != null && !st.CanStore(data.Resource.ResourceData)) {
+                st = ResourceManager.Instance.FindClosestAvailableStorage(data.Resource.ResourceData, GetCellOnGrid);
+            }
+
             if (st == null) {
                 TakenCommand.Interactable.GetComponent<ResourceView>().DropOnGround();
                 return null;
@@ -191,7 +200,7 @@ public class Settler : ECSEntity {
             targetCell.Add(TakenTacticalCommand.TargetPosition);
         else
             targetCell = TakenTacticalCommand.TacticalInteractable.InteractableCells;
-        
+
         Vector2Int? pathStep = ExactInteractionChecker.NextStepOnPath(GetCellOnGrid, targetCell);
         if (pathStep != null) {
             target = pathStep.Value;
@@ -226,6 +235,7 @@ public class Settler : ECSEntity {
         if (diff.x > 0) {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
+
         _gridable.PositionChanged();
         Core.FogOfWarManager.OpenAroundMovedSettler(this);
         _performingCoroutine = null;
@@ -352,8 +362,7 @@ public class Settler : ECSEntity {
         SettlerData._mode = mode;
     }
 
-    private void OnDied()
-    {
+    private void OnDied() {
         Debug.Log("Settler sleep!", this);
     }
 

@@ -127,12 +127,11 @@ public class ResourceManager : MonoBehaviour {
         return new Vector2Int(x, y);
     }
 
-    public Table FindEmptyStorageForResorce(ResourceData resource) {
-        Table[] storages = FindObjectsByType<Table>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+    public Storagable FindEmptyStorageForResorce(ResourceData resource) {
+        Storagable[] storages = FindObjectsByType<Storagable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         //TODO если ресурс целиком не влезает в стол или нет столов - всё ломается
         //TODO стол выбирается случайно, а не ближайший
-        Table fittingStorage = storages.Where(s => s.IsStorageActive && s.ResorceStorage.CanFitResource(resource) >= resource.Amount)
-            .OrderByDescending(s => s.ResorceStorage.CanFitResource(resource)).FirstOrDefault();
+        Storagable fittingStorage = storages.Where(s => s.CanStore(resource)).OrderByDescending(s => s.CanStore(resource)).FirstOrDefault();
         Debug.Log(fittingStorage);
         return fittingStorage;
     }
@@ -146,7 +145,12 @@ public class ResourceManager : MonoBehaviour {
         Storagable closestStorage = null;
         for (int i = 0; i < fittingStorage.Count; i++) {
             if (i == 10) break;
-            var pathLength = AStarPathfinding.Instance.FindPath(from, fittingStorage[i].GetComponent<Interactable>().InteractableCells).Count;
+            var pathLength = AStarPathfinding.Instance
+                .FindPath(from, fittingStorage[i].GetComponent<Interactable>().InteractableCells, out bool isPathExist).Count;
+            if (!isPathExist) {
+                continue;
+            }
+
             if (pathLength < shortestPath) {
                 shortestPath = pathLength;
                 closestStorage = fittingStorage[i];

@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Mathematics.Geometry;
 using UnityEngine;
 
 public class BuildingManager : MonoBehaviour {
@@ -10,12 +8,11 @@ public class BuildingManager : MonoBehaviour {
     [SerializeField]
     private BuildingView _buildingView;
 
-    [SerializeField]
-    private List<BuildingPlan> _plans;
-
     private int _availablePlans = 2;
 
     private BuildingPlan _currentPlan;
+
+    private List<BuildingPlan> _plans;
 
     private void Awake() {
         Instance = this;
@@ -48,11 +45,7 @@ public class BuildingManager : MonoBehaviour {
     }
 
     private void LoadPlans() {
-        var plans = Resources.LoadAll<BuildingPlan>("BuildingPlans");
-        foreach (BuildingPlan plan in plans) {
-            _plans.Add(plan);
-        }
-
+        _plans = Resources.LoadAll<BuildingPlan>("BuildingPlans").ToList();
         _buildingView.RedrawBuildingPanel(_availablePlans);
     }
 
