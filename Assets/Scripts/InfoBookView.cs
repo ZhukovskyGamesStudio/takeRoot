@@ -18,6 +18,9 @@ public class InfoBookView : MonoBehaviour {
     [SerializeField]
     private EquipmentGridUiView _equipmentGridView;
 
+    [SerializeField]
+    private CraftingGridUiView _craftingGridUiView;
+
     [field: SerializeField]
     public Toggle _infoToggle;
 
@@ -27,6 +30,12 @@ public class InfoBookView : MonoBehaviour {
 
         _resourceGridView.FillGrid(data.Resources);
         _equipmentGridView.gameObject.SetActive(false);
+
+        if (data is CraftingStationInfoBookData) {
+            _craftingGridUiView.gameObject.SetActive(true);
+            _craftingGridUiView.Set();
+            //(CraftingStationInfoBookData)data)....
+        }
     }
 
     public void Init(SettlerData settlerData) {
@@ -35,6 +44,7 @@ public class InfoBookView : MonoBehaviour {
 
         _equipmentGridView.gameObject.SetActive(true);
         _equipmentGridView.Set(settlerData);
+        _craftingGridUiView.gameObject.SetActive(false);
     }
 
     public void SetToggle(bool isOn) {
@@ -51,4 +61,8 @@ public class InfoBookData {
     public string Name;
 
     public List<ResourceData> Resources;
+}
+
+public class CraftingStationInfoBookData : InfoBookData {
+    public List<string> CraftingReceipts;
 }

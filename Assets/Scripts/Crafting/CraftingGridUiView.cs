@@ -1,3 +1,5 @@
 using UnityEngine;
 
-public class CraftingGridUiView : MonoBehaviour { }
+public class CraftingGridUiView : MonoBehaviour {
+    public void Set() { }
+}
