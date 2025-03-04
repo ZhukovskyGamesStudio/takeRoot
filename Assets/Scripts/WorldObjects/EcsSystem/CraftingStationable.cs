@@ -7,6 +7,13 @@ public class CraftingStationable : ECSComponent {
         _interactable.OnCommandPerformed += OnCommandPerformed;
     }
 
+    private void Update() {
+        //TODO try to add command to queue
+        if (_craftingCombinedCommand == null && true) {
+            //создаёт крафтинг комбайнд команду, наполняем её данными и всё
+        }
+    }
+
     public override int GetDependancyPriority() {
         return 3;
     }
