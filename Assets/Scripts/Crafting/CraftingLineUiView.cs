@@ -12,7 +12,7 @@ public class CraftingLineUiView : MonoBehaviour {
     [SerializeField]
     private ResourceGridView _requiredResourcesGridView;
 
-    public void Set(CraftingReceiptConfig config) {
+    public void Set(CraftingRecipeConfig config) {
         _headerText.text = config.ResultingResource.ResourceType.ToString();
         _explainText.text = config.ExplainText;
     }

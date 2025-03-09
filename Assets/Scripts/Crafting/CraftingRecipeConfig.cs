@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Settlers.Crafting {
-    [CreateAssetMenu(fileName = "CraftingReceiptConfig", menuName = "Scriptable Objects/CraftingReceiptConfig", order = 0)]
-    public class CraftingReceiptConfig : ScriptableObject {
+    [CreateAssetMenu(fileName = "CraftingRecipeConfig", menuName = "Scriptable Objects/CraftingRecipeConfig", order = 0)]
+    public class CraftingRecipeConfig : ScriptableObject {
         [field: SerializeField]
-        public string ReceiptUid;
+        public string RecipeUid;
 
         [field: SerializeField]
         public string ExplainText;
