@@ -119,6 +119,11 @@ public class Settler : ECSEntity {
                    ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, cData.TargetPlan.Interactable);
         }
 
+        if (TakenCommand.CommandType == Command.DeliveryForCraft) {
+            DeliveryToCraftCommandData cData = (DeliveryToCraftCommandData)TakenCommand.AdditionalData;
+            return cData.TargetStation != null &&
+                   ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, cData.TargetStation.Interactable);
+        }
         return ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenCommand.Interactable);
     }
 

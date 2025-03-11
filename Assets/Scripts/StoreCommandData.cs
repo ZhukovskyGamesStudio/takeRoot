@@ -10,3 +10,9 @@ public class StoreCommandData {
 public class DeliveryCommandData {
     public BuildingPlan TargetPlan;
 }
+
+[Serializable]
+public class DeliveryToCraftCommandData
+{
+    public CraftingStationable TargetStation;
+}
