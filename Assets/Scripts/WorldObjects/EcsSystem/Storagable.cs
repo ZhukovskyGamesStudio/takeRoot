@@ -47,6 +47,33 @@ public class Storagable : ECSComponent {
             resourceToGather.GetEcsComponent<Networkable>().ChangeParent(resourceToGather.Interactable.CommandToExecute.Settler.ResourceHolder);
             CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(resourceToGather.Interactable.CommandToExecute);
         }
+        if (cData.CommandType == Command.GatherResourcesForCraft)
+        {
+            var resource = new ResourceData() {
+                ResourceType = Resource.ResourceType,
+                Amount = AmountToGather
+            };
+            var position = _interactable.CommandToExecute.Settler.GetCellOnGrid;
+            var resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
+            resourceToGather.IsBeingCarried = true;
+            resourceToGather.Interactable.CanSelect = false;
+            AmountToGather = 0;
+            Resource.Amount -= resource.Amount;
+            CommandData command = new CommandData() {
+                Interactable = resourceToGather.Interactable,
+                Additional = _interactable.CommandToExecute.Additional,
+                CommandType = Command.DeliveryForCraft,
+                AdditionalData = new DeliveryToCraftCommandData() {
+                    TargetStation = _interactable.CommandToExecute.Additional.GetComponent<CraftingStationable>()
+                },
+                Settler = _interactable.CommandToExecute.Settler
+            };
+            _interactable.CommandToExecute.TriggerCancel?.Invoke();
+            _interactable.CancelCommand();
+            resourceToGather.Interactable.AssignCommand(command);
+            resourceToGather.GetEcsComponent<Networkable>().ChangeParent(resourceToGather.Interactable.CommandToExecute.Settler.ResourceHolder);
+            CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(resourceToGather.Interactable.CommandToExecute);
+        }
     }
 
     public void AddResource(ResourceData resourceData) {

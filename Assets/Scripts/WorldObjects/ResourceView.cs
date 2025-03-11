@@ -119,6 +119,60 @@ public class ResourceView : ECSEntity {
                     .ChangeParent(resourceToGather._interactable.CommandToExecute.Settler.ResourceHolder);
                 CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(resourceToGather._interactable.CommandToExecute);
             }
+            return;
+        }
+        if (cData.CommandType == Command.GatherResourcesForCraft)
+        {
+            var resource = new ResourceData() {
+                ResourceType = ResourceType,
+                Amount = AmountToGather
+            };
+
+            if (AmountToGather == Amount) {
+                IsBeingCarried = true;
+                _interactable.CanSelect = false;
+                GetEcsComponent<Networkable>().ChangeParent(cData.Settler.ResourceHolder);
+                cData.CommandType = Command.DeliveryForCraft;
+                cData.AdditionalData = new DeliveryToCraftCommandData() {
+                    TargetStation = cData.Additional.GetComponent<CraftingStationable>()
+                };
+                CommandData command = new CommandData()
+                {
+                    Interactable = _interactable,
+                    Additional = cData.Additional,
+                    AdditionalData = new DeliveryToCraftCommandData()
+                    {
+                        TargetStation = cData.Additional.GetComponent<CraftingStationable>()
+                    },
+                    CommandType = Command.DeliveryForCraft,
+                    Settler = cData.Settler
+                };
+                AmountToGather = 0;
+                CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(command);
+            } else {
+                var position = cData.Settler.GetCellOnGrid;
+                var resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
+                resourceToGather.IsBeingCarried = true;
+                resourceToGather._interactable.CanSelect = false;
+                AmountToGather = 0;
+                SetAmount(Amount - resource.Amount);
+                CommandData command = new CommandData() {
+                    Interactable = resourceToGather.Interactable,
+                    Additional = cData.Additional,
+                    AdditionalData = new DeliveryToCraftCommandData() {
+                        TargetStation = cData.Additional.GetComponent<CraftingStationable>()
+                    },
+                    CommandType = Command.DeliveryForCraft,
+                    Settler = cData.Settler
+                };
+                cData.TriggerCancel?.Invoke();
+                _interactable.CancelCommand();
+                resourceToGather._interactable.AssignCommand(command);
+                resourceToGather.GetEcsComponent<Networkable>()
+                    .ChangeParent(resourceToGather._interactable.CommandToExecute.Settler.ResourceHolder);
+                CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(resourceToGather._interactable.CommandToExecute);
+            }
+            return;
         }
 
         if (cData.CommandType == Command.Delivery) {
@@ -126,6 +180,16 @@ public class ResourceView : ECSEntity {
             deliveryData.TargetPlan.GetComponent<BuildingPlan>().AddResource(ResourceData);
             _interactable.CancelCommand();
             _interactable.OnDestroyed();
+            return;
+        }
+
+        if (cData.CommandType == Command.DeliveryForCraft)
+        {
+            DeliveryToCraftCommandData deliveryData = (DeliveryToCraftCommandData)cData.AdditionalData;
+            deliveryData.TargetStation.GetComponent<CraftingStationable>().AddResourceToStorage(ResourceData);
+            _interactable.CancelCommand();
+            _interactable.OnDestroyed();
+            return;
         }
 
         if (cData.CommandType == Command.Transport) {
