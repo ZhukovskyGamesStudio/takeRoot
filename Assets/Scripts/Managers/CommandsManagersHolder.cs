@@ -28,6 +28,10 @@ public class CommandsManagersHolder : NetworkBehaviour, IInitableInstance {
 
     public List<Type> GetDependencies() => new() { typeof(SettlersManager) };
 
+    public CommandsManager GetCommandManagerByRace(Race race)
+    {
+        return _commandsManagers[race];
+    }
     private void CreateManagers() {
         _commandsManagers = new Dictionary<Race, CommandsManager> {
             { Race.Plants, gameObject.AddComponent<CommandsManager>() },
