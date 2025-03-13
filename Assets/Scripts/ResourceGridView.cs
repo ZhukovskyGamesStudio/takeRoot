@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ResourceGridView : MonoBehaviour {
@@ -25,5 +26,10 @@ public class ResourceGridView : MonoBehaviour {
                 _cells.Add(r);
             }
         }
+    }
+
+    public ResouseUiView GetResourceView(ResourceType type)
+    {
+        return _cells.FirstOrDefault(r => r.ResourceType == type);
     }
 }

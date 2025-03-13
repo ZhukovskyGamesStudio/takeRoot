@@ -15,4 +15,9 @@ public class ResouseUiView : MonoBehaviour {
         _amountText.text = amount.ToString();
         Amount = amount;
     }
+    public void SetAmount(int amount, string text)
+    {
+        _amountText.text = text;
+        Amount = amount;
+    }
 }
