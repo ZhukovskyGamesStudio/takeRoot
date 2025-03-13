@@ -132,10 +132,6 @@ public class ResourceView : ECSEntity {
                 IsBeingCarried = true;
                 _interactable.CanSelect = false;
                 GetEcsComponent<Networkable>().ChangeParent(cData.Settler.ResourceHolder);
-                cData.CommandType = Command.DeliveryForCraft;
-                cData.AdditionalData = new DeliveryToCraftCommandData() {
-                    TargetStation = cData.Additional.GetComponent<CraftingStationable>()
-                };
                 CommandData command = new CommandData()
                 {
                     Interactable = _interactable,
