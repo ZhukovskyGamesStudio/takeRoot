@@ -16,7 +16,7 @@ public class SelectionManager : MonoBehaviour {
     [SerializeField]
     private bool _autoOpenInfoPanel = false;
 
-    public ISelectable Interactable { get; private set; }
+    public Interactable Interactable { get; private set; }
     public ISelectable TacticalInteractable { get; private set; }
 
     private void Awake() {
@@ -32,11 +32,17 @@ public class SelectionManager : MonoBehaviour {
     }
 
     private void TryAutoOpenInfoPanel() {
-        if (Input.GetMouseButton(0) && _commandsPanel.SelectedCommand == Command.None && Interactable != null) {
+        if (Input.GetMouseButtonDown(0) && _commandsPanel.SelectedCommand == Command.None && Interactable != null) {
             if (_autoOpenInfoPanel) {
                 _infoToggle.isOn = true;
             }
 
+            if (Interactable.TryGetComponent(out CraftingStationable craftingStationable))
+            {
+                _infoPanel.Init(craftingStationable);
+                return;
+            }
+            
             _infoPanel.Init(Interactable.GetInfoData());
         }
 
@@ -49,11 +55,11 @@ public class SelectionManager : MonoBehaviour {
         }
     }
 
-    public void SetSelected(ISelectable obj) {
+    public void SetSelected(Interactable obj) {
         Interactable = obj;
     }
 
-    public void TryClearSelected(ISelectable obj) {
+    public void TryClearSelected(Interactable obj) {
         if (Interactable == obj) {
             Interactable = null;
         }
