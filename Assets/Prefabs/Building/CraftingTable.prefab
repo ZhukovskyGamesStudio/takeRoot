@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 6951839102071904633}
   - component: {fileID: -8999390470146151875}
   - component: {fileID: 1536166030328611335}
+  - component: {fileID: 3637337016027006524}
+  - component: {fileID: 588155923601517010}
   m_Layer: 0
   m_Name: CraftingTable
   m_TagString: Untagged
@@ -130,6 +132,7 @@ MonoBehaviour:
     Amount: 2
   - ResourceType: 2
     Amount: 2
+  _id: 
 --- !u!114 &984130219417740274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,6 +221,32 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
+--- !u!114 &3637337016027006524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516106991386686051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01041bbc5761436e87ec1292902c3f54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &588155923601517010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 516106991386686051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1982a1fbc044172a33357823e642274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: 
+  <InfoBookIcon>k__BackingField: {fileID: 0}
 --- !u!1 &5259069253047936825
 GameObject:
   m_ObjectHideFlags: 0
