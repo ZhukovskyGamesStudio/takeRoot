@@ -11,10 +11,13 @@ public class InfoBookView : MonoBehaviour {
 
     [SerializeField]
     private TextMeshProUGUI _nameText;
-
+    
     [SerializeField]
     private ResourceGridView _resourceGridView;
-
+    
+    [SerializeField]
+    private CraftingGridUiView _craftingGridUiView;
+    
     [SerializeField]
     private EquipmentGridUiView _equipmentGridView;
 
@@ -37,6 +40,14 @@ public class InfoBookView : MonoBehaviour {
         _equipmentGridView.Set(settlerData);
     }
 
+    public void Init(CraftingStationable craftingStationable)
+    {
+        _icon.sprite = craftingStationable.CraftingStationableData.InfoBookIcon;
+        _nameText.text = craftingStationable.CraftingStationableData.Name;
+        _craftingGridUiView.Init(craftingStationable);
+        _craftingGridUiView.gameObject.SetActive(true);
+    }
+    
     public void SetToggle(bool isOn) {
         _infoToggle.isOn = isOn;
     }
