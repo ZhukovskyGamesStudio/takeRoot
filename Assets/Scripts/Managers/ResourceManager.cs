@@ -22,11 +22,25 @@ public class ResourceManager : MonoBehaviour {
         Instance = this;
     }
 
+    public static ResourceData FindAllAvailableResources(ResourceType type)
+    {
+        var resourceOnGround = FindFitResourcesOnGround(type);
+        var storages = FindFitStorages(type);
+        int totalAmount = 0;
+        totalAmount += resourceOnGround.Sum(r => r.Amount);
+        totalAmount += storages.Sum(s => s.Resource.Amount);
+        return new ResourceData()
+        {
+            ResourceType = type,
+            Amount = totalAmount
+        };
+    }
+
     private static ResourceView SpawnResource(ResourceType resourceType, Vector2Int cell) {
         var prefab = Instance._resourcesTable.ResourceViewPrefabs.First(s => s.ResourceType == resourceType);
         //TODO add pool
         ResourceView r = Instantiate(prefab, Instance._resourcesHolder);
-        Instance._scatteredResources.Add(cell, r);
+        //Instance._scatteredResources.Add(cell, r);
         return r;
     }
 
