@@ -36,5 +36,7 @@ public enum Command {
     Transport,
     GatherResources,
     Delivery,
+    GatherResourcesForCraft,
+    DeliveryForCraft,
     Craft
 }
