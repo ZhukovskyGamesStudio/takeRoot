@@ -168,6 +168,9 @@ public class Settler : ECSEntity {
         } else if (TakenCommand.CommandType == Command.Delivery) {
             DeliveryCommandData data = (DeliveryCommandData)TakenCommand.AdditionalData;
             targetCell.Add(data.TargetPlan.Interactable.GetInteractableCell);
+        } else if (TakenCommand.CommandType == Command.DeliveryForCraft) {
+           DeliveryToCraftCommandData data = (DeliveryToCraftCommandData)TakenCommand.AdditionalData;
+            targetCell.Add(data.TargetStation.Interactable.GetInteractableCell);
         } else if (TakenCommand.CommandType == Command.Store) {
             StoreCommandData data = (StoreCommandData)TakenCommand.AdditionalData;
             Storagable st = data.TargetStorage;
