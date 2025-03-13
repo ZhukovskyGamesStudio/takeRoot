@@ -1,39 +1,69 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Mono.Cecil;
 using Settlers.Crafting;
 using UnityEngine;
 
-public class CraftingCombinedCommand : CombinedCommandData {
-    private List<CommandData> _activeGatherCommands;
+public class CraftingCombinedCommand : CombinedCommandData
+{
+    private CraftingStationable _craftingStation;
+    private Interactable _interactable;
+    
+    private List<CommandData> _activeGatherCommands = new List<CommandData>();
+    private List<CommandData> _activeCraftingCommands = new List<CommandData>(2);
+    
+    public Dictionary<ResourceType, int> _reservedResourceAmount = new Dictionary<ResourceType, int>();
+    public List<Settler> _performingSettlers = new List<Settler>(2);
 
-    private List<ResourceData> _currentResources;
-    private string _receiptId;
-
-    private Dictionary<ResourceType, int> _reservedResourceAmount = new Dictionary<ResourceType, int>();
-    private CraftingReceiptConfig ReceiptConfig => Core.CraftingManager.GetReceipt(_receiptId);
-
-    public override void UpdateLogic() {
+    private float _craftingPoints;
+    public CraftingCombinedCommand(CraftingStationable craftingStation)
+    {
+        _craftingStation = craftingStation;
+        _interactable = _craftingStation.GetComponent<Interactable>();
+        _interactable.OnCommandPerformed += OnCommandPerformed;
+        foreach (var type in (ResourceType[])Enum.GetValues(typeof(ResourceType))) {
+            if (type == ResourceType.None) continue;
+            _reservedResourceAmount.Add(type, 0);
+        }
+    }
+    public override void UpdateLogic()
+    {
         base.UpdateLogic();
-
+        
         FormGatherCommands();
+        FormCraftingCommands();
     }
 
-    private void FormGatherCommands() {
-        foreach (ResourceData requiredResource in ReceiptConfig.RequiredResources) {
-            var requiredResourceAmount = LeftToBring(requiredResource.ResourceType);
-            if (requiredResourceAmount == 0)
+    public void CancelCraftingCommandsRightAway()
+    {
+        CancelCraftingCommands();
+    }
+    public void RemoveReservation(ResourceData resource)
+    { 
+        _reservedResourceAmount[resource.ResourceType] -= resource.Amount;
+    }
+    private void FormGatherCommands()
+    {
+        foreach (KeyValuePair<ResourceType, int> resourceData  in _craftingStation.RequiredResourcesForAllCurrentCrafts)
+        {
+            var requiredResourceAmount = LeftToBring(resourceData.Key);
+            if (requiredResourceAmount <= 0)
                 continue;
-            List<ResourceView> fitResourcesOnGround = ResourceManager.FindFitResourcesOnGround(requiredResource.ResourceType);
-            foreach (ResourceView resource in fitResourcesOnGround) {
+            List<ResourceView> fitResourcesOnGround =
+                ResourceManager.FindFitResourcesOnGround(resourceData.Key);
+            foreach (ResourceView resource in fitResourcesOnGround)
+            {
                 if (requiredResourceAmount == 0)
                     break;
                 resource.AmountToGather = Mathf.Min(resource.Amount, requiredResourceAmount);
-                _reservedResourceAmount[requiredResource.ResourceType] += resource.AmountToGather;
-                requiredResourceAmount = LeftToBring(requiredResource.ResourceType);
-                CommandData command = new CommandData {
+                _reservedResourceAmount[resourceData.Key] += resource.AmountToGather;
+                requiredResourceAmount = LeftToBring(resourceData.Key);
+                CommandData command = new CommandData
+                {
                     Interactable = resource.GetEcsComponent<Interactable>(),
-                    Additional = MainData.Interactable,
-                    CommandType = Command.GatherResources,
+                    Additional = _interactable,
+                    CommandType = Command.GatherResourcesForCraft,
                 };
                 command.Interactable.AssignCommand(command);
                 command.TriggerCancel += delegate { CancelGatherCommand(command); };
@@ -41,20 +71,22 @@ public class CraftingCombinedCommand : CombinedCommandData {
                 CommandsManagersHolder.Instance.CommandsManager.AddCommandManually(command);
             }
 
-            int requiredResourcesAmount = LeftToBring(requiredResource.ResourceType);
+            int requiredResourcesAmount = LeftToBring(resourceData.Key);
             if (requiredResourceAmount == 0)
                 continue;
-            List<Storagable> fitStorages = ResourceManager.FindFitStorages(requiredResource.ResourceType);
-            foreach (Storagable storage in fitStorages) {
+            List<Storagable> fitStorages = ResourceManager.FindFitStorages(resourceData.Key);
+            foreach (Storagable storage in fitStorages)
+            {
                 if (requiredResourceAmount == 0)
                     break;
                 storage.AmountToGather = Mathf.Min(storage.Resource.Amount, requiredResourceAmount);
-                _reservedResourceAmount[requiredResource.ResourceType] += storage.AmountToGather;
-                requiredResourceAmount = LeftToBring(requiredResource.ResourceType);
-                CommandData command = new CommandData {
+                _reservedResourceAmount[resourceData.Key] += storage.AmountToGather;
+                requiredResourceAmount = LeftToBring(resourceData.Key);
+                CommandData command = new CommandData
+                {
                     Interactable = storage.GetComponent<Interactable>(),
-                    Additional = MainData.Interactable,
-                    CommandType = Command.GatherResources,
+                    Additional = _interactable,
+                    CommandType = Command.GatherResourcesForCraft,
                 };
                 command.Interactable.AssignCommand(command);
                 command.TriggerCancel += delegate { CancelGatherCommand(command); };
@@ -64,56 +96,91 @@ public class CraftingCombinedCommand : CombinedCommandData {
         }
     }
 
-    private bool EnoughResource(ResourceType type) {
-        return ReceiptConfig.RequiredResources.Find(r => r.ResourceType == type).Amount ==
-               _currentResources.Find(r => r.ResourceType == type).Amount;
+    private int LeftToBring(ResourceType type)
+    {
+        return _craftingStation.RequiredResourcesForAllCurrentCrafts[type] -
+               _craftingStation.GetResourceAmountFromStorage(type) - _reservedResourceAmount[type];
     }
 
-    private int LeftToBring(ResourceType type) {
-        return ReceiptConfig.RequiredResources.Find(r => r.ResourceType == type).Amount -
-               _currentResources.Find(r => r.ResourceType == type).Amount - _reservedResourceAmount[type];
-    }
-
-    public bool ResourcesRequirementReached(ResourceType type) {
-        return ReceiptConfig.RequiredResources.Find(r => r.ResourceType == type).Amount ==
-               _currentResources.Find(r => r.ResourceType == type).Amount;
-    }
-
-    private void CancelGatherCommand(CommandData command) {
+    private void CancelGatherCommand(CommandData command)
+    {
         _activeGatherCommands.Remove(command);
-        if (MainData.Interactable.TryGetComponent(out ResourceView resource))
+        if (command.Interactable.TryGetComponent(out ResourceView resource))
             _reservedResourceAmount[resource.ResourceType] -= resource.AmountToGather;
-        if (MainData.Interactable.TryGetComponent(out Storagable storage))
-            _reservedResourceAmount[storage.Resource.ResourceType] -= resource.AmountToGather;
+        if (command.Interactable.TryGetComponent(out Storagable storage))
+            _reservedResourceAmount[storage.Resource.ResourceType] -= storage.AmountToGather;
     }
 
-    public void OnCommandPerformed(CommandData obj) {
-        if (obj.CommandType == Command.GatherResources) {
-            /*
-            var resource = new ResourceData()
+    private void FormCraftingCommands()
+    {
+        if (_craftingStation.CurrentRecipeToCraft != null)
+            return;
+        foreach (KeyValuePair<string, int> recipe in _craftingStation.RecipesToCraft)
+        {
+            if (recipe.Value == 0)
+                continue;
+            bool canCraft = true;
+            var config = Core.CraftingManager.GetRecipe(recipe.Key);
+            foreach (ResourceData resource in config.RequiredResources)
             {
-                ResourceType = Resource.ResourceType,
-                Amount = AmountToGather
-            };
-            var position = _interactable.CommandToExecute.Settler.GetCellOnGrid;
-            var resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
-            resourceToGather.IsBeingCarried = true;
-            resourceToGather.Interactable.CanSelect = false;
-            AmountToGather = 0;
-            Resource.Amount -= resource.Amount;
-            CommandData command = new CommandData()
+                if (_craftingStation.GetResourceAmountFromStorage(resource.ResourceType) < resource.Amount)
+                {
+                    canCraft = false;
+                    break;
+                }
+            }
+            if (canCraft)
             {
-                Interactable = resourceToGather.Interactable,
-                Additional = _interactable.CommandToExecute.Additional,
-                CommandType = Command.Delivery,
-                Settler = _interactable.CommandToExecute.Settler
+                AddCraftingCommand(config);
+                break;
+            }
+        }
+    }
+    
+    private void AddCraftingCommand(CraftingRecipeConfig recipe)
+    {
+        _craftingStation.SetCurrentCraft(recipe);
+        _craftingPoints = recipe.CraftingPoints;
+        foreach (Race race in (Race[]) Enum.GetValues(typeof(Race)))
+        {
+            if (race is Race.Both or Race.None)
+                continue;
+            CommandData command = new CommandData
+            {
+                Interactable = _interactable,
+                CommandType = Command.Craft
             };
-            _interactable.CommandToExecute.TriggerCancel?.Invoke();
-            _interactable.CancelCommand();
-            resourceToGather.Interactable.AssignCommand(command);
-            resourceToGather.GetEcsComponent<Networkable>().ChangeParent(resourceToGather.Interactable.CommandToExecute.Settler.ResourceHolder);
-            CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(resourceToGather.Interactable.CommandToExecute);
-            */
+            _activeCraftingCommands.Add(command);
+            CommandsManagersHolder.Instance.GetCommandManagerByRace(race).AddCommandManually(command);
+        }
+    }
+
+    private void CancelCraftingCommands()
+    {
+        foreach (CommandData craftingCommand in _activeCraftingCommands)
+        {
+            craftingCommand.TriggerCancel?.Invoke();
+        }
+        _performingSettlers.Clear();
+        _activeCraftingCommands.Clear();
+    }
+    
+    public void OnCommandPerformed(CommandData cData)
+    {
+        if (cData.CommandType == Command.Craft)
+        {
+            if (!_performingSettlers.Contains(cData.Settler))
+                _performingSettlers.Add(cData.Settler);
+            
+            if (_performingSettlers.Count < 2)
+                return;
+            
+            _craftingPoints -= 0.5f;
+            if (_craftingPoints <= 0)
+            {
+                _craftingStation.CraftItem();
+                CancelCraftingCommands();
+            }
         }
     }
 }
