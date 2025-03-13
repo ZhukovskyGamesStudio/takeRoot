@@ -7,10 +7,16 @@ namespace Settlers.Crafting {
     public class CraftingRecipeConfig : ScriptableObject {
         [field: SerializeField]
         public string RecipeUid;
-
+        
+        [field: SerializeField]
+        public Sprite RecipeIcon;
+        
         [field: SerializeField]
         public string ExplainText;
 
+        [field: SerializeField] 
+        public float CraftingPoints;
+        
         [field: SerializeField]
         public List<ResourceData> RequiredResources { get; private set; }
 
