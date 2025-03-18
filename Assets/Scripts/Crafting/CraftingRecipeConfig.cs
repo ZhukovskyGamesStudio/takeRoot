@@ -22,8 +22,5 @@ namespace Settlers.Crafting {
 
         [field: SerializeField]
         public ResourceData ResultingResource { get; private set; }
-
-        [field: SerializeField]
-        public int CombinedCraftingPoints { get; private set; }
     }
 }
