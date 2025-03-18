@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 842f9349c2204217902cd1d28ab1e682, type: 3}
-  m_Name: Hammer
+  m_Name: Handle
   m_EditorClassIdentifier: 
-  RecipeUid: 1
-  RecipeIcon: {fileID: 21300000, guid: 01ead480ff8674f40ae2ac1982349a35, type: 3}
-  ExplainText: "\u0418\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442 \u0434\u043B\u044F
-    \u0440\u0430\u0437\u0440\u0443\u0448\u0435\u043D\u0438\u044F \u043F\u043E\u0441\u0442\u0440\u043E\u0435\u043A"
-  CraftingPoints: 20
+  RecipeUid: 2
+  RecipeIcon: {fileID: 21300000, guid: 65b647c258468f140adbed518fa03308, type: 3}
+  ExplainText: "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0441\u044F
+    \u0434\u043B\u044F \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F \u043C\u043E\u043B\u043E\u0442\u043A\u0430"
+  CraftingPoints: 10
   <RequiredResources>k__BackingField:
-  - ResourceType: 5
-    Amount: 1
-  - ResourceType: 4
-    Amount: 1
+  - ResourceType: 1
+    Amount: 5
   <ResultingResource>k__BackingField:
-    ResourceType: 6
+    ResourceType: 5
     Amount: 1
