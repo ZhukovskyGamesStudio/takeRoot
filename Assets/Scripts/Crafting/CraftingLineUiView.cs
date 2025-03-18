@@ -32,12 +32,11 @@ public class CraftingLineUiView : MonoBehaviour
     {
         _uid = config.RecipeUid;
         _headerText.text = config.ResultingResource.ResourceType.ToString();
+        _explainText.text = config.ExplainText;
         _icon.sprite = config.RecipeIcon;
         _craftingGridUiView = craftingGridUiView;
         
         _requiredResourcesGridView.FillGrid(config.RequiredResources);
-        
-        //_explainText.text = config.ExplainText;
     }
     public void ChangeRecipeToCraftAmount(int amount)
     {
