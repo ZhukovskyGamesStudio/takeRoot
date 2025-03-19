@@ -5,7 +5,11 @@ using System.Linq;
 using Settlers.Crafting;
 using UnityEngine;
 
-public class CraftingStationable : ECSComponent {
+public class CraftingStationable : ECSComponent
+{
+    public Action<string> OnRecipeDataChanged;
+    public Action OnResourceStorageDataChanged;
+    
     private CraftingCombinedCommand _craftingCombinedCommand;
     
     private Dictionary<string, int> _recipesToCraft = new Dictionary<string, int>();
@@ -60,12 +64,14 @@ public class CraftingStationable : ECSComponent {
     {
         _resourceStorage[data.ResourceType] += data.Amount;
         _craftingCombinedCommand.RemoveReservation(data);
+        OnResourceStorageDataChanged?.Invoke();
     }
     
     public void RemoveResourceFromStorage(ResourceData data)
     {
         if (ResourceStorage[data.ResourceType] < data.Amount) return;
         _resourceStorage[data.ResourceType] -= data.Amount;
+        OnResourceStorageDataChanged?.Invoke();
     }
     
     public void AddRecipeToCraft(string uid)
@@ -78,6 +84,7 @@ public class CraftingStationable : ECSComponent {
         {
             _requiredResourcesForAllCurrentCrafts[resource.ResourceType] += resource.Amount;
         }
+        OnRecipeDataChanged?.Invoke(uid);
     }
     
     public void RemoveRecipeToCraft(string uid)
@@ -90,6 +97,7 @@ public class CraftingStationable : ECSComponent {
         {
             _requiredResourcesForAllCurrentCrafts[resource.ResourceType] -= resource.Amount;
         }
+        OnRecipeDataChanged?.Invoke(uid);
     }
     
     public void SetCurrentCraft(CraftingRecipeConfig recipe)
@@ -115,6 +123,16 @@ public class CraftingStationable : ECSComponent {
         CurrentRecipeToCraft = null;
     }
 
+    public List<ResourceData> GetStorageResourcesAsResourceDataList()
+    {
+        List<ResourceData> resources = new List<ResourceData>(10);
+        foreach (KeyValuePair<ResourceType,int> resource in _resourceStorage)
+        {
+            if (resource.Value == 0) continue;
+            resources.Add(new ResourceData(){ResourceType = resource.Key, Amount = resource.Value});
+        }
+        return resources;
+    }
     public override int GetDependancyPriority() {
         return 3;
     }

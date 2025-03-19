@@ -6,6 +6,7 @@ using UnityEngine.Serialization;
 
 public class CraftingGridUiView : MonoBehaviour
 {
+    [SerializeField] private ResourceGridView _storage;
     [SerializeField]private CraftingLineUiView _craftingLineUiViewPrefab;
     private CraftingStationable _craftingStationable;
     
@@ -20,6 +21,8 @@ public class CraftingGridUiView : MonoBehaviour
         _craftingLineUiViews.Clear();
         
         _craftingStationable = craftingStationable;
+        _craftingStationable.OnRecipeDataChanged += UpdateCraftingLineUiView;
+        _craftingStationable.OnResourceStorageDataChanged += UpdateResourceStorageView;
         foreach (CraftingRecipeConfig recipe in craftingStationable.CraftingStationableData.AvailableRecipes)
         {
             var craftingLineView = Instantiate(_craftingLineUiViewPrefab, transform.position, Quaternion.identity, transform);
@@ -29,6 +32,11 @@ public class CraftingGridUiView : MonoBehaviour
             craftingLineView.Set(recipe, this);
             UpdateCraftingLineUiView(recipe.RecipeUid);
         }
+    }
+
+    private void UpdateResourceStorageView()
+    {
+        _storage.FillGrid(_craftingStationable.GetStorageResourcesAsResourceDataList());
     }
 
     private void UpdateCraftingLineUiView(string recipeUid)
