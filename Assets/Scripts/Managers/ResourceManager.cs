@@ -58,6 +58,12 @@ public class ResourceManager : MonoBehaviour {
         return resourceView;
     }
 
+    public static void ClearResourceView(ResourceView resource)
+    { 
+        if (Instance._scatteredResources.TryGetValue(resource.Interactable.GetInteractableCell, out _))
+            Instance._scatteredResources.Remove(resource.Interactable.GetInteractableCell);
+    }
+    
     public static List<ResourceView> SpawnResourcesAround(List<ResourceData> resources, Vector2Int centerCell) {
         const int maxResourceInCell = 10;
         List<ResourceView> spawnedResources = new List<ResourceView>();

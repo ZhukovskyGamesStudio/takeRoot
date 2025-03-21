@@ -175,7 +175,7 @@ public class ResourceView : ECSEntity {
             DeliveryCommandData deliveryData = (DeliveryCommandData)cData.AdditionalData;
             deliveryData.TargetPlan.GetComponent<BuildingPlan>().AddResource(ResourceData);
             _interactable.CancelCommand();
-            _interactable.OnDestroyed();
+            OnDestroy();
             return;
         }
 
@@ -184,7 +184,7 @@ public class ResourceView : ECSEntity {
             DeliveryToCraftCommandData deliveryData = (DeliveryToCraftCommandData)cData.AdditionalData;
             deliveryData.TargetStation.GetComponent<CraftingStationable>().AddResourceToStorage(ResourceData);
             _interactable.CancelCommand();
-            _interactable.OnDestroyed();
+            OnDestroy();
             return;
         }
 
@@ -213,9 +213,16 @@ public class ResourceView : ECSEntity {
             _interactable.CancelCommand();
             SetAmount(ResourceData.Amount);
             if (ResourceData.Amount == 0)
-                _interactable.OnDestroyed();
+                OnDestroy();
         }
     }
+
+    private void OnDestroy()
+    {
+        ResourceManager.ClearResourceView(this);
+        _interactable.OnDestroyed();
+    }
+
 
     private void OnCommandCanceled(CommandData type) {
         DropOnGround();
