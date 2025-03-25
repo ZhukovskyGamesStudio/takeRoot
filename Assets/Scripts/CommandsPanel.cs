@@ -38,5 +38,6 @@ public enum Command {
     Delivery,
     GatherResourcesForCraft,
     DeliveryForCraft,
-    Craft
+    Craft,
+    PrepareToCraft
 }

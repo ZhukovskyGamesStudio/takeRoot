@@ -138,7 +138,7 @@ public class ResourceView : ECSEntity {
                     Additional = cData.Additional,
                     AdditionalData = new DeliveryToCraftCommandData()
                     {
-                        TargetStation = cData.Additional.GetComponent<CraftingStationable>()
+                        CraftingStation = cData.Additional.GetComponent<CraftingStationable>()
                     },
                     CommandType = Command.DeliveryForCraft,
                     Settler = cData.Settler
@@ -156,7 +156,7 @@ public class ResourceView : ECSEntity {
                     Interactable = resourceToGather.Interactable,
                     Additional = cData.Additional,
                     AdditionalData = new DeliveryToCraftCommandData() {
-                        TargetStation = cData.Additional.GetComponent<CraftingStationable>()
+                        CraftingStation = cData.Additional.GetComponent<CraftingStationable>()
                     },
                     CommandType = Command.DeliveryForCraft,
                     Settler = cData.Settler
@@ -182,7 +182,7 @@ public class ResourceView : ECSEntity {
         if (cData.CommandType == Command.DeliveryForCraft)
         {
             DeliveryToCraftCommandData deliveryData = (DeliveryToCraftCommandData)cData.AdditionalData;
-            deliveryData.TargetStation.GetComponent<CraftingStationable>().AddResourceToStorage(ResourceData);
+            deliveryData.CraftingStation.GetComponent<CraftingStationable>().AddResourceToStorage(ResourceData);
             _interactable.CancelCommand();
             OnDestroy();
             return;

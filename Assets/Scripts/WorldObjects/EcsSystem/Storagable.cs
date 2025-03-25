@@ -64,7 +64,7 @@ public class Storagable : ECSComponent {
                 Additional = _interactable.CommandToExecute.Additional,
                 CommandType = Command.DeliveryForCraft,
                 AdditionalData = new DeliveryToCraftCommandData() {
-                    TargetStation = _interactable.CommandToExecute.Additional.GetComponent<CraftingStationable>()
+                    CraftingStation = _interactable.CommandToExecute.Additional.GetComponent<CraftingStationable>()
                 },
                 Settler = _interactable.CommandToExecute.Settler
             };

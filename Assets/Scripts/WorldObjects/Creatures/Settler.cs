@@ -121,9 +121,10 @@ public class Settler : ECSEntity {
 
         if (TakenCommand.CommandType == Command.DeliveryForCraft) {
             DeliveryToCraftCommandData cData = (DeliveryToCraftCommandData)TakenCommand.AdditionalData;
-            return cData.TargetStation != null &&
-                   ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, cData.TargetStation.Interactable);
+            return cData.CraftingStation != null &&
+                   ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, cData.CraftingStation.Interactable);
         }
+        
         return ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenCommand.Interactable);
     }
 
@@ -170,7 +171,7 @@ public class Settler : ECSEntity {
             targetCell.Add(data.TargetPlan.Interactable.GetInteractableCell);
         } else if (TakenCommand.CommandType == Command.DeliveryForCraft) {
            DeliveryToCraftCommandData data = (DeliveryToCraftCommandData)TakenCommand.AdditionalData;
-            targetCell.Add(data.TargetStation.Interactable.GetInteractableCell);
+            targetCell.Add(data.CraftingStation.Interactable.GetInteractableCell);
         } else if (TakenCommand.CommandType == Command.Store) {
             StoreCommandData data = (StoreCommandData)TakenCommand.AdditionalData;
             Storagable st = data.TargetStorage;
@@ -186,7 +187,8 @@ public class Settler : ECSEntity {
             Interactable interactableStorage = st.GetComponent<Interactable>();
             TakenCommand.Additional = interactableStorage;
             targetCell.Add(interactableStorage.GetInteractableCell);
-        } else {
+        }
+        else {
             HashSet<Vector2Int> possibleTargets = TakenCommand.Interactable.InteractableCells;
             targetCell = possibleTargets.Where(AStarPathfinding.IsWalkable).ToHashSet();
         }
@@ -273,7 +275,7 @@ public class Settler : ECSEntity {
     }
 
     private IEnumerator PerformingCoroutine(Action after) {
-        if (TakenCommand?.CommandType == Command.Break || TakenTacticalCommand?.TacticalCommandType == TacticalCommand.TacticalAttack) {
+        if (TakenCommand?.CommandType == Command.Break || TakenTacticalCommand?.TacticalCommandType == TacticalCommand.TacticalAttack || TakenCommand?.CommandType == Command.Craft){
             Transform target = TakenCommand != null ? TakenCommand.Interactable.transform : TakenTacticalCommand.TacticalInteractable.transform;
             yield return StartCoroutine(Attack(Core.ConfigManager.CreaturesParametersConfig.AttackTime, target, after));
         } else {

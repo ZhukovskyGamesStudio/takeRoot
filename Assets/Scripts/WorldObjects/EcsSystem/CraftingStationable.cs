@@ -135,7 +135,12 @@ public class CraftingStationable : ECSComponent
         ResourceManager.SpawnResourcesAround(new List<ResourceData>(){resultResource}, VectorUtils.ToVector2Int(Interactable.Gridable.GetCenterOnGrid)); //TODO: SpawnResAround overload with occupiedCells
         CurrentRecipeToCraft = null;
     }
-
+    
+    public bool CanStartCrafting()
+    {
+        return _craftingCombinedCommand._performingSettlers.Count == 2;
+    }
+    
     public List<ResourceData> GetStorageResourcesAsResourceDataList()
     {
         List<ResourceData> resources = new List<ResourceData>(10);

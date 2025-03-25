@@ -131,13 +131,14 @@ public class CraftingCombinedCommand : CombinedCommandData
             }
             if (canCraft)
             {
-                AddCraftingCommand(config);
+                PrepareToCraftCommand(config);
                 break;
             }
         }
     }
-    
-    private void AddCraftingCommand(CraftingRecipeConfig recipe)
+
+
+    private void PrepareToCraftCommand(CraftingRecipeConfig recipe)
     {
         _craftingStation.SetCurrentCraft(recipe);
         _craftingPoints = recipe.CraftingPoints;
@@ -148,10 +149,32 @@ public class CraftingCombinedCommand : CombinedCommandData
             CommandData command = new CommandData
             {
                 Interactable = _interactable,
-                CommandType = Command.Craft
+                CommandType = Command.PrepareToCraft,
+                AdditionalData = new CraftingCommandData()
+                {
+                    CraftingStation = _craftingStation
+                }
+            };
+            CommandsManagersHolder.Instance.GetCommandManagerByRace(race).AddCommandManually(command);
+        }
+    }
+    private void AddCraftingCommand()
+    {
+        foreach (Settler settler in _performingSettlers)
+        {
+            CommandData command = new CommandData
+            {
+                Interactable = _interactable,
+                CommandType = Command.Craft,
+                AdditionalData = new CraftingCommandData()
+                {
+                    CraftingStation = _craftingStation
+                },
+                Settler = settler
             };
             _activeCraftingCommands.Add(command);
-            CommandsManagersHolder.Instance.GetCommandManagerByRace(race).AddCommandManually(command);
+            CommandsManagersHolder.Instance.GetCommandManagerByRace(settler.SettlerData.Race)
+                .AddSubsequentCommand(command);
         }
     }
 
@@ -167,11 +190,19 @@ public class CraftingCombinedCommand : CombinedCommandData
     
     public void OnCommandPerformed(CommandData cData)
     {
-        if (cData.CommandType == Command.Craft)
+        if (cData.CommandType == Command.PrepareToCraft)
         {
             if (!_performingSettlers.Contains(cData.Settler))
                 _performingSettlers.Add(cData.Settler);
             
+            if (_performingSettlers.Count < 2)
+                return;
+            
+            if (_performingSettlers.Count == 2)
+                AddCraftingCommand();
+        }
+        if (cData.CommandType == Command.Craft)
+        {
             if (_performingSettlers.Count < 2)
                 return;
             

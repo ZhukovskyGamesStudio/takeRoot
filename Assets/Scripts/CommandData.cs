@@ -16,5 +16,5 @@ public class CommandData {
     public Action TriggerCancel;
 
     public bool HasSubsequentCommand => CommandType is Command.Transport or Command.Break or Command.GatherResources or 
-        Command.Build or Command.GatherResourcesForCraft or Command.Craft;
+        Command.Build or Command.GatherResourcesForCraft or Command.Craft or Command.PrepareToCraft;
 }
