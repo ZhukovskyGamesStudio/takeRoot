@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Settlers.Crafting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -42,14 +43,15 @@ public class CraftingGridUiView : MonoBehaviour
     private void UpdateCraftingLineUiView(string recipeUid)
     {
         var craftingLineView = _craftingLineUiViews[recipeUid];
-        craftingLineView.UpdateRecipesAmount(_craftingStationable.RecipesToCraft[recipeUid]);
-        craftingLineView.UpdateRecipesAmountButtons(_craftingStationable.RecipesToCraft[recipeUid]);
+        var recipesToCraftCount = _craftingStationable.RecipesToCraftList.Count(r => r == recipeUid);
+        craftingLineView.UpdateRecipesAmount(recipesToCraftCount);
+        craftingLineView.UpdateRecipesAmountButtons(recipesToCraftCount);
         
         var recipe = Core.CraftingManager.GetRecipe(recipeUid);
         foreach (ResourceData resource in recipe.RequiredResources)
         {
             var allAvailableResources = ResourceManager.FindAllAvailableResources(resource.ResourceType);
-            var requiredResources = resource.Amount * _craftingStationable.RecipesToCraft[recipeUid];
+            var requiredResources = resource.Amount * recipesToCraftCount;
             
             craftingLineView.UpdateAmount(resource.ResourceType, requiredResources, allAvailableResources.Amount);
         }        

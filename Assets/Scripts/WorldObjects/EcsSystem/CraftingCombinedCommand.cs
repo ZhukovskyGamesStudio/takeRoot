@@ -115,12 +115,12 @@ public class CraftingCombinedCommand : CombinedCommandData
     {
         if (_craftingStation.CurrentRecipeToCraft != null)
             return;
-        foreach (KeyValuePair<string, int> recipe in _craftingStation.RecipesToCraft)
+        if (_craftingStation.RecipesToCraftList.Count == 0)
+            return;
+        foreach (string recipe in _craftingStation.RecipesToCraftList)
         {
-            if (recipe.Value == 0)
-                continue;
             bool canCraft = true;
-            var config = Core.CraftingManager.GetRecipe(recipe.Key);
+            var config = Core.CraftingManager.GetRecipe(recipe);
             foreach (ResourceData resource in config.RequiredResources)
             {
                 if (_craftingStation.GetResourceAmountFromStorage(resource.ResourceType) < resource.Amount)

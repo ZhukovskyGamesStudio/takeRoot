@@ -11,14 +11,14 @@ public class CraftingStationable : ECSComponent
     public Action OnResourceStorageDataChanged;
     
     private CraftingCombinedCommand _craftingCombinedCommand;
-    
-    private Dictionary<string, int> _recipesToCraft = new Dictionary<string, int>();
+
+    private List<string> _recipesToCraftList = new List<string>();
     private Dictionary<ResourceType, int> _resourceStorage = new Dictionary<ResourceType, int>();
     private Dictionary<ResourceType, int> _requiredResourcesForAllCurrentCrafts = new Dictionary<ResourceType, int>();
 
     public Interactable Interactable { get; private set; }
     public CraftingRecipeConfig CurrentRecipeToCraft { get; private set; }
-    public ReadOnlyDictionary<string, int> RecipesToCraft => new(_recipesToCraft);
+    public IReadOnlyList<string> RecipesToCraftList => _recipesToCraftList;
     public ReadOnlyDictionary<ResourceType, int> ResourceStorage => new(_resourceStorage);
     public ReadOnlyDictionary<ResourceType, int> RequiredResourcesForAllCurrentCrafts => new(_requiredResourcesForAllCurrentCrafts);
     public CraftingStationableData CraftingStationableData { get; private set; }
@@ -32,10 +32,6 @@ public class CraftingStationable : ECSComponent
         Interactable = entity.GetEcsComponent<Interactable>();
         CraftingStationableData = entity.GetEcsComponent<CraftingStationableData>();
         
-        foreach (CraftingRecipeConfig recipe in CraftingStationableData.AvailableRecipes)
-        {
-            _recipesToCraft.Add(recipe.RecipeUid, 0);
-        }
         foreach (ResourceType type in (ResourceType[])Enum.GetValues(typeof(ResourceType)))
         {
             if (type == ResourceType.None) continue;
@@ -77,9 +73,7 @@ public class CraftingStationable : ECSComponent
     public void AddRecipeToCraft(string uid)
     {
         var recipe = Core.CraftingManager.GetRecipe(uid);
-        if (RecipesToCraft[uid] == 99)
-            return;
-        _recipesToCraft[uid]++;
+        _recipesToCraftList.Add(uid);
         foreach (ResourceData resource in recipe.RequiredResources)
         {
             _requiredResourcesForAllCurrentCrafts[resource.ResourceType] += resource.Amount;
@@ -90,19 +84,39 @@ public class CraftingStationable : ECSComponent
     public void RemoveRecipeToCraft(string uid)
     {
         var recipe = Core.CraftingManager.GetRecipe(uid);
-        if (RecipesToCraft[uid] == 0)
-            return;
-        _recipesToCraft[uid]--;
+        RemoveLastAddedRecipeToCraft(uid);
         foreach (ResourceData resource in recipe.RequiredResources)
         {
             _requiredResourcesForAllCurrentCrafts[resource.ResourceType] -= resource.Amount;
         }
         OnRecipeDataChanged?.Invoke(uid);
     }
+
+    private void RemoveLastAddedRecipeToCraft(string uidToRemove)
+    {
+        var reversedList = _recipesToCraftList.ToList();
+        reversedList.Reverse();
+        var index = reversedList.Count;
+        foreach (string uid in reversedList)
+        {
+            index--;
+            if (uidToRemove == uid)
+            {
+                _recipesToCraftList.RemoveAt(index);
+                return;
+            }
+        }
+    }
     
     public void SetCurrentCraft(CraftingRecipeConfig recipe)
     {
+        _recipesToCraftList.Remove(recipe.RecipeUid);
         CurrentRecipeToCraft = recipe;
+        foreach (ResourceData resource in recipe.RequiredResources)
+        {
+            _requiredResourcesForAllCurrentCrafts[resource.ResourceType] -= resource.Amount;
+        }
+        OnRecipeDataChanged?.Invoke(recipe.RecipeUid);
     }
     
     public void CancelCurrentCraft()
@@ -119,7 +133,6 @@ public class CraftingStationable : ECSComponent
         }
         var resultResource = CurrentRecipeToCraft.ResultingResource;
         ResourceManager.SpawnResourcesAround(new List<ResourceData>(){resultResource}, VectorUtils.ToVector2Int(Interactable.Gridable.GetCenterOnGrid)); //TODO: SpawnResAround overload with occupiedCells
-        RemoveRecipeToCraft(CurrentRecipeToCraft.RecipeUid);
         CurrentRecipeToCraft = null;
     }
 
