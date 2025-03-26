@@ -107,7 +107,9 @@ jobs:
           sudo mv butler /usr/local/bin/
 
       - name: Authenticate butler
-        run: butler login
+        run: |
+          butler login
+          butler whoami
         env:
           BUTLER_API_KEY: ${{ secrets.ITCH_IO_API_KEY }}
 
