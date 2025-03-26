@@ -74,7 +74,7 @@ jobs:
 
       - name: Check Build Path
         run: |
-          if [ ! -d "Build/StandaloneOSX.app" ]; then echo "Build failed!"; exit 1; fi
+          if [ ! -d "build/StandaloneOSX/StandaloneOSX.app" ]; then echo "Build failed!"; exit 1; fi
           echo "Build found, proceeding to upload."
 
       - name: Upload macOS Build
