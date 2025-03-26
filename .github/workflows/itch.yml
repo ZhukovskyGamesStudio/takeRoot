@@ -12,6 +12,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Cache Unity Library
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/Library
+            **/Temp
+            **/Obj
+            **/Logs
+          key: ${{ runner.os }}-unity-${{ hashFiles('**/Packages/manifest.json') }}
+          restore-keys: |
+            ${{ runner.os }}-unity-
+
       - name: Set up Unity
         uses: game-ci/unity-builder@v4
         with:
