@@ -74,14 +74,14 @@ jobs:
 
       - name: Check Build Path
         run: |
-          if [ ! -d "StandaloneOSX.app" ]; then echo "Build failed!"; exit 1; fi
+          if [ ! -d "Build/StandaloneOSX.app" ]; then echo "Build failed!"; exit 1; fi
           echo "Build found, proceeding to upload."
 
       - name: Upload macOS Build
         uses: actions/upload-artifact@v4
         with:
           name: MacOS-Build
-          path: StandaloneOSX.app
+          path: Build/StandaloneOSX.app
 
   deploy-itch:
     needs: [build-windows, build-macos]
