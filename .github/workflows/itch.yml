@@ -17,6 +17,9 @@ jobs:
         with:
           targetPlatform: StandaloneWindows64
           unityVersion: 2022.3.14f1
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
 
       - name: Upload Windows Build
         uses: actions/upload-artifact@v4
@@ -35,6 +38,8 @@ jobs:
         with:
           targetPlatform: StandaloneOSX
           unityVersion: 2022.3.14f1
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
       - name: Upload macOS Build
         uses: actions/upload-artifact@v4
