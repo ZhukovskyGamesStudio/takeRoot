@@ -69,6 +69,14 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
 
+      - name: List directory contents before upload
+        run: ls -la
+
+      - name: Check Build Path
+        run: |
+          if [ ! -d "StandaloneOSX.app" ]; then echo "Build failed!"; exit 1; fi
+          echo "Build found, proceeding to upload."
+
       - name: Upload macOS Build
         uses: actions/upload-artifact@v4
         with:
