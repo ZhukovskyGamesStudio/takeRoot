@@ -69,8 +69,8 @@ jobs:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
 
-      - name: List directory contents before upload
-        run: ls -la
+      - name: List Build Directory
+        run: ls -la build/StandaloneOSX
 
       - name: Check Build Path
         run: |
@@ -81,7 +81,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: MacOS-Build
-          path: Build/StandaloneOSX.app
+          path: build/StandaloneOSX/StandaloneOSX.app
 
   deploy-itch:
     needs: [build-windows, build-macos]
