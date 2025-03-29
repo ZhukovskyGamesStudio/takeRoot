@@ -124,6 +124,16 @@ public class Settler : ECSEntity {
             return cData.CraftingStation != null &&
                    ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, cData.CraftingStation.Interactable);
         }
+
+        if (TakenCommand.CommandType == Command.PrepareToCraft)
+        {
+            CommandData cData = TakenCommand;
+            var craftingPositionIndex = SettlerData.Race == Race.Plants ? 0 : 1;
+            var craftingCell = cData.Interactable.Gridable.GetOccupiedPositions()[craftingPositionIndex];
+            var interactPosition = new Vector2Int(craftingCell.x, craftingCell.y - 1);
+            return ExactInteractionChecker.InASpecificPosition(GetCellOnGrid, interactPosition);
+        }
+        
         
         return ExactInteractionChecker.CanInteractFromNeighborCell(GetCellOnGrid, TakenCommand.Interactable);
     }
@@ -172,6 +182,12 @@ public class Settler : ECSEntity {
         } else if (TakenCommand.CommandType == Command.DeliveryForCraft) {
            DeliveryToCraftCommandData data = (DeliveryToCraftCommandData)TakenCommand.AdditionalData;
             targetCell.Add(data.CraftingStation.Interactable.GetInteractableCell);
+        } else if (TakenCommand.CommandType == Command.PrepareToCraft) {
+            CommandData cData = TakenCommand;
+            var craftingPositionIndex = SettlerData.Race == Race.Plants ? 0 : 1;
+            var craftingCell = cData.Interactable.Gridable.GetOccupiedPositions()[craftingPositionIndex];
+            var interactPosition = new Vector2Int(craftingCell.x, craftingCell.y - 1);
+            targetCell.Add(interactPosition);
         } else if (TakenCommand.CommandType == Command.Store) {
             StoreCommandData data = (StoreCommandData)TakenCommand.AdditionalData;
             Storagable st = data.TargetStorage;

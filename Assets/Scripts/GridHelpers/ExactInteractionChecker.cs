@@ -20,6 +20,11 @@ public static class ExactInteractionChecker {
         return to.InteractableCells.Contains(from);
     }
 
+    public static bool InASpecificPosition(Vector2Int obj, Vector2Int position)
+    {
+        return obj == position;
+    }
+    
     public static Vector2Int? NextStepOnPath(Vector2Int from, HashSet<Vector2Int> to) {
         var path = AStarPathfinding.Instance.FindPath(from, to, out bool isPathExist);
         if (!isPathExist) {
