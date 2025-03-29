@@ -1,5 +1,4 @@
 using System;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class Storagable : ECSComponent {
@@ -47,8 +46,8 @@ public class Storagable : ECSComponent {
             resourceToGather.GetEcsComponent<Networkable>().ChangeParent(resourceToGather.Interactable.CommandToExecute.Settler.ResourceHolder);
             CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(resourceToGather.Interactable.CommandToExecute);
         }
-        if (cData.CommandType == Command.GatherResourcesForCraft)
-        {
+
+        if (cData.CommandType == Command.GatherResourcesForCraft) {
             var resource = new ResourceData() {
                 ResourceType = Resource.ResourceType,
                 Amount = AmountToGather
