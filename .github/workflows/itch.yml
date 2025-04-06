@@ -89,7 +89,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: MacOS-Build
-          path: "build/$GAME_NAME"
+          path: "build/${{ env.GAME_NAME }}"  
         env:
           GAME_NAME: ${{ vars.ITCH_IO_GAME_NAME }}
 
