@@ -3,14 +3,19 @@ using Unity.Netcode;
 
 public class PlayerRaceSelection : NetworkBehaviour {
     public static PlayerRaceSelection Instance;
+
+    public static Action OnCreated;
+    public static bool IsCreated = false;
     public NetworkVariable<Race> Player1Race = new NetworkVariable<Race>(Race.None);
     public NetworkVariable<Race> Player2Race = new NetworkVariable<Race>(Race.None);
 
     public NetworkVariable<bool> Player1Ready = new NetworkVariable<bool>(false);
     public NetworkVariable<bool> Player2Ready = new NetworkVariable<bool>(false);
 
-    private void Start() {
+    private void Awake() {
         Instance = this;
+        IsCreated = true;
+        OnCreated?.Invoke();
     }
 
     public void ResetSelections() {

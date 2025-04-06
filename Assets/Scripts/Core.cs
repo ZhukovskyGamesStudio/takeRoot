@@ -58,11 +58,7 @@ public class Core : MonoBehaviour {
         SceneManager.LoadScene("MenuScene");
     }
 
-    public Race MyRace() {
-        if (NetworkManager.Singleton != null) {
-            return PlayerRaceSelection.GetRace();
-        } else {
-            return CurrentNetworkFakeRace;
-        }
+    public static Race MyRace() {
+        return NetworkManager.Singleton != null ? PlayerRaceSelection.GetRace() : CurrentNetworkFakeRace;
     }
 }

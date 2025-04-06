@@ -48,8 +48,7 @@ public class SettlersSelectionManager : MonoBehaviour {
         TryAutoOpenInfoPanel();
     }
 
-    public void TryUnselectSpecificSettler(Settler settler)
-    {
+    public void TryUnselectSpecificSettler(Settler settler) {
         _tacticalCommandPanel.ClearSelectedTacticalCommand(_tacticalCommandPanel.SelectedTacticalCommand);
         if (SelectedSettler == settler) {
             TryUnselectSettler();
@@ -78,7 +77,7 @@ public class SettlersSelectionManager : MonoBehaviour {
             return;
         }
 
-        if (settler.SettlerData.Race != Core.Instance.MyRace() && settler.SettlerData.Race != Race.Both) {
+        if (settler.SettlerData.Race != Core.MyRace() && settler.SettlerData.Race != Race.Both) {
             return;
         }
 

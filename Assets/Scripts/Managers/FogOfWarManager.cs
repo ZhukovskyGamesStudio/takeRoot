@@ -15,7 +15,7 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
 
     private readonly Dictionary<Race, HashSet<Vector2Int>> _openedCellsD = new();
 
-    private HashSet<Vector2Int> _openedCells => _openedCellsD[Core.Instance.MyRace()];
+    private HashSet<Vector2Int> _openedCells => _openedCellsD[Core.MyRace()];
 
     private int ViewRadius => Core.ConfigManager.CreaturesParametersConfig.ViewRadius;
 
@@ -75,7 +75,7 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
     }
 
     private void OpenAroundMovedSettler(SettlerData settlerData) {
-        if (settlerData.Race != Core.Instance.MyRace()) {
+        if (settlerData.Race != Core.MyRace()) {
             return;
         }
 

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1672077761971209018}
   - component: {fileID: 4268524572241088767}
   - component: {fileID: 7871584083347338246}
+  - component: {fileID: 6338750813879411520}
   m_Layer: 5
   m_Name: PlayerCursor
   m_TagString: Untagged
@@ -116,5 +117,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   _rectTransform: {fileID: 646786296742398746}
-  _playerRaceSelection: {fileID: 8398247404787509252, guid: 6ec52d2582006ec4bb1cbd78ffcdaa37, type: 3}
   _image: {fileID: 1672077761971209018}
+  _undecidedCursor: {fileID: 21300000, guid: af294ceb2dc9a3b4da998be4acc6b1e6, type: 3}
+  _roboCursor: {fileID: 21300000, guid: da337d527cb17814cac2959f9acfb514, type: 3}
+  _plantsCursor: {fileID: 21300000, guid: 1ac71d415e9012f49b9a8b35ca0704a6, type: 3}
+--- !u!225 &6338750813879411520
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8448121431541402677}
+  m_Enabled: 1
+  m_Alpha: 0.5
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

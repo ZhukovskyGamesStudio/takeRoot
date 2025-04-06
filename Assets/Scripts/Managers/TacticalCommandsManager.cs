@@ -46,7 +46,7 @@ public class TacticalCommandsManager : MonoBehaviour {
     }
 
     private void TryAddTacticalCommandFromMouseClick(TacticalCommand tacticalCommand) {
-        if (Core.Instance.MyRace() != _race)
+        if (Core.MyRace() != _race)
             return;
 
         TacticalInteractable interactable = SelectionManager.Instance.TacticalInteractable as TacticalInteractable;
@@ -80,7 +80,7 @@ public class TacticalCommandsManager : MonoBehaviour {
             }
 
             if (tacticalCommand == TacticalCommand.Merge && interactable.TryGetComponent(out Settler settler)) {
-                if (settler.SettlerData.Race == Core.Instance.MyRace())
+                if (settler.SettlerData.Race == Core.MyRace())
                     return;
                 if (settler.SettlerData._mode == Mode.Planning)
                     return;

@@ -5,20 +5,35 @@ using UnityEngine;
 
 public class CursorManager : MonoBehaviour {
     public static CursorManager Instance;
-    
+
     [SerializeField]
-    private Texture2D _normal, _search;
-    
+    private Texture2D _search, _move, _attack;
+
     [SerializeField]
-    private Texture2D _move, _attack;
+    private Texture2D _undecidedCursor, _roboCursor, _plantsCursor;
 
     [SerializeField]
     private List<Texture2D> _wakeupAnimation;
 
     private Coroutine _cursorAnimation;
+    private Texture2D _normal;
 
     private void Awake() {
+        if (Instance != null) {
+            Destroy(gameObject);
+        }
+
         Instance = this;
+    }
+
+    public void SetCursorByRace(Race race) {
+        if (race == Race.None) {
+            _normal = _undecidedCursor;
+        } else {
+            _normal = race == Race.Robots ? _roboCursor : _plantsCursor;
+        }
+
+        ChangeCursor(CursorType.Normal);
     }
 
     public static void ChangeCursor(CursorType type) {

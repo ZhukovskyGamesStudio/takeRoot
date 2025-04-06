@@ -13,7 +13,7 @@ public class CommandsManagersHolder : NetworkBehaviour, IInitableInstance {
     [SerializeField]
     private TacticalCommandPanel _tacticalCommandPanel;
 
-    [SerializeField] 
+    [SerializeField]
     private List<Command> _commandsWithPlannedView;
 
     private Dictionary<Race, CommandsManager> _commandsManagers;
@@ -21,8 +21,8 @@ public class CommandsManagersHolder : NetworkBehaviour, IInitableInstance {
 
     public static CommandsManagersHolder Instance => Core.CommandsManagersHolder;
 
-    public CommandsManager CommandsManager => _commandsManagers[Core.Instance.MyRace()];
-    public TacticalCommandsManager TacticalCommandsManager => _tacticalCommandsManagers[Core.Instance.MyRace()];
+    public CommandsManager CommandsManager => _commandsManagers[Core.MyRace()];
+    public TacticalCommandsManager TacticalCommandsManager => _tacticalCommandsManagers[Core.MyRace()];
 
     public void Init() {
         Core.CommandsManagersHolder = this;
@@ -31,10 +31,10 @@ public class CommandsManagersHolder : NetworkBehaviour, IInitableInstance {
 
     public List<Type> GetDependencies() => new() { typeof(SettlersManager) };
 
-    public CommandsManager GetCommandManagerByRace(Race race)
-    {
+    public CommandsManager GetCommandManagerByRace(Race race) {
         return _commandsManagers[race];
     }
+
     private void CreateManagers() {
         _commandsManagers = new Dictionary<Race, CommandsManager> {
             { Race.Plants, gameObject.AddComponent<CommandsManager>() },
