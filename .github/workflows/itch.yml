@@ -109,7 +109,6 @@ jobs:
       - name: Authenticate butler
         run: |
           butler login
-          butler whoami
         env:
           BUTLER_API_KEY: ${{ secrets.ITCH_IO_API_KEY }}
 
