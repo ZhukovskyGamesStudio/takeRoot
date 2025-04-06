@@ -122,6 +122,11 @@ public class CraftingCombinedCommand : CombinedCommandData {
     }
 
     private void PrepareToCraftCommand(CraftingRecipeConfig recipe) {
+        foreach (Vector2Int cell in _craftingStation.Interactable.Gridable.GetOccupiedPositions())
+        {
+            if (!AStarPathfinding.IsWalkable(new Vector2Int(cell.x, cell.y - 1)))
+                return;
+        }
         _craftingStation.SetCurrentCraft(recipe);
         _craftingPoints = recipe.CraftingPoints;
         foreach (Race race in (Race[])Enum.GetValues(typeof(Race))) {

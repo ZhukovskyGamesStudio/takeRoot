@@ -107,6 +107,66 @@ public class ResourceManager : MonoBehaviour {
         return spawnedResources;
     }
 
+    public static List<ResourceView> SpawnResourcesAround(List<ResourceData> resources, List<Vector2Int> centerCells)
+    {
+        const int maxResourceInCell = 10;
+        List<ResourceView> spawnedResources = new List<ResourceView>();
+        int checkedN = 0;
+        foreach (ResourceData resourceData in resources)
+        {
+            int remainingAmount = resourceData.Amount;
+
+            while (remainingAmount > 0)
+            {
+                foreach (Vector2Int centerCell in centerCells)
+                {
+                    Vector2Int targetCell = centerCell + GetSpiralOffset(checkedN);
+
+                    if (centerCells.Contains(targetCell))
+                    {
+                        checkedN++;
+                        continue;
+                    }
+
+                    // Check if the cell is occupied by a different resource
+                    if (Instance._scatteredResources.TryGetValue(targetCell, out ResourceView existingResource))
+                    {
+                        if (existingResource.ResourceType == resourceData.ResourceType)
+                        {
+                            // Add to the existing resource if it doesn't exceed the limit
+                            var availableSpace = maxResourceInCell - existingResource.Amount;
+                            if (availableSpace > 0)
+                            {
+                                var toAdd = Mathf.Min(availableSpace, remainingAmount);
+                                existingResource.SetAmount(existingResource.Amount + toAdd);
+                                remainingAmount -= toAdd;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Create a new resource in the cell
+                        int toSpawn = Mathf.Min(remainingAmount, maxResourceInCell);
+                        ResourceView newResource = SpawnResource(resourceData.ResourceType, targetCell);
+                        newResource.transform.position = new Vector3(targetCell.x, targetCell.y);
+                        newResource.SetAmount(toSpawn);
+
+                        spawnedResources.Add(newResource);
+                        Instance._scatteredResources[targetCell] = newResource;
+
+                        remainingAmount -= toSpawn;
+                    }
+
+                    checkedN++;
+                    // Break out of the loop once all resources are spawned
+                    if (remainingAmount <= 0) break;
+                }
+            }
+        }
+
+        return spawnedResources;
+    }
+
     public static Vector2Int GetSpiralOffset(int n) {
         // Directions: right, up, left, down
         var directions = new[] {

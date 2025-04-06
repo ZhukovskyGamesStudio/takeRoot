@@ -132,7 +132,7 @@ public class CraftingStationable : ECSComponent
             RemoveResourceFromStorage(resource);
         }
         var resultResource = CurrentRecipeToCraft.ResultingResource;
-        ResourceManager.SpawnResourcesAround(new List<ResourceData>(){resultResource}, VectorUtils.ToVector2Int(Interactable.Gridable.GetCenterOnGrid)); //TODO: SpawnResAround overload with occupiedCells
+        ResourceManager.SpawnResourcesAround(new List<ResourceData>(){resultResource}, Interactable.Gridable.GetOccupiedPositions()); //TODO: SpawnResAround overload with occupiedCells
         CurrentRecipeToCraft = null;
     }
     

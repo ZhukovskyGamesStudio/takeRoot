@@ -6,6 +6,7 @@ using UnityEngine;
 public class CommandsManager : MonoBehaviour {
     private CommandsPanel _commandsPanel;
 
+    private List<Command> _commandsWithPlannedView;
     private List<CommandData> _plannedCommands = new List<CommandData>();
     private PlannedCommandView _plannedCommandView;
     private Race _race;
@@ -25,11 +26,12 @@ public class CommandsManager : MonoBehaviour {
         TryGiveUnjobedSettlerCommand();
     }
 
-    public void Init(Race race, CommandsPanel commandsPanel, PlannedCommandView plannedCommandView) {
+    public void Init(Race race, CommandsPanel commandsPanel, PlannedCommandView plannedCommandView, List<Command> commandsWithPlannedView) {
         _race = race;
         _commandsPanel = commandsPanel;
         _plannedCommandView = plannedCommandView;
         _plannedCommands = new List<CommandData>();
+        _commandsWithPlannedView = commandsWithPlannedView;
         _settlers = Core.SettlersManager.Settlers.Where(s => s.SettlerData.Race == _race).ToList();
     }
 
@@ -44,7 +46,7 @@ public class CommandsManager : MonoBehaviour {
     private void AddCommand(CommandData data) {
         _plannedCommands.Add(data);
         _untakenCommands.Add(data);
-        if (data.PlannedCommandView == null && data.CommandType != Command.Store && data.CommandType != Command.Delivery) {
+        if (data.PlannedCommandView == null && _commandsWithPlannedView.Contains(data.CommandType)) {
             PlannedCommandView commandView = Instantiate(_plannedCommandView, data.Interactable.transform);
             commandView.Init(data.CommandType, data.Interactable.Gridable);
             data.PlannedCommandView = commandView;
