@@ -79,15 +79,19 @@ jobs:
 
       - name: Rename Build
         run: |
-          mkdir -p build/${{ vars.ITCH_IO_GAME_NAME }}  # Ensure the target directory exists
-          mv build/StandaloneOSX/StandaloneOSX.app build/${{ vars.ITCH_IO_GAME_NAME }}/${{ vars.ITCH_IO_GAME_NAME }}.app
-          echo "Build renamed to ${ vars.ITCH_IO_GAME_NAME }."
+          mkdir -p "build/$GAME_NAME"  # Ensure the target directory exists
+          mv "build/StandaloneOSX/StandaloneOSX.app" "build/$GAME_NAME/$GAME_NAME.app"
+          echo "Build renamed to $GAME_NAME."
+        env:
+          GAME_NAME: ${{ vars.ITCH_IO_GAME_NAME }}
           
       - name: Upload macOS Build
         uses: actions/upload-artifact@v4
         with:
           name: MacOS-Build
-          path: build/${{ vars.ITCH_IO_GAME_NAME }}
+          path: "build/$GAME_NAME"
+        env:
+          GAME_NAME: ${{ vars.ITCH_IO_GAME_NAME }}
 
   deploy-itch:
     needs: [build-windows, build-macos]
