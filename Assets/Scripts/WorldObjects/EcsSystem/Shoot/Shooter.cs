@@ -3,6 +3,8 @@ using WorldObjects;
 
 public abstract class Shooter : ECSComponent
 {
+    private static readonly int Shoot = Animator.StringToHash("Shoot");
+    private static readonly int Reload = Animator.StringToHash("Reload");
     private TacticalInteractable _tacticalInteractable;
     
     [SerializeField]private Animator _animator;
@@ -74,34 +76,33 @@ public abstract class Shooter : ECSComponent
 
         if (CanShoot)
         {
-            _animator.SetBool("Shoot", true);
+            _animator.SetBool(Shoot, true);
             
             
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Shoot") ||
-                !(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)) return;
+                !(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)) return;
 
-            _animator.SetBool("Shoot", false);
+            _animator.SetBool(Shoot, false);
             FinishShoot(); 
         }
         else
         {
-            _animator.SetBool("Reload", true);
+            _animator.SetBool(Reload, true);
 
             if (!_animator.GetCurrentAnimatorStateInfo(0).IsName("Reload") ||
                 (!(_animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f))) return;
             
-            _animator.SetBool("Reload", false);
-            Reload();
+            _animator.SetBool(Reload, false);
+            DoReload();
         }
     }
 
-    protected virtual void Reload()
+    protected virtual void DoReload()
     {
         CanShoot = true;
-        Debug.Log("Reloaded");
     }
 
-    protected virtual void Shoot()
+    protected virtual void DoShoot()
     {
         GameObject projectileObj = CreateProjectile();
         if (projectileObj == null) return;
@@ -119,7 +120,7 @@ public abstract class Shooter : ECSComponent
         GameObject projectilePrefab = _projectileSelector.SelectProjectile(this);
         if (projectilePrefab == null) return null;
         
-        GameObject projectileObj = Instantiate(projectilePrefab, _projectileSpawnPoint.position, Quaternion.identity);
+        GameObject projectileObj = Instantiate(projectilePrefab, _projectileSpawnPoint.position, Quaternion.identity, _projectileSpawnPoint);
         projectileObj.SetActive(isActive);
         
         Projectile projectile = projectileObj.GetComponent<Projectile>();

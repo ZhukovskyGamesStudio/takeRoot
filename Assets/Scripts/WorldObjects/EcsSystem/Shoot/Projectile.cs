@@ -3,7 +3,8 @@ using UnityEngine;
 public abstract class Projectile : MonoBehaviour
 {
     protected static readonly int Move = Animator.StringToHash("Move");
-    
+    private static readonly int Reached = Animator.StringToHash("TargetReached");
+
     [SerializeField]protected float speed;
     [SerializeField]protected float damage;
     
@@ -26,19 +27,19 @@ public abstract class Projectile : MonoBehaviour
 
         if (!TargetReached())
         {
-            animator.SetBool("Move", true);
+            animator.SetBool(Move, true);
             MakeMove();
         }
         else
         {
-            animator.SetBool("TargetReached", true);
-            animator.SetBool("Move", false);
+            animator.SetBool(Reached, true);
+            animator.SetBool(Move, false);
 
 
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("TargetReached") ||
-                !(animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)) return;
+                !(animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)) return;
 
-            animator.SetBool("TargetReached", false);
+            animator.SetBool(Reached, false);
             OnTargetReached();
         }
     }

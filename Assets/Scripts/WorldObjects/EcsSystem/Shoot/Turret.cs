@@ -11,7 +11,7 @@ public class Turret : Shooter
         projectiles = new Stack<Projectile>(magazineSize);
     }
 
-    protected override void Reload()
+    protected override void DoReload()
     {
         GameObject projectile = CreateProjectile(false);
         projectiles.Push(projectile.GetComponent<Projectile>());
@@ -19,7 +19,7 @@ public class Turret : Shooter
             CanShoot = true;
     }
 
-    protected override void Shoot()
+    protected override void DoShoot()
     {
         Vector3 target3 = new Vector3(currentTarget.transform.position.x, currentTarget.transform.position.y);
         Vector3 diff = target3 - transform.position;
