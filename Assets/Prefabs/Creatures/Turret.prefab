@@ -765,11 +765,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 3354733009700041548}
   _projectileSpawnPoint: {fileID: 1962468269023749004}
-  ShootRate: 1
   detectionRange: 10
   projectileSelectorType: 0
   currentTarget: {fileID: 0}
-  magazineSize: 0
+  magazineSize: 3
 --- !u!114 &2725274605301405300
 MonoBehaviour:
   m_ObjectHideFlags: 0
