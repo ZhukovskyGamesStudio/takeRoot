@@ -24,7 +24,7 @@ public class Zombie : ECSEntity {
     
     public Gridable Gridable;
     public ZombieData ZombieData { get; private set; }
-    
+    public SpriteRenderer SpriteRenderer => _spriteRenderer;
 
     protected override void Awake() {
         base.Awake();
