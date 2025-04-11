@@ -39,6 +39,7 @@ public class Settler : ECSEntity {
         SettlerData = GetEcsComponent<SettlerData>();
         _gridable = GetEcsComponent<Gridable>();
         GetEcsComponent<Damagable>().OnDiedAction += OnDied;
+        _animator.SetBool(IsSleeping, isSleeping);
     }
 
     private void Update() {
