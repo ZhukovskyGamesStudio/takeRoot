@@ -306,7 +306,7 @@ public class Settler : ECSEntity {
     private IEnumerator PerformingCoroutine(Action after) {
         if (TakenCommand?.CommandType == Command.Break || TakenTacticalCommand?.TacticalCommandType == TacticalCommand.TacticalAttack || TakenCommand?.CommandType == Command.Craft){
             Transform target = TakenCommand != null ? TakenCommand.Interactable.transform : TakenTacticalCommand.TacticalInteractable.transform;
-            yield return StartCoroutine(Attack(Core.ConfigManager.CreaturesParametersConfig.AttackTime, target, after));
+            yield return StartCoroutine(InteractAnimation(Core.ConfigManager.CreaturesParametersConfig.AttackTime, target, after));
         } else {
             yield return new WaitForSeconds(Core.ConfigManager.CreaturesParametersConfig.PerformingTime);
             after?.Invoke();
@@ -315,7 +315,7 @@ public class Settler : ECSEntity {
         _performingCoroutine = null;
     }
 
-    private IEnumerator Attack(float delay, Transform target, Action callback) {
+    private IEnumerator InteractAnimation(float delay, Transform target, Action callback) {
         Transform targetTransform = target.transform;
         Vector3 startPosition = transform.position;
         Vector3 direction = (targetTransform.position - startPosition).normalized;
@@ -341,6 +341,7 @@ public class Settler : ECSEntity {
 
         transform.position = startPosition;
     }
+    
 
     public void SetCommand(CommandData data) {
         ClearCommand();

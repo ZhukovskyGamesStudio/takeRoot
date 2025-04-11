@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Settlers.Crafting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class Video1 : MonoBehaviour
@@ -43,6 +44,9 @@ public class Video1 : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.LeftAlt)) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
         if (!craftingCommandsAdded)
         {
             craftingStation.AddRecipeToCraft("3");
