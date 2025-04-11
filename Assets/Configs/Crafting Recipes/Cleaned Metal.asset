@@ -16,10 +16,10 @@ MonoBehaviour:
   RecipeIcon: {fileID: 21300000, guid: 5c93270779aaf314c8dc65cdc880a3fc, type: 3}
   ExplainText: "\u0418\u0441\u043F\u043E\u043B\u044C\u0437\u0443\u0435\u0442\u0441\u044F
     \u0434\u043B\u044F \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F \u043C\u043E\u043B\u043E\u0442\u043A\u0430"
-  CraftingPoints: 7
+  CraftingPoints: 999
   <RequiredResources>k__BackingField:
   - ResourceType: 2
-    Amount: 2
+    Amount: 15
   <ResultingResource>k__BackingField:
     ResourceType: 4
     Amount: 1
