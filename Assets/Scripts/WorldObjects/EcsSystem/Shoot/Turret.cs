@@ -24,13 +24,13 @@ public class Turret : Shooter
         Vector3 target3 = new Vector3(currentTarget.transform.position.x, currentTarget.transform.position.y);
         Vector3 diff = target3 - transform.position;
         //transform.position = target3 * CELL_SIZE;
-        if (diff.x < 0) {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
-        }
+       //if (diff.x < 0) {
+       //    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
+       //}
 
-        if (diff.x > 0) {
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-        }
+       //if (diff.x > 0) {
+       //    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+       //}
         
         Projectile proj = projectiles.Pop();
         proj.gameObject.SetActive(true);

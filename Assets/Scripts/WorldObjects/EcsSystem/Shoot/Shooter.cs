@@ -5,8 +5,9 @@ public abstract class Shooter : ECSComponent
 {
     private static readonly int Shoot = Animator.StringToHash("Shoot");
     private static readonly int Reload = Animator.StringToHash("Reload");
-    private TacticalInteractable _tacticalInteractable;
-    
+
+    [SerializeField]private TacticalInteractable _tacticalInteractable;
+    [SerializeField] private Gridable _gridable;
     [SerializeField]private Animator _animator;
     [SerializeField]private Transform _projectileSpawnPoint;
     
@@ -24,7 +25,6 @@ public abstract class Shooter : ECSComponent
     
     public override void Init(ECSEntity entity)
     {
-        _tacticalInteractable = entity.GetEcsComponent<TacticalInteractable>();
         _tacticalInteractable.AddToPossibleCommands(TacticalCommand.AddShootTarget);
         _tacticalInteractable.OnCommandPerformed += OnCommandPerformed;
         InitializeProjectileSelector();
@@ -54,7 +54,7 @@ public abstract class Shooter : ECSComponent
     {
         if (currentTarget != null) return;
         var zombies = FindObjectsByType<Zombie>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        Vector2Int shooterPosition = VectorUtils.ToVector2Int(_tacticalInteractable.Gridable.GetCenterOnGrid);
+        Vector2Int shooterPosition = VectorUtils.ToVector2Int(_gridable.GetCenterOnGrid);
         Zombie closestTarget = null;
         float closestDistance = detectionRange;
         foreach (Zombie zombie in zombies)
