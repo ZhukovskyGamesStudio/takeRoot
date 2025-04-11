@@ -97,17 +97,17 @@ public class Video1 : MonoBehaviour
             goToRembo = true;
         }
 
-        if (VectorUtils.ToVector2Int(flowerSettler.transform.position)
-            == VectorUtils.ToVector2Int(craftingRoomCameraStopPos.position) && !craftingRoomCameraStopped)
-        {
-            CameraFollow.target = null;
-            craftingRoomCameraStopped = true;
-        }        if (VectorUtils.ToVector2Int(flowerSettler.transform.position)
-            == VectorUtils.ToVector2Int(craftingRoomCameraStartPos.position) && craftingRoomCameraStopped && !craftingRoomCameraStarted)
-        {
-            CameraFollow.target = flowerSettler.gameObject.transform;
-            craftingRoomCameraStarted = true;
-        }
+        //if (VectorUtils.ToVector2Int(flowerSettler.transform.position)
+        //    == VectorUtils.ToVector2Int(craftingRoomCameraStopPos.position) && !craftingRoomCameraStopped)
+        //{
+        //    CameraFollow.target = null;
+        //    craftingRoomCameraStopped = true;
+        //}        if (VectorUtils.ToVector2Int(flowerSettler.transform.position)
+        //    == VectorUtils.ToVector2Int(craftingRoomCameraStartPos.position) && craftingRoomCameraStopped && !craftingRoomCameraStarted)
+        //{
+        //    CameraFollow.target = flowerSettler.gameObject.transform;
+        //    craftingRoomCameraStarted = true;
+        //}
         if (VectorUtils.ToVector2Int(flowerSettler.transform.position)
             == VectorUtils.ToVector2Int(craftingRoom.position) && !runIntoCraftingRoom)
         {
@@ -133,7 +133,7 @@ public class Video1 : MonoBehaviour
             CameraSize += 0.05f;
             Camera.main.orthographicSize = CameraSize;
         }
-        if (CameraSize < 15 && CanUnZoomCamera)
+        if (CameraSize < 36 && CanUnZoomCamera)
         {
             CameraSize += 0.09f;
             Camera.main.orthographicSize = CameraSize;

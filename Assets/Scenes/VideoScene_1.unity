@@ -32108,7 +32108,7 @@ Camera:
   far clip plane: 1000
   field of view: 26
   orthographic: 1
-  orthographic size: 1.8
+  orthographic size: 3.25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -36138,7 +36138,7 @@ MonoBehaviour:
   startZoomPos: {fileID: 1870570091}
   CameraFollow: {fileID: 817878774}
   CanUnZoomCamera: 0
-  CameraSize: 1.8
+  CameraSize: 3.25
   CenterCamera: {fileID: 447969690}
 --- !u!4 &1178287266
 Transform:
