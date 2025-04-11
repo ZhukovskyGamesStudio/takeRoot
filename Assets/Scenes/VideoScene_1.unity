@@ -40713,67 +40713,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1001 &1971735255
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -7589340737268881983, guid: 55e70b1549ff46745b48121081f24254, type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 748056477
-      objectReference: {fileID: 0}
-    - target: {fileID: 516106991386686051, guid: 55e70b1549ff46745b48121081f24254, type: 3}
-      propertyPath: m_Name
-      value: Tree (27)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766468518439866684, guid: 55e70b1549ff46745b48121081f24254, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 33.91
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766468518439866684, guid: 55e70b1549ff46745b48121081f24254, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.69
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766468518439866684, guid: 55e70b1549ff46745b48121081f24254, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766468518439866684, guid: 55e70b1549ff46745b48121081f24254, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766468518439866684, guid: 55e70b1549ff46745b48121081f24254, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766468518439866684, guid: 55e70b1549ff46745b48121081f24254, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766468518439866684, guid: 55e70b1549ff46745b48121081f24254, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766468518439866684, guid: 55e70b1549ff46745b48121081f24254, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766468518439866684, guid: 55e70b1549ff46745b48121081f24254, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8766468518439866684, guid: 55e70b1549ff46745b48121081f24254, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 55e70b1549ff46745b48121081f24254, type: 3}
 --- !u!212 &2004693380 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 9027190584546902724, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
@@ -41571,6 +41510,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4385885757185513461, guid: 71d5477656095674191ccd469ca0cae6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 77.6001
+      objectReference: {fileID: 0}
     - target: {fileID: 4742748685618680439, guid: 71d5477656095674191ccd469ca0cae6, type: 3}
       propertyPath: _tacticalCommandPanel
       value: 
@@ -41611,6 +41554,10 @@ PrefabInstance:
       propertyPath: _tacticalCommandPanel
       value: 
       objectReference: {fileID: 1778838689}
+    - target: {fileID: 5826729053867735624, guid: 71d5477656095674191ccd469ca0cae6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 1.3999023
+      objectReference: {fileID: 0}
     - target: {fileID: 7063355970026398798, guid: 71d5477656095674191ccd469ca0cae6, type: 3}
       propertyPath: m_Name
       value: CoreCanvas
@@ -41755,4 +41702,3 @@ SceneRoots:
   - {fileID: 2051279967}
   - {fileID: 1863920194}
   - {fileID: 979798233}
-  - {fileID: 1971735255}
