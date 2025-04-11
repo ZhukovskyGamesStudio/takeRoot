@@ -11,7 +11,7 @@ public class StraightProjectile : Projectile
     protected override void OnTargetReached()
     {
         Debug.Log("OnTargetReached");
-        //TODO: Take damage
+        target.GetComponent<TacticalDamagable>().OnAttacked(damage);
         Destroy(gameObject);
     }
     

@@ -6,7 +6,7 @@ public abstract class Projectile : MonoBehaviour
     private static readonly int Reached = Animator.StringToHash("TargetReached");
 
     [SerializeField]protected float speed;
-    [SerializeField]protected float damage;
+    [SerializeField]protected int damage;
     
     [SerializeField]protected Animator animator;
     
@@ -34,7 +34,6 @@ public abstract class Projectile : MonoBehaviour
         {
             animator.SetBool(Reached, true);
             animator.SetBool(Move, false);
-
 
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("TargetReached") ||
                 !(animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)) return;
