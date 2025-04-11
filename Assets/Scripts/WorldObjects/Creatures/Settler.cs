@@ -31,6 +31,9 @@ public class Settler : ECSEntity {
     public Vector2Int GetCellOnGrid => new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
     public SettlerData SettlerData { get; private set; }
 
+    public bool ChangeMoodAuto = true;
+    public bool isSleeping = true;
+
     protected override void Awake() {
         base.Awake();
         SettlerData = GetEcsComponent<SettlerData>();
@@ -97,8 +100,11 @@ public class Settler : ECSEntity {
                 }
             }
         }
-
-        UpdateMoodAndAnimations();
+        _animator.SetBool(IsSleeping, isSleeping);
+        if (ChangeMoodAuto)
+            UpdateMoodAndAnimations();
+        else
+            _animator.SetInteger(Mood, (int)SettlerData._mood);
     }
 
     private bool CanPerformTactical() {
