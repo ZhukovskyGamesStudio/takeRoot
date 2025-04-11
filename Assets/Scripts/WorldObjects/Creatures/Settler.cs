@@ -273,6 +273,7 @@ public class Settler : ECSEntity {
 
         while (elapsedTime < time) {
             float t = elapsedTime / time;
+            t = Mathf.SmoothStep(0f, 1f, t);
             transform.position = Vector3.Lerp(from, to, t);
             elapsedTime += Time.deltaTime;
             yield return null;
