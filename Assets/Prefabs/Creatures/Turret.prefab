@@ -1486,6 +1486,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 606887093154187865, guid: 0feda5f096226bd468c9ba7de021bf2e, type: 3}
   m_PrefabInstance: {fileID: 1391628669018663381}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &3354733009700041548 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4458116144148634265, guid: 0feda5f096226bd468c9ba7de021bf2e, type: 3}
+  m_PrefabInstance: {fileID: 1391628669018663381}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &4084140697542009632 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3169908197149264629, guid: 0feda5f096226bd468c9ba7de021bf2e, type: 3}
@@ -1503,7 +1508,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a72739d2f24446ae0adc2a90a68786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
+  _animator: {fileID: 3354733009700041548}
   _projectileSpawnPoint: {fileID: 1962468269023749004}
   detectionRange: 10
   projectileSelectorType: 0
