@@ -108,8 +108,6 @@ GameObject:
   - component: {fileID: 8089342074805447309}
   - component: {fileID: -4595942293772232912}
   - component: {fileID: 6349056453760243531}
-  - component: {fileID: 6724333908171022128}
-  - component: {fileID: 7135824501200271405}
   m_Layer: 0
   m_Name: RamboChamomileCharacter
   m_TagString: Untagged
@@ -329,7 +327,7 @@ MonoBehaviour:
   RoundAttackCooldown: 0
   PossibleEquipment: 01000000
   AvailableCommands: 
-  CanPerformCommands: 010000000400000005000000060000000700000008000000090000000a0000000b0000000c000000
+  CanPerformCommands: 
 --- !u!114 &8089342074805447309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,38 +368,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableShift: {x: 0, y: 0}
---- !u!114 &6724333908171022128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348353066383099300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59a72739d2f24446ae0adc2a90a68786, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _animator: {fileID: 1414679948059881308}
-  _projectileSpawnPoint: {fileID: 4395794060458795553}
-  detectionRange: 15
-  projectileSelectorType: 0
-  currentTarget: {fileID: 0}
-  magazineSize: 0
---- !u!114 &7135824501200271405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1348353066383099300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f062848e433445e9adc79c59fdae2123, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ProjectilePrefab:
-  - {fileID: 4389434023463331518, guid: 54215da08dc36db479aaa63c314741e1, type: 3}
 --- !u!1 &1997325108845456548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,6 +1762,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2378867746326590891}
     m_Modifications:
+    - target: {fileID: -3340209493233347204, guid: 16064555b5a4fba48a093ece797640b3, type: 3}
+      propertyPath: _gridable
+      value: 
+      objectReference: {fileID: 1315226754792193234}
+    - target: {fileID: -3340209493233347204, guid: 16064555b5a4fba48a093ece797640b3, type: 3}
+      propertyPath: _tacticalInteractable
+      value: 
+      objectReference: {fileID: 6349056453760243531}
     - target: {fileID: 615429982139471445, guid: 16064555b5a4fba48a093ece797640b3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.204
@@ -1844,21 +1818,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5757011045903626123, guid: 16064555b5a4fba48a093ece797640b3, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: f0abeb179a1fe53408ffbe66ece860ed, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16064555b5a4fba48a093ece797640b3, type: 3}
---- !u!95 &1414679948059881308 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5757011045903626123, guid: 16064555b5a4fba48a093ece797640b3, type: 3}
-  m_PrefabInstance: {fileID: 6648703801378193623}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &4395794060458795553 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7008744005450392310, guid: 16064555b5a4fba48a093ece797640b3, type: 3}
-  m_PrefabInstance: {fileID: 6648703801378193623}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6110965433935042178 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 615429982139471445, guid: 16064555b5a4fba48a093ece797640b3, type: 3}

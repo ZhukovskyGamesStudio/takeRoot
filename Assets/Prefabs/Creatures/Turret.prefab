@@ -1481,6 +1481,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1304343323928292824, guid: 0feda5f096226bd468c9ba7de021bf2e, type: 3}
   m_PrefabInstance: {fileID: 1391628669018663381}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &802482782046116357 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1761737792110638032, guid: 0feda5f096226bd468c9ba7de021bf2e, type: 3}
+  m_PrefabInstance: {fileID: 1391628669018663381}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4084140697542009632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9830c9e51ca34fcd9cde8a1e7568492d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1947628439953976682 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 601040721188537535, guid: 0feda5f096226bd468c9ba7de021bf2e, type: 3}
+  m_PrefabInstance: {fileID: 1391628669018663381}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4084140697542009632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4533f647c5644692b65bb7feb5e0a156, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1962468269023749004 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 606887093154187865, guid: 0feda5f096226bd468c9ba7de021bf2e, type: 3}
@@ -1508,6 +1530,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a72739d2f24446ae0adc2a90a68786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tacticalInteractable: {fileID: 1947628439953976682}
+  _gridable: {fileID: 802482782046116357}
   _animator: {fileID: 3354733009700041548}
   _projectileSpawnPoint: {fileID: 1962468269023749004}
   detectionRange: 10
