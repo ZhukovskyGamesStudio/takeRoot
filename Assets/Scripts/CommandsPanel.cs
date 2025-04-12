@@ -27,17 +27,17 @@ public class CommandsPanel : MonoBehaviour {
 
 [Serializable]
 public enum Command {
-    None,
-    Search,
-    Break,
-    Cancel,
-    Build,
-    Store,
-    Transport,
-    GatherResources,
-    Delivery,
-    GatherResourcesForCraft,
-    DeliveryForCraft,
-    Craft,
-    PrepareToCraft
+    None = 0,
+    Search = 1,
+    Break = 2,
+    Cancel = 3,
+    Build = 4,
+    Store = 5,
+    Transport = 6,
+    GatherResources = 7,
+    Delivery = 8,
+    GatherResourcesForCraft = 9,
+    DeliveryForCraft = 10,
+    Craft = 11,
+    PrepareToCraft = 12
 }
