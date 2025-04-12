@@ -9,6 +9,7 @@ public class Settler : ECSEntity {
     public const float CellSize = 1f;
     private static readonly int Mood = Animator.StringToHash("Mood");
     private static readonly int IsSleeping = Animator.StringToHash("IsSleeping");
+    private static readonly int Action1 = Animator.StringToHash("Action");
 
     [SerializeField]
     private Animator _moodAnimator;
@@ -36,6 +37,8 @@ public class Settler : ECSEntity {
 
     public bool ChangeMoodAuto = true;
     public bool isSleeping = true;
+    public bool useFakeCommand;
+    public Command FakeCommand;
 
     protected override void Awake() {
         base.Awake();
@@ -45,7 +48,13 @@ public class Settler : ECSEntity {
         _moodAnimator.SetBool(IsSleeping, isSleeping);
     }
 
-    private void Update() {
+    private void Update()
+    {
+        if (useFakeCommand && TakenCommand == null)
+        {
+            _actionsAnimator.SetInteger(Action1, (int)FakeCommand);
+        }
+
         if (TakenCommand != null) {
             if (_performingCoroutine == null) {
                 bool canPerform = CanPerform();
@@ -191,6 +200,7 @@ public class Settler : ECSEntity {
             targetCell.Add(data.TargetPlan.Interactable.GetInteractableCell);
         } else if (TakenCommand.CommandType == Command.DeliveryForCraft) {
            DeliveryToCraftCommandData data = (DeliveryToCraftCommandData)TakenCommand.AdditionalData;
+            DeliveryToCraftCommandData data = (DeliveryToCraftCommandData)TakenCommand.AdditionalData;
             targetCell.Add(data.CraftingStation.Interactable.GetInteractableCell);
         } else if (TakenCommand.CommandType == Command.PrepareToCraft) {
             CommandData cData = TakenCommand;
@@ -324,7 +334,7 @@ public class Settler : ECSEntity {
 
     private IEnumerator InteractAnimation()
     {
-        _actionsAnimator.SetInteger("Action", (int)TakenCommand.CommandType);
+        _actionsAnimator.SetInteger(Action1, (int)TakenCommand.CommandType);
         yield return null; //Пропускаем кадр так как стейт не меняется в одном кадре с SetInteger
         
         var elapsedTime = 0f;
@@ -334,7 +344,7 @@ public class Settler : ECSEntity {
             yield return null;
         }
         
-        _actionsAnimator.SetInteger("Action", 0);
+        _actionsAnimator.SetInteger(Action1, 0);
     }
 
     private IEnumerator InteractAnimation(float delay, Transform target, Action callback) {
