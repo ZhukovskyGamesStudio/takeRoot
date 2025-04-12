@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ChamomileMood
+  m_Controller: {fileID: 9100000, guid: fa8f4517d366b614790879756336f86c, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 321b46182b77e6e429c81f2fe5b72115, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fdec60362d9ede246a3215130ee4fe3c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 708c1011cf82734449581b97efba08cc, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: d74eb467251e6224c84b8bd9edcfe712, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c0f00a2a2210e0447b1d4a3acb0af825, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: c215148b99b9ec44da4404f529194688, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 00eb1fe76ebba654d8768c5258501179, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 46bde4a2244fead449066405da28dacf, type: 2}
