@@ -11,6 +11,9 @@ public class Video1 : MonoBehaviour {
     public List<Settler> craftingSettlers;
     public CraftingStationable craftingStation;
 
+    [SerializeField]
+    private Camera _lastCamera;
+
     public bool runIntoCraftingRoom;
     public Transform craftingRoom;
     public Transform craftingRoomCameraStopPos;
@@ -25,11 +28,10 @@ public class Video1 : MonoBehaviour {
     public SmoothCameraFollow2D CameraFollow;
     public bool CanUnZoomCamera;
     public float CameraSize;
-    public Transform CenterCamera;
-    private Vector2 CenterCamerav2 => new Vector2(CenterCamera.position.x, CenterCamera.position.y);
+    private Vector2 CenterCamerav2 => new Vector2(_lastCamera.transform.position.x, _lastCamera.transform.position.y);
 
     [SerializeField]
-    private float _craftingUnzoom = 4.5f, _lastUnzoom = 32;
+    private float _craftingUnzoom = 4.5f;
 
     [SerializeField]
     private float _craftingUnzoomSpeed = 0.025f, _lastUnzoomSpeed = 0.05f, _lastToCenterSpeed = 0.03f;
@@ -58,6 +60,7 @@ public class Video1 : MonoBehaviour {
             CommandType = Command.Search,
             Interactable = secondFlower
         });
+        //TODO Add jump
         flowerSettler.SettlerData._mood = Mood.Angry;
         yield return AddMoveAndWaitFinish(_movePoses[0].position);
         SwapToRembo();
@@ -90,10 +93,10 @@ public class Video1 : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.LeftAlt)) {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        CheckReloadSceneKeycode();
+    }
 
+    private void LateUpdate() {
         //if (VectorUtils.ToVector2Int(flowerSettler.transform.position)
         //    == VectorUtils.ToVector2Int(craftingRoomCameraStopPos.position) && !craftingRoomCameraStopped)
         //{
@@ -119,7 +122,7 @@ public class Video1 : MonoBehaviour {
             Camera.main.orthographicSize = CameraSize;
         }
 
-        if (CanUnZoomCamera && CameraSize < _lastUnzoom) {
+        if (CanUnZoomCamera && CameraSize < _lastCamera.orthographicSize) {
             CameraSize += _lastUnzoomSpeed;
             Camera.main.orthographicSize = CameraSize;
             {
@@ -129,6 +132,14 @@ public class Video1 : MonoBehaviour {
                 Camera.main.transform.position = new Vector3(newPos.x, newPos.y, Camera.main.transform.position.z);
             }
         }
+    }
+
+    private static void CheckReloadSceneKeycode() {
+        if (Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.LeftAlt)) {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+        //TODO add keycodes to speed up/down timescale
+        //TODO /2 =1 *2
     }
 
     private void SwapToRembo() {

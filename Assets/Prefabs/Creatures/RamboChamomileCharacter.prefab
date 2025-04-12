@@ -148,8 +148,8 @@ MonoBehaviour:
   <ResourceHolder>k__BackingField: {fileID: 8286370950911557338}
   _equipmentViews:
   - {fileID: 6699273587256195358}
-  ChangeMoodAuto: 1
-  isSleeping: 1
+  ChangeMoodAuto: 0
+  isSleeping: 0
 --- !u!210 &5161357846445487122
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -323,7 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: 
   InfoBookIcon: {fileID: 21300000, guid: 5db5ca7982174e64680a61bd56bada19, type: 3}
-  _mood: 0
+  _mood: 2
   _mode: 0
   Race: 1
   RoundAttackCooldown: 0
