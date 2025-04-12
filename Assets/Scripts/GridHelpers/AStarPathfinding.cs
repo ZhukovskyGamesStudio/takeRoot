@@ -83,47 +83,6 @@ public class AStarPathfinding : MonoBehaviour {
     }
 
     // The A* pathfinding method
-    public List<Vector2Int> FindPath(Vector2Int start, Vector2Int end) {
-        Node startNode = _grid[start];
-        Node targetNode = _grid[end];
-
-        _openList.Clear();
-        _closedList.Clear();
-
-        _openList.Add(startNode);
-
-        while (_openList.Count > 0) {
-            // Get the node with the lowest fCost
-            Node currentNode = GetNodeWithLowestFCost(_openList);
-            _openList.Remove(currentNode);
-            _closedList.Add(currentNode);
-
-            // If we reach the target, reconstruct the path
-            if (currentNode.PosX == targetNode.PosX && currentNode.PosY == targetNode.PosY) {
-                return RetracePath(startNode, currentNode);
-            }
-
-            // Evaluate each of the neighbors
-            foreach (Node neighbor in GetNeighbors(currentNode)) {
-                if (!neighbor.Walkable || _closedList.Contains(neighbor))
-                    continue;
-
-                short newGCost = (short)(currentNode.GCost + GetDistance(currentNode, neighbor));
-                if (newGCost >= neighbor.GCost && _openList.Contains(neighbor)) {
-                    continue;
-                }
-
-                neighbor.GCost = newGCost;
-                neighbor.HCost = GetDistance(neighbor, targetNode);
-                neighbor.Parent = currentNode;
-
-                _openList.Add(neighbor);
-            }
-        }
-
-        return new List<Vector2Int>(); // Return an empty path if no path is found
-    }
-
     public List<Vector2Int> FindPath(Vector2Int start, IEnumerable<Vector2Int> endCells, out bool isPathExist) {
         isPathExist = true;
         Node startNode = _grid[start];

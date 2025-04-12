@@ -213,8 +213,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Health>k__BackingField: 2
   _dropOnDestroyed: []
-  spriteRenderer: {fileID: 0}
-  flashDuration: 0.6
+  spriteRenderer: {fileID: 9027190584546902724}
+  _flashDuration: 0.6
   flashCurve:
     serializedVersion: 2
     m_Curve:
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3980186427
+  GlobalObjectIdHash: 293950129
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -376,7 +376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d1c531f414842ed90ceb38d276f9775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gridable: {fileID: 0}
+  Gridable: {fileID: 3278200168793522070}
 --- !u!1 &6258382122291178907
 GameObject:
   m_ObjectHideFlags: 0

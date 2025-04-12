@@ -10,22 +10,25 @@ public class TacticalDamagable : ECSComponent {
 
     [SerializeField]
     protected List<ResourceData> _dropOnDestroyed;
-    private float _blinkDuration = 0.1f;  // Время мигания (секунды)
-    private float _blinkSpeed = 10f;       // Скорость мигания
+
     private float _blinkTime;
 
     private Animatable _animatable;
     private Gridable _gridable;
-    
-    [SerializeField]private SpriteRenderer spriteRenderer;
+
+    [SerializeField]
+    private SpriteRenderer spriteRenderer;
+
     private Material flashMaterial;
     private Coroutine flashRoutine;
-    
-    private Color flashColor = Color.white;
-    [SerializeField]private float flashDuration = 0.6f;
-    [SerializeField] private AnimationCurve flashCurve = 
-        new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1), new Keyframe(1, 0)); // Кривая для плавности
-    
+
+    [SerializeField]
+    private float _flashDuration = 0.6f;
+
+    [SerializeField]
+    private AnimationCurve
+        flashCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1), new Keyframe(1, 0)); // Кривая для плавности
+
     private TacticalInteractable _interactable;
     public Action OnDiedAction;
 
@@ -38,26 +41,22 @@ public class TacticalDamagable : ECSComponent {
             entity.GetEcsComponent<TacticalInteractable>().AddToPossibleCommands(TacticalCommand.TacticalAttack);
             _interactable = entity.GetEcsComponent<TacticalInteractable>();
         }
-        
+
         flashMaterial = spriteRenderer.material;
         _animatable = entity.GetEcsComponent<Animatable>();
         _gridable = entity.GetEcsComponent<Gridable>();
     }
 
-    private void Update()
-    {
-        if (_blinkTime > 0)
-        {
+    private void Update() {
+        if (_blinkTime > 0) {
             _blinkTime -= Time.deltaTime;
-            if (_blinkTime <= 0)
-            {
+            if (_blinkTime <= 0) {
                 // Вернуть в обычное состояние
                 flashMaterial.SetColor("_Color", Color.white);
             }
         }
     }
-    
-    
+
     public void OnAttacked(int damageAmount) {
         //_interactable.CancelCommand();
         Health -= damageAmount;
@@ -70,7 +69,7 @@ public class TacticalDamagable : ECSComponent {
             _animatable?.TriggerDied();
         }
     }
-    
+
     private void OnDied() {
         Vector2Int pos = _gridable.GetBottomLeftOnGrid;
         ResourceManager.SpawnResourcesAround(_dropOnDestroyed, pos);
@@ -80,24 +79,21 @@ public class TacticalDamagable : ECSComponent {
             Destroy(gameObject);
         }
     }
-    
-    public void TriggerFlash()
-    {
-        if (flashRoutine != null)
-        {
+
+    public void TriggerFlash() {
+        if (flashRoutine != null) {
             StopCoroutine(flashRoutine);
         }
+
         flashRoutine = StartCoroutine(FlashEffect());
     }
 
-    private IEnumerator FlashEffect()
-    {
+    private IEnumerator FlashEffect() {
         float elapsedTime = 0f;
 
-        while (elapsedTime < flashDuration)
-        {
+        while (elapsedTime < _flashDuration) {
             // Используем кривую для плавного изменения _FlashAmount
-            float flashStrength = flashCurve.Evaluate(elapsedTime / flashDuration);
+            float flashStrength = flashCurve.Evaluate(elapsedTime / _flashDuration);
             flashMaterial.SetFloat("_FlashAmount", flashStrength);
 
             elapsedTime += Time.deltaTime;
