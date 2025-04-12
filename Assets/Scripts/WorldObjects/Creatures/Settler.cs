@@ -200,7 +200,6 @@ public class Settler : ECSEntity {
             targetCell.Add(data.TargetPlan.Interactable.GetInteractableCell);
         } else if (TakenCommand.CommandType == Command.DeliveryForCraft) {
            DeliveryToCraftCommandData data = (DeliveryToCraftCommandData)TakenCommand.AdditionalData;
-            DeliveryToCraftCommandData data = (DeliveryToCraftCommandData)TakenCommand.AdditionalData;
             targetCell.Add(data.CraftingStation.Interactable.GetInteractableCell);
         } else if (TakenCommand.CommandType == Command.PrepareToCraft) {
             CommandData cData = TakenCommand;
