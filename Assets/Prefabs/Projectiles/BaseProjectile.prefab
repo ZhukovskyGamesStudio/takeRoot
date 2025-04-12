@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2600544206632100995}
   - component: {fileID: -6130738048474250955}
   - component: {fileID: -7693745721705702608}
-  - component: {fileID: 878507640696181015}
   m_Layer: 0
   m_Name: BaseProjectile
   m_TagString: Untagged
@@ -111,16 +110,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &878507640696181015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1638835517907515647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4495b9e1377a400a930be6f81c4d611a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animator: {fileID: -7693745721705702608}

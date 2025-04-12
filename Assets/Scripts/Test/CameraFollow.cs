@@ -26,13 +26,20 @@ public class SmoothCameraFollow2D : MonoBehaviour {
         // Запоминаем начальную Z-позицию камеры
         _targetZPosition = transform.position.z;
 
-        // Инициализируем камеру на позиции цели
-        transform.position = new Vector3(target.position.x + offset.x, target.position.y + offset.y, _targetZPosition);
+        // Плавное перемещение к целевой позиции
+        transform.position = GetNextPos();
     }
 
     private void LateUpdate() {
         if (target == null) return;
 
+        Vector3 targetPosition = GetNextPos();
+
+        // Плавное перемещение к целевой позиции
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _currentVelocity, smoothSpeed);
+    }
+
+    private Vector3 GetNextPos() {
         // Вычисляем движение цели
         float xMoveDelta = (target.position - transform.position).x;
 
@@ -46,9 +53,8 @@ public class SmoothCameraFollow2D : MonoBehaviour {
         }
 
         // Целевая позиция камеры с учетом смещения и опережения
-        Vector3 targetPosition = new Vector3(target.position.x + offset.x + _lookAheadPos.x, target.position.y + offset.y, _targetZPosition);
-
-        // Плавное перемещение к целевой позиции
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref _currentVelocity, smoothSpeed);
+        Vector3 targetPosition = new Vector3(target.position.x + _lookAheadPos.x, target.position.y + offset.y, _targetZPosition) +
+                                 target.right * target.localScale.x * offset.x;
+        return targetPosition;
     }
 }

@@ -10,7 +10,6 @@ public class StraightProjectile : Projectile
 
     protected override void OnTargetReached()
     {
-        Debug.Log("OnTargetReached");
         target.GetComponent<TacticalDamagable>().OnAttacked(damage);
         Destroy(gameObject);
     }
@@ -19,5 +18,6 @@ public class StraightProjectile : Projectile
     {
         var targetPos = new Vector3(target.transform.position.x, target.transform.position.y + 1, target.transform.position.z);
         transform.position = Vector3.MoveTowards(transform.position, target.SpriteRenderer.bounds.center, speed * Time.deltaTime);
+        transform.Rotate(Vector3.back * projectileRotationSpeed * Time.deltaTime);
     }
 }

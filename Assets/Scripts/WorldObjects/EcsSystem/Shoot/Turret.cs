@@ -5,18 +5,23 @@ public class Turret : Shooter
 {
     [SerializeField] private int magazineSize;
     private Stack<Projectile> projectiles;
+    private bool _isFullReloadAtOnce = true;
     public override void Init(ECSEntity entity)
     {
         base.Init(entity);
         projectiles = new Stack<Projectile>(magazineSize);
     }
 
-    protected override void DoReload()
-    {
-        GameObject projectile = CreateProjectile(false);
-        projectiles.Push(projectile.GetComponent<Projectile>());
-        if (projectiles.Count == magazineSize)
+    protected override void DoReload() {
+        int addedAmount = _isFullReloadAtOnce ? magazineSize - projectiles.Count : 1;
+        for (int i = 0; i < addedAmount; i++) {
+            GameObject projectile = CreateProjectile(false);
+            projectiles.Push(projectile.GetComponent<Projectile>());
+        }
+
+        if (projectiles.Count == magazineSize) {
             CanShoot = true;
+        }
     }
 
     protected override void DoShoot()

@@ -1,22 +1,15 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using Settlers.Crafting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
-public class Video1 : MonoBehaviour
-{
+public class Video1 : MonoBehaviour {
     public Settler flowerSettler;
     public Interactable firstFlower;
     public Interactable secondFlower;
-    public bool firstCommandAdded;
-    public bool secondCommandAdded;
-    
+
     public List<Settler> craftingSettlers;
     public CraftingStationable craftingStation;
-    public bool craftingCommandsAdded;
 
     public bool runIntoCraftingRoom;
     public Transform craftingRoom;
@@ -25,14 +18,8 @@ public class Video1 : MonoBehaviour
     public bool craftingRoomCameraStopped;
     public bool craftingRoomCameraStarted;
 
-    public Transform goToRemboPos;
     public Transform changeToRemboPos;
     public Settler remboPrefab;
-    public bool remboAdded;
-    public bool goToRembo;
-
-    public Transform endPos;
-    public bool endPosAdded;
 
     public Transform startZoomPos;
     public SmoothCameraFollow2D CameraFollow;
@@ -41,64 +28,70 @@ public class Video1 : MonoBehaviour
     public Transform CenterCamera;
     private Vector2 CenterCamerav2 => new Vector2(CenterCamera.position.x, CenterCamera.position.y);
 
+    [SerializeField]
+    private float _craftingUnzoom = 4.5f, _lastUnzoom = 32;
 
-    private void Update()
-    {
+    [SerializeField]
+    private float _craftingUnzoomSpeed = 0.025f, _lastUnzoomSpeed = 0.05f, _lastToCenterSpeed = 0.03f;
+
+    [SerializeField]
+    private List<Transform> _movePoses;
+
+    private void Start() {
+        PrepareScene();
+        StartCoroutine(MainCoroutine());
+    }
+
+    private void PrepareScene() {
+        craftingStation.AddRecipeToCraft("3");
+    }
+
+    private IEnumerator MainCoroutine() {
+        yield return new WaitForSeconds(0.5f);
+        yield return AddCommandAndWaitFinish(new CommandData() {
+            Settler = flowerSettler,
+            CommandType = Command.Search,
+            Interactable = firstFlower
+        });
+        yield return AddCommandAndWaitFinish(new CommandData() {
+            Settler = flowerSettler,
+            CommandType = Command.Search,
+            Interactable = secondFlower
+        });
+        flowerSettler.SettlerData._mood = Mood.Angry;
+        yield return AddMoveAndWaitFinish(_movePoses[0].position);
+        SwapToRembo();
+        yield return AddMoveAndWaitFinish(_movePoses[1].position);
+        yield return AddMoveAndWaitFinish(_movePoses[2].position);
+        yield return AddMoveAndWaitFinish(_movePoses[3].position);
+        yield return AddMoveAndWaitFinish(_movePoses[4].position);
+    }
+
+    private IEnumerator AddCommandAndWaitFinish(CommandData data) {
+        var settler = data.Settler;
+        CommandsManager commandsManager = Core.CommandsManagersHolder.GetCommandManagerByRace(Race.Plants);
+        commandsManager.AddSubsequentCommand(data);
+        yield return new WaitWhile(() => settler.TakenCommand != null);
+    }
+
+    private IEnumerator AddMoveAndWaitFinish(Vector3 newPos) {
+        yield return StartCoroutine(AddCommandAndWaitFinish(new TacticalCommandData() {
+            Settler = flowerSettler,
+            TacticalCommandType = TacticalCommand.Move,
+            TargetPosition = VectorUtils.ToVector2Int(newPos)
+        }));
+    }
+
+    private IEnumerator AddCommandAndWaitFinish(TacticalCommandData data) {
+        var settler = data.Settler;
+        settler.SettlerData._mode = Mode.Tactical;
+        settler.SetTacticalCommand(data);
+        yield return new WaitWhile(() => settler.TakenTacticalCommand != null);
+    }
+
+    private void Update() {
         if (Input.GetKeyDown(KeyCode.R) && Input.GetKey(KeyCode.LeftAlt)) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-        if (!craftingCommandsAdded)
-        {
-            craftingStation.AddRecipeToCraft("3");
-            craftingCommandsAdded = true;
-        }
-
-        if (flowerSettler.TakenCommand == null)
-        {
-            var commandsManager = Core.CommandsManagersHolder.GetCommandManagerByRace(Race.Plants);
-            if (!firstCommandAdded)
-            {
-                var firstCommand = new CommandData()
-                {
-                    Settler = flowerSettler,
-                    CommandType = Command.Search,
-                    Interactable = firstFlower
-                };
-                commandsManager.AddSubsequentCommand(firstCommand);
-                firstCommandAdded = true;
-                return;
-            }
-
-            if (!secondCommandAdded)
-            {
-                var secondCommand = new CommandData()
-                {
-                    Settler = flowerSettler,
-                    CommandType = Command.Search,
-                    Interactable = secondFlower
-                };
-                commandsManager.AddSubsequentCommand(secondCommand);
-                secondCommandAdded = true;
-                return;
-            }
-        }
-
-        if (flowerSettler.TakenCommand == null && firstCommandAdded && secondCommandAdded)
-        {
-            flowerSettler.SettlerData._mood = Mood.Angry;
-        }
-        if (VectorUtils.ToVector2Int(flowerSettler.transform.position)
-            == VectorUtils.ToVector2Int(goToRemboPos.position) && !goToRembo && flowerSettler.TakenCommand == null)
-        {
-            var tactCommand = new TacticalCommandData()
-            {
-                Settler = flowerSettler,
-                TacticalCommandType = TacticalCommand.Move,
-                TargetPosition = VectorUtils.ToVector2Int(changeToRemboPos.position)
-            };
-            flowerSettler.SettlerData._mode = Mode.Tactical;
-            flowerSettler.SetTacticalCommand(tactCommand);
-            goToRembo = true;
         }
 
         //if (VectorUtils.ToVector2Int(flowerSettler.transform.position)
@@ -112,56 +105,36 @@ public class Video1 : MonoBehaviour
         //    CameraFollow.target = flowerSettler.gameObject.transform;
         //    craftingRoomCameraStarted = true;
         //}
-        if (VectorUtils.ToVector2Int(flowerSettler.transform.position)
-            == VectorUtils.ToVector2Int(craftingRoom.position) && !runIntoCraftingRoom)
-        {
+        if (VectorUtils.ToVector2Int(flowerSettler.transform.position) == VectorUtils.ToVector2Int(craftingRoom.position) &&
+            !runIntoCraftingRoom) {
             runIntoCraftingRoom = true;
         }
-        if (VectorUtils.ToVector2Int(flowerSettler.transform.position)
-            == VectorUtils.ToVector2Int(startZoomPos.position))
-        {
+
+        if (VectorUtils.ToVector2Int(flowerSettler.transform.position) == VectorUtils.ToVector2Int(startZoomPos.position)) {
             CanUnZoomCamera = true;
         }
-        if (VectorUtils.ToVector2Int(flowerSettler.transform.position) ==
-            VectorUtils.ToVector2Int(changeToRemboPos.position) && !remboAdded)
-        {
-            var rembo = Instantiate(remboPrefab, changeToRemboPos.position, Quaternion.identity);
-            Destroy(flowerSettler.gameObject);
-            flowerSettler = rembo.GetComponent<Settler>();
-            CameraFollow.target = rembo.transform;
-            remboAdded = true;
-        }
-        
-        if (runIntoCraftingRoom && CameraSize < 5)
-        {
-            CameraSize += 0.05f;
-            Camera.main.orthographicSize = CameraSize;
-        }
-        if (CameraSize < 36 && CanUnZoomCamera)
-        {
-            CameraSize += 0.09f;
+
+        if (runIntoCraftingRoom && CameraSize < _craftingUnzoom) {
+            CameraSize += _craftingUnzoomSpeed;
             Camera.main.orthographicSize = CameraSize;
         }
 
-        if (CameraSize > 7)
-        {
-            CameraFollow.target = null;
-            float speed = 0.1f;
-            var newPos = Vector2.MoveTowards(new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y), CenterCamerav2, speed);
-            Camera.main.transform.position = new Vector3(newPos.x, newPos.y, Camera.main.transform.position.z);
-        }
-        if (remboAdded && !endPosAdded)
-        {
-            var tactCommand = new TacticalCommandData()
+        if (CanUnZoomCamera && CameraSize < _lastUnzoom) {
+            CameraSize += _lastUnzoomSpeed;
+            Camera.main.orthographicSize = CameraSize;
             {
-                Settler = flowerSettler,
-                TacticalCommandType = TacticalCommand.Move,
-                TargetPosition = VectorUtils.ToVector2Int(endPos.position)
-            };
-            flowerSettler.SettlerData._mode = Mode.Tactical;
-            flowerSettler.SetTacticalCommand(tactCommand);
-            endPosAdded = true;
+                CameraFollow.target = null;
+                var curVec = new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y);
+                var newPos = Vector2.MoveTowards(curVec, CenterCamerav2, _lastToCenterSpeed);
+                Camera.main.transform.position = new Vector3(newPos.x, newPos.y, Camera.main.transform.position.z);
+            }
         }
     }
-    
+
+    private void SwapToRembo() {
+        var rembo = Instantiate(remboPrefab, changeToRemboPos.position, Quaternion.identity);
+        Destroy(flowerSettler.gameObject);
+        flowerSettler = rembo.GetComponent<Settler>();
+        CameraFollow.target = rembo.transform;
+    }
 }

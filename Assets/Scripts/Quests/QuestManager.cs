@@ -22,7 +22,7 @@ public class QuestManager : MonoBehaviour, IInitableInstance
     private Dictionary<string, Quest> CreateQuestsMap()
     {
         QuestConfig[] questConfigs = Resources.LoadAll<QuestConfig>("Quests");
-        Debug.Log(questConfigs.Length);
+        Debug.Log("Quests length: " + questConfigs.Length);
         Dictionary<string, Quest> quests = new Dictionary<string, Quest>();
         foreach (QuestConfig config in questConfigs)
         {

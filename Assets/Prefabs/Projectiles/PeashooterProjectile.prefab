@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1638835517907515647, guid: 448fe5596291fe3428e43e2e45113193, type: 3}
       propertyPath: m_Name
-      value: StraightProjectile 1
+      value: PeashooterProjectile
       objectReference: {fileID: 0}
     - target: {fileID: 2600544206632100995, guid: 448fe5596291fe3428e43e2e45113193, type: 3}
       propertyPath: m_LocalPosition.x
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: add65bd330b440d9b67856c6e6145daa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 20
   damage: 0
   animator: {fileID: 4570702560258475377}
 --- !u!95 &4570702560258475377 stripped

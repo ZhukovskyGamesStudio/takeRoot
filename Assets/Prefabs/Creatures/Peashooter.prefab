@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 19442011285346873}
   - component: {fileID: 7560097639983380657}
   m_Layer: 0
-  m_Name: peas 1 (1)
+  m_Name: peas_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,6 +275,7 @@ GameObject:
   - component: {fileID: -3340209493233347204}
   - component: {fileID: 1235979369184417503}
   - component: {fileID: 5595040388602947414}
+  - component: {fileID: 4802406625102158698}
   m_Layer: 0
   m_Name: Peashooter
   m_TagString: Untagged
@@ -348,6 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59a72739d2f24446ae0adc2a90a68786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tacticalInteractable: {fileID: 0}
   _gridable: {fileID: 0}
   _animator: {fileID: 5757011045903626123}
   _projectileSpawnPoint: {fileID: 7008744005450392310}
@@ -381,6 +383,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a9d485c871848f3ad743e1e60f831eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4802406625102158698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3599490449851283870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a434daed11184439a9110336d91739f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bullets:
+  - {fileID: 2749072916564444086}
+  - {fileID: 6778644043239476105}
+  - {fileID: 7560097639983380657}
+  - {fileID: 5524729303142847525}
 --- !u!1 &3604269227914709935
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,7 +411,7 @@ GameObject:
   - component: {fileID: 183354160882460851}
   - component: {fileID: 6778644043239476105}
   m_Layer: 0
-  m_Name: peas 1 (2)
+  m_Name: peas_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -601,7 +620,7 @@ GameObject:
   - component: {fileID: 76720613913117781}
   - component: {fileID: 2749072916564444086}
   m_Layer: 0
-  m_Name: peas 1 (3)
+  m_Name: peas_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -775,7 +794,7 @@ GameObject:
   - component: {fileID: 824650612955668911}
   - component: {fileID: 5524729303142847525}
   m_Layer: 0
-  m_Name: peas 1
+  m_Name: peas_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

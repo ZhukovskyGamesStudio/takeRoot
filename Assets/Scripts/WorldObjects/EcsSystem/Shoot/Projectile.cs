@@ -6,6 +6,7 @@ public abstract class Projectile : MonoBehaviour
     private static readonly int Reached = Animator.StringToHash("TargetReached");
 
     [SerializeField]protected float speed;
+    [SerializeField]protected float projectileRotationSpeed;
     [SerializeField]protected int damage;
     
     [SerializeField]protected Animator animator;
