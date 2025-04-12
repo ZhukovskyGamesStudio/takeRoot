@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Settler : ECSEntity {
     public const float CellSize = 1f;
@@ -10,7 +11,9 @@ public class Settler : ECSEntity {
     private static readonly int IsSleeping = Animator.StringToHash("IsSleeping");
 
     [SerializeField]
-    private Animator _animator;
+    private Animator _moodAnimator;
+    [SerializeField]
+    private Animator _actionsAnimator;
 
     [field: SerializeField]
     public GameObject ResourceHolder { get; private set; }
@@ -39,7 +42,7 @@ public class Settler : ECSEntity {
         SettlerData = GetEcsComponent<SettlerData>();
         _gridable = GetEcsComponent<Gridable>();
         GetEcsComponent<Damagable>().OnDiedAction += OnDied;
-        _animator.SetBool(IsSleeping, isSleeping);
+        _moodAnimator.SetBool(IsSleeping, isSleeping);
     }
 
     private void Update() {
@@ -101,11 +104,11 @@ public class Settler : ECSEntity {
                 }
             }
         }
-        _animator.SetBool(IsSleeping, isSleeping);
+        _moodAnimator.SetBool(IsSleeping, isSleeping);
         if (ChangeMoodAuto)
             UpdateMoodAndAnimations();
         else
-            _animator.SetInteger(Mood, (int)SettlerData._mood);
+            _moodAnimator.SetInteger(Mood, (int)SettlerData._mood);
     }
 
     private bool CanPerformTactical() {
@@ -148,14 +151,14 @@ public class Settler : ECSEntity {
     private void UpdateMoodAndAnimations() {
         //упростил пока-что, так более заметно
         if (SettlerData._mode == Mode.Tactical) {
-            _animator.SetBool(IsSleeping, false);
+            _moodAnimator.SetBool(IsSleeping, false);
             SettlerData._mood = global::Mood.Angry;
-            _animator.SetInteger(Mood, (int)SettlerData._mood);
+            _moodAnimator.SetInteger(Mood, (int)SettlerData._mood);
             return;
         }
 
         if (TakenCommand != null && _performingCoroutine != null) {
-            _animator.SetBool(IsSleeping, false);
+            _moodAnimator.SetBool(IsSleeping, false);
             SettlerData._mood = TakenCommand.CommandType switch {
                 Command.Search => global::Mood.Happy,
                 Command.Break => global::Mood.Angry,
@@ -164,18 +167,18 @@ public class Settler : ECSEntity {
                 _ => SettlerData._mood
             };
         } else if (TakenTacticalCommand != null && _performingCoroutine != null) {
-            _animator.SetBool(IsSleeping, false);
+            _moodAnimator.SetBool(IsSleeping, false);
             SettlerData._mood = TakenTacticalCommand.TacticalCommandType switch {
                 TacticalCommand.Move => global::Mood.Neutral,
                 TacticalCommand.TacticalAttack => global::Mood.Angry,
                 _ => SettlerData._mood
             };
         } else {
-            _animator.SetBool(IsSleeping, true);
+            _moodAnimator.SetBool(IsSleeping, true);
             SettlerData._mood = global::Mood.Neutral;
         }
 
-        _animator.SetInteger(Mood, (int)SettlerData._mood);
+        _moodAnimator.SetInteger(Mood, (int)SettlerData._mood);
     }
 
     private Vector2Int? TryMoveToCommandTarget() {
@@ -304,15 +307,34 @@ public class Settler : ECSEntity {
     }
 
     private IEnumerator PerformingCoroutine(Action after) {
-        if (TakenCommand?.CommandType == Command.Break || TakenTacticalCommand?.TacticalCommandType == TacticalCommand.TacticalAttack || TakenCommand?.CommandType == Command.Craft){
-            Transform target = TakenCommand != null ? TakenCommand.Interactable.transform : TakenTacticalCommand.TacticalInteractable.transform;
-            yield return StartCoroutine(InteractAnimation(Core.ConfigManager.CreaturesParametersConfig.AttackTime, target, after));
-        } else {
-            yield return new WaitForSeconds(Core.ConfigManager.CreaturesParametersConfig.PerformingTime);
-            after?.Invoke();
-        }
+        //if (TakenCommand?.CommandType == Command.Break || TakenTacticalCommand?.TacticalCommandType == TacticalCommand.TacticalAttack || TakenCommand?.CommandType == Command.Craft){
+        //    Transform target = TakenCommand != null ? TakenCommand.Interactable.transform : TakenTacticalCommand.TacticalInteractable.transform;
+        //    yield return StartCoroutine(InteractAnimation(Core.ConfigManager.CreaturesParametersConfig.AttackTime, target, after));
+        //} else {
+        //    yield return new WaitForSeconds(Core.ConfigManager.CreaturesParametersConfig.PerformingTime);
+        //    after?.Invoke();
+        //}
 
+        yield return StartCoroutine(InteractAnimation());
+        
+        after?.Invoke();
+        
         _performingCoroutine = null;
+    }
+
+    private IEnumerator InteractAnimation()
+    {
+        _actionsAnimator.SetInteger("Action", (int)TakenCommand.CommandType);
+        yield return null; //Пропускаем кадр так как стейт не меняется в одном кадре с SetInteger
+        
+        var elapsedTime = 0f;
+        while (elapsedTime < Core.ConfigManager.CreaturesParametersConfig.PerformingTime)
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        
+        _actionsAnimator.SetInteger("Action", 0);
     }
 
     private IEnumerator InteractAnimation(float delay, Transform target, Action callback) {
