@@ -72,6 +72,21 @@ AnimationClip:
     classID: 212
     script: {fileID: 0}
     flags: 2
+  - serializedVersion: 2
+    curve:
+    - time: 0
+      value: {fileID: 21300000, guid: cdd6700aa9f55eb479469c554f2db07a, type: 3}
+    - time: 0.05
+      value: {fileID: 21300000, guid: cdd6700aa9f55eb479469c554f2db07a, type: 3}
+    - time: 0.11666667
+      value: {fileID: 21300000, guid: 0acc3c0fcc109264585db6a806bab785, type: 3}
+    - time: 0.2
+      value: {fileID: 21300000, guid: 99e6c3118549a114c9415f3c5c8d200c, type: 3}
+    attribute: m_LightCookieSprite
+    path: Bang/BurstLight
+    classID: 114
+    script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+    flags: 2
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -97,7 +112,20 @@ AnimationClip:
       isPPtrCurve: 1
       isIntCurve: 0
       isSerializeReferenceCurve: 0
+    - serializedVersion: 2
+      path: 4127410505
+      attribute: 993967319
+      script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+      typeID: 114
+      customType: 0
+      isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping:
+    - {fileID: 21300000, guid: cdd6700aa9f55eb479469c554f2db07a, type: 3}
+    - {fileID: 21300000, guid: cdd6700aa9f55eb479469c554f2db07a, type: 3}
+    - {fileID: 21300000, guid: 0acc3c0fcc109264585db6a806bab785, type: 3}
+    - {fileID: 21300000, guid: 99e6c3118549a114c9415f3c5c8d200c, type: 3}
     - {fileID: 21300000, guid: cdd6700aa9f55eb479469c554f2db07a, type: 3}
     - {fileID: 21300000, guid: cdd6700aa9f55eb479469c554f2db07a, type: 3}
     - {fileID: 21300000, guid: 0acc3c0fcc109264585db6a806bab785, type: 3}

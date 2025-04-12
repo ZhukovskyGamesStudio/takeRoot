@@ -28,6 +28,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -6130738048474250955, guid: 448fe5596291fe3428e43e2e45113193, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     - target: {fileID: 1638835517907515647, guid: 448fe5596291fe3428e43e2e45113193, type: 3}
       propertyPath: m_Name
       value: StraightProjectile

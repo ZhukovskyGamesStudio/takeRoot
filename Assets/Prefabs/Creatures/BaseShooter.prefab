@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4458116144148634265}
   - component: {fileID: 1761737792110638032}
   - component: {fileID: 601040721188537535}
+  - component: {fileID: 6448131499813973691}
   m_Layer: 0
   m_Name: BaseShooter
   m_TagString: Untagged
@@ -85,6 +86,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _interactableShift: {x: 0, y: 0}
+--- !u!210 &6448131499813973691
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3169908197149264629}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &3467648899164597399
 GameObject:
   m_ObjectHideFlags: 0
