@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 
 public class ResourceManager : MonoBehaviour {
-    public static ResourceManager Instance;
 
     [SerializeField]
     private ResourcesTable _resourcesTable;
@@ -19,7 +18,7 @@ public class ResourceManager : MonoBehaviour {
     public Transform ResourcesHolder => _resourcesHolder;
 
     private void Awake() {
-        Instance = this;
+        Core.ResourceManager = this;
     }
 
     public static ResourceData FindAllAvailableResources(ResourceType type)
@@ -37,15 +36,15 @@ public class ResourceManager : MonoBehaviour {
     }
 
     private static ResourceView SpawnResource(ResourceType resourceType, Vector2Int cell) {
-        var prefab = Instance._resourcesTable.ResourceViewPrefabs.First(s => s.ResourceType == resourceType);
+        var prefab = Core.ResourceManager._resourcesTable.ResourceViewPrefabs.First(s => s.ResourceType == resourceType);
         //TODO add pool
-        ResourceView r = Instantiate(prefab, Instance._resourcesHolder);
-        //Instance._scatteredResources.Add(cell, r);
+        ResourceView r = Instantiate(prefab, Core.ResourceManager._resourcesHolder);
+        //Core.ResourceManager._scatteredResources.Add(cell, r);
         return r;
     }
 
     public static ResouseUiView SpawnResourceUi(ResourceType resourceType) {
-        var prefab = Instance._resourcesTable.ResourceUiViewPrefabs.First(s => s.ResourceType == resourceType);
+        var prefab = Core.ResourceManager._resourcesTable.ResourceUiViewPrefabs.First(s => s.ResourceType == resourceType);
         //TODO add pool
         ResouseUiView r = Instantiate(prefab);
         return r;
@@ -60,8 +59,8 @@ public class ResourceManager : MonoBehaviour {
 
     public static void ClearResourceView(ResourceView resource)
     { 
-        if (Instance._scatteredResources.TryGetValue(resource.Interactable.GetInteractableCell, out _))
-            Instance._scatteredResources.Remove(resource.Interactable.GetInteractableCell);
+        if (Core.ResourceManager._scatteredResources.TryGetValue(resource.Interactable.GetInteractableCell, out _))
+            Core.ResourceManager._scatteredResources.Remove(resource.Interactable.GetInteractableCell);
     }
     
     public static List<ResourceView> SpawnResourcesAround(List<ResourceData> resources, Vector2Int centerCell) {
@@ -75,7 +74,7 @@ public class ResourceManager : MonoBehaviour {
                 Vector2Int targetCell = centerCell + GetSpiralOffset(checkedN);
 
                 // Check if the cell is occupied by a different resource
-                if (Instance._scatteredResources.TryGetValue(targetCell, out ResourceView existingResource)) {
+                if (Core.ResourceManager._scatteredResources.TryGetValue(targetCell, out ResourceView existingResource)) {
                     if (existingResource.ResourceType == resourceData.ResourceType) {
                         // Add to the existing resource if it doesn't exceed the limit
                         var availableSpace = maxResourceInCell - existingResource.Amount;
@@ -93,7 +92,7 @@ public class ResourceManager : MonoBehaviour {
                     newResource.SetAmount(toSpawn);
 
                     spawnedResources.Add(newResource);
-                    Instance._scatteredResources[targetCell] = newResource;
+                    Core.ResourceManager._scatteredResources[targetCell] = newResource;
 
                     remainingAmount -= toSpawn;
                 }
@@ -129,7 +128,7 @@ public class ResourceManager : MonoBehaviour {
                     }
 
                     // Check if the cell is occupied by a different resource
-                    if (Instance._scatteredResources.TryGetValue(targetCell, out ResourceView existingResource))
+                    if (Core.ResourceManager._scatteredResources.TryGetValue(targetCell, out ResourceView existingResource))
                     {
                         if (existingResource.ResourceType == resourceData.ResourceType)
                         {
@@ -152,7 +151,7 @@ public class ResourceManager : MonoBehaviour {
                         newResource.SetAmount(toSpawn);
 
                         spawnedResources.Add(newResource);
-                        Instance._scatteredResources[targetCell] = newResource;
+                        Core.ResourceManager._scatteredResources[targetCell] = newResource;
 
                         remainingAmount -= toSpawn;
                     }
@@ -225,7 +224,7 @@ public class ResourceManager : MonoBehaviour {
         Storagable closestStorage = null;
         for (int i = 0; i < fittingStorage.Count; i++) {
             if (i == 10) break;
-            var pathLength = AStarPathfinding.Instance
+            var pathLength = Core.AStarPathfinding
                 .FindPath(from, fittingStorage[i].GetComponent<Interactable>().InteractableCells, out bool isPathExist).Count;
             if (!isPathExist) {
                 continue;

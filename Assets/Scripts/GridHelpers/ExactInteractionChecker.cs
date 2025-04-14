@@ -26,7 +26,7 @@ public static class ExactInteractionChecker {
     }
     
     public static Vector2Int? NextStepOnPath(Vector2Int from, HashSet<Vector2Int> to) {
-        var path = AStarPathfinding.Instance.FindPath(from, to, out bool isPathExist);
+        var path = Core.AStarPathfinding.FindPath(from, to, out bool isPathExist);
         if (!isPathExist) {
             return null;
         }
@@ -39,7 +39,7 @@ public static class ExactInteractionChecker {
     }
 
     public static Vector2Int? NextStepOnPathForZombies(Vector2Int from, HashSet<Vector2Int> to, int offsetX) {
-        var path = AStarPathfinding.Instance.FindPathForZombies(from, to, offsetX);
+        var path = Core.AStarPathfinding.FindPathForZombies(from, to, offsetX);
         if (path.Count > 0) {
             return path.First();
         }
@@ -48,7 +48,7 @@ public static class ExactInteractionChecker {
     }
 
     public static Vector2Int? NextStepForZombieOnPathWithWallsAsObstacle(Vector2Int from, HashSet<Vector2Int> to, int offsetX) {
-        var path = AStarPathfinding.Instance.FindPathForZombiesWithWallsAsObstacle(from, to, offsetX);
+        var path = Core.AStarPathfinding.FindPathForZombiesWithWallsAsObstacle(from, to, offsetX);
         if (path.Count > 0) {
             return path.First();
         }

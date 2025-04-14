@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class AStarPathfinding : MonoBehaviour {
-    public static AStarPathfinding Instance;
+   
     private readonly HashSet<Node> _closedList = new HashSet<Node>();
 
     private readonly HashSet<Vector2Int> _obstaclePositions = new HashSet<Vector2Int>(); // List of obstacles in the form of grid positions
@@ -14,7 +14,7 @@ public class AStarPathfinding : MonoBehaviour {
     private HashSet<Vector2Int> _wallsPositions = new HashSet<Vector2Int>();
 
     private void Awake() {
-        Instance = this;
+        Core.AStarPathfinding = this;
     }
 
     private void Start() {
@@ -330,7 +330,7 @@ public class AStarPathfinding : MonoBehaviour {
     }
 
     public static bool IsWalkable(Vector2Int position) {
-        return Instance._grid[position].Walkable;
+        return Core.AStarPathfinding._grid[position].Walkable;
     }
 
     // Get the Manhattan distance (heuristic) between two nodes

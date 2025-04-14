@@ -164,7 +164,7 @@ public class CommandsManager : MonoBehaviour {
             return;
         }
 
-        Interactable interactable = SelectionManager.Instance.Interactable as Interactable;
+        Interactable interactable =Core.SelectionManager.Interactable as Interactable;
         if (interactable == null) {
             return;
         }

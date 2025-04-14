@@ -23,7 +23,7 @@ public class QuestStage
     {
         for (int i = 0; i < questStepPrefabs.Length; i++)
         {
-            QuestStep questStep = Object.Instantiate(questStepPrefabs[i], new Vector3(999f,0f,0f), Quaternion.identity, QuestManager.Instance.QuestContainer).GetComponent<QuestStep>();
+            QuestStep questStep = Object.Instantiate(questStepPrefabs[i], new Vector3(999f,0f,0f), Quaternion.identity, Core.QuestManager.QuestContainer).GetComponent<QuestStep>();
             questStep.Init(_questId, _stageId, i);
             QuestStepsData[i] = new QuestStepStatus(QuestStepState.Active, questStep.Race);
         }

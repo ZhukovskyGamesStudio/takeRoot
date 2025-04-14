@@ -21,6 +21,6 @@ public class EquipmentGridUiView : MonoBehaviour {
     }
 
     public void Unequip(EquipmentType eType) {
-        SettlersSelectionManager.Instance.SelectedSettler.Unequip(eType);
+        Core.SettlersSelectionManager.SelectedSettler.Unequip(eType);
     }
 }

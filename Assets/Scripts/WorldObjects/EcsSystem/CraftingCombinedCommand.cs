@@ -60,7 +60,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                 command.Interactable.AssignCommand(command);
                 command.TriggerCancel += delegate { CancelGatherCommand(command); };
                 _activeGatherCommands.Add(command);
-                CommandsManagersHolder.Instance.CommandsManager.AddCommandManually(command);
+                Core.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
             }
 
             int requiredResourcesAmount = LeftToBring(resourceData.Key);
@@ -81,7 +81,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                 command.Interactable.AssignCommand(command);
                 command.TriggerCancel += delegate { CancelGatherCommand(command); };
                 _activeGatherCommands.Add(command);
-                CommandsManagersHolder.Instance.CommandsManager.AddCommandManually(command);
+                Core.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
             }
         }
     }
@@ -139,7 +139,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                     CraftingStation = _craftingStation
                 }
             };
-            CommandsManagersHolder.Instance.GetCommandManagerByRace(race).AddCommandManually(command);
+            Core.CommandsManagersHolder.GetCommandManagerByRace(race).AddCommandManually(command);
         }
     }
 
@@ -154,7 +154,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                 Settler = settler
             };
             _activeCraftingCommands.Add(command);
-            CommandsManagersHolder.Instance.GetCommandManagerByRace(settler.SettlerData.Race).AddSubsequentCommand(command);
+            Core.CommandsManagersHolder.GetCommandManagerByRace(settler.SettlerData.Race).AddSubsequentCommand(command);
         }
     }
 

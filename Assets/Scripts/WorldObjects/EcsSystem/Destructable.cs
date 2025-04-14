@@ -50,7 +50,7 @@ public class Destructable : ECSComponent {
     private void OnDied() {
         Vector2Int pos = _gridable.GetBottomLeftOnGrid;
         ResourceManager.SpawnResourcesAround(_dropOnDestroyed, pos);
-        GameEventsManager.Instance.WorldObjectsEvents.OnDestroyed(_id);
+        Core.GameEventsManager.WorldObjectsEvents.OnDestroyed(_id);
         _interactable.OnDestroyed();
         OnDiedAction?.Invoke();
         if (this != null) {

@@ -89,7 +89,7 @@ public class Zombie : ECSEntity {
     private void CheckForSettlerNear() {
         if (_changeAttackTargetCooldown > 0)
             return;
-        foreach (Settler settler in SettlersManager.Instance.Settlers) {
+        foreach (Settler settler in Core.SettlersManager.Settlers) {
             if (Gridable.InteractableCells.Contains(settler.GetCellOnGrid) && settler.SettlerData._mood != Mood.Neutral) {
                 SetRagePoints(ZombieData.PointsToRageState);
                 AddAttackTarget(settler.GetCellOnGrid);
@@ -120,7 +120,7 @@ public class Zombie : ECSEntity {
         var newPosX = Random.Range(-5 + currentPosition.x, 5 + currentPosition.x);
         var target = new HashSet<Vector2Int> { new(newPosX, newPosY) };
 
-        var path = AStarPathfinding.Instance.FindPathForZombies(currentPosition, target, 1);
+        var path = Core.AStarPathfinding.FindPathForZombies(currentPosition, target, 1);
         if (path != null) {
             return target;
         }
@@ -176,7 +176,7 @@ public class Zombie : ECSEntity {
 
     private IEnumerator StartAttack() {
         yield return new WaitForSeconds(Core.ConfigManager.ZombieConfig.AttackTime);
-        var settler = SettlersManager.Instance.GetSettlerAt(_currentAttackTarget.Value);
+        var settler = Core.SettlersManager.GetSettlerAt(_currentAttackTarget.Value);
         if (settler != null) {
             settler.GetEcsComponent<Damagable>().OnAttacked(1);
         }

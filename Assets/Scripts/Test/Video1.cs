@@ -81,7 +81,7 @@ public class Video1 : MonoBehaviour {
         yield return StartCoroutine(AddCommandAndWaitFinish(new TacticalCommandData() {
             Settler = flowerSettler,
             TacticalCommandType = TacticalCommand.Move,
-            TargetPosition = VectorUtils.ToVector2Int(newPos)
+            TargetPosition = newPos.ToVector2Int()
         }));
     }
 
@@ -108,12 +108,12 @@ public class Video1 : MonoBehaviour {
         //    CameraFollow.target = flowerSettler.gameObject.transform;
         //    craftingRoomCameraStarted = true;
         //}
-        if (VectorUtils.ToVector2Int(flowerSettler.transform.position) == VectorUtils.ToVector2Int(craftingRoom.position) &&
+        if (flowerSettler.transform.position.ToVector2Int() == craftingRoom.position.ToVector2Int() &&
             !runIntoCraftingRoom) {
             runIntoCraftingRoom = true;
         }
 
-        if (VectorUtils.ToVector2Int(flowerSettler.transform.position) == VectorUtils.ToVector2Int(startZoomPos.position)) {
+        if (flowerSettler.transform.position.ToVector2Int() == startZoomPos.position.ToVector2Int()) {
             CanUnZoomCamera = true;
         }
 

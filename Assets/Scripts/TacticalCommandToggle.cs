@@ -28,7 +28,7 @@ public class TacticalCommandToggle : MonoBehaviour {
             return;
         if (_tacticalCommand == TacticalCommand.RoundAttack)
         {
-            if (SettlersSelectionManager.Instance.SelectedSettler.TakenTacticalCommand != null) 
+            if (Core.SettlersSelectionManager.SelectedSettler.TakenTacticalCommand != null) 
             {
                 _toggle.interactable = false;
                 _cooldownMask.fillAmount = 1;
@@ -40,12 +40,12 @@ public class TacticalCommandToggle : MonoBehaviour {
                 _cooldownMask.fillAmount = 0;
             }
 
-            if (SettlersSelectionManager.Instance.SelectedSettler.SettlerData.RoundAttackCooldown > 0)
+            if (Core.SettlersSelectionManager.SelectedSettler.SettlerData.RoundAttackCooldown > 0)
             {
                 _toggle.isOn = false;
                 _toggle.interactable = false;
                 _cooldownMask.fillAmount =
-                    SettlersSelectionManager.Instance.SelectedSettler.SettlerData.RoundAttackCooldown /
+                    Core.SettlersSelectionManager.SelectedSettler.SettlerData.RoundAttackCooldown /
                     Core.ConfigManager.CreaturesParametersConfig.RoundAttackCooldown;
             }
             else

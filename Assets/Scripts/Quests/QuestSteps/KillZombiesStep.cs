@@ -10,7 +10,7 @@ public class KillZombiesStep : QuestStep
         {
             //zombie.ChangeState(EnemyState.Passive);
         }
-        GameEventsManager.Instance.WorldObjectsEvents.onDied += RequiredZombieDied;
+        Core.GameEventsManager.WorldObjectsEvents.onDied += RequiredZombieDied;
         UpdateQuestStepStatus(_status);
     }
     private void RequiredZombieDied(string id)

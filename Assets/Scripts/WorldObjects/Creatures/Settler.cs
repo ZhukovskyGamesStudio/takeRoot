@@ -60,12 +60,12 @@ public class Settler : ECSEntity {
                 bool canPerform = CanPerform();
 
                 if (canPerform) {
-                    TryStartPerform(() => { CommandsManagersHolder.Instance.CommandsManager.PerformedCommand(TakenCommand); });
+                    TryStartPerform(() => { Core.CommandsManagersHolder.CommandsManager.PerformedCommand(TakenCommand); });
                 } else {
                     Vector2Int? nextStepCell = TryMoveToCommandTarget();
                     if (nextStepCell == null) {
                         TakenCommand.UnablePerformSettlers.Add(this);
-                        CommandsManagersHolder.Instance.CommandsManager.ReturnCommand(TakenCommand);
+                        Core.CommandsManagersHolder.CommandsManager.ReturnCommand(TakenCommand);
                     } else {
                         if (_performingCoroutine != null) {
                             return;
@@ -82,7 +82,7 @@ public class Settler : ECSEntity {
         if (TakenTacticalCommand != null) {
             if (_performingCoroutine == null) {
                 if (TakenTacticalCommand.TacticalCommandType == TacticalCommand.RoundAttack) {
-                    TryStartPerform(() => { CommandsManagersHolder.Instance.TacticalCommandsManager.PerformedCommand(TakenTacticalCommand); });
+                    TryStartPerform(() => { Core.CommandsManagersHolder.TacticalCommandsManager.PerformedCommand(TakenTacticalCommand); });
                     return;
                 }
 
@@ -90,7 +90,7 @@ public class Settler : ECSEntity {
                     var canPerform = CanPerformTactical();
                     if (canPerform) {
                         TryStartPerform(() => {
-                            CommandsManagersHolder.Instance.TacticalCommandsManager.PerformedCommand(TakenTacticalCommand);
+                            Core.CommandsManagersHolder.TacticalCommandsManager.PerformedCommand(TakenTacticalCommand);
                         });
                     } else {
                         Vector2Int? nextStepCell = TryMoveToTacticalCommandTarget();
@@ -211,7 +211,7 @@ public class Settler : ECSEntity {
             StoreCommandData data = (StoreCommandData)TakenCommand.AdditionalData;
             Storagable st = data.TargetStorage;
             if (st != null && !st.CanStore(data.Resource.ResourceData)) {
-                st = ResourceManager.Instance.FindClosestAvailableStorage(data.Resource.ResourceData, GetCellOnGrid);
+                st = Core.ResourceManager.FindClosestAvailableStorage(data.Resource.ResourceData, GetCellOnGrid);
             }
 
             if (st == null) {
@@ -333,7 +333,8 @@ public class Settler : ECSEntity {
 
     private IEnumerator InteractAnimation()
     {
-        _actionsAnimator.SetInteger(Action1, (int)TakenCommand.CommandType);
+        int animatorValue = TakenCommand != null ? (int)TakenCommand.CommandType : (int)TakenTacticalCommand.TacticalCommandType;
+        _actionsAnimator.SetInteger(Action1, animatorValue);
         yield return null; //Пропускаем кадр так как стейт не меняется в одном кадре с SetInteger
         
         var elapsedTime = 0f;
@@ -383,7 +384,7 @@ public class Settler : ECSEntity {
 
         //Vector2Int? nextStepCell = TryMoveToCommandTarget();
         //if (nextStepCell == null) {
-        //    CommandsManagersHolder.Instance.CommandsManager.RevokeCommandBecauseItsUnreachable(TakenCommand);
+        //    Core.CommandsManagersHolder.CommandsManager.RevokeCommandBecauseItsUnreachable(TakenCommand);
         //}
     }
 
@@ -415,18 +416,18 @@ public class Settler : ECSEntity {
 
     public void ChangeMode(Mode mode) {
         if (mode == Mode.Planning) {
-            //TacticalCommandsManagersHolder.Instance.CommandsManager.SetActivePanel(false);
-            //TacticalCommandsManagersHolder.Instance.CommandsManager.CancelCommand();
+            //TacticalCore.CommandsManagersHolder.CommandsManager.SetActivePanel(false);
+            //TacticalCore.CommandsManagersHolder.CommandsManager.CancelCommand();
             if (TakenTacticalCommand != null) {
                 TakenTacticalCommand = null;
             }
         }
 
         if (mode == Mode.Tactical) {
-            //CommandsManagersHolder.Instance.CommandsManager.SetActivePanel(false);
-            //TacticalCommandsManagersHolder.Instance.CommandsManager.SetActivePanel(true);
+            //Core.CommandsManagersHolder.CommandsManager.SetActivePanel(false);
+            //TacticalCore.CommandsManagersHolder.CommandsManager.SetActivePanel(true);
             if (TakenCommand != null) {
-                CommandsManagersHolder.Instance.CommandsManager.RevokeCommandBecauseItsUnreachable(TakenCommand);
+                Core.CommandsManagersHolder.CommandsManager.RevokeCommandBecauseItsUnreachable(TakenCommand);
             }
         }
 

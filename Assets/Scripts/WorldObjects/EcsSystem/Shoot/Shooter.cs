@@ -54,12 +54,12 @@ public abstract class Shooter : ECSComponent
     {
         if (currentTarget != null) return;
         var zombies = FindObjectsByType<Zombie>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        Vector2Int shooterPosition = VectorUtils.ToVector2Int(_gridable.GetCenterOnGrid);
+        Vector2Int shooterPosition = _gridable.GetCenterOnGrid.ToVector2Int();
         Zombie closestTarget = null;
         float closestDistance = detectionRange;
         foreach (Zombie zombie in zombies)
         {
-            var distance = Vector2Int.Distance(shooterPosition, VectorUtils.ToVector2Int(zombie.Gridable.GetCenterOnGrid));
+            var distance = Vector2Int.Distance(shooterPosition, zombie.Gridable.GetCenterOnGrid.ToVector2Int());
             if (distance < closestDistance)
             {
                 closestDistance = distance;

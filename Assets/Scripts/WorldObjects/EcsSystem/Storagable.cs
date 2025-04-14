@@ -44,7 +44,7 @@ public class Storagable : ECSComponent {
             _interactable.CancelCommand();
             resourceToGather.Interactable.AssignCommand(command);
             resourceToGather.GetEcsComponent<Networkable>().ChangeParent(resourceToGather.Interactable.CommandToExecute.Settler.ResourceHolder);
-            CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(resourceToGather.Interactable.CommandToExecute);
+            Core.CommandsManagersHolder.CommandsManager.AddSubsequentCommand(resourceToGather.Interactable.CommandToExecute);
         }
 
         if (cData.CommandType == Command.GatherResourcesForCraft) {
@@ -71,7 +71,7 @@ public class Storagable : ECSComponent {
             _interactable.CancelCommand();
             resourceToGather.Interactable.AssignCommand(command);
             resourceToGather.GetEcsComponent<Networkable>().ChangeParent(resourceToGather.Interactable.CommandToExecute.Settler.ResourceHolder);
-            CommandsManagersHolder.Instance.CommandsManager.AddSubsequentCommand(resourceToGather.Interactable.CommandToExecute);
+            Core.CommandsManagersHolder.CommandsManager.AddSubsequentCommand(resourceToGather.Interactable.CommandToExecute);
         }
     }
 

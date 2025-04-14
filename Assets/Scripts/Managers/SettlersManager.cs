@@ -6,7 +6,6 @@ using WorldObjects;
 public class SettlersManager : MonoBehaviour, IInitableInstance {
     private HashSet<Settler> _settlers = new HashSet<Settler>();
     private HashSet<SettlerData> _settlersDatas = new HashSet<SettlerData>();
-    public static SettlersManager Instance => Core.SettlersManager;
 
     [SerializeField] private Chamomile _chamomilePrefab;
     [SerializeField] private Lamp _lampPrefab;

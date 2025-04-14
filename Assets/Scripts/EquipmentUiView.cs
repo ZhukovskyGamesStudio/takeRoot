@@ -13,7 +13,7 @@ public class EquipmentUiView : ResouseUiView {
 
     public void Equip(ResourceType resourceType) {
         _icon.gameObject.SetActive(true);
-        _icon.sprite = ResourceManager.Instance.EquipmentIcons[resourceType];
+        _icon.sprite = Core.ResourceManager.EquipmentIcons[resourceType];
     }
 
     public void ClearSlot() {

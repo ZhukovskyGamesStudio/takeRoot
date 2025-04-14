@@ -29,7 +29,7 @@ public class Damagable : ECSComponent
         {
             OnDiedAction?.Invoke();
             OnDied();
-            GameEventsManager.Instance.WorldObjectsEvents.OnDied(_id);
+            Core.GameEventsManager.WorldObjectsEvents.OnDied(_id);
         }
     }
 

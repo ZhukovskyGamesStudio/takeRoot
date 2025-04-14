@@ -5,7 +5,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Core : MonoBehaviour {
+public class Core : MonoBehaviour , IResetable {
     public static Core Instance;
     public static CoreCanvasUi UI;
     public static CommandsManagersHolder CommandsManagersHolder;
@@ -14,8 +14,15 @@ public class Core : MonoBehaviour {
     public static ConfigManager ConfigManager;
     public static FogOfWarManager FogOfWarManager;
     public static CraftingManager CraftingManager;
-
-    public static Race CurrentNetworkFakeRace = Race.Plants;
+    public static BuildingManager BuildingManager;
+    public static AStarPathfinding AStarPathfinding;
+    public static SelectionManager SelectionManager;
+    public static SettlersSelectionManager SettlersSelectionManager;
+    public static GameEventsManager GameEventsManager;
+    public static ResourceManager ResourceManager;
+    public static QuestManager QuestManager;
+    
+    public Race CurrentNetworkFakeRace = Race.Plants;
 
     private void Awake() {
         Instance = this;
@@ -64,5 +71,22 @@ public class Core : MonoBehaviour {
         } else {
             return CurrentNetworkFakeRace;
         }
+    }
+    
+    public void Reset() {
+        UI = null;
+        CommandsManagersHolder = null;
+        SettlersManager = null;
+        GridManager = null;
+        ConfigManager = null;
+        FogOfWarManager = null;
+        CraftingManager = null;
+        BuildingManager = null;
+        AStarPathfinding = null;
+        SelectionManager = null;
+        SettlersSelectionManager = null;
+        GameEventsManager = null;
+        ResourceManager = null;
+        QuestManager = null;
     }
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class InfoBookView : MonoBehaviour {
-    public static bool IsAutoOpenInfoPanel;
+    [field: SerializeField]
+    public bool IsAutoOpenInfoPanel { get; private set; }
 
     [SerializeField]
     private Image _icon;

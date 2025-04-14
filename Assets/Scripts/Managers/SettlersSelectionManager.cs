@@ -3,7 +3,6 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SettlersSelectionManager : MonoBehaviour {
-    public static SettlersSelectionManager Instance;
 
     [SerializeField]
     private CommandsPanel _commandsPanel;
@@ -22,7 +21,7 @@ public class SettlersSelectionManager : MonoBehaviour {
     public Settler SelectedSettler { get; private set; }
 
     private void Awake() {
-        Instance = this;
+        Core.SettlersSelectionManager = this;
         CreateSelectionView();
     }
 
@@ -61,7 +60,7 @@ public class SettlersSelectionManager : MonoBehaviour {
             return;
         }
 
-        if (InfoBookView.IsAutoOpenInfoPanel) {
+        if (Core.UI.InfoPanelView.IsAutoOpenInfoPanel) {
             Core.UI.InfoPanelView.SetToggle(true);
         }
 
@@ -108,8 +107,8 @@ public class SettlersSelectionManager : MonoBehaviour {
     }
 
     private void ChangePanels(bool isTactical) {
-        CommandsManagersHolder.Instance.TacticalCommandsManager.SetActivePanel(isTactical);
-        CommandsManagersHolder.Instance.CommandsManager.SetActivePanel(!isTactical);
+        Core.CommandsManagersHolder.TacticalCommandsManager.SetActivePanel(isTactical);
+        Core.CommandsManagersHolder.CommandsManager.SetActivePanel(!isTactical);
     }
 
     public void TryChangeSelectedSettlerMode(bool isTactical) {
@@ -118,6 +117,6 @@ public class SettlersSelectionManager : MonoBehaviour {
         }
 
         SelectedSettler.ChangeMode(isTactical ? Mode.Tactical : Mode.Planning);
-        GameEventsManager.Instance.WorldObjectsEvents.OnSettlerModeChanged(SelectedSettler);
+        Core.GameEventsManager.WorldObjectsEvents.OnSettlerModeChanged(SelectedSettler);
     }
 }
