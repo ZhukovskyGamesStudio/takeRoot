@@ -39,5 +39,6 @@ public enum Command {
     GatherResourcesForCraft = 9,
     DeliveryForCraft = 10,
     Craft = 11,
-    PrepareToCraft = 12
+    PrepareToCraft = 12,
+    Water = 13
 }
