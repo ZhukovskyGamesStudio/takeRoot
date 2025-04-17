@@ -16,11 +16,7 @@ public class Video1 : MonoBehaviour {
 
     public bool runIntoCraftingRoom;
     public Transform craftingRoom;
-    public Transform craftingRoomCameraStopPos;
-    public Transform craftingRoomCameraStartPos;
-    public bool craftingRoomCameraStopped;
-    public bool craftingRoomCameraStarted;
-
+    
     public Transform changeToRemboPos;
     public Settler remboPrefab;
 
@@ -61,6 +57,8 @@ public class Video1 : MonoBehaviour {
             Interactable = secondFlower
         });
         //TODO Add jump
+        var animator = flowerSettler.GetComponentInChildren<Animator>();
+        yield return WaitUntilAnimationEnds(animator, "Jump");
         flowerSettler.SettlerData._mood = Mood.Angry;
         yield return AddMoveAndWaitFinish(_movePoses[0].position);
         SwapToRembo();
@@ -70,6 +68,15 @@ public class Video1 : MonoBehaviour {
         yield return AddMoveAndWaitFinish(_movePoses[4].position);
     }
 
+    private IEnumerator WaitUntilAnimationEnds(Animator animator, string trigger)
+    {
+        animator.SetInteger("Action", 99);
+        yield return null;
+        
+        yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName(trigger) &&
+                                   animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
+        animator.SetInteger("Action", 0);
+    }
     private IEnumerator AddCommandAndWaitFinish(CommandData data) {
         var settler = data.Settler;
         CommandsManager commandsManager = Core.CommandsManagersHolder.GetCommandManagerByRace(Race.Plants);
