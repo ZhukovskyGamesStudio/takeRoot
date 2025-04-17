@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class Video1 : MonoBehaviour {
     
@@ -23,7 +24,7 @@ public class Video1 : MonoBehaviour {
     public Transform changeToRemboPos;
     public Settler remboPrefab;
 
-
+    public float movementTimeChange;
     public Transform removeCameraObstaclePos;
     public Transform startZoomPos;
     public SmoothCameraFollow2D CameraFollow;
@@ -62,8 +63,9 @@ public class Video1 : MonoBehaviour {
             CommandType = Command.Search,
             Interactable = secondFlower
         });
-        //TODO Add jump
+        Core.ConfigManager.CreaturesParametersConfig.ChangeMoveSpeed(movementTimeChange);
         var animator = flowerSettler.GetComponentInChildren<Animator>();
+        flowerSettler.SettlerData._mood = Mood.Angry;
         yield return WaitUntilAnimationEnds(animator, "Jump");
         yield return new WaitForSeconds(0.5f);
         yield return AddMoveAndWaitFinish(_movePoses[1].position);
@@ -75,6 +77,7 @@ public class Video1 : MonoBehaviour {
         yield return AddMoveAndWaitFinish(_movePoses[5].position);
         yield return AddMoveAndWaitFinish(_movePoses[6].position);
         flowerSettler.GetComponentInChildren<Shooter>().EnableShooting = true;
+        Core.ConfigManager.CreaturesParametersConfig.ChangeMoveSpeed(-movementTimeChange);
     }
 
     private IEnumerator WaitUntilAnimationEnds(Animator animator, string trigger)
@@ -82,7 +85,6 @@ public class Video1 : MonoBehaviour {
         animator.SetInteger("Action", 99);
         yield return null;
         
-        flowerSettler.SettlerData._mood = Mood.Angry;
 
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName(trigger) &&
                                    animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f);
