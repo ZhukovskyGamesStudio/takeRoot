@@ -7,11 +7,11 @@ using UnityEngine.SceneManagement;
 public class Video1 : MonoBehaviour {
     
     public CinemachineCamera CinemachineCamera;
+    public Transform CameraFollowTarget;
     public Settler flowerSettler;
     public Interactable firstFlower;
     public Interactable secondFlower;
-
-    public List<Settler> craftingSettlers;
+    
     public CraftingStationable craftingStation;
 
     [SerializeField]
@@ -56,6 +56,7 @@ public class Video1 : MonoBehaviour {
             CommandType = Command.Search,
             Interactable = firstFlower
         });
+        yield return AddMoveAndWaitFinish(_movePoses[0].position);
         yield return AddCommandAndWaitFinish(new CommandData() {
             Settler = flowerSettler,
             CommandType = Command.Search,
@@ -65,12 +66,16 @@ public class Video1 : MonoBehaviour {
         var animator = flowerSettler.GetComponentInChildren<Animator>();
         yield return WaitUntilAnimationEnds(animator, "Jump");
         flowerSettler.SettlerData._mood = Mood.Angry;
-        yield return AddMoveAndWaitFinish(_movePoses[0].position);
-        SwapToRembo();
+        yield return new WaitForSeconds(0.5f);
         yield return AddMoveAndWaitFinish(_movePoses[1].position);
+        SwapToRembo();
+        flowerSettler.GetComponentInChildren<Shooter>().EnableShooting = false;
         yield return AddMoveAndWaitFinish(_movePoses[2].position);
         yield return AddMoveAndWaitFinish(_movePoses[3].position);
         yield return AddMoveAndWaitFinish(_movePoses[4].position);
+        yield return AddMoveAndWaitFinish(_movePoses[5].position);
+        yield return AddMoveAndWaitFinish(_movePoses[6].position);
+        flowerSettler.GetComponentInChildren<Shooter>().EnableShooting = true;
     }
 
     private IEnumerator WaitUntilAnimationEnds(Animator animator, string trigger)
@@ -79,7 +84,7 @@ public class Video1 : MonoBehaviour {
         yield return null;
         
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName(trigger) &&
-                                   animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1);
+                                   animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f);
         animator.SetInteger("Action", 0);
     }
     private IEnumerator AddCommandAndWaitFinish(CommandData data) {
@@ -133,7 +138,7 @@ public class Video1 : MonoBehaviour {
 
         if (runIntoCraftingRoom && CameraSize < _craftingUnzoom) {
             CameraSize += _craftingUnzoomSpeed;
-            Camera.main.orthographicSize = CameraSize;
+            CinemachineCamera.Lens.OrthographicSize = CameraSize;
         }
 
         if (flowerSettler.transform.position.ToVector2Int() == removeCameraObstaclePos.position.ToVector2Int())
@@ -163,9 +168,9 @@ public class Video1 : MonoBehaviour {
 
     private void SwapToRembo() {
         var rembo = Instantiate(remboPrefab, changeToRemboPos.position, Quaternion.identity);
+        rembo.transform.localScale = new Vector3(rembo.transform.localScale.x * -1, rembo.transform.localScale.y, rembo.transform.localScale.z);
+        CameraFollowTarget.SetParent(rembo.transform);
         Destroy(flowerSettler.gameObject);
         flowerSettler = rembo.GetComponent<Settler>();
-        CameraFollow.target = rembo.transform;
-        CinemachineCamera.Target.TrackingTarget = rembo.transform;
     }
 }
