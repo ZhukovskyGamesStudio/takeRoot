@@ -22,6 +22,7 @@ public abstract class Shooter : ECSComponent
     private float _ShootTimer;
 
     protected bool CanShoot = false;
+    public bool EnableShooting = true;
     
     public override void Init(ECSEntity entity)
     {
@@ -46,6 +47,7 @@ public abstract class Shooter : ECSComponent
     
     private void Update()
     {
+        if (!EnableShooting) return;
         UpdateTarget();
         HandleShooting();
     }
