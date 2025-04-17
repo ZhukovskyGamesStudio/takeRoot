@@ -65,7 +65,6 @@ public class Video1 : MonoBehaviour {
         //TODO Add jump
         var animator = flowerSettler.GetComponentInChildren<Animator>();
         yield return WaitUntilAnimationEnds(animator, "Jump");
-        flowerSettler.SettlerData._mood = Mood.Angry;
         yield return new WaitForSeconds(0.5f);
         yield return AddMoveAndWaitFinish(_movePoses[1].position);
         SwapToRembo();
@@ -83,6 +82,8 @@ public class Video1 : MonoBehaviour {
         animator.SetInteger("Action", 99);
         yield return null;
         
+        flowerSettler.SettlerData._mood = Mood.Angry;
+
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName(trigger) &&
                                    animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f);
         animator.SetInteger("Action", 0);
