@@ -170,7 +170,12 @@ public class CraftingCombinedCommand : CombinedCommandData {
     public void OnCommandPerformed(CommandData cData) {
         if (cData.CommandType == Command.PrepareToCraft) {
             if (!_performingSettlers.Contains(cData.Settler))
+            {
                 _performingSettlers.Add(cData.Settler);
+                var transform = cData.Settler.transform;
+                var scaleX = cData.Settler.SettlerData.Race == Race.Plants ? 1 : -1; 
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * scaleX, transform.localScale.y, transform.localScale.z);
+            }
 
             if (_performingSettlers.Count < 2)
                 return;
