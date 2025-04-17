@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Video1 : MonoBehaviour {
+    
+    public CinemachineCamera CinemachineCamera;
     public Settler flowerSettler;
     public Interactable firstFlower;
     public Interactable secondFlower;
@@ -20,6 +23,8 @@ public class Video1 : MonoBehaviour {
     public Transform changeToRemboPos;
     public Settler remboPrefab;
 
+
+    public Transform removeCameraObstaclePos;
     public Transform startZoomPos;
     public SmoothCameraFollow2D CameraFollow;
     public bool CanUnZoomCamera;
@@ -115,6 +120,8 @@ public class Video1 : MonoBehaviour {
         //    CameraFollow.target = flowerSettler.gameObject.transform;
         //    craftingRoomCameraStarted = true;
         //}
+        
+        
         if (flowerSettler.transform.position.ToVector2Int() == craftingRoom.position.ToVector2Int() &&
             !runIntoCraftingRoom) {
             runIntoCraftingRoom = true;
@@ -129,14 +136,19 @@ public class Video1 : MonoBehaviour {
             Camera.main.orthographicSize = CameraSize;
         }
 
+        if (flowerSettler.transform.position.ToVector2Int() == removeCameraObstaclePos.position.ToVector2Int())
+        {
+            CinemachineCamera.GetComponent<CinemachineConfiner2D>().BoundingShape2D = null;
+        }
+        
         if (CanUnZoomCamera && CameraSize < _lastCamera.orthographicSize) {
             CameraSize += _lastUnzoomSpeed;
-            Camera.main.orthographicSize = CameraSize;
+            CinemachineCamera.Lens.OrthographicSize = CameraSize;
             {
                 CameraFollow.target = null;
-                var curVec = new Vector2(Camera.main.transform.position.x, Camera.main.transform.position.y);
+                var curVec = new Vector2(CinemachineCamera.transform.position.x, CinemachineCamera.transform.position.y);
                 var newPos = Vector2.MoveTowards(curVec, CenterCamerav2, _lastToCenterSpeed);
-                Camera.main.transform.position = new Vector3(newPos.x, newPos.y, Camera.main.transform.position.z);
+                CinemachineCamera.transform.position = new Vector3(newPos.x, newPos.y, CinemachineCamera.transform.position.z);
             }
         }
     }
@@ -154,5 +166,6 @@ public class Video1 : MonoBehaviour {
         Destroy(flowerSettler.gameObject);
         flowerSettler = rembo.GetComponent<Settler>();
         CameraFollow.target = rembo.transform;
+        CinemachineCamera.Target.TrackingTarget = rembo.transform;
     }
 }
