@@ -13,7 +13,7 @@ public class Video2 : MonoBehaviour
     public Settler mainLampSettler;
     public Settler chamomileSettler;
     public GameObject potatoContainer;
-    
+    public GameObject potatoField;
     
     [Header("Points")]
     public Transform goToLampRechargerPos;
@@ -66,20 +66,23 @@ public class Video2 : MonoBehaviour
         yield return AddMoveAndWaitFinish(goToChamomileFarmPos.position, chamomileSettler);
         Zoom(7, 0.5f);
         yield return AddMoveAndWaitFinish(goToChamomileFarmPosFinal.position, chamomileSettler);
+        chamomileSettler.FakeCommand = Command.Craft;
         yield return new WaitForSeconds(1f);
+        chamomileSettler.FakeCommand = Command.None;
+        potatoField.SetActive(false);
         itemPlaceholder.sprite = potato;
         Zoom(4, 0.5f);
         yield return AddMoveAndWaitFinish(goToChamomileGrinderPos.position, chamomileSettler);
-        yield return new WaitForSeconds(1f);
+        yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
         itemPlaceholder.sprite = potatoMash;
         yield return AddMoveAndWaitFinish(goToChamomileDistillerPos.position, chamomileSettler);
-        yield return new WaitForSeconds(1f);
+        yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
         itemPlaceholder.sprite = biofuel;
         yield return AddMoveAndWaitFinish(goToChamomileGeneratorPos.position, chamomileSettler);
-        yield return new WaitForSeconds(1f);
+        yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
         itemPlaceholder.sprite = null;
         yield return AddMoveAndWaitFinish(goToChamomileRechargerPos.position, chamomileSettler);
-        yield return new WaitForSeconds(1f);
+        yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
     }
     
 
@@ -107,6 +110,13 @@ public class Video2 : MonoBehaviour
             CinemachineCamera.Lens.OrthographicSize -= Time.deltaTime * zoomSpeed;
             yield return null;
         }
+    }
+
+    private IEnumerator DoFakeCommandAndWaitFinish(Settler settler, Command command, float time)
+    {
+        settler.FakeCommand = command;
+        yield return new WaitForSeconds(time);
+        settler.FakeCommand = Command.None;
     }
     private IEnumerator AddMoveAndWaitFinish(Vector3 newPos, Settler settler) {
         yield return StartCoroutine(AddCommandAndWaitFinish(new TacticalCommandData() {
