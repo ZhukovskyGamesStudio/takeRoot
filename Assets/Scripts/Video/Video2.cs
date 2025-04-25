@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class Video2 : MonoBehaviour
 {
@@ -10,10 +12,11 @@ public class Video2 : MonoBehaviour
 
     public Settler mainLampSettler;
     public Settler chamomileSettler;
-    [FormerlySerializedAs("potatoContainers")] public GameObject potatoContainer;
-    [FormerlySerializedAs("rechargerPos")] [Header("Points")]
+    public GameObject potatoContainer;
+    
+    
+    [Header("Points")]
     public Transform goToLampRechargerPos;
-
     public Transform goToChamomileJumpPos;
     public Transform goToChamomileFarmPos;
     public Transform goToChamomileFarmPosFinal;
@@ -21,11 +24,34 @@ public class Video2 : MonoBehaviour
     public Transform goToChamomileDistillerPos;
     public Transform goToChamomileGeneratorPos;
     public Transform goToChamomileRechargerPos;
+    public Transform goToFarmUnzoomPos;
+    public Transform goToGrinderZoomPos;
+    public Transform goToGeneratorUnzoomPos;
+    public Transform goToGeneratorZoomPos;
+    
+    [Header("Item")] 
+    public SpriteRenderer itemPlaceholder;
 
+    public Sprite potato;
+    public Sprite potatoMash;
+    public Sprite biofuel;
 
+    private Coroutine _zoomCoroutine;
     void Start()
     {
         StartCoroutine(MainCoroutine());
+    }
+
+    private void LateUpdate()
+    {
+        if (chamomileSettler.transform.position.ToVector2Int() == goToFarmUnzoomPos.position.ToVector2Int())
+            Zoom(7, 0.5f);
+        if (chamomileSettler.transform.position.ToVector2Int() == goToGrinderZoomPos.position.ToVector2Int())
+            Zoom(4, 0.5f);
+        if (chamomileSettler.transform.position.ToVector2Int() == goToGeneratorUnzoomPos.position.ToVector2Int())
+            Zoom(7, 0.5f);
+        if (chamomileSettler.transform.position.ToVector2Int() == goToGeneratorZoomPos.position.ToVector2Int())
+            Zoom(4, 0.5f);
     }
 
     private IEnumerator MainCoroutine()
@@ -38,25 +64,47 @@ public class Video2 : MonoBehaviour
         CinemachineCamera.Target.TrackingTarget = chamomileSettler.transform;
         yield return new WaitForSeconds(1f);
         yield return AddMoveAndWaitFinish(goToChamomileFarmPos.position, chamomileSettler);
-        StartCoroutine(SmoothZoom(7, 0.5f));
+        Zoom(7, 0.5f);
         yield return AddMoveAndWaitFinish(goToChamomileFarmPosFinal.position, chamomileSettler);
         yield return new WaitForSeconds(1f);
+        itemPlaceholder.sprite = potato;
+        Zoom(4, 0.5f);
         yield return AddMoveAndWaitFinish(goToChamomileGrinderPos.position, chamomileSettler);
         yield return new WaitForSeconds(1f);
+        itemPlaceholder.sprite = potatoMash;
         yield return AddMoveAndWaitFinish(goToChamomileDistillerPos.position, chamomileSettler);
         yield return new WaitForSeconds(1f);
+        itemPlaceholder.sprite = biofuel;
         yield return AddMoveAndWaitFinish(goToChamomileGeneratorPos.position, chamomileSettler);
         yield return new WaitForSeconds(1f);
+        itemPlaceholder.sprite = null;
         yield return AddMoveAndWaitFinish(goToChamomileRechargerPos.position, chamomileSettler);
         yield return new WaitForSeconds(1f);
     }
+    
 
-
+    private void Zoom(float targetZoomValue, float zoomSpeed)
+    {
+        if (_zoomCoroutine != null)
+            StopCoroutine(_zoomCoroutine);
+        if (CinemachineCamera.Lens.OrthographicSize < targetZoomValue)
+            _zoomCoroutine = StartCoroutine(SmoothZoom(targetZoomValue, zoomSpeed));
+        else
+            _zoomCoroutine = StartCoroutine(SmoothUnzoom(targetZoomValue, zoomSpeed));
+    }
     private IEnumerator SmoothZoom(float targetZoomValue, float zoomSpeed)
     {
         while (CinemachineCamera.Lens.OrthographicSize < targetZoomValue)
         {
             CinemachineCamera.Lens.OrthographicSize += Time.deltaTime * zoomSpeed;
+            yield return null;
+        }
+    }
+    private IEnumerator SmoothUnzoom(float targetZoomValue, float zoomSpeed)
+    {
+        while (CinemachineCamera.Lens.OrthographicSize > targetZoomValue)
+        {
+            CinemachineCamera.Lens.OrthographicSize -= Time.deltaTime * zoomSpeed;
             yield return null;
         }
     }
