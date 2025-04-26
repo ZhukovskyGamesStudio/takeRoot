@@ -12,10 +12,13 @@ public class Interactable : ECSComponent, ISelectable {
     public Action<CommandData> OnCommandPerformed, OnCommandCanceled;
 
     public Gridable Gridable { get; private set; }
-
+    
+    //For videos
+    public Animator Animator { get; private set; }
+    
     //TODO get rid of it
     public CommandData CommandToExecute { get; private set; }
-
+    
     public HashSet<Vector2Int> InteractableCells => Gridable.InteractableCells;
     public Vector2Int GetInteractableCell => Gridable.GetBottomLeftOnGrid + _interactableShift;
     public bool CanSelect { get; set; } = true;
@@ -96,5 +99,6 @@ public class Interactable : ECSComponent, ISelectable {
 
     public override void Init(ECSEntity entity) {
         Gridable = entity.GetEcsComponent<Gridable>();
+        Animator = entity.GetComponent<Animator>(); //For videos
     }
 }
