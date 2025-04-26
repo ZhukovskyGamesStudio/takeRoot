@@ -14,7 +14,9 @@ public class Video2 : MonoBehaviour
     public Settler chamomileSettler;
     public GameObject potatoContainer;
     public GameObject potatoField;
-    
+    public Interactable distiller;
+    public Interactable grinder;
+    public Interactable biogenerator;
     [Header("Points")]
     public Transform goToLampRechargerPos;
     public Transform goToChamomileJumpPos;
@@ -73,13 +75,18 @@ public class Video2 : MonoBehaviour
         itemPlaceholder.sprite = potato;
         Zoom(4, 0.5f);
         yield return AddMoveAndWaitFinish(goToChamomileGrinderPos.position, chamomileSettler);
-        yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
+        grinder.Animator.SetTrigger("Work");
+        yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 2f);
+        grinder.Animator.SetTrigger("Idle");
         itemPlaceholder.sprite = potatoMash;
         yield return AddMoveAndWaitFinish(goToChamomileDistillerPos.position, chamomileSettler);
-        yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
+        distiller.Animator.SetTrigger("Work");
+        yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 3f);
+        distiller.Animator.SetTrigger("Idle");
         itemPlaceholder.sprite = biofuel;
         yield return AddMoveAndWaitFinish(goToChamomileGeneratorPos.position, chamomileSettler);
         yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
+        biogenerator.Animator.SetTrigger("Work");
         itemPlaceholder.sprite = null;
         yield return AddMoveAndWaitFinish(goToChamomileRechargerPos.position, chamomileSettler);
         yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
