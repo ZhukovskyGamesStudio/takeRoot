@@ -22,6 +22,7 @@ public class Core : MonoBehaviour , IResetable {
     public static ResourceManager ResourceManager;
     public static QuestManager QuestManager;
     public static WateringManager WateringManager;
+    public static PowerManager PowerManager;
     
     public Race CurrentNetworkFakeRace = Race.Plants;
 
