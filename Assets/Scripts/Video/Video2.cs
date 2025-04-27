@@ -30,6 +30,7 @@ public class Video2 : MonoBehaviour
     public Transform goToGrinderZoomPos;
     public Transform goToGeneratorUnzoomPos;
     public Transform goToGeneratorZoomPos;
+    public List<Transform> goToCreateWirePos; 
     
     [Header("Item")] 
     public SpriteRenderer itemPlaceholder;
@@ -88,8 +89,20 @@ public class Video2 : MonoBehaviour
         yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
         biogenerator.Animator.SetTrigger("Work");
         itemPlaceholder.sprite = null;
+        
+        yield return AddMoveAndWaitFinish(goToCreateWirePos[0].position, chamomileSettler);
+        yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 0.2f);
+        Core.PowerManager.CreateWireAt(biogenerator.transform.position.ToVector2Int());
+        foreach (Transform pos in goToCreateWirePos)
+        {
+            yield return AddMoveAndWaitFinish(pos.position, chamomileSettler);
+            yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 0.2f);
+            Core.PowerManager.CreateWireAt(pos.position.ToVector2Int());
+        }
         yield return AddMoveAndWaitFinish(goToChamomileRechargerPos.position, chamomileSettler);
         yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
+        var rechargerPos = goToChamomileRechargerPos.position.ToVector2Int();
+        Core.PowerManager.CreateWireAt(new Vector2Int(rechargerPos.x, rechargerPos.y + 1));
     }
     
 
