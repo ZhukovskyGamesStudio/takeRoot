@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6898774561324579431
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2705092659487915900}
+  - component: {fileID: 4085998695343678681}
+  m_Layer: 0
+  m_Name: PowerManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2705092659487915900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6898774561324579431}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4085998695343678681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6898774561324579431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aee89bbcaa784f53ba66b6e80f2eb25d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WireDirectionSprites:
+  - {fileID: 21300000, guid: 11a7119a28925584cbe1cf8e85d5e791, type: 3}
+  - {fileID: 21300000, guid: a3fd51b0403b83845aaee6183be6b7ee, type: 3}
+  - {fileID: 21300000, guid: a3fd51b0403b83845aaee6183be6b7ee, type: 3}
+  - {fileID: 21300000, guid: a3fd51b0403b83845aaee6183be6b7ee, type: 3}
+  - {fileID: 21300000, guid: e3bf4fedc14c05f4bae2ee233581fd5e, type: 3}
+  - {fileID: 21300000, guid: d7fec7001a9ee9c4f8b54b188e56c226, type: 3}
+  - {fileID: 21300000, guid: 2dab36f24f7b17246a5a78e978901dff, type: 3}
+  - {fileID: 21300000, guid: 04d1208722278b943a0a89a40d67b99b, type: 3}
+  - {fileID: 21300000, guid: e3bf4fedc14c05f4bae2ee233581fd5e, type: 3}
+  - {fileID: 21300000, guid: 25518142c05579b4996aed69b5cb9528, type: 3}
+  - {fileID: 21300000, guid: 01229939394920c48ac6bc1f4f625b01, type: 3}
+  - {fileID: 21300000, guid: 093ecdfa22d16ce49bfcdb96a66db6b7, type: 3}
+  - {fileID: 21300000, guid: e3bf4fedc14c05f4bae2ee233581fd5e, type: 3}
+  - {fileID: 21300000, guid: 01777594d7d485047bd81278cc7ca51d, type: 3}
+  - {fileID: 21300000, guid: ea1964c1f79df6c458d73b71e814ff59, type: 3}
+  - {fileID: 21300000, guid: 11a7119a28925584cbe1cf8e85d5e791, type: 3}
+  wirePrefab: {fileID: 6976424789443681780, guid: 221fb49651ab74d4cabc116bb612aaf8, type: 3}
