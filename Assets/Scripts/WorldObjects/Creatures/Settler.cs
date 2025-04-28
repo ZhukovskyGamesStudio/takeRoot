@@ -30,6 +30,7 @@ public class Settler : ECSEntity {
 
     public CommandData TakenCommand { get; private set; }
     public TacticalCommandData TakenTacticalCommand { get; private set; }
+    public Animator ActionAnimator => _actionsAnimator;
     public Mode Mode => SettlerData._mode;
 
     public Vector2Int GetCellOnGrid => new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));

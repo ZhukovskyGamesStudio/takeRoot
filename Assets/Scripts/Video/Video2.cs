@@ -17,6 +17,7 @@ public class Video2 : MonoBehaviour
     public Interactable distiller;
     public Interactable grinder;
     public Interactable biogenerator;
+    public Interactable idleBiogenerator;
     [Header("Points")]
     public Transform goToLampRechargerPos;
     public Transform goToChamomileJumpPos;
@@ -30,6 +31,7 @@ public class Video2 : MonoBehaviour
     public Transform goToGrinderZoomPos;
     public Transform goToGeneratorUnzoomPos;
     public Transform goToGeneratorZoomPos;
+    public Transform goAwayChamomilePos;
     public List<Transform> goToCreateWirePos; 
     
     [Header("Item")] 
@@ -77,15 +79,18 @@ public class Video2 : MonoBehaviour
         Zoom(4, 0.5f);
         yield return AddMoveAndWaitFinish(goToChamomileGrinderPos.position, chamomileSettler);
         grinder.Animator.SetTrigger("Work");
+        itemPlaceholder.sprite = null;
         yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 2f);
         grinder.Animator.SetTrigger("Idle");
         itemPlaceholder.sprite = potatoMash;
         yield return AddMoveAndWaitFinish(goToChamomileDistillerPos.position, chamomileSettler);
         distiller.Animator.SetTrigger("Work");
+        itemPlaceholder.sprite = null;
         yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 3f);
         distiller.Animator.SetTrigger("Idle");
         itemPlaceholder.sprite = biofuel;
         yield return AddMoveAndWaitFinish(goToChamomileGeneratorPos.position, chamomileSettler);
+        itemPlaceholder.sprite = null;
         yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
         biogenerator.Animator.SetTrigger("Work");
         itemPlaceholder.sprite = null;
@@ -103,6 +108,11 @@ public class Video2 : MonoBehaviour
         yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
         var rechargerPos = goToChamomileRechargerPos.position.ToVector2Int();
         Core.PowerManager.CreateWireAt(new Vector2Int(rechargerPos.x, rechargerPos.y + 1));
+        CinemachineCamera.Target.TrackingTarget = mainLampSettler.transform;
+        yield return AddMoveAndWaitFinish(goAwayChamomilePos.position, chamomileSettler);
+        mainLampSettler.transform.position = new Vector3(-14, 45.6f, 0);
+        mainLampSettler.isSleeping = true;
+        mainLampSettler.ActionAnimator.enabled = false;
     }
     
 

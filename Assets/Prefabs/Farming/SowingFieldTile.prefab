@@ -288,6 +288,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5741283696802897077}
   - component: {fileID: 2420790747296265555}
+  - component: {fileID: 4495354751645583600}
   m_Layer: 0
   m_Name: SowingFieldTile
   m_TagString: Untagged
@@ -326,6 +327,18 @@ MonoBehaviour:
   _size: {x: 1, y: 1}
   <IsBlockingPath>k__BackingField: 1
   <IsBlockingView>k__BackingField: 1
+--- !u!210 &4495354751645583600
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2747676986107710274}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &2800325368687451856
 GameObject:
   m_ObjectHideFlags: 0
