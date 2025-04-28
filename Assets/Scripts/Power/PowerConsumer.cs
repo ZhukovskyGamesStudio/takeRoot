@@ -1,9 +1,12 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PowerConsumer : ECSComponent
 {
-    public Vector2Int PlugPosition;
+    public Vector2Int PowerSocketPosition;
+    public GameObject Plug;
+    public GameObject PowerSocket;
     public bool Connected;
     public Wire Wire;
 
@@ -11,6 +14,7 @@ public class PowerConsumer : ECSComponent
     {
         Connected = connected;
         Wire = wire;
+        Plug.SetActive(connected);
     }
     public override int GetDependancyPriority()
     {
@@ -19,6 +23,6 @@ public class PowerConsumer : ECSComponent
 
     public override void Init(ECSEntity entity)
     {
-        PlugPosition = transform.position.ToVector2Int();
+        PowerSocketPosition = PowerSocket.transform.position.ToVector2Int();
     }
 }

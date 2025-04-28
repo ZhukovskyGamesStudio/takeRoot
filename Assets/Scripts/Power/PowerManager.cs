@@ -66,7 +66,8 @@ public class PowerManager : MonoBehaviour
         _checkedWires.Clear();
         foreach (PowerProvider biogenerator in _generators)
         {
-            FloodFill(biogenerator.transform.position.ToVector2Int(), biogenerator);
+            var connected = FloodFill(biogenerator.PowerSocketPosition, biogenerator);
+            biogenerator.SetConnections(connected == 1);
         }
         foreach (Vector2Int wire in _wires.Keys)
         {
@@ -78,7 +79,7 @@ public class PowerManager : MonoBehaviour
     {
         foreach (PowerConsumer powerConsumer in _powerConsumers)
         {
-            if (_wires.TryGetValue(powerConsumer.PlugPosition, out var wire))
+            if (_wires.TryGetValue(powerConsumer.PowerSocketPosition, out var wire))
                 powerConsumer.SetConnections(true, wire);
             else
                 powerConsumer.SetConnections(false, null);
