@@ -115,6 +115,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: Mood
     m_EventTreshold: 0
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsSleeping
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 7915514816494396096}
   m_Solo: 0
