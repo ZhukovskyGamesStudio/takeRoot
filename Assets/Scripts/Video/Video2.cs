@@ -62,9 +62,11 @@ public class Video2 : MonoBehaviour
     private IEnumerator MainCoroutine()
     {
         RandomPotato();
+        idleBiogenerator.Animator.SetTrigger("Work");
         yield return new WaitForSeconds(0.5f);
         yield return AddMoveAndWaitFinish(goToLampRechargerPos.position, mainLampSettler);
         yield return new WaitForSeconds(0.5f);
+        chamomileSettler.gameObject.SetActive(true);
         yield return AddMoveAndWaitFinish(goToChamomileJumpPos.position, chamomileSettler);
         CinemachineCamera.Target.TrackingTarget = chamomileSettler.transform;
         yield return new WaitForSeconds(1f);
@@ -110,7 +112,8 @@ public class Video2 : MonoBehaviour
         Core.PowerManager.CreateWireAt(new Vector2Int(rechargerPos.x, rechargerPos.y + 1));
         CinemachineCamera.Target.TrackingTarget = mainLampSettler.transform;
         yield return AddMoveAndWaitFinish(goAwayChamomilePos.position, chamomileSettler);
-        mainLampSettler.transform.position = new Vector3(-14, 45.6f, 0);
+        mainLampSettler.transform.position = new Vector3(-11, 44.6f, 0);
+        mainLampSettler.transform.localScale = new Vector3(1, 1, 1);
         mainLampSettler.isSleeping = true;
         mainLampSettler.ActionAnimator.enabled = false;
     }
