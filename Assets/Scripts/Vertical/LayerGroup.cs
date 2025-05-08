@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HasLayerObjectContainer : MonoBehaviour
+public class LayerGroup : MonoBehaviour
 {
     public int actualLayer;
     public List<int> availableForRenderLayers;
