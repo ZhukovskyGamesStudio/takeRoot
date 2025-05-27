@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,7 +11,8 @@ public class Settler : ECSEntity {
     private static readonly int Mood = Animator.StringToHash("Mood");
     private static readonly int IsSleeping = Animator.StringToHash("IsSleeping");
     private static readonly int Action1 = Animator.StringToHash("Action");
-
+    
+    private List<Point> _path = new List<Point>();
     [SerializeField]
     private Animator _moodAnimator;
     [SerializeField]
@@ -23,6 +25,7 @@ public class Settler : ECSEntity {
     private List<EquipmentView> _equipmentViews = new List<EquipmentView>();
 
     protected Gridable _gridable;
+    protected HasLayer _layer;
 
     private bool _isMoving;
 
@@ -45,6 +48,7 @@ public class Settler : ECSEntity {
         base.Awake();
         SettlerData = GetEcsComponent<SettlerData>();
         _gridable = GetEcsComponent<Gridable>();
+        _layer = GetComponentInParent<HasLayer>();
         GetEcsComponent<Damagable>().OnDiedAction += OnDied;
         _moodAnimator.SetBool(IsSleeping, isSleeping);
     }
@@ -102,7 +106,8 @@ public class Settler : ECSEntity {
                             _performingCoroutine = StartCoroutine(MoveToSell(nextStepCell.Value));
                         }
                     }
-                } else {
+                } else
+                {
                     Vector2Int? nextStepCell = TryMoveToTacticalCommandTarget();
                     if (nextStepCell == null) {
                         ClearTacticalCommand();
@@ -200,7 +205,7 @@ public class Settler : ECSEntity {
             DeliveryCommandData data = (DeliveryCommandData)TakenCommand.AdditionalData;
             targetCell.Add(data.TargetPlan.Interactable.GetInteractableCell);
         } else if (TakenCommand.CommandType == Command.DeliveryForCraft) {
-           DeliveryToCraftCommandData data = (DeliveryToCraftCommandData)TakenCommand.AdditionalData;
+            DeliveryToCraftCommandData data = (DeliveryToCraftCommandData)TakenCommand.AdditionalData;
             targetCell.Add(data.CraftingStation.Interactable.GetInteractableCell);
         } else if (TakenCommand.CommandType == Command.PrepareToCraft) {
             CommandData cData = TakenCommand;
@@ -257,6 +262,41 @@ public class Settler : ECSEntity {
 
         return target;
     }
+    private List<Point> TryMoveToTacticalCommandTargetPath() {
+        HashSet<Point> targets = new HashSet<Point>();
+        if (TakenTacticalCommand.TacticalInteractable == null)
+            targets.Add(TakenTacticalCommand.TargetPoint);
+        else
+            return null;
+
+        List<Point> pathStep = ExactInteractionChecker.GetPath(new Point(transform.localPosition.ToVector2Int().x, transform.localPosition.ToVector2Int().y, _gridable.HasLayer.layer), targets);
+        if (pathStep != null)
+        {
+            return pathStep;
+        } else {
+            //Debug.LogWarning($"Path is null! from:{GetCellOnGrid} to:{targetCell}");
+            return null;
+        }
+        
+    }
+
+    private Point? TryMoveToTacticalCommandPoint()
+    {
+        Point target;
+        HashSet<Point> targets = new HashSet<Point>();
+        if (TakenTacticalCommand.TacticalInteractable == null)
+            targets.Add(TakenTacticalCommand.TargetPoint);
+        else
+            return null;
+        
+        Point? pathStep = ExactInteractionChecker.NextStepOnPath(new Point(transform.localPosition.ToVector2Int().x, transform.localPosition.ToVector2Int().y, _gridable.HasLayer.layer), targets);
+        if (pathStep != null)
+            target = pathStep.Value;
+        else
+            return null;
+        
+        return target;
+    }
 
     private void MoveStep(Vector2Int direction) {
         transform.position += new Vector3(direction.x, direction.y) * CellSize;
@@ -282,6 +322,26 @@ public class Settler : ECSEntity {
         _performingCoroutine = null;
     }
 
+    private IEnumerator MoveToCell(Point target)
+    {
+        if (Core.WarpManager.warps.TryGetValue(new Point(transform.localPosition.ToVector2Int().x, transform.localPosition.ToVector2Int().y, _gridable.HasLayer.layer), out Point warpDestination))
+            if (warpDestination.Equals(target))
+            {
+                Core.LayerManager.MoveToAnotherLayer((short)warpDestination.Layer, _gridable.HasLayer);
+                transform.localPosition = new Vector3(warpDestination.X, warpDestination.Y, transform.position.z);
+                yield break;
+            }
+        Vector3 target3 = new Vector3(target.X, target.Y);
+        Vector3 diff = target3 - transform.localPosition;
+        //transform.position = target3 * CELL_SIZE;
+     
+        RotateToMoveDirection(diff);
+        yield return StartCoroutine(LerpFromTo(transform.localPosition, target3 * CellSize, Core.ConfigManager.CreaturesParametersConfig.MoveTime));
+
+        _gridable.PositionChanged();
+        //Core.FogOfWarManager.OpenAroundMovedSettler(this);
+        _performingCoroutine = null;
+    }
     private void RotateToMoveDirection(Vector3 diff) {
         if (diff.x < 0) {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
@@ -299,12 +359,12 @@ public class Settler : ECSEntity {
         while (elapsedTime < time) {
             float t = elapsedTime / time;
             t = Mathf.SmoothStep(0f, 1f, t);
-            transform.position = Vector3.Lerp(from, to, t);
+            transform.localPosition = Vector3.Lerp(from, to, t);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        transform.position = to;
+        transform.localPosition = to;
         _isMoving = false;
     }
 
@@ -401,18 +461,18 @@ public class Settler : ECSEntity {
         ClearCommand();
         TakenTacticalCommand = data;
         data.Settler = this;
-        Vector2Int? nextStepCell = TryMoveToTacticalCommandTarget();
-        if (nextStepCell == null) {
-            ClearTacticalCommand();
-        }
+        //Point? nextStepCell = TryMoveToTacticalCommandPoint();
+        //if (nextStepCell == null) {
+        //    ClearTacticalCommand();
+        //}
     }
 
     public void ClearTacticalCommand() {
-        TakenTacticalCommand = null;
-        if (_performingCoroutine != null) {
-            StopCoroutine(_performingCoroutine);
-            _performingCoroutine = null;
-        }
+        //TakenTacticalCommand = null;
+        //if (_performingCoroutine != null) {
+        //    StopCoroutine(_performingCoroutine);
+        //    _performingCoroutine = null;
+        //}
     }
 
     public void ChangeMode(Mode mode) {

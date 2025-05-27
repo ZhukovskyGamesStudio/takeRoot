@@ -16,6 +16,7 @@ public class Core : MonoBehaviour , IResetable {
     public static CraftingManager CraftingManager;
     public static BuildingManager BuildingManager;
     public static AStarPathfinding AStarPathfinding;
+    public static AStarPathfindingVertical AStarPathfindingVertical;
     public static SelectionManager SelectionManager;
     public static SettlersSelectionManager SettlersSelectionManager;
     public static GameEventsManager GameEventsManager;
@@ -23,6 +24,8 @@ public class Core : MonoBehaviour , IResetable {
     public static QuestManager QuestManager;
     public static WateringManager WateringManager;
     public static PowerManager PowerManager;
+    public static LayerManager LayerManager;
+    public static WarpManager WarpManager;
     
     public Race CurrentNetworkFakeRace = Race.Plants;
 
