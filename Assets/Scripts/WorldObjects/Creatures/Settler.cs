@@ -108,13 +108,16 @@ public class Settler : ECSEntity {
                     }
                 } else
                 {
-                    Vector2Int? nextStepCell = TryMoveToTacticalCommandTarget();
-                    if (nextStepCell == null) {
+                    if (_path == null || _path.Count == 0)
+                        _path = TryMoveToTacticalCommandTargetPath();
+                    if (_path == null || _path.Count == 0) {
                         ClearTacticalCommand();
                     } else {
                         if (_performingCoroutine != null) return;
+                        Point? nextStepCell = _path.First();
+                        _path.RemoveAt(0);
                         if (!_isMoving)
-                            _performingCoroutine = StartCoroutine(MoveToSell(nextStepCell.Value));
+                            _performingCoroutine = StartCoroutine(MoveToCell(nextStepCell.Value));
                     }
                 }
             }
@@ -273,11 +276,10 @@ public class Settler : ECSEntity {
         if (pathStep != null)
         {
             return pathStep;
-        } else {
-            //Debug.LogWarning($"Path is null! from:{GetCellOnGrid} to:{targetCell}");
-            return null;
         }
-        
+        //Debug.LogWarning($"Path is null! from:{GetCellOnGrid} to:{targetCell}");
+        return null;
+
     }
 
     private Point? TryMoveToTacticalCommandPoint()
@@ -339,7 +341,7 @@ public class Settler : ECSEntity {
         yield return StartCoroutine(LerpFromTo(transform.localPosition, target3 * CellSize, Core.ConfigManager.CreaturesParametersConfig.MoveTime));
 
         _gridable.PositionChanged();
-        //Core.FogOfWarManager.OpenAroundMovedSettler(this);
+        Core.FogOfWarManager.OpenAroundMovedSettler(this);
         _performingCoroutine = null;
     }
     private void RotateToMoveDirection(Vector3 diff) {
@@ -439,14 +441,14 @@ public class Settler : ECSEntity {
     public void SetCommand(CommandData data) {
         ClearCommand();
         TakenCommand = data;
-        //if (CanPerform()) {
-        //    return;
-        //}
+        if (CanPerform()) {
+            return;
+        }
 
-        //Vector2Int? nextStepCell = TryMoveToCommandTarget();
-        //if (nextStepCell == null) {
-        //    Core.CommandsManagersHolder.CommandsManager.RevokeCommandBecauseItsUnreachable(TakenCommand);
-        //}
+        Vector2Int? nextStepCell = TryMoveToCommandTarget();
+        if (nextStepCell == null) {
+            Core.CommandsManagersHolder.CommandsManager.RevokeCommandBecauseItsUnreachable(TakenCommand);
+        }
     }
 
     public void ClearCommand() {
@@ -461,18 +463,18 @@ public class Settler : ECSEntity {
         ClearCommand();
         TakenTacticalCommand = data;
         data.Settler = this;
-        //Point? nextStepCell = TryMoveToTacticalCommandPoint();
-        //if (nextStepCell == null) {
-        //    ClearTacticalCommand();
-        //}
+        Point? nextStepCell = TryMoveToTacticalCommandPoint();
+        if (nextStepCell == null) {
+            ClearTacticalCommand();
+        }
     }
 
     public void ClearTacticalCommand() {
-        //TakenTacticalCommand = null;
-        //if (_performingCoroutine != null) {
-        //    StopCoroutine(_performingCoroutine);
-        //    _performingCoroutine = null;
-        //}
+        TakenTacticalCommand = null;
+        if (_performingCoroutine != null) {
+            StopCoroutine(_performingCoroutine);
+            _performingCoroutine = null;
+        }
     }
 
     public void ChangeMode(Mode mode) {

@@ -46,7 +46,6 @@ public static class ExactInteractionChecker {
     public static Point? NextStepOnPath(Point from, HashSet<Point> to)
     {
         var path = Core.AStarPathfindingVertical.FindPath(from, to.First(), out bool isPathExist);
-        Debug.Log(path.Count);
         if (!isPathExist)
             return null;
         
