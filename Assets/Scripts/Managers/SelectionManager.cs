@@ -55,7 +55,7 @@ public class SelectionManager : MonoBehaviour {
     }
 
     public void SetSelected(Interactable obj) {
-        Interactable = obj;
+            Interactable = obj;
     }
 
     public void TryClearSelected(Interactable obj) {

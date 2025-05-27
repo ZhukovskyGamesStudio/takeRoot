@@ -1,17 +1,19 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class LayerGroup : MonoBehaviour
 {
-    public int actualLayer;
-    public List<int> availableForRenderLayers;
-
+    public bool renderOnActualLayer = true;
+    public bool renderOnLayersAbove;
+    
     public void Start()
     {
         var hasLayerObjects = GetComponentsInChildren<HasLayer>();
         foreach (HasLayer obj in hasLayerObjects)
         {
-            obj.Init(actualLayer, availableForRenderLayers);
+            obj.renderOnActualLayer = renderOnActualLayer;
+            obj.renderOnLayersAbove = renderOnLayersAbove;
         }
     }
 }
