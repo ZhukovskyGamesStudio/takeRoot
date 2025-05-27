@@ -13,7 +13,7 @@ public class TacticalCommandsManager : MonoBehaviour {
     private TacticalCommandPanel _tacticalCommandPanel;
 
     private Tilemap _tilemap;
-
+    
     private void Update() {
         if (_tacticalCommandPanel.SelectedTacticalCommand == TacticalCommand.RoundAttack &&
             Core.SettlersSelectionManager.SelectedSettler.TakenTacticalCommand == null) {
@@ -74,6 +74,8 @@ public class TacticalCommandsManager : MonoBehaviour {
 
             var position = GetFloorCell();
             data.TargetPosition = position;
+            var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition).ToVector2Int();
+            data.TargetPoint = new Point(mousePosition.x, mousePosition.y, Core.LayerManager.currentGlobalLayer);
         } else {
             if (!interactable.CanBeCommanded(tacticalCommand)) {
                 return;
