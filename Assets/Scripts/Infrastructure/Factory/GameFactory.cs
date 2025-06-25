@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class GameFactory : IGameFactory
@@ -25,4 +26,7 @@ public class GameFactory : IGameFactory
 		return resource;
 	}
 
+	public ICommand CreateCommand(CommandType command, ICommandTarget target) {
+		throw new NotImplementedException();
+	}
 }

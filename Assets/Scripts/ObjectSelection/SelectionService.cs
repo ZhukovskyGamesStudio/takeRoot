@@ -18,10 +18,8 @@ public class SelectionService : ISelectionService, IUpdatable
 			ISelectableObj selectable = _physics.Raycast<ISelectableObj>(_input.GetWorldMousePosition(), Vector2.zero);
 			if (selectable != null && selectable != Selected) {
 				SetSelected(selectable);
-				Debug.Log("Selecterd");
 			}
 			else {
-				Debug.Log("Unselected!");
 				Selected = null;
 			}
 
