@@ -13,6 +13,7 @@ public class ServiceLocatorLoader_Main
     public void RegisterServices()
     {
         _services.RegisterSingle<IAssetProvider>(new AssetProvider());
-        _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>()));
+        _services.RegisterSingle<IDataProvider>(new DataProvider());
+        _services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>(), _services.Single<IDataProvider>()));
     }
 }
