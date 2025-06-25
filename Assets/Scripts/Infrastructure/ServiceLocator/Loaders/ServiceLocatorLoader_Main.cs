@@ -12,5 +12,6 @@ public class ServiceLocatorLoader_Main
     
     public void RegisterServices()
     {
+        _services.RegisterSingle<IAssetProvider>(new AssetProvider());
     }
 }
