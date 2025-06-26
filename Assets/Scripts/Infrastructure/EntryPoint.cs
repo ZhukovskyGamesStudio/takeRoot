@@ -8,7 +8,8 @@ public class EntryPoint : MonoBehaviour
 	
 	private void Awake() {
 		var updateService = GetComponent<IUpdateService>();
-		var loader = new ServiceLocatorLoader_Main(updateService);
+		var coroutineRunner = GetComponent<ICoroutineRunner>();
+		var loader = new ServiceLocatorLoader_Main(updateService, coroutineRunner);
 		loader.RegisterServices();
 
 		_services = ServiceLocator.Container;

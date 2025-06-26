@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpdateService : MonoBehaviour, IUpdateService
+public class UpdateService : MonoBehaviour, IUpdateService, ICoroutineRunner
 {
 	private readonly List<IUpdatable> _updatables = new();
 
