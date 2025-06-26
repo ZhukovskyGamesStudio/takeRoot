@@ -1,6 +1,6 @@
 using System.Data;
 using UnityEngine;
 
-public interface ICommandService {
-	public void HandleCommandRequest(CommandType command, Vector2 pos, ICommandTarget target);
+public interface ICommandService : IService{
+	public void HandleCommandRequest<TParams>(TParams commandParams) where TParams : ICommandParams;
 }

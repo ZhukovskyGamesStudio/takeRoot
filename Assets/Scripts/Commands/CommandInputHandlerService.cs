@@ -7,8 +7,8 @@ public class CommandInputHandlerService : ICommandInputHandlerService, IUpdatabl
 	private readonly ICommandService _commandService;
 	private readonly IPhysicsService _physics;
 
-	public CommandType PendingCommand { get; set; }
-	public bool IsEnabled { get; set; }
+	public CommandType PendingCommand { get; set; } = CommandType.Debug; //REMOVE AFTER TEST
+	public bool IsEnabled { get; set; } = true; //REMOVE AFTER TEST
 
 	public CommandInputHandlerService(IInputService input, IPhysicsService physics, ICommandService commandService, IUpdateService updateService) {
 		_input = input;
@@ -21,8 +21,13 @@ public class CommandInputHandlerService : ICommandInputHandlerService, IUpdatabl
 		if (PendingCommand == CommandType.None) return;
 		if (_input.GetMouseButtonDown(MouseButton.Left)) {
 			ICommandTarget target = _physics.Raycast<ICommandTarget>(_input.GetWorldMousePosition(), Vector2.zero);
-			if (target != null)
-				_commandService.HandleCommandRequest(PendingCommand, _input.GetWorldMousePosition(), target);
+			
+			//TODO: Move params creation to separate fabric
+			switch (PendingCommand) { 
+				case CommandType.Debug:
+					_commandService.HandleCommandRequest(new DebugCommandParams("Hello", 1));
+					break;
+			}
 		}
 	}
 }

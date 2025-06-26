@@ -1,15 +1,20 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class GameFactory : IGameFactory
-{
+public class GameFactory : IGameFactory {
+	private readonly Dictionary<Type, Func<ICommandParams, ICommand>> _commandCreators;
+	
 	private readonly IAssetProvider _assetProvider;
 	private readonly IDataProvider _dataProvider;
 	
 	
-	public GameFactory(IAssetProvider assetProvider, IDataProvider dataProvider) {
+	public GameFactory(IAssetProvider assetProvider, IDataProvider dataProvider, ICoroutineRunner coroutineRunner) {
 		_assetProvider = assetProvider;
 		_dataProvider = dataProvider;
+		_commandCreators = new() {
+			[typeof(DebugCommandParams)] = p => new DebugCommand((DebugCommandParams)p, coroutineRunner),
+		};
 	}
 	
 	public GameObject CreateSettler(string settlerTypeId, Vector3 at) {
@@ -26,7 +31,12 @@ public class GameFactory : IGameFactory
 		return resource;
 	}
 
-	public ICommand CreateCommand(CommandType command, ICommandTarget target) {
-		throw new NotImplementedException();
+	public ICommand CreateCommand<TParams>(TParams commandParams) where TParams : ICommandParams {
+		if (_commandCreators.TryGetValue(typeof(TParams), out var creator)) {
+			return creator(commandParams);
+		}
+		
+		Debug.LogError($"Unknown command type: {typeof(TParams)}");
+		return null;
 	}
 }
