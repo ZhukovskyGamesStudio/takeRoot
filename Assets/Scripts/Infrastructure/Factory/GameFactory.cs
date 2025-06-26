@@ -9,16 +9,22 @@ public class GameFactory : IGameFactory {
 	private readonly IDataProvider _dataProvider;
 	
 	
-	public GameFactory(IAssetProvider assetProvider, IDataProvider dataProvider, ICoroutineRunner coroutineRunner) {
+	public GameFactory(IAssetProvider assetProvider, IDataProvider dataProvider, ICoroutineRunner coroutineRunner, IPathfindService pathfinder) {
 		_assetProvider = assetProvider;
 		_dataProvider = dataProvider;
 		_commandCreators = new() {
 			[typeof(DebugCommandParams)] = p => new DebugCommand((DebugCommandParams)p, coroutineRunner),
+			[typeof(MoveCommandParams)] = p => new MoveCommand((MoveCommandParams)p, coroutineRunner, pathfinder),
+			[typeof(DestroyCommandParams)] = p => new DestroyCommand((DestroyCommandParams)p, this),
 		};
 	}
 	
 	public GameObject CreateSettler(string settlerTypeId, Vector3 at) {
-		return _assetProvider.Instantiate($"{AssetPath.SettlersPath}{settlerTypeId}", at);
+		var settler =  _assetProvider.Instantiate($"{AssetPath.SettlersPath}{settlerTypeId}", at);
+		if (settler.TryGetComponent(out CommandPerformer performer)) {
+			_dataProvider.CreaturesData.CommandPerformers.Add(performer);
+		}
+		return settler;
 	}
 
 	public GameObject CreateResource(string resourceTypeId, Vector3 at, int amount) {

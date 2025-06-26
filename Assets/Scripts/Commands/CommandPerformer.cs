@@ -16,6 +16,6 @@ public class CommandPerformer : MonoBehaviour {
 	
 	public bool CanPerform(CommandType command)
 	{
-		return IsPerforming && (CommandCapabilities & command) == command;
+		return (CommandCapabilities & command) == command;
 	}
 }

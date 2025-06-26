@@ -15,5 +15,6 @@ public class EntryPoint : MonoBehaviour
 		_services = ServiceLocator.Container;
 
 		_services.Single<IDataProvider>().WorldResourcesData = new WorldResourcesData();
+		_services.Single<IDataProvider>().CreaturesData = new CreaturesData();
 	}
 }
