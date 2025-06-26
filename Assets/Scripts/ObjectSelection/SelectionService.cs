@@ -5,7 +5,8 @@ public class SelectionService : ISelectionService, IUpdatable
 {
 	private readonly IInputService _input;
 	private readonly IPhysicsService _physics;
-	public ISelectableObj Selected { get; private set; }
+	public Selectable Selected { get; private set; }
+	public bool IsEnabled { get; set; }
 
 	public SelectionService(IInputService inputService, IPhysicsService physics, IUpdateService updateService) {
 		_input = inputService;
@@ -14,19 +15,20 @@ public class SelectionService : ISelectionService, IUpdatable
 	}
 
 	public void Update() {
+		if (!IsEnabled) return;
 		if (_input.GetMouseButtonDown(MouseButton.Left)) {
-			ISelectableObj selectable = _physics.Raycast<ISelectableObj>(_input.GetWorldMousePosition(), Vector2.zero);
+			Selectable selectable = _physics.Raycast<Selectable>(_input.GetWorldMousePosition(), Vector2.zero);
 			if (selectable != null && selectable != Selected) {
 				SetSelected(selectable);
 			}
 			else {
-				Selected = null;
+				//Selected = null;
 			}
 
 		}
 	}
 	
-	private void SetSelected(ISelectableObj selectable) {
+	private void SetSelected(Selectable selectable) {
 		Selected = selectable;
 	}
 }
