@@ -3,6 +3,7 @@ public interface ICommand {
 	CommandState State { get; }
 	void Execute();
 	void TryResolve();
+	void Complete();
 	void Cancel();
 	void RemoveWorker(Worker worker);
 }

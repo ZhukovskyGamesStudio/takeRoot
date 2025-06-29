@@ -37,17 +37,19 @@ public class CommandService : ICommandService, IUpdatable {
 	public void Update() {
 		foreach (var (id, command) in _commands.ToList()) {
 			switch (command.State) {
-				case CommandState.Failed:
-					CancelCommand(id);
-					break;
-				case CommandState.Completed:
-					CancelCommand(id);
+				case CommandState.InProgress:
+					command.Execute();
 					break;
 				case CommandState.NeedResolve:
 					command.TryResolve();
 					break;
-				case CommandState.InProgress:
-					command.Execute();
+				case CommandState.Failed:
+					command.Cancel();
+					_commands.Remove(id);
+					break;
+				case CommandState.Completed:
+					command.Complete();
+					_commands.Remove(id);
 					break;
 			}
 		}
@@ -68,4 +70,5 @@ public enum CommandType
 	Cancel = 1 << 1,
 	Move = 1 << 2,
 	Destroy = 1 << 3,
+	Search = 1 << 4,
 }

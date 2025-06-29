@@ -43,6 +43,7 @@ public class GameFactory : IGameFactory {
 		switch (type) {
 			case CommandType.Destroy:
 				var target = _physics.Raycast<CommandTarget>(_input.GetWorldMousePosition(), Vector2.zero);
+				target = target.CanPerformNow(CommandType.Destroy) ? target : null;
 				return new DestroyCommand(_identifier.Next(), target, _workers);
 			default:
 				throw new ArgumentException($"Command type {type} is not supported for creation");

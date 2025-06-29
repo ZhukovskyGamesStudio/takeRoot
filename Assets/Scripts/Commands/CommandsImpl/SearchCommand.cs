@@ -1,16 +1,15 @@
 using UnityEngine;
 using CodeBase.Services;
 
-public class DestroyCommand : ICommand {
+public class SearchCommand : ICommand {
 	public int Id { get; }
 	public CommandState State { get; private set; } = CommandState.NeedResolve;
 	
 	private Worker _worker;
 	private CommandTarget _target;
 	private readonly IWorkerService _workerService;
-	private readonly ISelectionService _selection;
-
-	public DestroyCommand(int id, CommandTarget target, IWorkerService workerService) {
+	
+	public SearchCommand(int id, CommandTarget target, IWorkerService workerService) {
 		Id = id;
 		_target = target;
 		_workerService = workerService;
@@ -25,20 +24,23 @@ public class DestroyCommand : ICommand {
 			State = CommandState.Failed;
 			return;
 		}
+		
 		if (_worker == null) {
 			State = CommandState.NeedResolve;
-		}
-		
-		if (!_worker.IsAtPosition(_target.transform.position)) {
-			if (!_worker.TryMoveTo(_target.transform.position))
-				_worker.ReleaseCommand();
 			return;
 		}
 		
-		_worker.Hit(_target);
-		if (_target.IsDead) {
+		if (!_worker.IsAtPosition(_target.transform.position)) {
+			_worker.TryMoveTo(_target.transform.position);
+			return;
+		}
+		
+		_worker.Search(_target);
+		
+		// Проверяем, завершен ли поиск
+		var searchable = _target.GetComponent<ISearchableObj>();
+		if (searchable != null && searchable.IsSearched) {
 			State = CommandState.Completed;
-			_target.Die();
 		}
 	}
 	
@@ -48,32 +50,31 @@ public class DestroyCommand : ICommand {
 			return;
 		}
 		
-		if (_worker == null || !_worker.CanPerformNow(CommandType.Destroy)) {
-			_worker = _workerService.GetIdleWorkerWithCapability(CommandType.Destroy);
+		if (_worker == null || !_worker.CanPerformNow(CommandType.Search)) {
+			_worker = _workerService.GetIdleWorkerWithCapability(CommandType.Search);
 			_worker?.TakeCommand(this);
 		}
-
+		
 		if (_worker == null) {
 			return;
 		}
 		
 		State = CommandState.InProgress;
 	}
-	
-	public void Cancel() {
-		_worker?.ReleaseCommand();
-		_target?.ReleaseCommand(this);
-	}
+
 	public void Complete() {
-		_worker?.ReleaseCommand();
-		_target?.ReleaseCommand(this);
-		
+		throw new System.NotImplementedException();
 	}
 
+	public void Cancel() {
+		State = CommandState.Failed;
+		RemoveWorker(_worker);
+	}
+	
 	public void RemoveWorker(Worker worker) {
 		if (_worker == worker) {
 			_worker = null;
 			State = CommandState.NeedResolve;
 		}
 	}
-}
+} 
