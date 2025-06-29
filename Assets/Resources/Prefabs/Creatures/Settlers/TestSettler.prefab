@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5489641687619559865}
   - component: {fileID: 8547748233913896448}
   - component: {fileID: 6467364962790419274}
+  - component: {fileID: 3583532526074277887}
+  - component: {fileID: 5621886228125410144}
   m_Layer: 0
   m_Name: TestSettler
   m_TagString: Untagged
@@ -188,3 +190,27 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &3583532526074277887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5077442452769729986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a3631f8b4c437097a4652cad1f2e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5621886228125410144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5077442452769729986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48523fa85cb74c31a40c5c08360d81ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

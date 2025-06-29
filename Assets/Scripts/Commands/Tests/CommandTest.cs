@@ -16,7 +16,7 @@ public class CommandTest : MonoBehaviour{
 	}
 
 	public void ChangeCommand() {
-		_commandInputHandler.PendingCommand = commandType;
+		_commandInputHandler.PendingCommand.Value = commandType;
 		if (commandType == CommandType.None) {
 			_selectionService.IsEnabled = true;
 		}
@@ -25,6 +25,9 @@ public class CommandTest : MonoBehaviour{
 
 	public void Spawn() {
 		var settler = _factory.CreateSettler("TestSettler", new Vector3(0, 0, 0));
-		settler.GetComponent<CommandPerformer>().AddCapability(CommandType.Destroy);
+	}
+
+	public void Dispose() {
+		throw new NotImplementedException();
 	}
 }

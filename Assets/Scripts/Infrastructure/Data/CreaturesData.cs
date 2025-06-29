@@ -2,5 +2,5 @@ using System.Collections.Generic;
 
 public class CreaturesData {
 	
-	public List<CommandPerformer> CommandPerformers { get; set; } = new List<CommandPerformer>();
+	public List<Worker> CommandPerformers { get; set; } = new List<Worker>();
 }

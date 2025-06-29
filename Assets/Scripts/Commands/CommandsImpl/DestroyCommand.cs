@@ -1,36 +1,59 @@
 using UnityEngine;
+using CodeBase.Services;
 
-public class DestroyCommand : ICommand{
-	
-	private readonly IGameFactory _factory;
-	private ICommand _moveCommand;
+public class DestroyCommand : ICommand {
 	public int Id { get; }
-	public bool IsCompleted { get; private set; }
-	public CommandPerformer Performer { get; private set; }
-	public CommandTarget Target { get; private set; }
+	public CommandState State { get; private set; } = CommandState.NeedResolve;
 	
-
-	public DestroyCommand(DestroyCommandParams commandParams, IGameFactory factory) {
-		_factory = factory;
-		Performer = commandParams.Performer;
-		Target = commandParams.Target;
+	private Worker _worker;
+	private CommandTarget _target;
+	private readonly IWorkerService _workerService;
+	
+	public DestroyCommand(int id, CommandTarget target, IWorkerService workerService) {
+		Id = id;
+		_target = target;
+		_workerService = workerService;
 	}
 	
 	public void Execute() {
-		if (_moveCommand == null) {
-			var moveParams = new MoveCommandParams(Performer,
-				new Vector2((int)Target.transform.position.x, (int)Target.transform.position.y));
-			_moveCommand = _factory.CreateCommand(moveParams);
+		if (State is CommandState.Failed or CommandState.Completed or CommandState.NeedResolve) {
+			return;
 		}
-
-		if (_moveCommand.IsCompleted) {
-			Debug.Log($"Destroy {Target.name} at {Target.transform.position}");
-			IsCompleted = true;
+		
+		if (!_worker.IsAtPosition(_target.transform.position)) {
+			_worker.TryMoveTo(_target.transform.position);
+			return;
 		}
-		else _moveCommand.Execute();
+		
+		_worker.Hit(_target);
 	}
-
-	public bool IsAvailable() {
-		throw new System.NotImplementedException();
+	
+	public void TryResolve() {
+		if (_target == null) {
+			State = CommandState.Failed;
+			return;
+		}
+		
+		if (_worker == null || !_worker.IsIdle) {
+			_worker = _workerService.GetIdleWorkerWithCapability(CommandType.Destroy);
+		}
+		
+		if (_worker == null) {
+			return; // Попробуем в следующий раз
+		}
+		
+		State = CommandState.InProgress;
+	}
+	
+	public void Cancel() {
+		State = CommandState.Failed;
+		RemoveWorker(_worker);
+	}
+	
+	public void RemoveWorker(Worker worker) {
+		if (_worker == worker) {
+			_worker = null;
+			State = CommandState.NeedResolve;
+		}
 	}
 }

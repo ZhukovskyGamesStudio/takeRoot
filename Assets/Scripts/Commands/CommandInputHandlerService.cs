@@ -1,4 +1,5 @@
 using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 
@@ -7,7 +8,7 @@ public class CommandInputHandlerService : ICommandInputHandlerService, IUpdatabl
 	private readonly ICommandService _commandService;
 	private readonly IPhysicsService _physics;
 
-	public CommandType PendingCommand { get; set; }
+	public ReactiveProperty<CommandType> PendingCommand { get; set; } = new ReactiveProperty<CommandType>();
 	public bool IsEnabled { get; set; }
 
 	public CommandInputHandlerService(IInputService input, IPhysicsService physics, ICommandService commandService, IUpdateService updateService) {
@@ -17,9 +18,14 @@ public class CommandInputHandlerService : ICommandInputHandlerService, IUpdatabl
 		updateService.Register(this);
 	}
 	public void Update() {
-		if (PendingCommand == CommandType.None) return;
-		if (_input.GetMouseButtonDown(MouseButton.Left)) {
-			_commandService.HandleCommandRequest(PendingCommand);
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			PendingCommand.Value = CommandType.None;
 		}
+		if (PendingCommand.Value == CommandType.None) return;
+		
+		if (_input.GetMouseButtonDown(MouseButton.Left)) {
+			_commandService.HandleCommandRequest(PendingCommand.Value);
+		}
+
 	}
 }

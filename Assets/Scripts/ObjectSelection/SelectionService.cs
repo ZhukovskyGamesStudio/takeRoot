@@ -5,12 +5,14 @@ public class SelectionService : ISelectionService, IUpdatable
 {
 	private readonly IInputService _input;
 	private readonly IPhysicsService _physics;
+	private readonly ICommandService _commandService;
 	public Selectable Selected { get; private set; }
-	public bool IsEnabled { get; set; }
+	public bool IsEnabled { get; set; } = true;
 
-	public SelectionService(IInputService inputService, IPhysicsService physics, IUpdateService updateService) {
+	public SelectionService(IInputService inputService, IPhysicsService physics, IUpdateService updateService, ICommandService commandService) {
 		_input = inputService;
 		_physics = physics;
+		_commandService = commandService;
 		updateService.Register(this);
 	}
 

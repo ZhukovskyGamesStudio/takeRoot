@@ -1,6 +1,15 @@
 public interface ICommand {
-	public int Id {get;}
-	public bool IsCompleted { get; }
-	public void Execute();
-	public bool IsAvailable();
+	int Id { get; }
+	CommandState State { get; }
+	void Execute();
+	void TryResolve();
+	void Cancel();
+	void RemoveWorker(Worker worker);
+}
+
+public enum CommandState {
+	InProgress,
+	Failed,
+	Completed,
+	NeedResolve
 }

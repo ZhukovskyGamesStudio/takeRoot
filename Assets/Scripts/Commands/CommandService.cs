@@ -2,72 +2,70 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using CodeBase.Services;
 
 public class CommandService : ICommandService, IUpdatable {
 	
 	private readonly Dictionary<int, ICommand> _commands;
 	
-	private readonly IGameFactory _factory;
 	private readonly IUpdateService _update;
-	private readonly ICommandParamsFactory _paramsFactory;
-	private readonly IInputService _input;
+	private readonly IIdentifierService _identifier;
+	private readonly IGameFactory _factory;
 
-	public CommandService(IGameFactory factory, IUpdateService update, ICommandParamsFactory paramsFactory, IInputService input) {
-		_factory = factory;
+	public CommandService(IGameFactory factory, IUpdateService update) {
 		_commands = new Dictionary<int, ICommand>();
+		_factory = factory;
 		_update = update;
-		_paramsFactory = paramsFactory;
-		_input = input;
 		_update.Register(this);
 	}
 
 	public void HandleCommandRequest(CommandType type) {
-		ICommandParams cParams = null;
+		ICommand command = null;
 		switch (type) {
 			case CommandType.Debug:
-				cParams = _paramsFactory.CreateDebugCommandParams();
-				if (cParams == null) return;
-				CreateCommand((DebugCommandParams)cParams);
-				break;
-			case CommandType.Move:
-				cParams = _paramsFactory.CreateMoveCommandParams();
-				if (cParams == null) return;
-				CreateCommand((MoveCommandParams)cParams);
+				command = _factory.CreateCommand(CommandType.Debug);
+				_commands.Add(command.Id, command);
 				break;
 			case CommandType.Destroy :
-				cParams = _paramsFactory.CreateDestroyCommandParams();
-				CreateCommand((DestroyCommandParams)cParams);
+				command = _factory.CreateCommand(CommandType.Destroy);
+				_commands.Add(command.Id, command);
 				break;
-		};
+		}
 	}
+	
 
-	private void CreateCommand<TParams>(TParams cParams) where TParams : ICommandParams {
-		if (cParams == null) return;
-		var command = _factory.CreateCommand(cParams);
-		_commands.Add(command.Id, command);
-	}
 	public void Update() {
-		//TODO: Update statuses of commands or params
 		foreach (var (id, command) in _commands.ToList()) {
-			//TODO: Make complex command state handle
-			if (command.IsCompleted) {
-				_commands.Remove(id);
-				continue;
+			switch (command.State) {
+				case CommandState.Failed:
+					CancelCommand(id);
+					break;
+				case CommandState.Completed:
+					CancelCommand(id);
+					break;
+				case CommandState.NeedResolve:
+					command.TryResolve();
+					break;
+				case CommandState.InProgress:
+					command.Execute();
+					break;
 			}
-			
-			command.Execute();
 		}
 	}
 
-	private bool CanExecute(CommandType command, CommandTarget target) {
-		return (target.CommandCapabilities & command) == command;
+	public void CancelCommand(int id) {
+		if (_commands.TryGetValue(id, out ICommand command)) {
+			command.Cancel();
+		}
 	}
 }
+
 [Flags][Serializable]
 public enum CommandType
 {
 	None = 0,
 	Debug = 1 << 0,
-	Move = 1 << 1,
-	Destroy = 1 << 2,
+	Cancel = 1 << 1,
+	Move = 1 << 2,
+	Destroy = 1 << 3,
 }
