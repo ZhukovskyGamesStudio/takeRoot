@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public class CommandService : ICommandService {
 	
-	public Dictionary<int, BaseCommand> Commands = new Dictionary<int, BaseCommand>();
+	public Dictionary<int, BaseCommand> Commands { get; }= new Dictionary<int, BaseCommand>();
 	
 	
 	public void HandleCommandRequest(CommandType type, bool withSelectedSettler) {

@@ -5,10 +5,10 @@ public class WorkerAssigner : IUpdatable, IWorkerAssigner {
 	public HashSet<Worker> Workers { get; private set; } = new HashSet<Worker>();
 
 	private readonly IUpdateService _update;
-	private readonly CommandService _commands;
+	private readonly ICommandService _commands;
 	private readonly ISelectionService _selection;
 
-	public WorkerAssigner(IUpdateService update,CommandService commands) {
+	public WorkerAssigner(IUpdateService update, ICommandService commands) {
 		_update = update;
 		_commands = commands;
 		_update.Register(this);
