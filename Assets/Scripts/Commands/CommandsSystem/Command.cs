@@ -1,22 +1,24 @@
+using System;
+
 public class BaseCommand : IUpdatable {
 	public int Id;
 	public CommandType Type;
 	
 	public Worker Worker;
-	protected CommandTarget target;
+	protected CommandTarget Target;
 
-	public bool WithSelectedWorker;
+	public readonly bool IsManualAssignment;
 
 	protected bool inProgress;
 	private readonly ICommandService _commandService;
 	private readonly IUpdateService _updateService;
 
-	public BaseCommand(ICommandService commandService, IUpdateService updateService, Worker worker = null) {
+	public BaseCommand(int id, ICommandService commandService, IUpdateService updateService, Worker worker = null) {
 		if (worker != null) {
 			this.Worker = worker;
-			WithSelectedWorker = true;
+			IsManualAssignment = true;
 		}
-		else WithSelectedWorker = false;
+		else IsManualAssignment = false;
 
 		_commandService = commandService;
 		_commandService.RegisterCommand(Id, this);
@@ -27,15 +29,15 @@ public class BaseCommand : IUpdatable {
 	public virtual void Update() {
 		HandleWorker();
 		HandleTarget();
-		inProgress = Worker != null && target != null;
+		inProgress = Worker != null && Target != null;
 	}
 
 	private void HandleTarget() {
-		if (target != null && target.CurrentCommandId == -1) {
-			target = null;
+		if (Target != null && Target.CurrentCommandId == -1) {
+			Target = null;
 			Cancel();
 		}
-		if (target == null) {
+		if (Target == null) {
 			Cancel();	
 		}
 	}
@@ -43,7 +45,7 @@ public class BaseCommand : IUpdatable {
 	protected void HandleWorker() {
 		if (Worker != null && Worker.CurrentCommandId == -1) {
 			Worker = null;
-			if (WithSelectedWorker) {
+			if (IsManualAssignment) {
 				Cancel();
 			}
 		}
@@ -56,8 +58,18 @@ public class BaseCommand : IUpdatable {
 
 	public virtual void Cancel() {
 		if (Worker != null) Worker.CurrentCommandId = -1;
-		if (target != null) target.CurrentCommandId = -1;
+		if (Target != null) Target.CurrentCommandId = -1;
 		_updateService.Unregister(this);
 		_commandService.UnregisterCommand(Id);
 	}
+}
+
+[Flags][Serializable]
+public enum CommandType
+{
+	None = 0,
+	Cancel = 1 << 1,
+	Move = 1 << 2,
+	Destroy = 1 << 3,
+	Search = 1 << 4,
 }

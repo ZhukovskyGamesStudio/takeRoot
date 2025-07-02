@@ -1,6 +1,6 @@
 public class DestroyCommand : BaseCommand {
-	public DestroyCommand(CommandTarget target, CommandService commandService, IUpdateService updateService, Worker worker = null) : base(commandService, updateService, worker) {
-		this.target = target;
+	public DestroyCommand(int id, CommandTarget target, CommandService commandService, IUpdateService updateService, Worker worker = null) : base(id, commandService, updateService, worker) {
+		this.Target = target;
 	}
 
 	public override void Update() {
@@ -8,15 +8,15 @@ public class DestroyCommand : BaseCommand {
 		
 		if (!inProgress) return;
 
-		if (!Worker.TryMoveTo(target.transform.position)) {
+		if (!Worker.TryMoveTo(Target.transform.position)) {
 			Worker.CurrentCommandId = -1;
 			return;
 		}
 
-		if (Worker.IsAtPosition(target.transform.position)) {
-			Worker.Hit(target);
+		if (Worker.IsAtPosition(Target.transform.position)) {
+			Worker.Hit(Target);
 		}
 		
-		if (target.IsDead) Cancel();
+		if (Target.IsDead) Cancel();
 	}
 }

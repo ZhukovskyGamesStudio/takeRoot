@@ -4,7 +4,6 @@ using UnityEngine;
 public class CommandTarget : MonoBehaviour {
 	public CommandType CommandCapabilities { get; private set; }
 	
-	private ICommand _currentCommand;
 	public int CurrentCommandId;
 	
 	private Health _health;
@@ -21,20 +20,6 @@ public class CommandTarget : MonoBehaviour {
 		CommandCapabilities |= command;
 	}
 	
-	public void RemoveCapability(CommandType command) {
-		CommandCapabilities &= ~command;
-	}
-
-	public bool CanPerformNow(CommandType command) => 
-		(CommandCapabilities & command) == command && _currentCommand == null;
-
-	public void TakeCommand(ICommand command) {
-		_currentCommand = command;
-	}
-	public void ReleaseCommand(ICommand command) {
-		if (_currentCommand == command)
-			_currentCommand = null;
-	}
 	
 	//Health
 	public void TakeDamage(float damage) => _health?.TakeDamage(damage);

@@ -5,8 +5,9 @@ public class MoveToCommand : BaseCommand {
 	private readonly Vector2 _targetPos;
 
 
-	public MoveToCommand(Vector2 targetPos, CommandService commandService, IUpdateService updateService, Worker worker = null) : base(commandService, updateService, worker) {
+	public MoveToCommand(int id, Vector2 targetPos, CommandService commandService, IUpdateService updateService, Worker worker = null) : base(id, commandService, updateService, worker) {
 		_targetPos = targetPos;
+		Type = CommandType.Move;
 	}
 
 	public override void Update() {

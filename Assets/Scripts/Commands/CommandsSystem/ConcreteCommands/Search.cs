@@ -1,21 +1,21 @@
 public class Search : BaseCommand{
 	
-	public Search(CommandService commandService, IUpdateService updateService, Worker worker = null) : base(commandService, updateService, worker) {
+	public Search(int id, CommandService commandService, IUpdateService updateService, Worker worker = null) : base(id, commandService, updateService, worker) {
 	}
 
 	public override void Update() {
 		base.Update();
 
-		if (!Worker.TryMoveTo(target.transform.position)) {
+		if (!Worker.TryMoveTo(Target.transform.position)) {
 			Worker.CurrentCommandId = -1;
 			return;
 		}
 		
-		if (Worker.IsAtPosition(target.transform.position)) {
-			Worker.Search(target);
+		if (Worker.IsAtPosition(Target.transform.position)) {
+			Worker.Search(Target);
 		}
 		
-		if (target.Searched) Cancel();
+		if (Target.Searched) Cancel();
 	}
 
 }

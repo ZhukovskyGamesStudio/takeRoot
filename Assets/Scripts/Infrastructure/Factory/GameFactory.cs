@@ -37,7 +37,7 @@ public class GameFactory : IGameFactory {
 		return resource;
 	}
 
-	public ICommand CreateCommand(CommandType type) {
+	public Command CreateCommand(CommandType type) {
 		throw new NotImplementedException();
 	}
 }

@@ -22,7 +22,7 @@ public class CommandAssigningTest : MonoBehaviour, IUpdateService {
 		
 		workerAssigner.Workers.Add(worker);
 
-		var command = new DestroyCommand(null, _commandService, this);
+		var command = new DestroyCommand(1, null, _commandService, this);
 	}
 	private Sprite CreateSquareSprite() {
 		// Создаем простую текстуру 16x16 пикселей
