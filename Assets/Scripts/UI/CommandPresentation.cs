@@ -8,17 +8,17 @@ public class CommandPresentation : IDisposable {
 	
 	private CommandView _view;
 	
-	private ICommandInputHandlerService _commandInputHandler;
+	private IJobCommandsInputHandlerService _jobCommandsInputHandler;
 
-	public void Init(CommandView view, ICommandInputHandlerService commandInputHandler) {
-		_commandInputHandler = commandInputHandler;
-		PendingCommand = _commandInputHandler.PendingCommand;
+	public void Init(CommandView view, IJobCommandsInputHandlerService jobCommandsInputHandler) {
+		_jobCommandsInputHandler = jobCommandsInputHandler;
+		PendingCommand = _jobCommandsInputHandler.PendingCommand;
 
 		_view = view;
-		_view.DebugCommandButton.OnClickAsObservable().Subscribe(_ => PendingCommand.Value = CommandType.Debug);
+		_view.SearchCommandButton.OnClickAsObservable().Subscribe(_ => PendingCommand.Value = CommandType.Search);
 		_view.DestroyCommandButton.OnClickAsObservable().Subscribe(_ => PendingCommand.Value = CommandType.Destroy);
 		
-		PendingCommand.Subscribe(_ => _view.DebugCommandButton.interactable = PendingCommand.Value != CommandType.Debug);
+		PendingCommand.Subscribe(_ => _view.SearchCommandButton.interactable = PendingCommand.Value != CommandType.Search);
 		PendingCommand.Subscribe(_ => _view.DestroyCommandButton.interactable = PendingCommand.Value != CommandType.Destroy);
 	}
 

@@ -5,9 +5,10 @@ public class CommandTarget : MonoBehaviour {
 	public CommandType CommandCapabilities { get; private set; }
 	
 	private ICommand _currentCommand;
+	public int CurrentCommandId;
 	
 	private Health _health;
-	private ISearchableObj _searchable;
+	private SearchableObj _searchable;
 	
 	private void Start() {
 		if (TryGetComponent(out _health))
@@ -40,7 +41,12 @@ public class CommandTarget : MonoBehaviour {
 	public void Die() => _health?.Die();
 	public bool IsDead => _health?.IsDead ?? false;
 	
+	//Search
+	public void Search() => _searchable?.Search();
+	public void EndSearch() => _searchable?.EndSearch();
+	public bool Searched => _searchable?.Searched ?? false;
+	
 	
 	public Health Health => _health;
-	public ISearchableObj Searchable => _searchable;
+	public SearchableObj Searchable => _searchable;
 }

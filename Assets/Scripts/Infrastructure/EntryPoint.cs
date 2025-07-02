@@ -20,6 +20,6 @@ public class EntryPoint : MonoBehaviour
 		_services.Single<IDataProvider>().CreaturesData = new CreaturesData();
 		
 		var commandPresentation = new CommandPresentation();
-		commandPresentation.Init(_commandView, _services.Single<ICommandInputHandlerService>());
+		commandPresentation.Init(_commandView, _services.Single<IJobCommandsInputHandlerService>());
 	}
 }

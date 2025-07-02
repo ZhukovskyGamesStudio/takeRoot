@@ -7,5 +7,5 @@ using UnityEngine.UI;
 public class CommandView : MonoBehaviour{
 	
 	public Button DestroyCommandButton;
-	public Button DebugCommandButton;
+	public Button SearchCommandButton;
 }

@@ -32,26 +32,5 @@ public class ServiceLocatorLoader_Main
 		_services.RegisterSingle<ICoroutineRunner>(_coroutineRunner);
 		_services.RegisterSingle<IPathfindService>(new MockPathfindService());
 		_services.RegisterSingle<IIdentifierService>(new IdentifierService());
-        
-		_services.RegisterSingle<IWorkerService>(new WorkerService());
-		
-		_services.RegisterSingle<IGameFactory>(new GameFactory(_services.Single<IAssetProvider>(), 
-			_services.Single<IDataProvider>(), 
-			_services.Single<IInputService>(),
-			_services.Single<IPhysicsService>(),
-			_services.Single<ICoroutineRunner>(),
-			_services.Single<IPathfindService>(),
-			_services.Single<IIdentifierService>(),
-			_services.Single<IWorkerService>()));
-		
-		_services.RegisterSingle<ICommandService>(new CommandService(_services.Single<IGameFactory>(), _services.Single<IUpdateService>()));
-		
-		_services.RegisterSingle<ICommandInputHandlerService>(new CommandInputHandlerService(_services.Single<IInputService>(), 
-			_services.Single<IPhysicsService>(), _services.Single<ICommandService>(), _services.Single<IUpdateService>()));
-		
-		
-		_services.RegisterSingle<ISelectionService>(new SelectionService(_services.Single<IInputService>(), _services.Single<IPhysicsService>(), 
-			_services.Single<IUpdateService>(), _services.Single<ICommandService>()));
-		
 	}
 }

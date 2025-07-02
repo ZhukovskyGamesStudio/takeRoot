@@ -1,19 +1,17 @@
 using System;
 using CodeBase.Services;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Worker : MonoBehaviour {
 	public CommandType CommandCapabilities { get; private set; }
 	
-	private ICommand _currentCommand;
+	public int CurrentCommandId = -1; // when no command = -1
 	
 	private IMovable _mover;
 	private IDestroyer _destroyer;
 	private ISearcher _searcher;
 	
-	private IWorkerService _workerService;
-
-	public ICommand CurrentCommand => _currentCommand;
 	
 	private void Start() {
 		if (TryGetComponent(out _mover)) {
@@ -25,35 +23,21 @@ public class Worker : MonoBehaviour {
 		if (TryGetComponent(out _searcher)) {
 			AddCapability(CommandType.Search);
 		}
-		_workerService = ServiceLocator.Container.Single<IWorkerService>();
-		_workerService.RegisterWorker(this);
-	}
-	
-	private void OnDestroy() {
-		var workerService = ServiceLocator.Container.Single<IWorkerService>();
-		if (workerService != null) {
-			workerService.UnregisterWorker(this);
-		}
+		//_workerService.RegisterWorker(this);
 	}
 	
 	public void AddCapability(CommandType capability) {
 		CommandCapabilities |= capability;
 	}
+
+	public void RemoveCapability(CommandType capability) {
+		CommandCapabilities &= ~capability;
+	}
 	
 	public bool CanPerformNow(CommandType commandType) {
-		return ((CommandCapabilities & commandType) == commandType) && _currentCommand == null;
+		return ((CommandCapabilities & commandType) == commandType) && CurrentCommandId == -1;
 	}
 
-	public void TakeCommand(ICommand command) {
-		_currentCommand = command;
-	}
-	public void ReleaseCommand() {
-		if (_currentCommand != null) {
-			_mover.Stop();
-			_currentCommand.RemoveWorker(this);
-			_currentCommand = null;
-		}
-	}
 	
 	//Mover
 	public bool TryMoveTo(Vector2 position) => _mover?.TryMoveTo(position) ?? false;

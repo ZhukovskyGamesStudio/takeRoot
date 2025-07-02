@@ -1,59 +1,25 @@
 using UnityEngine;
 using System;
 
-public class SearchableObj : MonoBehaviour, ISearchableObj {
+public class SearchableObj : MonoBehaviour {
 	[Header("Searchable Settings")]
-	public float requiredSearchTime = 3f;
-	public bool canBeSearched = true;
+	public int requiredSearchPoints = 5;
+	public int currentResearchPoints;
 	
-	private float _searchProgress;
-	private bool _isSearched;
-	private bool _isBeingSearched;
 	
-	public bool IsSearched => _isSearched;
-	public float SearchProgress => _searchProgress;
-	public float RequiredSearchTime => requiredSearchTime;
+	public event Action onSearched;
 	
-	public bool CanBeSearched() {
-		return canBeSearched && !_isSearched;
-	}
-	
-	public void StartSearch() {
-		if (!CanBeSearched()) {
-			Debug.LogWarning($"Cannot start search on {gameObject.name}");
-			return;
-		}
+	public bool Searched => currentResearchPoints >= requiredSearchPoints;
+
+	public void Search() {
+		if (Searched) return;
 		
-		_isBeingSearched = true;
-		_searchProgress = 0f;
-		Debug.Log($"Started searching {gameObject.name}");
+		currentResearchPoints++;
+	}
+
+	public void EndSearch() {
+		onSearched?.Invoke();
 	}
 	
-	public void UpdateSearch(float amount) {
-		if (_isSearched) return;
-		
-		_searchProgress += amount;
-		
-		if (_searchProgress >= requiredSearchTime) {
-			_searchProgress = requiredSearchTime;
-			_isSearched = true;
-			_isBeingSearched = false;
-			CompleteSearch();
-		}
-	}
 	
-	public void CompleteSearch() {
-		_isBeingSearched = false;
-		_isSearched = true;
-		Debug.Log($"Search completed on {gameObject.name}. REWARD DROPPED!");
-		OnSearchCompleted?.Invoke();
-	}
-	
-	public void ResetSearch() {
-		_isSearched = false;
-		_isBeingSearched = false;
-		_searchProgress = 0f;
-	}
-	
-	public event Action OnSearchCompleted;
 } 

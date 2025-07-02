@@ -23,9 +23,6 @@ public class SelectionService : ISelectionService, IUpdatable
 			if (selectable != null && selectable != Selected) {
 				TryUnselect();
 				SetSelected(selectable, true);
-				if (selectable.TryGetComponent(out Worker worker)) {
-					worker.ReleaseCommand();
-				}
 			}
 			else {
 				TryUnselect();
@@ -35,8 +32,10 @@ public class SelectionService : ISelectionService, IUpdatable
 	}
 
 	private void TryUnselect() {
-		if (Selected != null) Selected.Selected = false;
-		Selected = null;
+		if (Selected != null) {
+			Selected.Selected = false;
+				Selected = null;
+		}
 	}
 
 	private void SetSelected(Selectable selectable, bool selected) {
