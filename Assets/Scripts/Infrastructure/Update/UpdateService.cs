@@ -16,7 +16,7 @@ public class UpdateService : MonoBehaviour, IUpdateService, ICoroutineRunner
 	}
 	
 	public void Update() {
-		foreach (IUpdatable updatable in _updatables) {
+		foreach (IUpdatable updatable in _updatables.ToArray()) {
 			updatable.Update();
 		}
 	}

@@ -30,6 +30,8 @@ public class ServiceLocatorLoader_Main {
 		_services.RegisterSingle<IPathfindService>(new MockPathfindService());
 		_services.RegisterSingle<IIdentifierService>(new IdentifierService());
 		
+		_services.RegisterSingle<IPathfindService>(new MockPathfindService());
+		
 		_services.RegisterSingle<ICommandService>(new CommandService());
 		_services.RegisterSingle<IJobCommandsInputHandlerService>(new JobCommandsInputHandlerService(
 			_services.Single<IInputService>(),

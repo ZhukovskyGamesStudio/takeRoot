@@ -1,6 +1,6 @@
 using System;
 
-public class BaseCommand : IUpdatable {
+public abstract class BaseCommand : IUpdatable {
 	public int Id;
 	public CommandType Type;
 	
@@ -13,13 +13,16 @@ public class BaseCommand : IUpdatable {
 	private readonly ICommandService _commandService;
 	private readonly IUpdateService _updateService;
 
+	public event Action onComplete;
+
 	public BaseCommand(int id, ICommandService commandService, IUpdateService updateService, Worker worker = null) {
+		Id = id;
 		if (worker != null) {
 			this.Worker = worker;
+			worker.CurrentCommandId = Id;
 			IsManualAssignment = true;
 		}
 		else IsManualAssignment = false;
-
 		_commandService = commandService;
 		_commandService.RegisterCommand(Id, this);
 		_updateService = updateService;
@@ -61,7 +64,12 @@ public class BaseCommand : IUpdatable {
 		if (Target != null) Target.CurrentCommandId = -1;
 		_updateService.Unregister(this);
 		_commandService.UnregisterCommand(Id);
+		
+		onComplete?.Invoke();
 	}
+
+	public void Redo() => Update();
+	//public abstract void Undo();
 }
 
 [Flags][Serializable]
