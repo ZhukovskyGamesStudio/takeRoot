@@ -4,12 +4,14 @@ using UnityEngine;
 
 [Serializable]
 public class ServiceLocatorLoader_Main {
+	private readonly MapFromSceneObjects _mapFromSceneObjects;
 
 	private IUpdateService _updateService;
 	private ICoroutineRunner _coroutineRunner;
 	private readonly ServiceLocator _services;
     
-	public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner) {
+	public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner, MapFromSceneObjects mapFromSceneObjects = null) {
+		_mapFromSceneObjects = mapFromSceneObjects;
 		_services = ServiceLocator.Container;
 		if (coroutineRunner == null)
 			Debug.LogError($"The coroutine runner cannot be null.");
@@ -29,8 +31,9 @@ public class ServiceLocatorLoader_Main {
 		_services.RegisterSingle<ICoroutineRunner>(_coroutineRunner);
 		_services.RegisterSingle<IPathfindService>(new MockPathfindService());
 		_services.RegisterSingle<IIdentifierService>(new IdentifierService());
-		
-		_services.RegisterSingle<IPathfindService>(new MockPathfindService());
+
+		var graph = _mapFromSceneObjects.CreateSimpleGraph();
+		_services.RegisterSingle<IPathfindService>(new IterativeDeepeningAStar(graph));
 		
 		_services.RegisterSingle<ICommandService>(new CommandService());
 		_services.RegisterSingle<IJobCommandsInputHandlerService>(new JobCommandsInputHandlerService(

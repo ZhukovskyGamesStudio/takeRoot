@@ -6,8 +6,6 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner{
 	private ServiceLocator _services;
 	
 	public Transform location1;
-	public Transform location2;
-	public Transform location3;
 
 	public Worker mainWorker;
 	
@@ -16,7 +14,7 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner{
 	private void Awake() {
 		_services = ServiceLocator.Container;
 		var updateService = GetComponent<UpdateService>();
-		var serviceLoader = new ServiceLocatorLoader_Main(updateService, this);
+		var serviceLoader = new ServiceLocatorLoader_Main(updateService, this, GetComponent<MapFromSceneObjects>());
 		serviceLoader.RegisterServices();
 	}
 
@@ -30,7 +28,7 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner{
 	private void PlayVideo() {
 		_services.Single<IWorkerAssigner>().RegisterWorker(mainWorker);
 
-		CreateMoveCommand(location1, 1).onComplete += () => CreateMoveCommand(location2, 2);
+		CreateMoveCommand(location1, 1);
 
 	}
 
