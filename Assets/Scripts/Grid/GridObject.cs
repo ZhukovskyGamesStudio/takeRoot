@@ -11,7 +11,7 @@ public class GridObject : MonoBehaviour {
 	[Min(0)]
 	public Vector2Int MultiplyGridOffset;
 
-	public void Awake() {
+	public void Init() {
 		X = (int)transform.position.x;
 		Y = (int)transform.position.y;
 	}

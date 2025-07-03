@@ -13,6 +13,7 @@ public class MapFromSceneObjects : MonoBehaviour{
 		var gridObjects = Object.FindObjectsByType<GridObject>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
 
 		foreach (GridObject obj in gridObjects) {
+			obj.Init();
 			for (int x = obj.X; x <= obj.X + obj.MultiplyGridOffset.x; x++) {
 				for (int y = obj.Y; y <= obj.Y + obj.MultiplyGridOffset.y; y++) {
 					var pos = new int3(x, y, obj.Layer);
