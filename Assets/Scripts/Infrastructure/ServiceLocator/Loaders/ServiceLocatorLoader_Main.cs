@@ -33,7 +33,7 @@ public class ServiceLocatorLoader_Main {
 		_services.RegisterSingle<IIdentifierService>(new IdentifierService());
 
 		var graph = _mapFromSceneObjects.CreateSimpleGraph();
-		_services.RegisterSingle<IPathfindService>(new IterativeDeepeningAStar(graph));
+		_services.RegisterSingle<IPathfindService>(new AStar(graph));
 		
 		_services.RegisterSingle<ICommandService>(new CommandService());
 		_services.RegisterSingle<IJobCommandsInputHandlerService>(new JobCommandsInputHandlerService(

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -93,6 +94,15 @@ public class Mover : MonoBehaviour, IMovable {
 			StopCoroutine(_moveCoroutine);
 			_path = null;
 			_moveCoroutine = null;
+		}
+	}
+
+	private void OnDrawGizmos() {
+		if (_path == null) return;
+
+		foreach (Vector2 pos in _path) {
+			Gizmos.color = Color.yellow;
+			Gizmos.DrawWireCube(pos, new Vector3(gridSize, gridSize));
 		}
 	}
 } 

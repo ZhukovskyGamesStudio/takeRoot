@@ -7,7 +7,8 @@ public class MapFromSceneObjects : MonoBehaviour{
 
 	public Dictionary<int3, bool> Map = new Dictionary<int3, bool>(); // false - free, true - obstacle
 	
-	public List<GridObject> GridObjects; 
+	public List<GridObject> GridObjects;
+	public SimpleGraph Graph;
 
 	public void CreateMap() {
 		var gridObjects = Object.FindObjectsByType<GridObject>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
@@ -47,10 +48,22 @@ public class MapFromSceneObjects : MonoBehaviour{
 				}
 			}
 		}
+
+		Graph = graph;
 		return graph;
 	}
-	
-	
-	
-	
+
+	private void OnDrawGizmos() {
+		if (Graph == null) return;
+		foreach (var kvp in Graph.NodesMap) {
+			var pos = kvp.Key;
+			var node = kvp.Value;
+			Gizmos.color = Color.blue;
+			Gizmos.DrawSphere(new Vector3(pos.x, pos.y), 0.6f);
+			foreach (var edge in node.outgoingEdges) {
+				Gizmos.color = Color.red;
+				Gizmos.DrawLine(new Vector3(edge.from.pos.x, edge.from.pos.y), new Vector3(edge.destinationNode.pos.x, edge.destinationNode.pos.y));
+			}
+		}
+	}
 }
