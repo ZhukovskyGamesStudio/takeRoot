@@ -11,6 +11,7 @@ public class Worker : MonoBehaviour {
 	private IMovable _mover;
 	private IDestroyer _destroyer;
 	private ISearcher _searcher;
+	private IWaterer _waterer;
 	
 	
 	private void Start() {
@@ -22,6 +23,9 @@ public class Worker : MonoBehaviour {
 		}
 		if (TryGetComponent(out _searcher)) {
 			AddCapability(CommandType.Search);
+		}
+		if (TryGetComponent(out _waterer)) {
+			AddCapability(CommandType.Water);
 		}
 		//_workerService.RegisterWorker(this);
 	}
@@ -40,15 +44,18 @@ public class Worker : MonoBehaviour {
 
 	
 	//Mover
-	public bool TryMoveTo(Vector2 position) => _mover?.TryMoveTo(position) ?? false;
-	public bool IsAtPosition(Vector2 position) => _mover?.IsAtPosition(position) ?? false;
+	public bool TryMoveTo(Vector2 position) => _mover.TryMoveTo(position);
+	public bool IsAtPosition(Vector2 position) => _mover.IsAtPosition(position);
 	
 	//Destroyer
-	public void Hit(CommandTarget target) => _destroyer?.Hit(target);
+	public void Hit(CommandTarget target) => _destroyer.Hit(target);
 
 	//Searcher
-	public void Search(CommandTarget target) => _searcher?.Search(target);
-
+	public void Search(CommandTarget target) => _searcher.Search(target);
+	
+	//Waterer
+	public void Water(CommandTarget target) => _waterer.Water(target);
+	
 	public IMovable Mover => _mover;
 	public IDestroyer Destroyer => _destroyer;
 	public ISearcher Searcher => _searcher;

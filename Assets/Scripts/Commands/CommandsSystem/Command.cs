@@ -80,4 +80,5 @@ public enum CommandType
 	Move = 1 << 2,
 	Destroy = 1 << 3,
 	Search = 1 << 4,
+	Water = 1 << 5
 }
