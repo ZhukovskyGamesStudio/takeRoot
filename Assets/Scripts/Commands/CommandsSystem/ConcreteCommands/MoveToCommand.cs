@@ -14,14 +14,16 @@ public class MoveToCommand : BaseCommand {
 		HandleWorker();
 		inProgress = Worker != null;
 		if (!inProgress) return;
-		
-		if (!Worker.HasPath(_targetPos)) {//
+		Perform();
+	}
+
+	public override void Perform() {
+		if (!Worker.HasPath(_targetPos)) {
 			Worker.CurrentCommandId = -1;
 			return;
 		}
 		Worker.MoveTo(_targetPos);
-
-		if (Worker.IsAtPosition(_targetPos)) 
-			Cancel();
+		if (Worker.IsAtPosition(_targetPos)) Cancel();
 	}
+	
 }

@@ -123,6 +123,7 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 	private IEnumerator WaitUntilAnimationEnds(Animator animator, string trigger)
 	{
 		animator.SetInteger("Action", 99);
+		mainWorker.WorkerAnimator.DoJump();
 		yield return null;
         
 

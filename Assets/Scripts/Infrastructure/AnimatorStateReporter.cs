@@ -7,8 +7,8 @@ public class AnimatorStateReporter : StateMachineBehaviour {
 	public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 		base.OnStateEnter(animator, stateInfo, layerIndex);
 		FindReader(animator);
-		
-		_stateReader.EnteredState(stateInfo.shortNameHash);
+
+		_stateReader?.EnteredState(stateInfo.shortNameHash); //TODO: fix nre
 	}
 
 	public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)

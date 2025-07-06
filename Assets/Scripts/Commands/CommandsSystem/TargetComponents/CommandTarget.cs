@@ -11,12 +11,14 @@ public class CommandTarget : MonoBehaviour {
 	private Health _health;
 	private SearchableObj _searchable;
 	private WaterLevel _waterLevel;
-	
+
 	private void Start() {
 		if (TryGetComponent(out _health))
 			AddCapability(CommandType.Destroy);
-		if (TryGetComponent(out _searchable))
+		if (TryGetComponent(out _searchable)){
 			AddCapability(CommandType.Search);
+			_searchable.onSearched += () => RemoveCapability(CommandType.Search);
+		}
 		if (TryGetComponent(out _waterLevel)) {
 			AddCapability(CommandType.Water);
 		}
@@ -25,11 +27,13 @@ public class CommandTarget : MonoBehaviour {
 	public void AddCapability(CommandType command) {
 		CommandCapabilities |= command;
 	}
+	public void RemoveCapability(CommandType command) {
+		CommandCapabilities &= ~command;
+	}
 	
 	
 	//Health
 	public void TakeDamage(float damage) => _health?.TakeDamage(damage);
-	public void Die() => _health?.Die();
 	public bool IsDead => _health?.IsDead ?? false;
 	
 	//Search

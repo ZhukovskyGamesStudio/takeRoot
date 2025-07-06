@@ -12,6 +12,7 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 	private readonly int _searchStateHash = Animator.StringToHash("Search");
 	private readonly int _hitStateHash = Animator.StringToHash("Hit");
 	private readonly int _moveStateHash = Animator.StringToHash("Move");
+	private readonly int _jumpStateHash = Animator.StringToHash("Jump");
 	
 	public AnimatorState State { get; private set; }
 	public event Action<AnimatorState> StateEntered;
@@ -24,6 +25,7 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 	public void PlayHit() => _animator.SetTrigger(_hitStateHash);
 	public void PlayMove() => _animator.SetTrigger(_moveStateHash);
 	public void ResetToIdle() => _animator.SetTrigger(_idleStateHash);
+	public void DoJump() => _animator.SetTrigger(_jumpStateHash);
 
 
 	public void EnteredState(int stateHash) {

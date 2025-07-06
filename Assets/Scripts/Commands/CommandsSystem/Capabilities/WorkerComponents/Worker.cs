@@ -8,6 +8,7 @@ public class Worker : MonoBehaviour {
 	public WorkerAnimator WorkerAnimator { get; private set; }
 	
 	public int CurrentCommandId = -1; // when no command = -1
+	public bool Performing;
 	
 	private IMovable _mover;
 	private IDestroyer _destroyer;
@@ -47,9 +48,10 @@ public class Worker : MonoBehaviour {
 	
 	//Mover
 	public void MoveTo(Vector2 position) {
-		ExecutedWithAnimation(AnimatorState.Move, _mover.MoveTo, position, () => WorkerAnimator.PlayMove());
+		if (WorkerAnimator.State == AnimatorState.Idle) {
+			_mover.MoveTo(position);
+		}
 	}
-
 	public bool HasPath(Vector2 position) => _mover.HasPath(position);
 	public bool IsAtPosition(Vector2 position) => _mover.IsAtPosition(position);
 	
@@ -73,13 +75,15 @@ public class Worker : MonoBehaviour {
 	public ISearcher Searcher => _searcher;
 
 	private void ExecutedWithAnimation<T>(AnimatorState targetState, Action<T> action, T parameter, Action playAnimation) {
-		if (WorkerAnimator.State != AnimatorState.Idle) return;
+		if (WorkerAnimator.State != AnimatorState.Idle || Performing) return;
+		Performing = true;
 		
 		Action<AnimatorState> handler = null;
 		handler = (state) => {
 			if (state != targetState) return;
 			action(parameter);
 			WorkerAnimator.StateExited -= handler;
+			Performing = false;
 			WorkerAnimator.ResetToIdle();
 		};
 		WorkerAnimator.StateExited += handler;

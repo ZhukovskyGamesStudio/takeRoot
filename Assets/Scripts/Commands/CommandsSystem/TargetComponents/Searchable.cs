@@ -12,8 +12,10 @@ public class SearchableObj : MonoBehaviour {
 	public bool Searched => currentResearchPoints >= requiredSearchPoints;
 
 	public void Search() {
-		if (Searched) return;
-		
+		if (Searched) {
+			EndSearch();
+			return;
+		}
 		currentResearchPoints++;
 	}
 

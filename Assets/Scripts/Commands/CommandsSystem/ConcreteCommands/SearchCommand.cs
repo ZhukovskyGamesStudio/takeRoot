@@ -1,6 +1,6 @@
-public class Search : BaseCommand{
+public class SearchCommand : BaseCommand{
 	
-	public Search(int id, CommandService commandService, IUpdateService updateService, Worker worker = null) : base(id, commandService, updateService, worker) {
+	public SearchCommand(int id, CommandService commandService, IUpdateService updateService, Worker worker = null) : base(id, commandService, updateService, worker) {
 	}
 
 	public override void Update() {
@@ -17,6 +17,11 @@ public class Search : BaseCommand{
 			Worker.Search(Target);
 		}
 		
+		if (Target.Searched) Cancel();
+	}
+
+	public override void Perform() {
+		Worker.Search(Target);
 		if (Target.Searched) Cancel();
 	}
 

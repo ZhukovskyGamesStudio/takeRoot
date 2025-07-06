@@ -6,8 +6,7 @@ public abstract class BaseCommand : IUpdatable {
 	
 	public Worker Worker;
 	protected CommandTarget Target;
-
-	private 
+	
 	public readonly bool IsManualAssignment;
 
 	protected bool inProgress;
@@ -35,15 +34,24 @@ public abstract class BaseCommand : IUpdatable {
 		HandleWorker();
 		HandleTarget();
 		inProgress = Worker != null && Target != null;
-	}
 
+		if (!inProgress) return;
+
+		if (!Worker.HasPath(Target.InteractPosition.position)) {
+			Worker.CurrentCommandId = -1;
+			return;
+		}
+		Worker.MoveTo(Target.InteractPosition.position);
+		if (Worker.IsAtPosition(Target.InteractPosition.position)) Perform();
+	}
+	
 	private void HandleTarget() {
 		if (Target != null && Target.CurrentCommandId == -1) {
 			Target = null;
 			Cancel();
 		}
 		if (Target == null) {
-			Cancel();	
+			Cancel();
 		}
 	}
 
@@ -55,7 +63,7 @@ public abstract class BaseCommand : IUpdatable {
 			}
 		}
 	}
-
+	
 	public void AssignWorker(Worker worker) {
 		this.Worker = worker;
 		this.Worker.CurrentCommandId = Id;
@@ -69,7 +77,7 @@ public abstract class BaseCommand : IUpdatable {
 		
 		onComplete?.Invoke();
 	}
-
+	public abstract void Perform();
 	public void Redo() => Update();
 	//public abstract void Undo();
 }

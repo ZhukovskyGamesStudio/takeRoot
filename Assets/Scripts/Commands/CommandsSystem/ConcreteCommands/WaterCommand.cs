@@ -6,20 +6,10 @@ public class WaterCommand : BaseCommand{
 
 	public override void Update() {
 		base.Update();
+	}
 
-		if (!inProgress) return;
-
-		if (!Worker.HasPath(Target.InteractPosition.position)) {
-			Worker.CurrentCommandId = -1;
-			return;
-		}
-		
-		Worker.MoveTo(Target.InteractPosition.position);
-
-		if (Worker.IsAtPosition(Target.InteractPosition.position)) {
-			Worker.Water(Target);
-		}
-		
+	public override void Perform() {
 		if (Target.EnoughWater) Cancel();
+		Worker.Water(Target);
 	}
 }

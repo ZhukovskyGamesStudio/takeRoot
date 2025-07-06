@@ -13,20 +13,10 @@ public class DestroyCommand : BaseCommand {
 
 	public override void Update() {
 		base.Update();
-		
-		if (!inProgress) return;
+	}
 
-		//TODO: move movement to base command
-		if (!Worker.HasPath(Target.transform.position)) {
-			Worker.CurrentCommandId = -1;
-			return;
-		}
-		Worker.MoveTo(Target.transform.position); 
-
-		if (Worker.IsAtPosition(Target.transform.position)) {
-			Worker.Hit(Target);
-		}
-		
+	public override void Perform() {
+		Worker.Hit(Target);
 		if (Target.IsDead) Cancel();
 	}
 }
