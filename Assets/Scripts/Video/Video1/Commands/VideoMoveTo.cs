@@ -16,7 +16,7 @@ public class VideoMoveTo : MonoBehaviour, IMovable {
 	
 	private Vector2 position => new Vector2((int)transform.position.x, (int)transform.position.y);
 	
-	public bool TryMoveTo(Vector2 position) {
+	public bool MoveTo(Vector2 position) {
 		if (_targetPosition != position) {
 			_path = Paths.First(c => (Vector2)c.positions[^1].position == position);
 			_targetPosition = position;

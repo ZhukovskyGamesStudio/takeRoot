@@ -9,10 +9,12 @@ public class WaterCommand : BaseCommand{
 
 		if (!inProgress) return;
 
-		if (!Worker.TryMoveTo(Target.InteractPosition.position)) {
+		if (!Worker.HasPath(Target.InteractPosition.position)) {
 			Worker.CurrentCommandId = -1;
 			return;
 		}
+		
+		Worker.MoveTo(Target.InteractPosition.position);
 
 		if (Worker.IsAtPosition(Target.InteractPosition.position)) {
 			Worker.Water(Target);

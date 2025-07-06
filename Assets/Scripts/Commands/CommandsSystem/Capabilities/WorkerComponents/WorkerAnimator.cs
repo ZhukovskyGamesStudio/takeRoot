@@ -9,27 +9,23 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 	private readonly int _idleStateHash = Animator.StringToHash("Idle");
 	private readonly int _craftStateHash = Animator.StringToHash("Craft");
 	private readonly int _waterStateHash = Animator.StringToHash("Water");
-	
-
+	private readonly int _searchStateHash = Animator.StringToHash("Search");
+	private readonly int _hitStateHash = Animator.StringToHash("Hit");
+	private readonly int _moveStateHash = Animator.StringToHash("Move");
 	
 	public AnimatorState State { get; private set; }
-
 	public event Action<AnimatorState> StateEntered;
 	public event Action<AnimatorState> StateExited;
 
 
-	public void PlayCraft() {
-		_animator.SetTrigger(_craftStateHash);
-	}
+	public void PlayCraft() => _animator.SetTrigger(_craftStateHash);
+	public void PlayWater() => _animator.SetTrigger(_waterStateHash);
+	public void PlaySearch() => _animator.SetTrigger(_searchStateHash);
+	public void PlayHit() => _animator.SetTrigger(_hitStateHash);
+	public void PlayMove() => _animator.SetTrigger(_moveStateHash);
+	public void ResetToIdle() => _animator.SetTrigger(_idleStateHash);
 
-	public void PlayWater() {
-		_animator.SetTrigger(_waterStateHash);
-	}
-	
-	public void ResetToIdle() {
-		_animator.SetTrigger(_idleStateHash);
-	}
-	
+
 	public void EnteredState(int stateHash) {
 		State = StateFor(stateHash);
 		StateEntered?.Invoke(State);
@@ -38,7 +34,7 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 	public void ExitedState(int stateHash) {
 		StateExited?.Invoke(StateFor(stateHash));
 	}
-	
+
 	private AnimatorState StateFor(int stateHash) {
 		AnimatorState state;
 		if (stateHash == _idleStateHash) {
@@ -50,6 +46,12 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 		else if (stateHash == _craftStateHash) {
 			state = AnimatorState.Craft;
 		}
+		else if (stateHash == _searchStateHash) {
+			state = AnimatorState.Search;
+		}
+		else if (stateHash == _hitStateHash) {
+			state = AnimatorState.Hit;
+		}
 		else {
 			state = AnimatorState.None;
 		}
@@ -57,18 +59,13 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 	}
 }
 
-public interface IAnimationStateReader {
-	public AnimatorState State { get; }
-	public void EnteredState(int stateHash);
-	public void ExitedState(int stateHash);
-}
-
 [Serializable]
 public enum AnimatorState {
 	None,
 	Idle,
 	Move,
-	Destroy,
+	Hit,
 	Craft,
-	Water
+	Water,
+	Search
 }

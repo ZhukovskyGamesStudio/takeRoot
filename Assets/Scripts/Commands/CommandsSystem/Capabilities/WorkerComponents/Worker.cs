@@ -46,38 +46,43 @@ public class Worker : MonoBehaviour {
 
 	
 	//Mover
-	public bool TryMoveTo(Vector2 position) {
-		if (WorkerAnimator.State == AnimatorState.Idle)
-			return _mover.TryMoveTo(position);
-		return true;
+	public void MoveTo(Vector2 position) {
+		ExecutedWithAnimation(AnimatorState.Move, _mover.MoveTo, position, () => WorkerAnimator.PlayMove());
 	}
 
+	public bool HasPath(Vector2 position) => _mover.HasPath(position);
 	public bool IsAtPosition(Vector2 position) => _mover.IsAtPosition(position);
 	
 	//Destroyer
-	public void Hit(CommandTarget target) => _destroyer.Hit(target);
+	public void Hit(CommandTarget target) {
+		ExecutedWithAnimation(AnimatorState.Hit, _destroyer.Hit, target, () => WorkerAnimator.PlayHit());
+	}
 
 	//Searcher
-	public void Search(CommandTarget target) => _searcher.Search(target);
-	
+	public void Search(CommandTarget target) {
+		ExecutedWithAnimation(AnimatorState.Search, _searcher.Search, target, () => WorkerAnimator.PlaySearch());
+	}
+
 	//Waterer
 	public void Water(CommandTarget target) {
-		if (WorkerAnimator.State == AnimatorState.Water) return;
+		ExecutedWithAnimation(AnimatorState.Water, _waterer.Water, target, () => WorkerAnimator.PlayWater());
+	}
+	
+	public IMovable Mover => _mover;
+	public IDestroyer Destroyer => _destroyer;
+	public ISearcher Searcher => _searcher;
+
+	private void ExecutedWithAnimation<T>(AnimatorState targetState, Action<T> action, T parameter, Action playAnimation) {
+		if (WorkerAnimator.State != AnimatorState.Idle) return;
+		
 		Action<AnimatorState> handler = null;
-		handler = (state) =>
-		{
-			if (state != AnimatorState.Water) 
-				return;
-			
-			_waterer.Water(target);
+		handler = (state) => {
+			if (state != targetState) return;
+			action(parameter);
 			WorkerAnimator.StateExited -= handler;
 			WorkerAnimator.ResetToIdle();
 		};
 		WorkerAnimator.StateExited += handler;
-		WorkerAnimator.PlayWater();
+		playAnimation();
 	}
-
-	public IMovable Mover => _mover;
-	public IDestroyer Destroyer => _destroyer;
-	public ISearcher Searcher => _searcher;
 }

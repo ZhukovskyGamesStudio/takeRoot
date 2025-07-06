@@ -16,11 +16,12 @@ public class DestroyCommand : BaseCommand {
 		
 		if (!inProgress) return;
 
-		
-		if (!Worker.TryMoveTo(Target.transform.position)) {
+		//TODO: move movement to base command
+		if (!Worker.HasPath(Target.transform.position)) {
 			Worker.CurrentCommandId = -1;
 			return;
 		}
+		Worker.MoveTo(Target.transform.position); 
 
 		if (Worker.IsAtPosition(Target.transform.position)) {
 			Worker.Hit(Target);

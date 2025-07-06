@@ -6,10 +6,12 @@ public class Search : BaseCommand{
 	public override void Update() {
 		base.Update();
 
-		if (!Worker.TryMoveTo(Target.transform.position)) {
+		if (!Worker.HasPath(Target.transform.position)) {
 			Worker.CurrentCommandId = -1;
 			return;
 		}
+		
+		Worker.MoveTo(Target.transform.position);
 		
 		if (Worker.IsAtPosition(Target.transform.position)) {
 			Worker.Search(Target);

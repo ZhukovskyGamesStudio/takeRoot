@@ -7,6 +7,7 @@ public abstract class BaseCommand : IUpdatable {
 	public Worker Worker;
 	protected CommandTarget Target;
 
+	private 
 	public readonly bool IsManualAssignment;
 
 	protected bool inProgress;
@@ -24,8 +25,9 @@ public abstract class BaseCommand : IUpdatable {
 		}
 		else IsManualAssignment = false;
 		_commandService = commandService;
-		_commandService.RegisterCommand(Id, this);
 		_updateService = updateService;
+		
+		_commandService.RegisterCommand(Id, this);
 		_updateService.Register(this);
 	}
 	

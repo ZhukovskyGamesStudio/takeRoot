@@ -23,26 +23,31 @@ public class Mover : MonoBehaviour, IMovable {
 		_pathfindService = ServiceLocator.Container.Single<IPathfindService>();
 	}
 	
-	public bool TryMoveTo(Vector2 targetPos) {
+	public void MoveTo(Vector2 targetPos) {
 		if (_path == null || _targetPosition != targetPos) {
 			_targetPosition = targetPos;
 			_path = _pathfindService.FindPath(position, targetPos);
 		}
-		if (_path == null) return false; //TODO: evaluate path
+		if (_path == null) return; //TODO: evaluate path
 		
 		_isMoving = true;
 		var indexOfNextStep = _path.IndexOf(position) + 1;
-		if (indexOfNextStep == _path.Count) return true;
+		if (indexOfNextStep == _path.Count) return;
 		var next = _path[indexOfNextStep];
 
-		if (_moveCoroutine != null) return true;
+		if (_moveCoroutine != null) return;
 		
 		_moveCoroutine = StartCoroutine(MoveToCell(next));
-		return true;
+		return;
 	}
 	
 	public bool IsAtPosition(Vector2 target) {
 		return position == target;
+	}
+
+	public bool HasPath(Vector2 target) {
+		var path = _pathfindService.FindPath(position, target);
+		return path != null;
 	}
 
 	public void SetMoveTime(float time) {

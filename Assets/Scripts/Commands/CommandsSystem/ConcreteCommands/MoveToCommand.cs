@@ -15,10 +15,11 @@ public class MoveToCommand : BaseCommand {
 		inProgress = Worker != null;
 		if (!inProgress) return;
 		
-		if (!Worker.TryMoveTo(_targetPos)) {
+		if (!Worker.HasPath(_targetPos)) {//
 			Worker.CurrentCommandId = -1;
 			return;
 		}
+		Worker.MoveTo(_targetPos);
 
 		if (Worker.IsAtPosition(_targetPos)) 
 			Cancel();
