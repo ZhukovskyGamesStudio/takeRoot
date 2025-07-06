@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 
 public class Worker : MonoBehaviour {
 	public CommandType CommandCapabilities { get; private set; }
+	public WorkerAnimator WorkerAnimator { get; private set; }
 	
 	public int CurrentCommandId = -1; // when no command = -1
 	
@@ -28,6 +29,7 @@ public class Worker : MonoBehaviour {
 			AddCapability(CommandType.Water);
 		}
 		//_workerService.RegisterWorker(this);
+		WorkerAnimator = GetComponentInChildren<WorkerAnimator>();
 	}
 	
 	public void AddCapability(CommandType capability) {
@@ -44,7 +46,12 @@ public class Worker : MonoBehaviour {
 
 	
 	//Mover
-	public bool TryMoveTo(Vector2 position) => _mover.TryMoveTo(position);
+	public bool TryMoveTo(Vector2 position) {
+		if (WorkerAnimator.State == AnimatorState.Idle)
+			return _mover.TryMoveTo(position);
+		return true;
+	}
+
 	public bool IsAtPosition(Vector2 position) => _mover.IsAtPosition(position);
 	
 	//Destroyer
@@ -54,8 +61,22 @@ public class Worker : MonoBehaviour {
 	public void Search(CommandTarget target) => _searcher.Search(target);
 	
 	//Waterer
-	public void Water(CommandTarget target) => _waterer.Water(target);
-	
+	public void Water(CommandTarget target) {
+		if (WorkerAnimator.State == AnimatorState.Water) return;
+		Action<AnimatorState> handler = null;
+		handler = (state) =>
+		{
+			if (state != AnimatorState.Water) 
+				return;
+			
+			_waterer.Water(target);
+			WorkerAnimator.StateExited -= handler;
+			WorkerAnimator.ResetToIdle();
+		};
+		WorkerAnimator.StateExited += handler;
+		WorkerAnimator.PlayWater();
+	}
+
 	public IMovable Mover => _mover;
 	public IDestroyer Destroyer => _destroyer;
 	public ISearcher Searcher => _searcher;

@@ -38,6 +38,10 @@ public class VideoMoveTo : MonoBehaviour, IMovable {
 		return position == target;
 	}
 
+	public void SetMoveTime(float time) {
+		throw new System.NotImplementedException();
+	}
+
 	private IEnumerator MoveToCell(Vector2 target)
 	{
 		Vector3 target3 = new Vector3(target.x, target.y);

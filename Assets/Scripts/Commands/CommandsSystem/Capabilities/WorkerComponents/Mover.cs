@@ -16,7 +16,7 @@ public class Mover : MonoBehaviour, IMovable {
 	private IPathfindService _pathfindService;
 	private List<Vector2> _path;
 	
-	private Vector2 position => new Vector2((int)transform.position.x, (int)transform.position.y);
+	private Vector2 position => new Vector2(transform.position.x, transform.position.y);
 	public bool IsMoving => _isMoving;
 	
 	private void Start() {
@@ -43,6 +43,10 @@ public class Mover : MonoBehaviour, IMovable {
 	
 	public bool IsAtPosition(Vector2 target) {
 		return position == target;
+	}
+
+	public void SetMoveTime(float time) {
+		moveTime = time;
 	}
 
 	private IEnumerator MoveToCell(Vector2 target)
