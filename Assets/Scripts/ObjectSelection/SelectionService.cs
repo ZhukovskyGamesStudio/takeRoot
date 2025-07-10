@@ -1,3 +1,4 @@
+using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 
@@ -7,7 +8,7 @@ public class SelectionService : ISelectionService, IUpdatable
 	private readonly IPhysicsService _physics;
 	private readonly ICommandService _commandService;
 	public Selectable Selected { get; private set; }
-	public bool IsEnabled { get; set; } = true;
+	public ReactiveProperty<bool> IsEnabled { get; set; } = new ReactiveProperty<bool>(true);
 
 	public SelectionService(IInputService inputService, IPhysicsService physics, IUpdateService updateService, ICommandService commandService) {
 		_input = inputService;
@@ -17,7 +18,7 @@ public class SelectionService : ISelectionService, IUpdatable
 	}
 
 	public void Update() {
-		if (!IsEnabled) return;
+		if (!IsEnabled.Value) return;
 		if (_input.GetMouseButtonDown(MouseButton.Left)) {
 			Selectable selectable = _physics.Raycast<Selectable>(_input.GetWorldMousePosition(), Vector2.zero);
 			if (selectable != null && selectable != Selected) {

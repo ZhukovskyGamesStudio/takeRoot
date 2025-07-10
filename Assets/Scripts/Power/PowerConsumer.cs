@@ -7,6 +7,7 @@ public class PowerConsumer : ECSComponent
     public Vector2Int PowerSocketPosition;
     public GameObject Plug;
     public GameObject PowerSocket;
+    public Transform PowerSocketPos;
     public bool Connected;
     public Wire Wire;
 
@@ -23,6 +24,6 @@ public class PowerConsumer : ECSComponent
 
     public override void Init(ECSEntity entity)
     {
-        PowerSocketPosition = PowerSocket.transform.position.ToVector2Int();
+        PowerSocketPosition = PowerSocketPos.position.ToVector2Int();
     }
 }

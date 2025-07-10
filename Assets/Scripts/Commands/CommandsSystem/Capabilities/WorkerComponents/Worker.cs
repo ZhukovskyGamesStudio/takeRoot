@@ -29,7 +29,7 @@ public class Worker : MonoBehaviour {
 		if (TryGetComponent(out _waterer)) {
 			AddCapability(CommandType.Water);
 		}
-		//_workerService.RegisterWorker(this);
+		ServiceLocator.Container.Single<IWorkerAssigner>().RegisterWorker(this);
 		WorkerAnimator = GetComponentInChildren<WorkerAnimator>();
 	}
 	
@@ -73,8 +73,7 @@ public class Worker : MonoBehaviour {
 	public IMovable Mover => _mover;
 	public IDestroyer Destroyer => _destroyer;
 	public ISearcher Searcher => _searcher;
-
-	private void ExecutedWithAnimation<T>(AnimatorState targetState, Action<T> action, T parameter, Action playAnimation) {
+	private void ExecutedWithAnimation<T>(AnimatorState targetState, Action<T> action, T parameter, Action playAnimation) where T : CommandTarget {
 		if (WorkerAnimator.State != AnimatorState.Idle || Performing) return;
 		Performing = true;
 		
@@ -82,11 +81,13 @@ public class Worker : MonoBehaviour {
 		handler = (state) => {
 			if (state != targetState) return;
 			action(parameter);
-			WorkerAnimator.StateExited -= handler;
-			Performing = false;
 			WorkerAnimator.ResetToIdle();
+			Performing = false;
+			parameter.SetPerform(false);
+			WorkerAnimator.StateExited -= handler;
 		};
 		WorkerAnimator.StateExited += handler;
+		parameter.SetPerform(true);
 		playAnimation();
 	}
 }

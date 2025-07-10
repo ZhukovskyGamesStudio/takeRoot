@@ -5,6 +5,7 @@ public class PowerProvider : ECSComponent
     public Vector2Int PowerSocketPosition;
     public GameObject Plug;
     public GameObject PowerSocket;
+    public Transform PowerSocketPos;
     public void SetConnections(bool connected)
     {
         Plug.SetActive(connected);

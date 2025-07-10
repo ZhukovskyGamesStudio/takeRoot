@@ -6,9 +6,9 @@ public class DestroyCommand : BaseCommand {
 	private int _savedTargetHealth;
 	private Vector3 _workerStartLocation;
 	
-	public DestroyCommand(int id, CommandTarget target, CommandService commandService, IUpdateService updateService, Worker worker = null) : base(id, commandService, updateService, worker) {
+	public DestroyCommand(int id, CommandTarget target, ICommandService commandService, IUpdateService updateService, Worker worker = null) : base(id, commandService, updateService, worker) {
 		this.Target = target;
-		_savedTargetHealth = (int)target.Health.currentHealth;
+		Target.CurrentCommandId = id;
 	}
 
 	public override void Update() {

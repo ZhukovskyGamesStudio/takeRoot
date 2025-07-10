@@ -11,7 +11,8 @@ public class EntryPoint : MonoBehaviour
 	private void Awake() {
 		var updateService = GetComponent<IUpdateService>();
 		var coroutineRunner = GetComponent<ICoroutineRunner>();
-		var loader = new ServiceLocatorLoader_Main(updateService, coroutineRunner);
+		var map = GetComponent<MapFromSceneObjects>();
+		var loader = new ServiceLocatorLoader_Main(updateService, coroutineRunner, map);
 		
 		loader.RegisterServices();
 		_services = ServiceLocator.Container;
@@ -19,7 +20,7 @@ public class EntryPoint : MonoBehaviour
 		_services.Single<IDataProvider>().WorldResourcesData = new WorldResourcesData();
 		_services.Single<IDataProvider>().CreaturesData = new CreaturesData();
 		
-		var commandPresentation = new CommandPresentation();
+		var commandPresentation = new CommandPresenter();
 		commandPresentation.Init(_commandView, _services.Single<IJobCommandsInputHandlerService>());
 	}
 }

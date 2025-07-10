@@ -16,7 +16,7 @@ public class WorkerAssigner : IUpdatable, IWorkerAssigner {
 
 	public void Update() {
 		var commandsWithoutWorker = _commands.Commands.Where(c => c.Value.Worker == null);
-		foreach (var kvp in commandsWithoutWorker) {
+		foreach (var kvp in commandsWithoutWorker.OrderBy(c => c.Value.Id)) { //TODO: make command priority
 			var worker = FindAvailableWorker(kvp.Value.Type, kvp.Value.IsManualAssignment);
 			if (worker != null) {
 				kvp.Value.AssignWorker(worker);

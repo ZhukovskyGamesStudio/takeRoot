@@ -7,7 +7,6 @@ public class MapFromSceneObjects : MonoBehaviour{
 
 	public Dictionary<int3, bool> Map = new Dictionary<int3, bool>(); // false - free, true - obstacle
 	
-	public List<GridObject> GridObjects;
 	public SimpleGraph Graph;
 
 	public void CreateMap() {
