@@ -16,7 +16,7 @@ public class AnimatorStateReporter : StateMachineBehaviour {
 		base.OnStateExit(animator, stateInfo, layerIndex);
 		FindReader(animator);
 
-		_stateReader.ExitedState(stateInfo.shortNameHash);
+		_stateReader.ExitedState(stateInfo.shortNameHash); //TODO: fix nre
 	}
 	
 	private void FindReader(Animator animator) {
