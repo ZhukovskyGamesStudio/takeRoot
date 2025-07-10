@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1323950081714660059, guid: bd425d58075cb664ab9448693fba0d59, type: 3}
       propertyPath: <ResourceType>k__BackingField
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3076479363387228288, guid: bd425d58075cb664ab9448693fba0d59, type: 3}
       propertyPath: m_Name
-      value: HandleUI
+      value: EmptyBottleUi
       objectReference: {fileID: 0}
     - target: {fileID: 3619989693759554984, guid: bd425d58075cb664ab9448693fba0d59, type: 3}
       propertyPath: m_fontSize
@@ -103,7 +103,7 @@ PrefabInstance:
     - target: {fileID: 8109546550666484278, guid: bd425d58075cb664ab9448693fba0d59, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 65b647c258468f140adbed518fa03308, type: 3}
+      objectReference: {fileID: 21300000, guid: 7fbf0d7ca20f8ff4bba4481a7a62b61e, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

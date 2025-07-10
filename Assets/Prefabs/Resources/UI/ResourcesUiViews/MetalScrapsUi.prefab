@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1323950081714660059, guid: bd425d58075cb664ab9448693fba0d59, type: 3}
       propertyPath: <ResourceType>k__BackingField
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3076479363387228288, guid: bd425d58075cb664ab9448693fba0d59, type: 3}
       propertyPath: m_Name
-      value: CleanedMetalUI
+      value: MetalScrapsUi
       objectReference: {fileID: 0}
     - target: {fileID: 3619989693759554984, guid: bd425d58075cb664ab9448693fba0d59, type: 3}
       propertyPath: m_fontSize
@@ -103,7 +103,7 @@ PrefabInstance:
     - target: {fileID: 8109546550666484278, guid: bd425d58075cb664ab9448693fba0d59, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5c93270779aaf314c8dc65cdc880a3fc, type: 3}
+      objectReference: {fileID: 21300000, guid: 596a19801609634488ed552620702672, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
