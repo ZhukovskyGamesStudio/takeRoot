@@ -54,6 +54,9 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 		else if (stateHash == _hitStateHash) {
 			state = AnimatorState.Hit;
 		}
+		else if (stateHash == _jumpStateHash) {
+			state = AnimatorState.Jump;
+		}
 		else {
 			state = AnimatorState.None;
 		}
@@ -69,5 +72,6 @@ public enum AnimatorState {
 	Hit,
 	Craft,
 	Water,
-	Search
+	Search,
+	Jump
 }
