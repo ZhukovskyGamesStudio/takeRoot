@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using CodeBase.Services;
 using Unity.Cinemachine;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EntryPoint_Video2 : MonoBehaviour, ICoroutineRunner {
 
@@ -58,17 +60,15 @@ public class EntryPoint_Video2 : MonoBehaviour, ICoroutineRunner {
 	private IEnumerator PlayVideo() {
 		RandomPotato();
 		idleGenerator.SetPerform(true);
-		tosterEmotes.PlayEmotion(BubbleType.Think, EmotionType.Sleep);
-		yield return new WaitForSeconds(tosterEmotes.playTime);
+		yield return StartCoroutine(PlayEmotionAndWait(0, tosterEmotes.playTime, () => tosterEmotes.PlayEmotion(BubbleType.Think, EmotionType.Sleep)));
 		CreateMoveCommand(moveToBed, toster).onComplete += () =>
 		{
 			tosterEmotes.PlayEmotion(BubbleType.Talk, EmotionType.Sad);
 			CreateMoveCommand(moveToBed2, chamomile).onComplete += () => CinemachineCamera.Follow = chamomile.transform;
 		};
 		yield return new WaitUntil(() => CinemachineCamera.Follow == chamomile.transform);
-		yield return new WaitForSeconds(0.3f);
-		chamomileEmotes.PlayEmotion(BubbleType.Talk, EmotionType.Attention);
-		yield return new WaitForSeconds(1.3f);
+
+		yield return StartCoroutine(PlayEmotionAndWait(0.3f, 1.3f, () => chamomileEmotes.PlayEmotion(BubbleType.Talk, EmotionType.Attention)));
 		CreateMoveCommand(moveToCornerOfTheRoad, chamomile)
 			.onComplete += () => {
 			StartCoroutine(CinemachineCamera.UnzoomCamera(7.3f, 0.015f));
@@ -124,6 +124,12 @@ public class EntryPoint_Video2 : MonoBehaviour, ICoroutineRunner {
 	private BaseCommand CreateSearchCommand( CommandTarget commandTarget) {
 		return
 			new SearchCommand(_id++, commandTarget, _services.Single<ICommandService>(), _services.Single<IUpdateService>());
+	}
+
+	private IEnumerator PlayEmotionAndWait(float beforeTime, float afterTime, Action callback) {
+		yield return new WaitForSeconds(beforeTime);
+		callback();
+		yield return new WaitForSeconds(afterTime);
 	}
 	private void RandomPotato()
 	{
