@@ -13,6 +13,8 @@ public class EntryPoint_Video2 : MonoBehaviour, ICoroutineRunner {
 	public Worker toster;
 	public Animator tosterAnimator;
 	public Worker chamomile;
+	public EmotionPlayer tosterEmotes;
+	public EmotionPlayer chamomileEmotes;
 
 	[Header("Inventory")]
 	public GameObject potato;
@@ -56,11 +58,16 @@ public class EntryPoint_Video2 : MonoBehaviour, ICoroutineRunner {
 	private IEnumerator PlayVideo() {
 		RandomPotato();
 		idleGenerator.SetPerform(true);
+		tosterEmotes.PlayEmotion(BubbleType.Think, EmotionType.Sleep);
+		yield return new WaitForSeconds(tosterEmotes.playTime);
 		CreateMoveCommand(moveToBed, toster).onComplete += () =>
 		{
+			tosterEmotes.PlayEmotion(BubbleType.Talk, EmotionType.Sad);
 			CreateMoveCommand(moveToBed2, chamomile).onComplete += () => CinemachineCamera.Follow = chamomile.transform;
 		};
 		yield return new WaitUntil(() => CinemachineCamera.Follow == chamomile.transform);
+		yield return new WaitForSeconds(0.3f);
+		chamomileEmotes.PlayEmotion(BubbleType.Talk, EmotionType.Attention);
 		yield return new WaitForSeconds(1.3f);
 		CreateMoveCommand(moveToCornerOfTheRoad, chamomile)
 			.onComplete += () => {
