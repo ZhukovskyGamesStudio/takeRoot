@@ -94,26 +94,34 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 	}
 
 	private IEnumerator JumpAndChangeMood() {
-		
-		yield return new WaitForSeconds(0.5f);
-		mainWorker.Mover.SetMoveTime(0.2f);
-		mainView.GetComponentInChildren<ChangeMoodAnimator>().currentMood = Mood.Angry;
-		yield return WaitUntilAnimationEnds(mainView.GetComponent<Animator>(), "Jump");
-		CreateMoveCommand(swapPos, 4).onComplete += () =>
+		//yield return WaitUntilAnimationEnds(mainView.GetComponent<Animator>(), "Jump");
+		Action<AnimatorState> handler = null;
+		handler = (state) =>
 		{
-			SwapToCombat();
-			CreateMoveCommand(unZoomPos2, 5).onComplete += () =>
+			if (state != AnimatorState.Jump) return;
+			mainWorker.Mover.SetMoveTime(0.2f);
+			mainView.GetComponentInChildren<ChangeMoodAnimator>().currentMood = Mood.Angry;
+			CreateMoveCommand(swapPos, 4).onComplete += () =>
 			{
-				CinemachineCamera.GetComponent<CinemachineConfiner2D>().BoundingShape2D = null;
-				CreateMoveCommand(endPos, 6).onComplete += () =>
+				SwapToCombat();
+				CreateMoveCommand(unZoomPos2, 5).onComplete += () =>
 				{
-					remboView.GetComponentInChildren<Shooter>().EnableShooting = true;
-					CanUnZoomCamera = true;
+					CinemachineCamera.GetComponent<CinemachineConfiner2D>().BoundingShape2D = null;
+					CreateMoveCommand(endPos, 6).onComplete += () =>
+					{
+						remboView.GetComponentInChildren<Shooter>().EnableShooting = true;
+						CanUnZoomCamera = true;
+					};
 				};
 			};
+			mainWorker.WorkerAnimator.StateExited -= handler;
 		};
+		mainWorker.WorkerAnimator.StateExited += handler;
+		mainWorker.WorkerAnimator.DoJump();
+		yield break;
 	}
 	
+
 	private void SwapToCombat() {
 		mainView.SetActive(false);
 		remboView.SetActive(true);

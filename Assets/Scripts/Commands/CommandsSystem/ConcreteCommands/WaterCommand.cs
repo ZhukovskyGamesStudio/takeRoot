@@ -9,7 +9,10 @@ public class WaterCommand : BaseCommand{
 	}
 
 	public override void Perform() {
-		if (Target.EnoughWater) Cancel();
+		if (Target.EnoughWater) {
+			Cancel();
+			return;
+		}
 		Worker.Water(Target);
 	}
 }

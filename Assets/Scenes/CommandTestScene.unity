@@ -1422,6 +1422,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb7d1544eb644b4a84cdbf1cfa219915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseAnimatorWhenPerform: 1
+  PerformingAnimator: {fileID: 0}
   InteractPosition: {fileID: 778859668}
   CurrentCommandId: -1
 --- !u!4 &335371037
@@ -1500,7 +1502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredSearchPoints: 1
-  currentSearchPoints: 0
+  currentResearchPoints: 0
 --- !u!114 &335371041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1856,6 +1858,7 @@ GameObject:
   m_Component:
   - component: {fileID: 387359822}
   - component: {fileID: 387359823}
+  - component: {fileID: 387359824}
   m_Layer: 0
   m_Name: HeadContainer
   m_TagString: Untagged
@@ -1903,6 +1906,20 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &387359824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387359821}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff268bb55e834038bcfe5bf5cc54d86b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentMood: 3
+  animator: {fileID: 387359823}
 --- !u!1 &419735764
 GameObject:
   m_ObjectHideFlags: 0
@@ -7851,7 +7868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredSearchPoints: 1
-  currentSearchPoints: 0
+  currentResearchPoints: 0
 --- !u!61 &1010331818
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7910,6 +7927,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb7d1544eb644b4a84cdbf1cfa219915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseAnimatorWhenPerform: 1
+  PerformingAnimator: {fileID: 0}
   InteractPosition: {fileID: 1313203714}
   CurrentCommandId: -1
 --- !u!4 &1010331820
@@ -10175,7 +10194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredSearchPoints: 1
-  currentSearchPoints: 0
+  currentResearchPoints: 0
 --- !u!61 &1531462359
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10234,6 +10253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb7d1544eb644b4a84cdbf1cfa219915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseAnimatorWhenPerform: 1
+  PerformingAnimator: {fileID: 0}
   InteractPosition: {fileID: 1072141225}
   CurrentCommandId: -1
 --- !u!4 &1531462361
