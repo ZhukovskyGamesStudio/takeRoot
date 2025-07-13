@@ -23,7 +23,7 @@ public class Mover : MonoBehaviour, IMovable {
 		_pathfindService = ServiceLocator.Container.Single<IPathfindService>();
 	}
 	
-	public void MoveTo(Vector2 targetPos) {
+	public void MoveTo(Vector2 targetPos, WorkerAnimator workerAnimator) {
 		if (_path == null || _targetPosition != targetPos) {
 			_targetPosition = targetPos;
 			_path = _pathfindService.FindPath(position, targetPos);
@@ -37,7 +37,7 @@ public class Mover : MonoBehaviour, IMovable {
 
 		if (_moveCoroutine != null) return;
 		
-		_moveCoroutine = StartCoroutine(MoveToCell(next));
+		_moveCoroutine = StartCoroutine(MoveToCell(next, workerAnimator));
 		return;
 	}
 	
@@ -54,13 +54,15 @@ public class Mover : MonoBehaviour, IMovable {
 		moveTime = time;
 	}
 
-	private IEnumerator MoveToCell(Vector2 target)
+	private IEnumerator MoveToCell(Vector2 target, WorkerAnimator workerAnimator)
 	{
 		Vector3 target3 = new Vector3(target.x, target.y);
 		Vector3 diff = target3 - transform.localPosition;
      
 		RotateToMoveDirection(diff);
+		workerAnimator.PlayMove();
 		yield return StartCoroutine(LerpFromTo(transform.localPosition, target3 * gridSize, moveTime));
+		workerAnimator.ResetToIdle();
 		_moveCoroutine = null;
 	}
 

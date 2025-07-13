@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 
 public class Worker : MonoBehaviour {
 	public CommandType CommandCapabilities { get; private set; }
-	public WorkerAnimator WorkerAnimator { get; private set; }
+	public WorkerAnimator WorkerAnimator { get; set; }
 	
 	public int CurrentCommandId = -1; // when no command = -1
 	public bool Performing;
@@ -51,7 +51,7 @@ public class Worker : MonoBehaviour {
 	//Mover
 	public void MoveTo(Vector2 position) {
 		if (WorkerAnimator.State == AnimatorState.Idle) {
-			_mover.MoveTo(position);
+			_mover.MoveTo(position, WorkerAnimator); //TODO: change animations play while moving
 		}
 	}
 	public bool HasPath(Vector2 position) => _mover.HasPath(position);

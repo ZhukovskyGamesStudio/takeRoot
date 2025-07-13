@@ -99,7 +99,7 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 		handler = (state) =>
 		{
 			if (state != AnimatorState.Jump) return;
-			mainWorker.Mover.SetMoveTime(0.2f);
+			mainWorker.Mover.SetMoveTime(0.5f);
 			mainView.GetComponentInChildren<ChangeMoodAnimator>().currentMood = Mood.Angry;
 			CreateMoveCommand(swapPos, 4).onComplete += () =>
 			{
@@ -125,6 +125,7 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 	private void SwapToCombat() {
 		mainView.SetActive(false);
 		remboView.SetActive(true);
+		mainWorker.WorkerAnimator = remboView.GetComponent<WorkerAnimator>();
 		remboView.GetComponentInChildren<Shooter>().EnableShooting = false;
 	}
 	
