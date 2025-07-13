@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CodeBase.Services;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 
@@ -22,9 +23,12 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 	public Transform unZoomPos;
 	public Transform swapPos;
 	public Transform unZoomPos2;
+	public Transform emotePos;
 	public Transform endPos;
 
 	public Worker mainWorker;
+	public EmotionPlayer mainWorkerEmotionPlayer;
+	[FormerlySerializedAs("RemboEmotionPlayer")] public EmotionPlayer remboEmotionPlayer;
 
 	public GameObject mainView;
 	public GameObject remboView;
@@ -100,25 +104,35 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 		{
 			if (state != AnimatorState.Jump) return;
 			mainWorker.Mover.SetMoveTime(0.5f);
-			mainView.GetComponentInChildren<ChangeMoodAnimator>().currentMood = Mood.Angry;
 			CreateMoveCommand(swapPos, 4).onComplete += () =>
 			{
 				SwapToCombat();
 				CreateMoveCommand(unZoomPos2, 5).onComplete += () =>
 				{
 					CinemachineCamera.GetComponent<CinemachineConfiner2D>().BoundingShape2D = null;
-					CreateMoveCommand(endPos, 6).onComplete += () =>
+					CreateMoveCommand(emotePos, 6).onComplete += () =>
 					{
-						remboView.GetComponentInChildren<Shooter>().EnableShooting = true;
-						CanUnZoomCamera = true;
+						StartCoroutine(PlayEmotionAndWait(0f, 0f,
+							() => mainWorkerEmotionPlayer.PlayEmotion(BubbleType.Talk, EmotionType.Like)));
+						StartCoroutine(PlayEmotionAndWait(0f, 0f,
+							() => remboEmotionPlayer.PlayEmotion(BubbleType.Talk, EmotionType.Like)));
+						CreateMoveCommand(endPos, 7).onComplete += () =>
+						{
+							remboView.GetComponentInChildren<Shooter>().EnableShooting = true;
+							CanUnZoomCamera = true;
+						};
 					};
 				};
 			};
 			mainWorker.WorkerAnimator.StateExited -= handler;
 		};
 		mainWorker.WorkerAnimator.StateExited += handler;
+		
+		
+		yield return StartCoroutine(PlayEmotionAndWait(0f, 0f,
+			() => mainWorkerEmotionPlayer.PlayEmotion(BubbleType.Exclamation, EmotionType.Attention)));
+		mainView.GetComponentInChildren<ChangeMoodAnimator>().currentMood = Mood.Angry;
 		mainWorker.WorkerAnimator.DoJump();
-		yield break;
 	}
 	
 
@@ -129,6 +143,11 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 		remboView.GetComponentInChildren<Shooter>().EnableShooting = false;
 	}
 	
+	private IEnumerator PlayEmotionAndWait(float beforeTime, float afterTime, Action callback) {
+		yield return new WaitForSeconds(beforeTime);
+		callback();
+		yield return new WaitForSeconds(afterTime);
+	}
 	private IEnumerator WaitUntilAnimationEnds(Animator animator, string trigger)
 	{
 		animator.SetInteger("Action", 99);
