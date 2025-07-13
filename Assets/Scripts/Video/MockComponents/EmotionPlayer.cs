@@ -23,12 +23,16 @@ public class EmotionPlayer : MonoBehaviour {
 		Icon.gameObject.transform.localScale = _parentTransform.localScale;
 		SetBubble(bubble);
 		SetIcon(emotion);
+		StopEmotion();
+		_emotionCoroutine = StartCoroutine(PlayForSeconds(playTime));
+	}
+
+	public void StopEmotion() {
 		if (_emotionCoroutine != null) {
 			Bubble.gameObject.SetActive(false);
 			StopCoroutine(_emotionCoroutine);
 			_emotionCoroutine = null;
 		}
-		_emotionCoroutine = StartCoroutine(PlayForSeconds(playTime));
 	}
 	private void SetBubble(BubbleType bubble) {
 		switch (bubble) {

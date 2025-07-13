@@ -4323,6 +4323,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &308026938 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+  m_PrefabInstance: {fileID: 1007500256}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &311902297
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4648,11 +4653,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4983002690571163926, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 30.13
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 4983002690571163926, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21.88
+      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 4983002690571163926, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4688,12 +4693,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_Name
-      value: Zombie (6)
+      value: ZombieMover
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1222845277}
+    - targetCorrespondingSourceObject: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1222845276}
   m_SourcePrefab: {fileID: 100100000, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
 --- !u!4 &329480372 stripped
 Transform:
@@ -5188,6 +5199,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8766468518439866684, guid: 55e70b1549ff46745b48121081f24254, type: 3}
   m_PrefabInstance: {fileID: 382377508}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &383240123 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+  m_PrefabInstance: {fileID: 1858730240}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &391368324
 PrefabInstance:
@@ -12738,8 +12754,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af54083065fbecf4fabb1566d8071f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.9
+  moveTime: 0.6
   gridSize: 1
+  RotateWhileMove: 1
 --- !u!114 &687667466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17102,11 +17119,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4983002690571163926, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 31.16
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 4983002690571163926, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16.3
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 4983002690571163926, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_LocalPosition.z
@@ -17142,12 +17159,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_Name
-      value: Zombie (7)
+      value: ZombieMover
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1007500272}
+    - targetCorrespondingSourceObject: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1007500271}
   m_SourcePrefab: {fileID: 100100000, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
 --- !u!4 &1007500257 stripped
 Transform:
@@ -17159,12 +17182,42 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -3146254256950310904, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
   m_PrefabInstance: {fileID: 1007500256}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 308026938}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d1c531f414842ed90ceb38d276f9775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1007500271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308026938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32cbc3e8b74746f58538633ba8832eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mover: {fileID: 1007500272}
+  target: {fileID: 2024915301}
+  CanMove: 0
+--- !u!114 &1007500272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308026938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af54083065fbecf4fabb1566d8071f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveTime: 2.65
+  gridSize: 1
+  RotateWhileMove: 0
 --- !u!1 &1021716898
 GameObject:
   m_ObjectHideFlags: 0
@@ -18598,6 +18651,11 @@ MonoBehaviour:
   _lastCamera: {fileID: 250615390}
   flower: {fileID: 2010828340}
   flower2: {fileID: 2057100097}
+  zombieMove:
+  - {fileID: 1858730255}
+  - {fileID: 1222845276}
+  - {fileID: 1900171398}
+  - {fileID: 1007500271}
   unZoomPos: {fileID: 492810954}
   swapPos: {fileID: 1677224177}
   unZoomPos2: {fileID: 1650979259}
@@ -18610,7 +18668,7 @@ MonoBehaviour:
   remboView: {fileID: 1822809789}
   _craftingUnzoom: 4.5
   _craftingUnzoomSpeed: 0.025
-  _lastUnzoomSpeed: 0.05
+  _lastUnzoomSpeed: 0.03
   _lastToCenterSpeed: 0.03
   CanUnZoomCamera: 0
   CraftingZoom: 0
@@ -20391,6 +20449,41 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5698498766686307394, guid: 94488df8604c8e641919e3525da40a5a, type: 3}
   m_PrefabInstance: {fileID: 1222414310}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1222845262 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+  m_PrefabInstance: {fileID: 329480371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1222845276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222845262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32cbc3e8b74746f58538633ba8832eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mover: {fileID: 1222845277}
+  target: {fileID: 114960021}
+  CanMove: 0
+--- !u!114 &1222845277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222845262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af54083065fbecf4fabb1566d8071f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveTime: 3.94
+  gridSize: 1
+  RotateWhileMove: 0
 --- !u!1 &1231943269
 GameObject:
   m_ObjectHideFlags: 0
@@ -53454,6 +53547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveTime: 0.7
   gridSize: 1
+  RotateWhileMove: 1
 --- !u!114 &1719581581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55771,18 +55865,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_Name
-      value: Zombie (8)
+      value: ZombieMover
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1858730256}
+    - targetCorrespondingSourceObject: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1858730255}
   m_SourcePrefab: {fileID: 100100000, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
 --- !u!4 &1858730241 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4983002690571163926, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
   m_PrefabInstance: {fileID: 1858730240}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1858730255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383240123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32cbc3e8b74746f58538633ba8832eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mover: {fileID: 1858730256}
+  target: {fileID: 1275331075}
+  CanMove: 0
+--- !u!114 &1858730256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 383240123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af54083065fbecf4fabb1566d8071f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveTime: 1.95
+  gridSize: 1
+  RotateWhileMove: 0
 --- !u!1001 &1875221868
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55853,7 +55983,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5512066717179832173, guid: 623c59f68f0cd7a44a5b66edc19faa75, type: 3}
       propertyPath: playTime
-      value: 0.4
+      value: 1.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -55963,6 +56093,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!1 &1890938858 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+  m_PrefabInstance: {fileID: 1900171383}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1894691840
 GameObject:
   m_ObjectHideFlags: 0
@@ -56032,11 +56167,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4983002690571163926, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.26
+      value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 4983002690571163926, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 27.76
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 4983002690571163926, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_LocalPosition.z
@@ -56072,18 +56207,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
       propertyPath: m_Name
-      value: Zombie (13)
+      value: ZombieMover
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1900171399}
+    - targetCorrespondingSourceObject: {fileID: 6108003914977475186, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1900171398}
   m_SourcePrefab: {fileID: 100100000, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
 --- !u!4 &1900171384 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4983002690571163926, guid: 7ac7655b85ae996478db4b3ae2e9f671, type: 3}
   m_PrefabInstance: {fileID: 1900171383}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1900171398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890938858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32cbc3e8b74746f58538633ba8832eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mover: {fileID: 1900171399}
+  target: {fileID: 1156660841}
+  CanMove: 0
+--- !u!114 &1900171399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890938858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af54083065fbecf4fabb1566d8071f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveTime: 5.21
+  gridSize: 1
+  RotateWhileMove: 0
 --- !u!1 &1902510675
 GameObject:
   m_ObjectHideFlags: 0
@@ -56639,11 +56810,11 @@ Transform:
   - {fileID: 1818524014}
   - {fileID: 474272297}
   - {fileID: 280391248}
-  - {fileID: 1858730241}
   - {fileID: 2060537910}
   - {fileID: 1925171250}
   - {fileID: 295560094}
   - {fileID: 1150948054}
+  - {fileID: 1858730241}
   - {fileID: 329480372}
   - {fileID: 1900171384}
   - {fileID: 1007500257}

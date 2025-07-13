@@ -18,6 +18,7 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 
 	public CommandTarget flower;
 	public CommandTarget flower2;
+	public List<MoveToTarget> zombieMove;
 
 
 	public Transform unZoomPos;
@@ -103,7 +104,8 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 		handler = (state) =>
 		{
 			if (state != AnimatorState.Jump) return;
-			mainWorker.Mover.SetMoveTime(0.5f);
+			mainWorkerEmotionPlayer.StopEmotion();
+			mainWorker.Mover.SetMoveTime(0.4f);
 			CreateMoveCommand(swapPos, 4).onComplete += () =>
 			{
 				SwapToCombat();
@@ -112,6 +114,9 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 					CinemachineCamera.GetComponent<CinemachineConfiner2D>().BoundingShape2D = null;
 					CreateMoveCommand(emotePos, 6).onComplete += () =>
 					{
+						foreach (MoveToTarget moveToTarget in zombieMove) {
+							moveToTarget.CanMove = true;
+						}
 						StartCoroutine(PlayEmotionAndWait(0f, 0f,
 							() => mainWorkerEmotionPlayer.PlayEmotion(BubbleType.Talk, EmotionType.Like)));
 						StartCoroutine(PlayEmotionAndWait(0f, 0f,
