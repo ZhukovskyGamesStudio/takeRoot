@@ -1668,6 +1668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 125870587}
+  OnContactPointWhileMove: 0
 --- !u!1001 &136498591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3480,6 +3481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 269785107}
+  OnContactPointWhileMove: 0
 --- !u!95 &269785107
 Animator:
   serializedVersion: 7
@@ -4617,6 +4619,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 325928208}
+  OnContactPointWhileMove: 0
 --- !u!95 &325928208
 Animator:
   serializedVersion: 7
@@ -4934,6 +4937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 349886851}
+  OnContactPointWhileMove: 0
 --- !u!95 &349886851
 Animator:
   serializedVersion: 7
@@ -12699,9 +12703,9 @@ GameObject:
   m_Component:
   - component: {fileID: 687667462}
   - component: {fileID: 687667464}
-  - component: {fileID: 687667465}
   - component: {fileID: 687667466}
   - component: {fileID: 687667467}
+  - component: {fileID: 687667468}
   m_Layer: 0
   m_Name: Mover
   m_TagString: Untagged
@@ -12742,21 +12746,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentCommandId: -1
   Performing: 0
---- !u!114 &687667465
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 687667460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af54083065fbecf4fabb1566d8071f2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveTime: 0.6
-  gridSize: 1
-  RotateWhileMove: 1
 --- !u!114 &687667466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12784,6 +12773,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bullets: []
+--- !u!114 &687667468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 687667460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af54083065fbecf4fabb1566d8071f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveTime: 0.6
+  gridSize: 1
+  RotateWhileMove: 1
 --- !u!1 &692948678
 GameObject:
   m_ObjectHideFlags: 0
@@ -13655,6 +13659,7 @@ GameObject:
   - component: {fileID: 745519313}
   - component: {fileID: 745519314}
   - component: {fileID: 745519315}
+  - component: {fileID: 745519316}
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
@@ -13715,6 +13720,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 745519314}
+  OnContactPointWhileMove: 0
+--- !u!114 &745519316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 745519312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64fc44cb047e46bcb960449e26fae6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 745519315}
 --- !u!1 &752436329
 GameObject:
   m_ObjectHideFlags: 0
@@ -15023,6 +15042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 845153598}
+  OnContactPointWhileMove: 0
 --- !u!95 &845153598
 Animator:
   serializedVersion: 7
@@ -16537,6 +16557,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 948477364}
+  OnContactPointWhileMove: 0
 --- !u!95 &948477364
 Animator:
   serializedVersion: 7
@@ -55217,6 +55238,7 @@ GameObject:
   - component: {fileID: 1822809790}
   - component: {fileID: 1822809791}
   - component: {fileID: 1822809792}
+  - component: {fileID: 1822809793}
   m_Layer: 0
   m_Name: View (1)
   m_TagString: Untagged
@@ -55276,6 +55298,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 1822809791}
+  OnContactPointWhileMove: 0
+--- !u!114 &1822809793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822809789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64fc44cb047e46bcb960449e26fae6c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 1822809792}
 --- !u!1 &1823797831
 GameObject:
   m_ObjectHideFlags: 0

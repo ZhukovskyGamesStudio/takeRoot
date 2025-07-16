@@ -2,6 +2,7 @@ using System;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
+using Object = System.Object;
 
 public class JobCommandsInputHandlerService : IJobCommandsInputHandlerService, IUpdatable {
 	private readonly IInputService _input;
@@ -44,6 +45,10 @@ public class JobCommandsInputHandlerService : IJobCommandsInputHandlerService, I
 			case CommandType.Destroy:
 				if (target.CanPerform(PendingCommand.Value))
 					new DestroyCommand(id++, target, _commandService, _updateService);
+				break;
+			case CommandType.Move:
+				if (target.CanPerform(PendingCommand.Value))
+					new MoveToJob(id++, _input.GetWorldMousePosition(), _commandService, _updateService);
 				break;
 			case CommandType.Cancel:
 				target.CurrentCommandId = -1;

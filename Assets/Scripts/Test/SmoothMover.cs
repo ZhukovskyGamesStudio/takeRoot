@@ -1,11 +1,11 @@
-using System;
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using CodeBase.Services;
+using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Mover : MonoBehaviour, IMovable {
+
+public class SmoothMover : MonoBehaviour, IMovable {
 	[FormerlySerializedAs("moveSpeed")] [Header("Movement Settings")]
 	public float moveTime = 1f;
 	public float gridSize = 1f;
@@ -57,36 +57,26 @@ public class Mover : MonoBehaviour, IMovable {
 
 	private IEnumerator MoveToCell(Vector2 target, WorkerAnimator workerAnimator = null)
 	{
-		Vector3 target3 = new Vector3(target.x, target.y);
-		Vector3 diff = target3 - transform.localPosition;
-     
-		RotateToMoveDirection(diff);
+		Vector3 targetPos = new Vector3(target.x, target.y) * gridSize;
+		Vector3 direction = (targetPos - transform.localPosition).normalized;
+    
+		RotateToMoveDirection(targetPos - transform.localPosition);
 		workerAnimator?.PlayMove();
-		yield return StartCoroutine(LerpFromTo(transform.localPosition, target3 * gridSize, moveTime, workerAnimator));
-		workerAnimator?.ResetToIdle();
-		yield return new WaitForSeconds(0.1f);
-		_moveCoroutine = null;
-	}
-
-	private IEnumerator LerpFromTo(Vector3 from, Vector3 to, float time, WorkerAnimator workerAnimator = null) {
-		float elapsedTime = 0f;
-		_isMoving = true;
-
-		while (elapsedTime < time) {
-			float t = elapsedTime / time;
-			t = Mathf.SmoothStep(0f, 1f, t);
+		
+		while (Vector3.Distance(transform.localPosition, targetPos) > 0.01f) 
+		{
 			if (workerAnimator == null) {
-				transform.localPosition = Vector3.Lerp(from, to, t);
-				elapsedTime += Time.deltaTime;
+				transform.localPosition += direction * moveTime * Time.deltaTime;
 			} else if (!workerAnimator.OnContactPointWhileMove) {
-				transform.localPosition = Vector3.Lerp(from, to, t);
-				elapsedTime += Time.deltaTime;
+				transform.localPosition += direction * moveTime * Time.deltaTime;
 			}
 			yield return null;
 		}
-
-		transform.localPosition = to;
-		_isMoving = false;
+    
+		transform.localPosition = targetPos;
+		transform.position = target;
+		workerAnimator?.ResetToIdle();
+		_moveCoroutine = null;
 	}
 
 	private void RotateToMoveDirection(Vector3 diff) {

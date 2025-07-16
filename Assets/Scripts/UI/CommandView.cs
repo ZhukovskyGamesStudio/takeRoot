@@ -13,6 +13,7 @@ public class CommandView : MonoBehaviour {
 	public Button SearchCommandButton;
 	public Button WaterCommandButton;
 	public Button CancelCommandButton;
-	
-	
+	public Button MoveCommandButton;
+
+
 }
