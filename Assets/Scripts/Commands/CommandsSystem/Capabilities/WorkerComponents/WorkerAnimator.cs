@@ -18,13 +18,18 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 	public event Action<AnimatorState> StateEntered;
 	public event Action<AnimatorState> StateExited;
 
+	public bool OnContactPointWhileMove;
 
 	public void PlayCraft() => _animator.SetTrigger(_craftStateHash);
 	public void PlayWater() => _animator.SetTrigger(_waterStateHash);
 	public void PlaySearch() => _animator.SetTrigger(_searchStateHash);
 	public void PlayHit() => _animator.SetTrigger(_hitStateHash);
 	public void PlayMove() => _animator.SetTrigger(_moveStateHash);
-	public void ResetToIdle() => _animator.SetTrigger(_idleStateHash);
+	public void ResetToIdle() {
+		_animator.SetTrigger(_idleStateHash);
+		OnContactPointWhileMove = false;
+	}
+
 	public void DoJump() => _animator.SetTrigger(_jumpStateHash);
 
 
@@ -39,9 +44,12 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 
 	private AnimatorState StateFor(int stateHash) {
 		AnimatorState state;
-		if (stateHash == _idleStateHash) {
-			state = AnimatorState.Idle;
+		if (stateHash == _moveStateHash) {
+			state = AnimatorState.Move;
 		}
+		else if (stateHash == _idleStateHash) {
+			state = AnimatorState.Idle;
+		}		
 		else if (stateHash == _waterStateHash) {
 			state = AnimatorState.Water;
 		}

@@ -18,12 +18,13 @@ public class Mover : MonoBehaviour, IMovable {
 	
 	private Vector2 position => new Vector2(transform.position.x, transform.position.y);
 	public bool IsMoving => _isMoving;
+	[SerializeField] private bool RotateWhileMove = true;
 	
 	private void Start() {
 		_pathfindService = ServiceLocator.Container.Single<IPathfindService>();
 	}
 	
-	public void MoveTo(Vector2 targetPos) {
+	public void MoveTo(Vector2 targetPos, WorkerAnimator workerAnimator = null) {
 		if (_path == null || _targetPosition != targetPos) {
 			_targetPosition = targetPos;
 			_path = _pathfindService.FindPath(position, targetPos);
@@ -37,7 +38,7 @@ public class Mover : MonoBehaviour, IMovable {
 
 		if (_moveCoroutine != null) return;
 		
-		_moveCoroutine = StartCoroutine(MoveToCell(next));
+		_moveCoroutine = StartCoroutine(MoveToCell(next, workerAnimator));
 		return;
 	}
 	
@@ -54,25 +55,33 @@ public class Mover : MonoBehaviour, IMovable {
 		moveTime = time;
 	}
 
-	private IEnumerator MoveToCell(Vector2 target)
+	private IEnumerator MoveToCell(Vector2 target, WorkerAnimator workerAnimator = null)
 	{
 		Vector3 target3 = new Vector3(target.x, target.y);
 		Vector3 diff = target3 - transform.localPosition;
      
 		RotateToMoveDirection(diff);
-		yield return StartCoroutine(LerpFromTo(transform.localPosition, target3 * gridSize, moveTime));
+		workerAnimator?.PlayMove();
+		yield return StartCoroutine(LerpFromTo(transform.localPosition, target3 * gridSize, moveTime, workerAnimator));
+		workerAnimator?.ResetToIdle();
+		yield return new WaitForSeconds(0.1f);
 		_moveCoroutine = null;
 	}
 
-	private IEnumerator LerpFromTo(Vector3 from, Vector3 to, float time) {
+	private IEnumerator LerpFromTo(Vector3 from, Vector3 to, float time, WorkerAnimator workerAnimator = null) {
 		float elapsedTime = 0f;
 		_isMoving = true;
 
 		while (elapsedTime < time) {
 			float t = elapsedTime / time;
 			t = Mathf.SmoothStep(0f, 1f, t);
-			transform.localPosition = Vector3.Lerp(from, to, t);
-			elapsedTime += Time.deltaTime;
+			if (workerAnimator == null) {
+				transform.localPosition = Vector3.Lerp(from, to, t);
+				elapsedTime += Time.deltaTime;
+			} else if (!workerAnimator.OnContactPointWhileMove) {
+				transform.localPosition = Vector3.Lerp(from, to, t);
+				elapsedTime += Time.deltaTime;
+			}
 			yield return null;
 		}
 
@@ -81,6 +90,7 @@ public class Mover : MonoBehaviour, IMovable {
 	}
 
 	private void RotateToMoveDirection(Vector3 diff) {
+		if (!RotateWhileMove) return;
 		if (diff.x < 0) {
 			transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
 		}
@@ -114,4 +124,4 @@ public class Mover : MonoBehaviour, IMovable {
 			Gizmos.DrawWireCube(pos, new Vector3(gridSize, gridSize));
 		}
 	}
-} 
+}

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using CodeBase.Services;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 
@@ -17,14 +18,18 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 
 	public CommandTarget flower;
 	public CommandTarget flower2;
+	public List<MoveToTarget> zombieMove;
 
 
 	public Transform unZoomPos;
 	public Transform swapPos;
 	public Transform unZoomPos2;
+	public Transform emotePos;
 	public Transform endPos;
 
 	public Worker mainWorker;
+	public EmotionPlayer mainWorkerEmotionPlayer;
+	[FormerlySerializedAs("RemboEmotionPlayer")] public EmotionPlayer remboEmotionPlayer;
 
 	public GameObject mainView;
 	public GameObject remboView;
@@ -94,32 +99,60 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 	}
 
 	private IEnumerator JumpAndChangeMood() {
-		
-		yield return new WaitForSeconds(0.5f);
-		mainWorker.Mover.SetMoveTime(0.2f);
-		mainView.GetComponentInChildren<ChangeMoodAnimator>().currentMood = Mood.Angry;
-		yield return WaitUntilAnimationEnds(mainView.GetComponent<Animator>(), "Jump");
-		CreateMoveCommand(swapPos, 4).onComplete += () =>
+		//yield return WaitUntilAnimationEnds(mainView.GetComponent<Animator>(), "Jump");
+		Action<AnimatorState> handler = null;
+		handler = (state) =>
 		{
-			SwapToCombat();
-			CreateMoveCommand(unZoomPos2, 5).onComplete += () =>
+			if (state != AnimatorState.Jump) return;
+			mainWorkerEmotionPlayer.StopEmotion();
+			mainWorker.Mover.SetMoveTime(0.4f);
+			CreateMoveCommand(swapPos, 4).onComplete += () =>
 			{
-				CinemachineCamera.GetComponent<CinemachineConfiner2D>().BoundingShape2D = null;
-				CreateMoveCommand(endPos, 6).onComplete += () =>
+				SwapToCombat();
+				CreateMoveCommand(unZoomPos2, 5).onComplete += () =>
 				{
-					remboView.GetComponentInChildren<Shooter>().EnableShooting = true;
-					CanUnZoomCamera = true;
+					CinemachineCamera.GetComponent<CinemachineConfiner2D>().BoundingShape2D = null;
+					CreateMoveCommand(emotePos, 6).onComplete += () =>
+					{
+						foreach (MoveToTarget moveToTarget in zombieMove) {
+							moveToTarget.CanMove = true;
+						}
+						StartCoroutine(PlayEmotionAndWait(0f, 0f,
+							() => mainWorkerEmotionPlayer.PlayEmotion(BubbleType.Talk, EmotionType.Like)));
+						StartCoroutine(PlayEmotionAndWait(0f, 0f,
+							() => remboEmotionPlayer.PlayEmotion(BubbleType.Talk, EmotionType.Like)));
+						CreateMoveCommand(endPos, 7).onComplete += () =>
+						{
+							remboView.GetComponentInChildren<Shooter>().EnableShooting = true;
+							CanUnZoomCamera = true;
+						};
+					};
 				};
 			};
+			mainWorker.WorkerAnimator.StateExited -= handler;
 		};
+		mainWorker.WorkerAnimator.StateExited += handler;
+		
+		
+		yield return StartCoroutine(PlayEmotionAndWait(0f, 0f,
+			() => mainWorkerEmotionPlayer.PlayEmotion(BubbleType.Exclamation, EmotionType.Attention)));
+		mainView.GetComponentInChildren<ChangeMoodAnimator>().currentMood = Mood.Angry;
+		mainWorker.WorkerAnimator.DoJump();
 	}
 	
+
 	private void SwapToCombat() {
 		mainView.SetActive(false);
 		remboView.SetActive(true);
+		mainWorker.WorkerAnimator = remboView.GetComponent<WorkerAnimator>();
 		remboView.GetComponentInChildren<Shooter>().EnableShooting = false;
 	}
 	
+	private IEnumerator PlayEmotionAndWait(float beforeTime, float afterTime, Action callback) {
+		yield return new WaitForSeconds(beforeTime);
+		callback();
+		yield return new WaitForSeconds(afterTime);
+	}
 	private IEnumerator WaitUntilAnimationEnds(Animator animator, string trigger)
 	{
 		animator.SetInteger("Action", 99);
