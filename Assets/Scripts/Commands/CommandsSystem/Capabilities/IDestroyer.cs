@@ -1,5 +1,7 @@
 using UnityEngine;
 
 public interface IDestroyer {
-	void Hit(CommandTarget target);
+	void StartHit(CommandTarget target);
+
+	void Init(WorkerAnimator animator);
 } 

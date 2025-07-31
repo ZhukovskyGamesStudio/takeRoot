@@ -19,11 +19,14 @@ public class Worker : MonoBehaviour {
 	
 	
 	private void Start() {
+		ServiceLocator.Container.Single<IWorkerAssigner>().RegisterWorker(this);
+		WorkerAnimator = GetComponentInChildren<WorkerAnimator>();
 		if (TryGetComponent(out _mover)) {
 			AddCapability(CommandType.Move);
 		}
 		if (TryGetComponent(out _destroyer)) {
 			AddCapability(CommandType.Destroy);
+			_destroyer.Init(WorkerAnimator);
 		}
 		if (TryGetComponent(out _searcher)) {
 			AddCapability(CommandType.Search);
@@ -31,8 +34,6 @@ public class Worker : MonoBehaviour {
 		if (TryGetComponent(out _waterer)) {
 			AddCapability(CommandType.Water);
 		}
-		ServiceLocator.Container.Single<IWorkerAssigner>().RegisterWorker(this);
-		WorkerAnimator = GetComponentInChildren<WorkerAnimator>();
 	}
 	
 	public void AddCapability(CommandType capability) {
@@ -59,7 +60,7 @@ public class Worker : MonoBehaviour {
 	
 	//Destroyer
 	public void Hit(CommandTarget target) {
-		ExecutedWithAnimation(AnimatorState.Hit, _destroyer.Hit, target, () => WorkerAnimator.PlayHit(), 1f);
+		_destroyer.StartHit(target);
 	}
 
 	//Searcher

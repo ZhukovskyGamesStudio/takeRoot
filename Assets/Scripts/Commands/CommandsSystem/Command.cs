@@ -2,9 +2,9 @@ using System;
 
 public abstract class BaseCommand : IUpdatable {
 	public int Id;
+	public Worker Worker;
 	public CommandType Type;
 	
-	public Worker Worker;
 	protected CommandTarget Target;
 	
 	public readonly bool IsManualAssignment;
@@ -36,7 +36,10 @@ public abstract class BaseCommand : IUpdatable {
 		inProgress = Worker != null && Target != null;
 
 		if (!inProgress) return;
+		Execute();
+	}
 
+	private void Execute() {
 		if (!Worker.HasPath(Target.InteractPosition.position)) {
 			Worker.CurrentCommandId = -1;
 			return;
@@ -44,7 +47,7 @@ public abstract class BaseCommand : IUpdatable {
 		Worker.MoveTo(Target.InteractPosition.position);
 		if (Worker.IsAtPosition(Target.InteractPosition.position)) Perform();
 	}
-	
+
 	private void HandleTarget() {
 		if (Target != null && Target.CurrentCommandId == -1) {
 			Target = null;

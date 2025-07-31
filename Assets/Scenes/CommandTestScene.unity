@@ -1647,17 +1647,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 262348050924972642, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: moveTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7158748835387097059, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
       propertyPath: m_Name
       value: Chamomile
       objectReference: {fileID: 0}
     - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
       propertyPath: m_LocalPosition.z
