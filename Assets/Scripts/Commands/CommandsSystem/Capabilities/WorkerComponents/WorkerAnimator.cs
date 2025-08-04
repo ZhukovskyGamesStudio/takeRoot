@@ -3,8 +3,9 @@ using TMPro;
 using UnityEngine;
 
 public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
-	
 	[SerializeField]private Animator _animator;
+	
+	private readonly int _hitSpeed = Animator.StringToHash("HitSpeed");
 	
 	private readonly int _idleStateHash = Animator.StringToHash("Idle");
 	private readonly int _craftStateHash = Animator.StringToHash("Craft");
@@ -19,7 +20,6 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 	public event Action<AnimatorState> StateExited;
 
 	public bool OnContactPointWhileMove;
-
 	public void PlayCraft() => _animator.SetTrigger(_craftStateHash);
 	public void PlayWater() => _animator.SetTrigger(_waterStateHash);
 	public void PlaySearch() => _animator.SetTrigger(_searchStateHash);
@@ -33,6 +33,9 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 	public void DoJump() => _animator.SetTrigger(_jumpStateHash);
 
 
+	public void SetHitSpeedMultiplier(float multiplier) {
+		_animator.SetFloat(_hitSpeed, multiplier);
+	}
 	public void EnteredState(int stateHash) {
 		State = StateFor(stateHash);
 		StateEntered?.Invoke(State);

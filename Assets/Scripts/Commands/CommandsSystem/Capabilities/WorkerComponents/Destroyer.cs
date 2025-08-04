@@ -1,23 +1,27 @@
-using System.Threading.Tasks;
+using System.Threading;
 using CodeBase.Services;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Destroyer : MonoBehaviour, IDestroyer {
 	[Header("Destroyer Settings")]
 	public float damage = 25f;
 	public float hitCooldown = 0.5f;
+	public float hitSpeedMultiplier = 1f;
 	
 	private float _lastHitTime;
 	private WorkerAnimator _animator;
 	private IAsyncRunner _asyncRunner;
 	private bool _isDestroying;
 	private bool _hit;
+	private CancellationTokenSource _taskCts;
 
 	public void Init(WorkerAnimator animator) {
 		_animator = animator;
+		_animator.SetHitSpeedMultiplier(hitSpeedMultiplier);
 		_asyncRunner = ServiceLocator.Container.Single<IAsyncRunner>();
-		_animator.StateExited += state => {
+		_animator.StateExited += state => { // TODO: unsubscribe on destroyed
 			if (state == AnimatorState.Hit) {
 				_hit = true;
 			}
@@ -29,7 +33,7 @@ public class Destroyer : MonoBehaviour, IDestroyer {
 		};
 	}
 
-	public void StartHit(CommandTarget target) {
+	public void Hit(CommandTarget target) {
 		if (_isDestroying) return;
 		if (OnCooldown()) return;
 
@@ -48,6 +52,12 @@ public class Destroyer : MonoBehaviour, IDestroyer {
 		_lastHitTime = Time.time;
 		_isDestroying = false;
 	}
-	
-	
+	public void Cancel() {
+		if (_taskCts != null && !_taskCts.Token.IsCancellationRequested) {
+			_taskCts.Cancel();
+			_taskCts.Dispose();
+			_taskCts = null;
+			_animator.ResetToIdle();
+		}
+	}
 } 

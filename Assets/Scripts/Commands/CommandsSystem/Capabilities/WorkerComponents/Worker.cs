@@ -47,6 +47,9 @@ public class Worker : MonoBehaviour {
 	public bool CanPerformNow(CommandType commandType) {
 		return ((CommandCapabilities & commandType) == commandType) && CurrentCommandId == -1;
 	}
+	public void CancelCurrentActions() {
+		_destroyer?.Cancel();
+	}
 
 	
 	//Mover
@@ -60,7 +63,7 @@ public class Worker : MonoBehaviour {
 	
 	//Destroyer
 	public void Hit(CommandTarget target) {
-		_destroyer.StartHit(target);
+		_destroyer.Hit(target);
 	}
 
 	//Searcher

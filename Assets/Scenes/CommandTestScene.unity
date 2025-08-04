@@ -1651,6 +1651,14 @@ PrefabInstance:
       propertyPath: moveTime
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4852408981377097210, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: hitCooldown
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852408981377097210, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: hitSpeedMultiplier
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7158748835387097059, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
       propertyPath: m_Name
       value: Chamomile
@@ -6649,6 +6657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 25
   hitCooldown: 0.5
+  hitSpeedMultiplier: 1
 --- !u!114 &1609735679
 MonoBehaviour:
   m_ObjectHideFlags: 0
