@@ -9,6 +9,7 @@ public class DestroyCommand : BaseCommand {
 	public DestroyCommand(int id, CommandTarget target, ICommandService commandService, IUpdateService updateService, Worker worker = null) : base(id, commandService, updateService, worker) {
 		this.Target = target;
 		Target.CurrentCommandId = id;
+		Type = CommandType.Destroy;
 	}
 
 	public override void Update() {

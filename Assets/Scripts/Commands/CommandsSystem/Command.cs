@@ -70,10 +70,11 @@ public abstract class BaseCommand : IUpdatable {
 	public void AssignWorker(Worker worker) {
 		this.Worker = worker;
 		this.Worker.CurrentCommandId = Id;
+		this.Worker.CommandType = Type;
 	}
 
 	public virtual void Cancel() {
-		if (Worker != null) Worker.CurrentCommandId = -1;
+		if (Worker != null) Worker.CancelCommand();
 		if (Target != null) Target.CurrentCommandId = -1;
 		_updateService.Unregister(this);
 		_commandService.UnregisterCommand(Id);

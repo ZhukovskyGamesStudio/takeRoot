@@ -1,7 +1,11 @@
 using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 
 public class UniTaskAsyncRunner : IAsyncRunner {
+	public async UniTask Wait(float seconds) {
+		await UniTask.Delay(TimeSpan.FromSeconds(seconds));
+	}
 	public async UniTask WaitAndDo(float seconds, Action action) {
 		await UniTask.Delay(TimeSpan.FromSeconds(seconds));
 		action?.Invoke();
@@ -12,7 +16,7 @@ public class UniTaskAsyncRunner : IAsyncRunner {
 		action?.Invoke();
 	}
 
-	public async UniTask WaitUntil(Func<bool> predicate) {
-		await UniTask.WaitUntil(predicate);
+	public async UniTask WaitUntil(Func<bool> predicate, CancellationToken cts = default) {
+		await UniTask.WaitUntil(predicate, cancellationToken: cts);
 	}
 }

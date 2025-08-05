@@ -36,18 +36,19 @@ public class Destroyer : MonoBehaviour, IDestroyer {
 	public void Hit(CommandTarget target) {
 		if (_isDestroying) return;
 		if (OnCooldown()) return;
-
-		DoHit(target).Forget();
+	
+		_taskCts = new CancellationTokenSource();
+		DoHit(target, _taskCts.Token).Forget();
 	}
 
 	private bool OnCooldown() {
 		return Time.time - _lastHitTime < hitCooldown;
 	}
 
-	private async UniTaskVoid DoHit(CommandTarget target) {
+	private async UniTaskVoid DoHit(CommandTarget target, CancellationToken token) {
 		_isDestroying = true;
 		_animator.PlayHit();
-		await _asyncRunner.WaitUntil(() => _hit);
+		await _asyncRunner.WaitUntil(() => _hit, token);
 		target.TakeDamage(damage);
 		_lastHitTime = Time.time;
 		_isDestroying = false;
@@ -58,6 +59,7 @@ public class Destroyer : MonoBehaviour, IDestroyer {
 			_taskCts.Dispose();
 			_taskCts = null;
 			_animator.ResetToIdle();
+			_isDestroying = false;
 		}
 	}
 } 

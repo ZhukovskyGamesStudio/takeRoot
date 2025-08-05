@@ -8,7 +8,8 @@ using UnityEngine.Serialization;
 public class Worker : MonoBehaviour {
 	public CommandType CommandCapabilities { get; private set; }
 	public WorkerAnimator WorkerAnimator { get; set; }
-	
+
+	public CommandType CommandType = CommandType.None;
 	public int CurrentCommandId = -1; // when no command = -1
 	public bool Performing;
 	
@@ -30,6 +31,7 @@ public class Worker : MonoBehaviour {
 		}
 		if (TryGetComponent(out _searcher)) {
 			AddCapability(CommandType.Search);
+			_searcher.Init(WorkerAnimator);
 		}
 		if (TryGetComponent(out _waterer)) {
 			AddCapability(CommandType.Water);
@@ -47,8 +49,16 @@ public class Worker : MonoBehaviour {
 	public bool CanPerformNow(CommandType commandType) {
 		return ((CommandCapabilities & commandType) == commandType) && CurrentCommandId == -1;
 	}
-	public void CancelCurrentActions() {
-		_destroyer?.Cancel();
+	public void CancelCommand() {
+		CurrentCommandId = -1;
+		switch (CommandType) {
+			case CommandType.Destroy:
+				_destroyer.Cancel();
+				break;
+			case CommandType.Search:
+				_searcher.Cancel();
+				break;
+		}
 	}
 
 	
@@ -68,7 +78,7 @@ public class Worker : MonoBehaviour {
 
 	//Searcher
 	public void Search(CommandTarget target) {
-		ExecutedWithAnimation(AnimatorState.Search, _searcher.Search, target, () => WorkerAnimator.PlaySearch(), 1f);
+		_searcher.Search(target);
 	}
 
 	//Waterer

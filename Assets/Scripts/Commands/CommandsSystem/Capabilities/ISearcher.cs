@@ -1,5 +1,5 @@
 using UnityEngine;
 
-public interface ISearcher {
+public interface ISearcher : IPerformerComponent {
 	void Search(CommandTarget target);
 } 
