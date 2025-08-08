@@ -1329,6 +1329,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chamomile 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7158748835387097059, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5
@@ -4916,6 +4920,96 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+--- !u!1001 &1061882123
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 262348050924972642, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: moveTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852408981377097210, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: hitCooldown
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4852408981377097210, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: hitSpeedMultiplier
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7158748835387097059, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: m_Name
+      value: Chamomile 1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7647402365900230022, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 993329386478057257, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7158748835387097059, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1061882125}
+  m_SourcePrefab: {fileID: 100100000, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+--- !u!1 &1061882124 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7158748835387097059, guid: 3615e66c83545504d98cdc1a893dc260, type: 3}
+  m_PrefabInstance: {fileID: 1061882123}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1061882125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061882124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0686627f6564fdb8e5e27bf97af28a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1069669931
 GameObject:
   m_ObjectHideFlags: 0
@@ -6244,3 +6338,4 @@ SceneRoots:
   - {fileID: 79298425}
   - {fileID: 1696536862}
   - {fileID: 724101267}
+  - {fileID: 1061882123}
