@@ -11,6 +11,7 @@ namespace AI {
 		
 		public IMovable Mover;
 		public ISearcher Searcher;
+		public IDestroyer Destroyer;
 		public WorkerAnimator WorkerAnimator { get; private set; }
 
 
@@ -19,7 +20,9 @@ namespace AI {
 			Data = new SettlerData();
 			Mover = GetComponent<IMovable>();
 			Searcher = GetComponent<ISearcher>();
+			Destroyer = GetComponent<IDestroyer>();
 			Searcher.Init(WorkerAnimator);
+			Destroyer.Init(WorkerAnimator);
 
 			_root = CreateBT();
 		}

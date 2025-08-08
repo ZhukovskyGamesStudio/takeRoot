@@ -5,8 +5,11 @@ namespace AI {
 		
 		public JobType currJob;
 		public CommandTarget currTarget;
+
+		public float HitTime = 1.3f;
 		
 		public bool HasJob => currJob != JobType.None;
+		
 
 	}
 }

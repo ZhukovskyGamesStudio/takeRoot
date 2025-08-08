@@ -5,7 +5,9 @@ namespace AI.Node.Jobs {
 		private Settler _settler;
 		
 		public Job_Destroy(Settler settler) : base(new List<BTNode>() {
-			//new Action_MoveTo(settler.Mover, settler.Data.currTarget),
+			new Conditional(() => settler.Data.currJob == JobType.Destroy),
+			new Action_MoveTo(settler),
+			new Action_Hit(settler)
 		}) { }
 	}
 }

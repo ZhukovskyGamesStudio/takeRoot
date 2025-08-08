@@ -53,6 +53,7 @@ public class CommandTarget : MonoBehaviour {
 	//Health
 	public void TakeDamage(float damage) => _health?.TakeDamage(damage);
 	public bool IsDead => _health?.IsDead ?? false;
+	public void Die() => _health.Die();
 	
 	//Search
 	public void Search() => _searchable.Search();

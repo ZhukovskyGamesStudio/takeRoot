@@ -11,7 +11,6 @@ public class Health : MonoBehaviour {
 	
 	public bool IsDead {
 		get => currentHealth <= 0f;
-		set => throw new NotImplementedException();
 	}
 
 	private void Start() {
@@ -21,11 +20,6 @@ public class Health : MonoBehaviour {
 	public void TakeDamage(float damage) {
 		currentHealth = Mathf.Max(0f, currentHealth - damage);
 		OnHealthChanged?.Invoke(currentHealth);
-		
-		if (IsDead) {
-			Die();
-			return;
-		}
 	}
 	public void Die() {
 		OnDeath?.Invoke();

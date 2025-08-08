@@ -3,7 +3,6 @@ using UnityEngine;
 namespace AI.Node.Jobs {
 	public class Action_SearchObject : BTNode {
 		private Settler _settler;
-		private float _lastSearchTime;
 
 		public Action_SearchObject(Settler settler) {
 			_settler = settler;

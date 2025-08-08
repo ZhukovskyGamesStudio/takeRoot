@@ -12,7 +12,7 @@ namespace AI.Node.Jobs {
 		public override BTNodeState Evaluate() {
 			var obj = Object.FindObjectsByType<CommandTarget>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault(s => !s.Searched);
 			if (obj == null) return BTNodeState.Failure;
-			_settler.Data.currJob = JobType.Search;
+			_settler.Data.currJob = JobType.Destroy;
 			_settler.Data.currTarget = obj;
 			return BTNodeState.Success;
 		}
