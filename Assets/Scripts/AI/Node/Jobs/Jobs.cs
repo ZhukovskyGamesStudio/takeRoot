@@ -2,10 +2,15 @@ using System.Collections.Generic;
 
 namespace AI.Node.Jobs {
 	public class Jobs : Sequence {
-		public Jobs(Settler settler) : base(new List<BTNode>() {
+		public Jobs(Settler settler, ICommandService commands) : base(new List<BTNode>() {
+			new Selector(new List<BTNode>() {
+				new Conditional(() => !settler.Data.HasJob),
+				new Conditional(() => settler.Data.currTarget.CurrentJobType != JobType.None),
+				new ResetJobOnSettler(settler)
+			}),
 			new Selector(new List<BTNode>() {
 				new Conditional(() => settler.Data.HasJob),
-				new Action_FindJob(settler)
+				new Action_FindJob(settler, commands)
 			}),
 			new Conditional(() => settler.Data.HasJob),
 			new Selector(new List<BTNode>(){		
@@ -13,7 +18,7 @@ namespace AI.Node.Jobs {
 				new Job_Destroy(settler),
 				new ResetJobOnSettler(settler)
 			}),
-			new CompleteJob(settler)
+			new ResetJobOnSettler(settler)
 		}) { }
 	}
 }
@@ -21,5 +26,7 @@ namespace AI.Node.Jobs {
 public enum JobType {
 	None,
 	Search,
-	Destroy
+	Destroy,
+	Water,
+	Cancel
 }

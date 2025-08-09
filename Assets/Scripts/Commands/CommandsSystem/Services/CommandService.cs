@@ -2,8 +2,7 @@ using System.Collections.Generic;
 
 public class CommandService : ICommandService {
 	
-	public Dictionary<int, BaseCommand> Commands { get; }= new Dictionary<int, BaseCommand>();
-	
+	public Dictionary<int, CommandTarget> JobTargets { get; }= new Dictionary<int, CommandTarget>();
 	
 	public void HandleCommandRequest(CommandType type, bool withSelectedSettler) {
 		switch (type) {
@@ -15,14 +14,27 @@ public class CommandService : ICommandService {
 				break;
 		}
 	}
-	public void CancelCommand(int id) {
-		var command = Commands[id];
-		command.Cancel();
+
+	public CommandTarget GetJob() {
+		foreach (var kvp in JobTargets) {
+			var id = kvp.Key;
+			var jobTarget = kvp.Value;
+			
+			if (jobTarget.Reserved == false)
+				return jobTarget;
+		}
+		return null;
 	}
-	public void RegisterCommand(int id, BaseCommand baseCommand) {
-		Commands.Add(id, baseCommand);
+	public void RegisterJob(int id, CommandTarget target, JobType jobType) {
+		target.CurrentJobType = jobType;
+		target.CurrentCommandId = id;
+		JobTargets.Add(id, target);
 	}
-	public void UnregisterCommand(int id) {
-		Commands.Remove(id);
+	public void UnregisterJob(CommandTarget target) {
+		var id = target.CurrentCommandId;
+		var jobTarget = JobTargets[id];
+		jobTarget.CurrentCommandId = -1;
+		jobTarget.CurrentJobType = JobType.None;
+		JobTargets.Remove(id);
 	}
 }

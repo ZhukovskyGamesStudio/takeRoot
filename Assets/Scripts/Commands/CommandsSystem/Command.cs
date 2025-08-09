@@ -26,7 +26,7 @@ public abstract class BaseCommand : IUpdatable {
 		_commandService = commandService;
 		_updateService = updateService;
 		
-		_commandService.RegisterCommand(Id, this);
+		//_commandService.RegisterCommand(Id, this);
 		_updateService.Register(this);
 	}
 	
@@ -77,7 +77,7 @@ public abstract class BaseCommand : IUpdatable {
 		if (Worker != null) Worker.CancelCommand();
 		if (Target != null) Target.CurrentCommandId = -1;
 		_updateService.Unregister(this);
-		_commandService.UnregisterCommand(Id);
+		//_commandService.UnregisterJob(Id);
 		
 		onComplete?.Invoke();
 	}

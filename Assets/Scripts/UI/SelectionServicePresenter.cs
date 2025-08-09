@@ -10,7 +10,7 @@ public class SelectionServicePresenter : IDisposable {
 	public SelectionServicePresenter(IJobCommandsInputHandlerService commandInputHandler, ISelectionService selection) {
 		_selection = selection;
 		SelectionEnabled = _selection.IsEnabled;
-		commandInputHandler.PendingCommand.Subscribe(_ => SelectionEnabled.Value = commandInputHandler.PendingCommand.Value == CommandType.None);
+		commandInputHandler.PendingCommand.Subscribe(_ => SelectionEnabled.Value = commandInputHandler.PendingCommand.Value == JobType.None);
 	}
 
 	public void Dispose() {

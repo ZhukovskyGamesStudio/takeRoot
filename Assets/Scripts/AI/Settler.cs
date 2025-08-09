@@ -1,6 +1,8 @@
 using System;
+using System.ComponentModel.Design;
 using AI.Node;
 using AI.Node.Jobs;
+using CodeBase.Services;
 using UnityEngine;
 
 namespace AI {
@@ -32,7 +34,8 @@ namespace AI {
 		}
 
 		private BTNode CreateBT() {
-			var root = new Jobs(this);
+			var commands = ServiceLocator.Container.Single<ICommandService>();
+			var root = new Jobs(this, commands);
 			return root;
 		}
 	}

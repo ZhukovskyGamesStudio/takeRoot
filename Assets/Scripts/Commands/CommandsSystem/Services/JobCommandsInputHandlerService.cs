@@ -11,7 +11,7 @@ public class JobCommandsInputHandlerService : IJobCommandsInputHandlerService, I
 	private readonly IUpdateService _updateService;
 
 	private int id = 0;
-	public ReactiveProperty<CommandType> PendingCommand { get; set; } = new ReactiveProperty<CommandType>();
+	public ReactiveProperty<JobType> PendingCommand { get; set; } = new ReactiveProperty<JobType>();
 	public bool IsEnabled { get; set; } = true;
 
 	public JobCommandsInputHandlerService(IInputService input, IPhysicsService physics, ICommandService commandService, IUpdateService updateService) {
@@ -24,35 +24,27 @@ public class JobCommandsInputHandlerService : IJobCommandsInputHandlerService, I
 	public void Update() {
 		if (!IsEnabled) return;
 		if (Input.GetKeyDown(KeyCode.Escape)) {
-			PendingCommand.Value = CommandType.None;
+			PendingCommand.Value = JobType.None;
 		}
-		if (PendingCommand.Value == CommandType.None) return;
+		if (PendingCommand.Value == JobType.None) return;
 		
 		if (_input.GetMouseButtonDown(MouseButton.Left)) {
-			_commandService.HandleCommandRequest(PendingCommand.Value, false);
 			var target = _physics.Raycast<CommandTarget>(_input.GetWorldMousePosition(), Vector2.zero);
-			if (target != null)
+			if (target != null) {
+				if (PendingCommand.Value == JobType.Cancel) {
+					CancelCommand(target);
+					return;
+				}
 				CreateCommand(target);
+			}
 		}
 	}
 
+	private void CancelCommand(CommandTarget target) {
+		_commandService.UnregisterJob(target);
+	}
+
 	private void CreateCommand(CommandTarget target) {
-		switch (PendingCommand.Value) {
-			case CommandType.Search:
-				if (target.CanPerform(PendingCommand.Value))
-					new SearchCommand(id++, target, _commandService, _updateService);
-				break;
-			case CommandType.Destroy:
-				if (target.CanPerform(PendingCommand.Value))
-					new DestroyCommand(id++, target, _commandService, _updateService);
-				break;
-			case CommandType.Move:
-				if (target.CanPerform(PendingCommand.Value))
-					new MoveToJob(id++, _input.GetWorldMousePosition(), _commandService, _updateService);
-				break;
-			case CommandType.Cancel:
-				target.CurrentCommandId = -1;
-				break;
-		}
+		_commandService.RegisterJob(id++ ,target, PendingCommand.Value);
 	}
 }

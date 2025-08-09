@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CommandPresentation : IDisposable {
 
-	public ReactiveProperty<CommandType> PendingCommand;
+	public ReactiveProperty<JobType> PendingCommand;
 	
 	private CommandView _view;
 	
@@ -15,11 +15,11 @@ public class CommandPresentation : IDisposable {
 		PendingCommand = _jobCommandsInputHandler.PendingCommand;
 
 		_view = view;
-		_view.SearchCommandButton.OnClickAsObservable().Subscribe(_ => PendingCommand.Value = CommandType.Search);
-		_view.DestroyCommandButton.OnClickAsObservable().Subscribe(_ => PendingCommand.Value = CommandType.Destroy);
+		_view.SearchCommandButton.OnClickAsObservable().Subscribe(_ => PendingCommand.Value = JobType.Search);
+		_view.DestroyCommandButton.OnClickAsObservable().Subscribe(_ => PendingCommand.Value = JobType.Destroy);
 		
-		PendingCommand.Subscribe(_ => _view.SearchCommandButton.interactable = PendingCommand.Value != CommandType.Search);
-		PendingCommand.Subscribe(_ => _view.DestroyCommandButton.interactable = PendingCommand.Value != CommandType.Destroy);
+		PendingCommand.Subscribe(_ => _view.SearchCommandButton.interactable = PendingCommand.Value != JobType.Search);
+		PendingCommand.Subscribe(_ => _view.DestroyCommandButton.interactable = PendingCommand.Value != JobType.Destroy);
 	}
 
 	public void Dispose() {

@@ -11,6 +11,9 @@ public class CommandTarget : MonoBehaviour {
 	public Transform InteractPosition;
 	
 	public int CurrentCommandId = -1;
+
+	public JobType CurrentJobType = JobType.None;
+	public bool Reserved;
 	
 	private Health _health;
 	private SearchableObj _searchable;

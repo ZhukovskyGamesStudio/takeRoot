@@ -4,15 +4,18 @@ using UnityEngine;
 namespace AI.Node.Jobs {
 	public class Action_FindJob : BTNode {
 		private Settler _settler;
+		private readonly ICommandService _commands;
 
-		public Action_FindJob(Settler settler) {
+		public Action_FindJob(Settler settler, ICommandService commands) {
 			_settler = settler;
+			_commands = commands;
 		}
 
 		public override BTNodeState Evaluate() {
-			var obj = Object.FindObjectsByType<CommandTarget>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault(s => !s.Searched);
+			var obj = _commands.GetJob();
 			if (obj == null) return BTNodeState.Failure;
-			_settler.Data.currJob = JobType.Destroy;
+			obj.Reserved = true;
+			_settler.Data.currJob = obj.CurrentJobType;
 			_settler.Data.currTarget = obj;
 			return BTNodeState.Success;
 		}
