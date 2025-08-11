@@ -3,11 +3,8 @@ using AI.Node;
 
 namespace AI {
 	public class Selector : BTNode {
-		private List<BTNode> _children;
+		private List<BTNode> _children = new List<BTNode>(5);
 
-		public Selector(List<BTNode> children) {
-			_children = children;
-		}
 
 		public override BTNodeState Evaluate() {
 			foreach (var child in _children) {
@@ -23,6 +20,11 @@ namespace AI {
 			}
 
 			return BTNodeState.Failure;
+		}
+		
+		public Selector AddChild(BTNode child) {
+			_children.Add(child);
+			return this;
 		}
 	}
 }

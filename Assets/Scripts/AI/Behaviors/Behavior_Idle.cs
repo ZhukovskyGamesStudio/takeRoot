@@ -5,15 +5,15 @@ using UnityEngine;
 
 namespace AI.Behaviors {
 	public class Behavior_Idle : Sequence {
-		public Behavior_Idle(Settler settler) : base(new List<BTNode>() {
-			new DoUntil(() => settler.Data.IdleMoveTimer += Time.deltaTime, 
-				() => settler.Data.IdleMoveTimer >= settler.Data.IdleMoveCooldown),
-			new Selector(new List<BTNode>() {
-				new Conditional(() => settler.Data.HasMovePos),
-				new Action_PickRandomPos(settler)
-			}),
-			new Action_MoveToPos(settler),
-			new Action_ClearMovePos(settler)
-		}) { }
+		public Behavior_Idle(Settler settler) { 			
+			AddChild(new DoUntil(() => settler.Data.IdleMoveTimer += Time.deltaTime,
+				() => settler.Data.IdleMoveTimer >= settler.Data.IdleMoveCooldown));
+
+			var pickMovePos = new Selector()
+				.AddChild(new Conditional(() => settler.Data.HasMovePos))
+				.AddChild(new Action_PickRandomPos(settler));
+			AddChild(pickMovePos);
+			AddChild(new Action_MoveToPos(settler));
+			AddChild(new Action_ClearMovePos(settler));}
 	}
 }

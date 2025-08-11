@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
+using AI.Behaviors;
 using AI.Node;
 using AI.Node.Jobs;
 using CodeBase.Services;
@@ -9,7 +11,6 @@ namespace AI {
 	public class Settler : MonoBehaviour {
 		private BTNode _root;
 		public SettlerData Data;
-		
 		
 		public IMovable Mover;
 		public ISearcher Searcher;
@@ -35,7 +36,7 @@ namespace AI {
 
 		private BTNode CreateBT() {
 			var commands = ServiceLocator.Container.Single<ICommandService>();
-			var root = new Jobs(this, commands);
+			var root = new BTRoot(this, commands);
 			return root;
 		}
 	}
