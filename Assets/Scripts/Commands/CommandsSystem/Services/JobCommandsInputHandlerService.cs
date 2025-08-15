@@ -45,6 +45,7 @@ public class JobCommandsInputHandlerService : IJobCommandsInputHandlerService, I
 	}
 
 	private void CreateCommand(CommandTarget target) {
+		if (!target.CanPerform(PendingCommand.Value)) return;
 		_commandService.RegisterJob(id++ ,target, PendingCommand.Value);
 	}
 }

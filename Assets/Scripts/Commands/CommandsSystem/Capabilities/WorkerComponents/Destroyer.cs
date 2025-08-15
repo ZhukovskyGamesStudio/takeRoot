@@ -8,7 +8,7 @@ public class Destroyer : MonoBehaviour, IDestroyer {
 	[Header("Destroyer Settings")]
 	public float damage = 25f;
 	public float hitCooldown = 0.5f;
-	public float hitSpeedMultiplier = 1f;
+	public float hitSpeedMultiplier = 0.3f;
 	
 	private float _lastHitTime;
 	private WorkerAnimator _animator;
@@ -21,16 +21,6 @@ public class Destroyer : MonoBehaviour, IDestroyer {
 		_animator = animator;
 		_animator.SetHitSpeedMultiplier(hitSpeedMultiplier);
 		_asyncRunner = ServiceLocator.Container.Single<IAsyncRunner>();
-		_animator.StateExited += state => { // TODO: unsubscribe on destroyed
-			if (state == AnimatorState.Hit) {
-				_hit = true;
-			}
-		};
-		_animator.StateEntered += state => {
-			if (state == AnimatorState.Hit) {
-				_hit = false;
-			}
-		};
 	}
 
 	public void Hit(CommandTarget target) {
@@ -48,9 +38,12 @@ public class Destroyer : MonoBehaviour, IDestroyer {
 	private async UniTaskVoid DoHit(CommandTarget target, CancellationToken token) {
 		_isDestroying = true;
 		_animator.PlayHit();
-		await _asyncRunner.WaitUntil(() => _hit, token);
-		target.TakeDamage(damage);
-		_lastHitTime = Time.time;
+		await _asyncRunner.Wait(hitSpeedMultiplier, token);
+		if (!token.IsCancellationRequested) {
+			target.TakeDamage(damage);
+			_animator.ResetToIdle();
+			_lastHitTime = Time.time;
+		}
 		_isDestroying = false;
 	}
 	public void Cancel() {

@@ -1,16 +1,17 @@
 using System;
+using CodeBase.Services;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class CommandTarget : MonoBehaviour {
-	public CommandType CommandCapabilities { get; private set; }
+	public JobType JobCapabilities { get; private set; }
 
 	public bool UseAnimatorWhenPerform = true;
 	public Animator PerformingAnimator;
 	
 	public Transform InteractPosition;
 	
-	public int CurrentCommandId = -1;
+	public int CurrentJobId = -1;
 
 	public JobType CurrentJobType = JobType.None;
 	public bool Reserved;
@@ -22,28 +23,25 @@ public class CommandTarget : MonoBehaviour {
 
 	private void Start() {
 		if (TryGetComponent(out _health))
-			AddCapability(CommandType.Destroy);
+			AddCapability(JobType.Destroy);
 		if (TryGetComponent(out _searchable)){
-			AddCapability(CommandType.Search);
-			_searchable.onSearched += () => RemoveCapability(CommandType.Search);
+			AddCapability(JobType.Search);
+			_searchable.onSearched += () => RemoveCapability(JobType.Search);
 		}
 		if (TryGetComponent(out _waterLevel)) {
-			AddCapability(CommandType.Water);
-		}
-		if (TryGetComponent(out _carriable)) {
-			AddCapability(CommandType.Carry);
+			AddCapability(JobType.Water);
 		}
 	}
 	
-	public void AddCapability(CommandType command) {
-		CommandCapabilities |= command;
+	public void AddCapability(JobType job) {
+		JobCapabilities |= job;
 	}
-	public void RemoveCapability(CommandType command) {
-		CommandCapabilities &= ~command;
+	public void RemoveCapability(JobType job) {
+		JobCapabilities &= ~job;
 	}
 
-	public bool CanPerform(CommandType command) {
-		return (CommandCapabilities & command) == command && CurrentCommandId == -1;
+	public bool CanPerform(JobType job) {
+		return (JobCapabilities & job) == job && CurrentJobId == -1;
 	}
 
 	public void SetPerform(bool isPerforming) {
@@ -51,6 +49,10 @@ public class CommandTarget : MonoBehaviour {
 		if (isPerforming) {	
 			PerformingAnimator.SetTrigger("Work");
 		} else PerformingAnimator?.SetTrigger("Idle");
+	}
+
+	public void CancelJob() {
+		ServiceLocator.Container.Single<ICommandService>().UnregisterJob(this); //TODO: cache service
 	}
 	
 	//Health

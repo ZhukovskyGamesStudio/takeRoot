@@ -14,6 +14,7 @@ namespace AI.Node.Jobs {
 			_settler.Data.currTarget = null;
 			_settler.Searcher.Cancel();
 			_settler.Destroyer.Cancel();
+			_settler.Waterer.Cancel();
 			return BTNodeState.Failure;
 		}
 	}

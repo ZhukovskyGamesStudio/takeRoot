@@ -8,7 +8,7 @@ namespace AI {
 
 		public override BTNodeState Evaluate() {
 			foreach (var child in _children) {
-				var result = child.Evaluate();
+				var result = child.EvaluateWithDebug();
 
 				if (result == BTNodeState.Success) {
 					return BTNodeState.Success;

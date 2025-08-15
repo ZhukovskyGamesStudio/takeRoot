@@ -6,7 +6,7 @@ namespace AI.Node {
 		
 		public override BTNodeState Evaluate() {
 			foreach (BTNode child in _children) {
-				var result = child.Evaluate();
+				var result = child.EvaluateWithDebug();
 
 				if (result == BTNodeState.Failure) {
 					return _state = BTNodeState.Failure;

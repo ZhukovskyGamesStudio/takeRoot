@@ -12,6 +12,7 @@ namespace AI.Node.Jobs {
 			var searchable = _settler.Data.currTarget;
 			if (searchable.Searched) {
 				_settler.Searcher.Cancel();
+				_settler.Data.currTarget.CancelJob();
 				searchable.EndSearch();
 				return BTNodeState.Success;
 			}

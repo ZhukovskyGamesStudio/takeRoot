@@ -8,12 +8,11 @@ namespace AI.Node.Jobs {
 		protected JobType JobType = JobType.None;
 		protected JobRunner(Settler settler){
 			Settler = settler;
-			InsertChild(0, new Conditional(() => Settler.Data.currJob == JobType));
 		}
 
-		protected void SetOnFailed(Func<bool> condition) {
+		protected void InsertOnFailed(Func<bool> condition) {
 			var conditional = new Conditional(condition);
-			InsertChild(1, new FailConditionAction(conditional, OnFailedAction));
+			InsertChild(0, new FailConditionAction(conditional, OnFailedAction));
 		}
 		protected abstract void OnFailedAction();
 	}

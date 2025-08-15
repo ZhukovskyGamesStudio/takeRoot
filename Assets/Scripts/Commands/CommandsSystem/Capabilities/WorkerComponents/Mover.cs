@@ -25,13 +25,13 @@ public class Mover : MonoBehaviour, IMovable {
 	}
 	
 	public void MoveTo(Vector2 targetPos, WorkerAnimator workerAnimator = null) {
+		if (_isMoving) return;
 		if (_path == null || _targetPosition != targetPos) {
 			_targetPosition = targetPos;
 			_path = _pathfindService.FindPath(position, targetPos);
 		}
 		if (_path == null) return; //TODO: evaluate path
 		
-		_isMoving = true;
 		var indexOfNextStep = _path.IndexOf(position) + 1;
 		if (indexOfNextStep == _path.Count) return;
 		var next = _path[indexOfNextStep];

@@ -3,7 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 
 public class UniTaskAsyncRunner : IAsyncRunner {
-	public async UniTask Wait(float seconds) {
+	public async UniTask Wait(float seconds, CancellationToken cts = default) {
 		await UniTask.Delay(TimeSpan.FromSeconds(seconds));
 	}
 	public async UniTask WaitAndDo(float seconds, Action action) {

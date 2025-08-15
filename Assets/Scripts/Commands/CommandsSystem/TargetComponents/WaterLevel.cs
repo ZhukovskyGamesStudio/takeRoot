@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -14,6 +15,7 @@ public class WaterLevel : MonoBehaviour {
 
 	public void Water(float amount) {
 		currentWater += amount;
+		currentWater = Math.Clamp(currentWater, 0, maxWater);
 	}
 	
 

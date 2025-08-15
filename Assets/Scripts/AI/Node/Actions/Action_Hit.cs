@@ -9,6 +9,7 @@ namespace AI.Node.Jobs {
 			var damagable = _settler.Data.currTarget;
 			if (damagable.IsDead) {
 				_settler.Destroyer.Cancel();
+				_settler.Data.currTarget.CancelJob();
 				damagable.Die();
 				return BTNodeState.Success;
 			}

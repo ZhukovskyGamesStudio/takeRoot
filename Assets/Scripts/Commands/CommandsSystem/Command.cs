@@ -49,7 +49,7 @@ public abstract class BaseCommand : IUpdatable {
 	}
 
 	private void HandleTarget() {
-		if (Target != null && Target.CurrentCommandId == -1) {
+		if (Target != null && Target.CurrentJobId == -1) {
 			Target = null;
 			Cancel();
 		}
@@ -75,7 +75,7 @@ public abstract class BaseCommand : IUpdatable {
 
 	public virtual void Cancel() {
 		if (Worker != null) Worker.CancelCommand();
-		if (Target != null) Target.CurrentCommandId = -1;
+		if (Target != null) Target.CurrentJobId = -1;
 		_updateService.Unregister(this);
 		//_commandService.UnregisterJob(Id);
 		

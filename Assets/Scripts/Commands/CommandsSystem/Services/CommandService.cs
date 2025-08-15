@@ -27,13 +27,13 @@ public class CommandService : ICommandService {
 	}
 	public void RegisterJob(int id, CommandTarget target, JobType jobType) {
 		target.CurrentJobType = jobType;
-		target.CurrentCommandId = id;
+		target.CurrentJobId = id;
 		JobTargets.Add(id, target);
 	}
 	public void UnregisterJob(CommandTarget target) {
-		var id = target.CurrentCommandId;
+		var id = target.CurrentJobId;
 		var jobTarget = JobTargets[id];
-		jobTarget.CurrentCommandId = -1;
+		jobTarget.CurrentJobId = -1;
 		jobTarget.CurrentJobType = JobType.None;
 		JobTargets.Remove(id);
 	}
