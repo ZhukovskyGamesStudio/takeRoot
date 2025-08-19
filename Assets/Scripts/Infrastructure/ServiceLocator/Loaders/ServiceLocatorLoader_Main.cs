@@ -39,7 +39,6 @@ public class ServiceLocatorLoader_Main {
 		_services.RegisterSingle<IJobCommandsInputHandlerService>(new JobCommandsInputHandlerService(
 			_services.Single<IInputService>(),
 			_services.Single<IPhysicsService>(),
-			_services.Single<ICommandService>(),
 			_services.Single<IUpdateService>()));
 		_services.RegisterSingle<IWorkerAssigner>(new WorkerAssigner(_services.Single<IUpdateService>(), _services.Single<ICommandService>()));
 	}

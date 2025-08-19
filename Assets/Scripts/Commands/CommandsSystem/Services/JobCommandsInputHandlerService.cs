@@ -7,17 +7,15 @@ using Object = System.Object;
 public class JobCommandsInputHandlerService : IJobCommandsInputHandlerService, IUpdatable {
 	private readonly IInputService _input;
 	private readonly IPhysicsService _physics;
-	private readonly ICommandService _commandService;
 	private readonly IUpdateService _updateService;
 
 	private int id = 0;
 	public ReactiveProperty<JobType> PendingCommand { get; set; } = new ReactiveProperty<JobType>();
 	public bool IsEnabled { get; set; } = true;
 
-	public JobCommandsInputHandlerService(IInputService input, IPhysicsService physics, ICommandService commandService, IUpdateService updateService) {
+	public JobCommandsInputHandlerService(IInputService input, IPhysicsService physics, IUpdateService updateService) {
 		_input = input;
 		_physics = physics;
-		_commandService = commandService;
 		_updateService = updateService;
 		_updateService.Register(this);
 	}
@@ -41,11 +39,10 @@ public class JobCommandsInputHandlerService : IJobCommandsInputHandlerService, I
 	}
 
 	private void CancelCommand(CommandTarget target) {
-		_commandService.UnregisterJob(target);
+		target.CancelJob();
 	}
 
 	private void CreateCommand(CommandTarget target) {
-		if (!target.CanPerform(PendingCommand.Value)) return;
-		_commandService.RegisterJob(id++ ,target, PendingCommand.Value);
+		target.TrySetJob(PendingCommand.Value);
 	}
 }

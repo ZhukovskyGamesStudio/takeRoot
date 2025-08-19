@@ -17,24 +17,17 @@ public class CommandService : ICommandService {
 
 	public CommandTarget GetJob() {
 		foreach (var kvp in JobTargets) {
-			var id = kvp.Key;
 			var jobTarget = kvp.Value;
 			
-			if (jobTarget.Reserved == false)
+			if (!jobTarget.Data.Reserved)
 				return jobTarget;
 		}
 		return null;
 	}
-	public void RegisterJob(int id, CommandTarget target, JobType jobType) {
-		target.CurrentJobType = jobType;
-		target.CurrentJobId = id;
+	public void RegisterJob(int id, CommandTarget target) {
 		JobTargets.Add(id, target);
 	}
-	public void UnregisterJob(CommandTarget target) {
-		var id = target.CurrentJobId;
-		var jobTarget = JobTargets[id];
-		jobTarget.CurrentJobId = -1;
-		jobTarget.CurrentJobType = JobType.None;
-		JobTargets.Remove(id);
+	public void UnregisterJob(int targetId) {
+		JobTargets.Remove(targetId);
 	}
 }
