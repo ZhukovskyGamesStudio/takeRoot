@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class AStarPathfinding : MonoBehaviour {
-    public static AStarPathfinding Instance;
+   
     private readonly HashSet<Node> _closedList = new HashSet<Node>();
 
     private readonly HashSet<Vector2Int> _obstaclePositions = new HashSet<Vector2Int>(); // List of obstacles in the form of grid positions
@@ -14,7 +14,7 @@ public class AStarPathfinding : MonoBehaviour {
     private HashSet<Vector2Int> _wallsPositions = new HashSet<Vector2Int>();
 
     private void Awake() {
-        Instance = this;
+        Core.AStarPathfinding = this;
     }
 
     private void Start() {
@@ -83,47 +83,6 @@ public class AStarPathfinding : MonoBehaviour {
     }
 
     // The A* pathfinding method
-    public List<Vector2Int> FindPath(Vector2Int start, Vector2Int end) {
-        Node startNode = _grid[start];
-        Node targetNode = _grid[end];
-
-        _openList.Clear();
-        _closedList.Clear();
-
-        _openList.Add(startNode);
-
-        while (_openList.Count > 0) {
-            // Get the node with the lowest fCost
-            Node currentNode = GetNodeWithLowestFCost(_openList);
-            _openList.Remove(currentNode);
-            _closedList.Add(currentNode);
-
-            // If we reach the target, reconstruct the path
-            if (currentNode.PosX == targetNode.PosX && currentNode.PosY == targetNode.PosY) {
-                return RetracePath(startNode, currentNode);
-            }
-
-            // Evaluate each of the neighbors
-            foreach (Node neighbor in GetNeighbors(currentNode)) {
-                if (!neighbor.Walkable || _closedList.Contains(neighbor))
-                    continue;
-
-                short newGCost = (short)(currentNode.GCost + GetDistance(currentNode, neighbor));
-                if (newGCost >= neighbor.GCost && _openList.Contains(neighbor)) {
-                    continue;
-                }
-
-                neighbor.GCost = newGCost;
-                neighbor.HCost = GetDistance(neighbor, targetNode);
-                neighbor.Parent = currentNode;
-
-                _openList.Add(neighbor);
-            }
-        }
-
-        return new List<Vector2Int>(); // Return an empty path if no path is found
-    }
-
     public List<Vector2Int> FindPath(Vector2Int start, IEnumerable<Vector2Int> endCells, out bool isPathExist) {
         isPathExist = true;
         Node startNode = _grid[start];
@@ -371,7 +330,7 @@ public class AStarPathfinding : MonoBehaviour {
     }
 
     public static bool IsWalkable(Vector2Int position) {
-        return Instance._grid[position].Walkable;
+        return Core.AStarPathfinding._grid[position].Walkable;
     }
 
     // Get the Manhattan distance (heuristic) between two nodes

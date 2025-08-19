@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DistillerStationController
+  m_Controller: {fileID: 9100000, guid: 4048bc96d7229e94bb8e1c4cee21f61a, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 5fec5bfac2431fb43a6cc9d2efc36f8e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8035a79b9f1ae594f82f15483154a547, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: bd475bf7fba554e439683b015ee0fca3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ca9ae6d3883ac0242a5f09485876b27a, type: 2}

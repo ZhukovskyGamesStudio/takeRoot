@@ -15,7 +15,6 @@ public class SettlersManager : MonoBehaviour, IInitableInstance {
 
     private HashSet<Settler> _settlers = new HashSet<Settler>();
     private HashSet<SettlerData> _settlersDatas = new HashSet<SettlerData>();
-    public static SettlersManager Instance => Core.SettlersManager;
 
     public HashSet<Settler> Settlers => _settlers;
     public HashSet<SettlerData> SettlersDatas => _settlersDatas;

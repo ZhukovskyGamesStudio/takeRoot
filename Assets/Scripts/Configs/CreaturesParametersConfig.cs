@@ -21,4 +21,9 @@ public class CreaturesParametersConfig : ScriptableObject {
     
     [field: SerializeField]
     public float RoundAttackCooldown { get; private set; }
+
+    public void ChangeMoveSpeed(float value)
+    {
+        MoveTime += value;
+    }
 }

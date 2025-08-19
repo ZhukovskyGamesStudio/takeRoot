@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,10 @@ public class CommandsManager : MonoBehaviour {
         _plannedCommandView = plannedCommandView;
         _plannedCommands = new List<CommandData>();
         _commandsWithPlannedView = commandsWithPlannedView;
+    }
+
+    private void Start()
+    {
         _settlers = Core.SettlersManager.Settlers.Where(s => s.SettlerData.Race == _race).ToList();
     }
 
@@ -159,7 +164,7 @@ public class CommandsManager : MonoBehaviour {
             return;
         }
 
-        Interactable interactable = SelectionManager.Instance.Interactable as Interactable;
+        Interactable interactable =Core.SelectionManager.Interactable as Interactable;
         if (interactable == null) {
             return;
         }

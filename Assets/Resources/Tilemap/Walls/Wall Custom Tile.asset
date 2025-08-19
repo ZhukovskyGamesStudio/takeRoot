@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dc30e4df6b438d44a5674e939a17cb6, type: 3}
+  m_Name: Wall Custom Tile
+  m_EditorClassIdentifier: 
+  m_DefaultSprite: {fileID: 0}
+  m_DefaultGameObject: {fileID: 7015800240866516106, guid: 9db7e31ee7c2732468c951585a3f4444, type: 3}
+  m_DefaultColliderType: 1
+  m_TilingRules: []
+  _cuttedTile: {fileID: 11400000, guid: 6336092323345e642b85da2aa6208a43, type: 2}
+  _bigWallsTile: {fileID: 11400000, guid: ea205313a868de047b39ca3c5158886e, type: 2}

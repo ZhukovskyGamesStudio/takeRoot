@@ -12,6 +12,11 @@ public static class ExactInteractionChecker {
         return from.x == to.GetInteractableCell.x && from.y == to.GetInteractableCell.y;
     }
 
+    public static bool CanInteract(Point from, Point to)
+    {
+        return from.Equals(to);
+    }
+    
     public static bool CanInteractFromNeighborCell(Vector2Int from, Interactable to) {
         return to.InteractableCells.Contains(from);
     }
@@ -26,7 +31,7 @@ public static class ExactInteractionChecker {
     }
     
     public static Vector2Int? NextStepOnPath(Vector2Int from, HashSet<Vector2Int> to) {
-        var path = AStarPathfinding.Instance.FindPath(from, to, out bool isPathExist);
+        var path = Core.AStarPathfinding.FindPath(from, to, out bool isPathExist);
         if (!isPathExist) {
             return null;
         }
@@ -38,8 +43,28 @@ public static class ExactInteractionChecker {
         return null;
     }
 
+    public static Point? NextStepOnPath(Point from, HashSet<Point> to)
+    {
+        var path = Core.AStarPathfindingVertical.FindPath(from, to.First(), out bool isPathExist);
+        if (!isPathExist)
+            return null;
+        
+        if (path.Count > 0)
+            return path.First();
+
+        return null;
+    }
+
+    public static List<Point> GetPath(Point from, HashSet<Point> to)
+    {
+        var path = Core.AStarPathfindingVertical.FindPath(from, to.First(), out bool isPathExist);
+        if (!isPathExist)
+            return null;
+        return path;
+    }
+    
     public static Vector2Int? NextStepOnPathForZombies(Vector2Int from, HashSet<Vector2Int> to, int offsetX) {
-        var path = AStarPathfinding.Instance.FindPathForZombies(from, to, offsetX);
+        var path = Core.AStarPathfinding.FindPathForZombies(from, to, offsetX);
         if (path.Count > 0) {
             return path.First();
         }
@@ -48,7 +73,7 @@ public static class ExactInteractionChecker {
     }
 
     public static Vector2Int? NextStepForZombieOnPathWithWallsAsObstacle(Vector2Int from, HashSet<Vector2Int> to, int offsetX) {
-        var path = AStarPathfinding.Instance.FindPathForZombiesWithWallsAsObstacle(from, to, offsetX);
+        var path = Core.AStarPathfinding.FindPathForZombiesWithWallsAsObstacle(from, to, offsetX);
         if (path.Count > 0) {
             return path.First();
         }

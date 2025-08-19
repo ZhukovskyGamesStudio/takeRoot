@@ -19,16 +19,6 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
 
     private int ViewRadius => Core.ConfigManager.CreaturesParametersConfig.ViewRadius;
 
-    private void Start() {
-        FindAllBlockingViews();
-        foreach (SettlerData settler in Core.SettlersManager.MySettlers) {
-            OpenAroundMovedSettler(settler);
-        }
-
-        Core.GridManager.RefreshAllWalls();
-        InvokeRepeating(nameof(FindAllBlockingViews), 0, 1);
-    }
-
     public List<Type> GetDependencies() {
         return new List<Type>() { typeof(SettlersManager), typeof(GridManager), typeof(ConfigManager) };
     }
@@ -46,6 +36,16 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
         Fill(_greyTilemap, _greyTile);
 
         Core.UI.NetworkReplacement.OnChangeRace += OnChangeRace;
+    }
+
+    private void Start() {
+        FindAllBlockingViews();
+        foreach (SettlerData settler in Core.SettlersManager.MySettlers) {
+            OpenAroundMovedSettler(settler);
+        }
+
+        Core.GridManager.RefreshAllWalls();
+        InvokeRepeating(nameof(FindAllBlockingViews), 0, 1);
     }
 
     private void OnChangeRace(Race race) {
@@ -177,5 +177,9 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
         foreach (SettlerData settler in Core.SettlersManager.MySettlers) {
             OpenAroundMovedSettler(settler);
         }
+    }
+
+    private void OnDestroy() {
+        Core.UI.NetworkReplacement.OnChangeRace -= OnChangeRace;
     }
 }

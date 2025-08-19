@@ -2,9 +2,6 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class GridManager : MonoBehaviour, IInitableInstance {
-    private static readonly int CursorPosition = Shader.PropertyToID("_CursorPosition");
-    private static readonly int Radius = Shader.PropertyToID("_Radius");
-
     [field: SerializeField]
     public Rect GridSize { get; private set; } = new Rect(-10, -10, 10, 10); // Example grid size
 
@@ -14,26 +11,8 @@ public class GridManager : MonoBehaviour, IInitableInstance {
     [SerializeField]
     private TileBase _grassRandomTile;
 
-    [SerializeField]
-    private Material _tilemapTransparentMaterial;
-
-    [SerializeField]
-    private float _transparencyRadius = 5.0f;
-
-    private Camera _mainCamera;
-
-    private void Update() {
-        UpdateWallsTransparency();
-    }
-
-    private void OnApplicationQuit() {
-        _tilemapTransparentMaterial.SetVector(CursorPosition, Vector3.zero);
-        _tilemapTransparentMaterial.SetFloat(Radius, 0);
-    }
-
     public void Init() {
         Core.GridManager = this;
-        _mainCamera = Camera.main!;
         FillGrass();
     }
 
@@ -61,17 +40,6 @@ public class GridManager : MonoBehaviour, IInitableInstance {
 
         // Set the tiles in bulk
         _grassTilemap.SetTilesBlock(bounds, tiles);
-    }
-
-    private void UpdateWallsTransparency() {
-        return;
-        // Get the world-space cursor position
-        Vector3 cursorWorldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-        cursorWorldPosition.z = 0; // We are working in 2D, so set the Z value to 0
-
-        // Pass the cursor position and radius to the shader
-        _tilemapTransparentMaterial.SetVector(CursorPosition, cursorWorldPosition);
-        _tilemapTransparentMaterial.SetFloat(Radius, _transparencyRadius);
     }
 
     public void RemoveWall(Vector2Int pos) {

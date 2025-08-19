@@ -10,4 +10,8 @@ public enum ResourceType {
     CleanedMetal = 4,
     Handle = 5,
     Hammer = 6,
+    Potato = 7,
+    MashedPotato = 8,
+    Biofuel = 9,
+    EmptyBottle = 10,
 }

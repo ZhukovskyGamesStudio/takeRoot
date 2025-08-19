@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
@@ -14,8 +15,10 @@ public class Gridable : ECSComponent {
 
     public HashSet<Vector2Int> InteractableCells = new HashSet<Vector2Int>();
 
+    public HasLayer HasLayer { get; private set; }
+    
     public Vector2Int GetBottomLeftOnGrid {
-        get => VectorUtils.ToVector2Int(transform.position);
+        get => transform.position.ToVector2Int();
         private set { }
     }
 
@@ -25,9 +28,10 @@ public class Gridable : ECSComponent {
     }
 
     private void Start() {
-        GetBottomLeftOnGrid = VectorUtils.ToVector2Int(transform.position);
+        GetBottomLeftOnGrid = transform.position.ToVector2Int();
         GetCenterOnGrid = transform.position + new Vector3(_size.x / 2f, _size.y / 2f, 0) - Vector3.one / 2;
         GetNeighbors(GetOccupiedPositions());
+        HasLayer = GetComponent<HasLayer>();
     }
 
     private void OnDrawGizmos() {
@@ -43,6 +47,32 @@ public class Gridable : ECSComponent {
 
     public List<Vector2Int> GetOccupiedPositions() {
         Vector2Int pos = GetBottomLeftOnGrid;
+        List<Vector2Int> r = new();
+        for (int i = 0; i < _size.x; i++) {
+            for (int j = 0; j < _size.y; j++) {
+                r.Add(new Vector2Int(pos.x + i, pos.y + j));
+            }
+        }
+
+        return r;
+    }
+
+    public List<Point> GetOccupiedPoints()
+    {
+        Vector2Int pos = GetBottomLeftOnGrid;
+        List<Point> r = new();
+        for (int i = 0; i < _size.x; i++) {
+            for (int j = 0; j < _size.y; j++) {
+                r.Add(new Point(pos.x + i, pos.y + j, HasLayer.layer));
+            }
+        }
+
+        return r;
+    }
+
+    public List<Vector2Int> GetOccupiedLocalPositions()
+    {
+        Vector2Int pos = transform.localPosition.ToVector2Int();
         List<Vector2Int> r = new();
         for (int i = 0; i < _size.x; i++) {
             for (int j = 0; j < _size.y; j++) {
@@ -69,7 +99,7 @@ public class Gridable : ECSComponent {
     public override void Init(ECSEntity entity) { }
 
     public void PositionChanged() {
-        GetBottomLeftOnGrid = VectorUtils.ToVector2Int(transform.position);
+        GetBottomLeftOnGrid = transform.position.ToVector2Int();
         GetCenterOnGrid = transform.position + new Vector3(_size.x / 2f, _size.y / 2f, 0) - Vector3.one / 2;
         GetNeighbors(GetOccupiedPositions());
     }
@@ -104,7 +134,22 @@ public class Gridable : ECSComponent {
 }
 
 public static class VectorUtils {
-    public static Vector2Int ToVector2Int(Vector3 vector) {
-        return new Vector2Int(Mathf.RoundToInt(vector.x), Mathf.RoundToInt(vector.y));
+    public static Vector2Int ToVector2Int(this Vector3 vector) {
+        return new Vector2Int(Mathf.FloorToInt(vector.x), Mathf.CeilToInt(vector.y));
+    }
+
+    public static void SetLossyScaleToOne(this Transform target) {
+        if (target == null) return;
+
+        Vector3 scale = Vector3.one;
+        Transform parent = target.parent;
+
+        while (parent != null) {
+            Vector3 parentLossy = parent.lossyScale;
+            scale = new Vector3(scale.x / parentLossy.x, scale.y / parentLossy.y, scale.z / parentLossy.z);
+            parent = parent.parent;
+        }
+
+        target.localScale = scale;
     }
 }

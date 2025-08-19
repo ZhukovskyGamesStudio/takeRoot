@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SelectionManager : MonoBehaviour {
-    public static SelectionManager Instance;
 
     [SerializeField]
     private CommandsPanel _commandsPanel;
@@ -20,7 +19,7 @@ public class SelectionManager : MonoBehaviour {
     public ISelectable TacticalInteractable { get; private set; }
 
     private void Awake() {
-        Instance = this;
+        Core.SelectionManager = this;
     }
 
     public void Update() {
@@ -56,7 +55,7 @@ public class SelectionManager : MonoBehaviour {
     }
 
     public void SetSelected(Interactable obj) {
-        Interactable = obj;
+            Interactable = obj;
     }
 
     public void TryClearSelected(Interactable obj) {

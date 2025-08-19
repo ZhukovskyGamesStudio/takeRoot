@@ -3,7 +3,6 @@ using System.Linq;
 using UnityEngine;
 
 public class BuildingManager : MonoBehaviour {
-    public static BuildingManager Instance;
 
     [SerializeField]
     private BuildingView _buildingView;
@@ -15,7 +14,7 @@ public class BuildingManager : MonoBehaviour {
     private List<BuildingPlan> _plans;
 
     private void Awake() {
-        Instance = this;
+        Core.BuildingManager = this;
         LoadPlans();
     }
 

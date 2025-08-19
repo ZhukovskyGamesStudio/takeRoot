@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class GameEventsManager : MonoBehaviour, IInitableInstance
 {
-    public static GameEventsManager Instance;
+   
     public WorldObjectsEvents WorldObjectsEvents;
     
     public void Init()
     {
-        Instance = this;
+        Core.GameEventsManager = this;
         
         WorldObjectsEvents = new WorldObjectsEvents();
     }

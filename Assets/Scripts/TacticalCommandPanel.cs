@@ -28,5 +28,6 @@ public enum TacticalCommand {
     Cancel,
     Equip,
     Merge,
-    RoundAttack
+    RoundAttack,
+    AddShootTarget
 }

@@ -19,7 +19,6 @@ public class CommandsManagersHolder : NetworkBehaviour, IInitableInstance {
     private Dictionary<Race, CommandsManager> _commandsManagers;
     private Dictionary<Race, TacticalCommandsManager> _tacticalCommandsManagers;
 
-    public static CommandsManagersHolder Instance => Core.CommandsManagersHolder;
 
     public CommandsManager CommandsManager => _commandsManagers[Core.MyRace()];
     public TacticalCommandsManager TacticalCommandsManager => _tacticalCommandsManagers[Core.MyRace()];

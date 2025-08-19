@@ -60,7 +60,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                 command.Interactable.AssignCommand(command);
                 command.TriggerCancel += delegate { CancelGatherCommand(command); };
                 _activeGatherCommands.Add(command);
-                CommandsManagersHolder.Instance.CommandsManager.AddCommandManually(command);
+                Core.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
             }
 
             int requiredResourcesAmount = LeftToBring(resourceData.Key);
@@ -81,7 +81,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                 command.Interactable.AssignCommand(command);
                 command.TriggerCancel += delegate { CancelGatherCommand(command); };
                 _activeGatherCommands.Add(command);
-                CommandsManagersHolder.Instance.CommandsManager.AddCommandManually(command);
+                Core.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
             }
         }
     }
@@ -139,7 +139,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                     CraftingStation = _craftingStation
                 }
             };
-            CommandsManagersHolder.Instance.GetCommandManagerByRace(race).AddCommandManually(command);
+            Core.CommandsManagersHolder.GetCommandManagerByRace(race).AddCommandManually(command);
         }
     }
 
@@ -154,7 +154,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                 Settler = settler
             };
             _activeCraftingCommands.Add(command);
-            CommandsManagersHolder.Instance.GetCommandManagerByRace(settler.SettlerData.Race).AddSubsequentCommand(command);
+            Core.CommandsManagersHolder.GetCommandManagerByRace(settler.SettlerData.Race).AddSubsequentCommand(command);
         }
     }
 
@@ -170,7 +170,12 @@ public class CraftingCombinedCommand : CombinedCommandData {
     public void OnCommandPerformed(CommandData cData) {
         if (cData.CommandType == Command.PrepareToCraft) {
             if (!_performingSettlers.Contains(cData.Settler))
+            {
                 _performingSettlers.Add(cData.Settler);
+                var transform = cData.Settler.transform;
+                var scaleX = cData.Settler.SettlerData.Race == Race.Plants ? 1 : -1; 
+                transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * scaleX, transform.localScale.y, transform.localScale.z);
+            }
 
             if (_performingSettlers.Count < 2)
                 return;

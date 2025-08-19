@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Peashooter
+  m_Controller: {fileID: 9100000, guid: ade389671b1eace458cc6ecc0f81c38a, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 0747282a8d5c58942819ec9ea2639bbb, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: fed5353290aa7154383585f0c0f69dc8, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: c667abf07c8952043976950cf0207190, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1e7decd22eb50484f9a56147099eb816, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 5bdfea93bfdb73d4f821c665178e1e53, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: cd1acce8a28e63c459015a7a626ca958, type: 2}

@@ -5,7 +5,7 @@ public class MergeSettlersStep : QuestStep
     private void Start()
     {
         UpdateQuestStepStatus(_status);
-        GameEventsManager.Instance.WorldObjectsEvents.onSettlersMerged += OnSettlersMerged;
+        Core.GameEventsManager.WorldObjectsEvents.onSettlersMerged += OnSettlersMerged;
     }
 
     private void OnSettlersMerged()

@@ -13,10 +13,10 @@ public class TacticalCommandsManager : MonoBehaviour {
     private TacticalCommandPanel _tacticalCommandPanel;
 
     private Tilemap _tilemap;
-
+    
     private void Update() {
         if (_tacticalCommandPanel.SelectedTacticalCommand == TacticalCommand.RoundAttack &&
-            SettlersSelectionManager.Instance.SelectedSettler.TakenTacticalCommand == null) {
+            Core.SettlersSelectionManager.SelectedSettler.TakenTacticalCommand == null) {
             TryAddTacticalCommandFromMouseClick(TacticalCommand.RoundAttack);
         }
 
@@ -25,14 +25,14 @@ public class TacticalCommandsManager : MonoBehaviour {
         }
 
         if (Input.GetMouseButtonDown(1)) {
-            if (SettlersSelectionManager.Instance.SelectedSettler && SettlersSelectionManager.Instance.SelectedSettler.Mode == Mode.Tactical) {
+            if (Core.SettlersSelectionManager.SelectedSettler && Core.SettlersSelectionManager.SelectedSettler.Mode == Mode.Tactical) {
                 TryAddTacticalCommandFromMouseClick(TacticalCommand.Move);
                 return;
             }
         }
 
         if (Input.GetMouseButtonDown(0) && _tacticalCommandPanel.SelectedTacticalCommand != TacticalCommand.None) {
-            if (SettlersSelectionManager.Instance.SelectedSettler) {
+            if (Core.SettlersSelectionManager.SelectedSettler) {
                 TryAddTacticalCommandFromMouseClick(_tacticalCommandPanel.SelectedTacticalCommand);
             }
         }
@@ -49,9 +49,9 @@ public class TacticalCommandsManager : MonoBehaviour {
         if (Core.MyRace() != _race)
             return;
 
-        TacticalInteractable interactable = SelectionManager.Instance.TacticalInteractable as TacticalInteractable;
+        TacticalInteractable interactable =Core.SelectionManager.TacticalInteractable as TacticalInteractable;
         if (tacticalCommand == TacticalCommand.RoundAttack) {
-            interactable = SettlersSelectionManager.Instance.SelectedSettler.GetEcsComponent<TacticalInteractable>();
+            interactable = Core.SettlersSelectionManager.SelectedSettler.GetEcsComponent<TacticalInteractable>();
 
             //Выключает тугл RoundAttack чтобы избежать повторных добавлений команды
             var toggle = _tacticalCommandPanel.GetComponentsInChildren<TacticalCommandToggle>()
@@ -74,6 +74,8 @@ public class TacticalCommandsManager : MonoBehaviour {
 
             var position = GetFloorCell();
             data.TargetPosition = position;
+            var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition).ToVector2Int();
+            data.TargetPoint = new Point(mousePosition.x, mousePosition.y, Core.LayerManager.currentGlobalLayer);
         } else {
             if (!interactable.CanBeCommanded(tacticalCommand)) {
                 return;
@@ -88,7 +90,7 @@ public class TacticalCommandsManager : MonoBehaviour {
 
             if (tacticalCommand == TacticalCommand.Equip && interactable.TryGetComponent(out TacticalEquippable equippable)) {
                 var equipType = equippable.GetEquipmentType();
-                if (!SettlersSelectionManager.Instance.SelectedSettler.SettlerData.PossibleEquipment.Contains(equipType)) {
+                if (!Core.SettlersSelectionManager.SelectedSettler.SettlerData.PossibleEquipment.Contains(equipType)) {
                     return;
                 }
             }
@@ -99,7 +101,7 @@ public class TacticalCommandsManager : MonoBehaviour {
         }
 
         AddCommand(data);
-        SettlersSelectionManager.Instance.SelectedSettler.SetTacticalCommand(data);
+        Core.SettlersSelectionManager.SelectedSettler.SetTacticalCommand(data);
     }
 
     private void AddCommand(TacticalCommandData data) {
@@ -119,7 +121,7 @@ public class TacticalCommandsManager : MonoBehaviour {
                 _currentCommand.PlannedCommandView.Release();
 
             _currentCommand = null;
-            SettlersSelectionManager.Instance.SelectedSettler.ClearTacticalCommand();
+            Core.SettlersSelectionManager.SelectedSettler.ClearTacticalCommand();
         }
     }
 

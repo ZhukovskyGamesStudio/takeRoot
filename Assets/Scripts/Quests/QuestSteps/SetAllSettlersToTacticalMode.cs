@@ -20,7 +20,7 @@ public class SetAllSettlersToTacticalMode : QuestStep
             // TODO: Add Merge toggle to command panel
             return;
         }
-        GameEventsManager.Instance.WorldObjectsEvents.onSettlerModeChanged += OnStatusChanged;
+        Core.GameEventsManager.WorldObjectsEvents.onSettlerModeChanged += OnStatusChanged;
     }
     private void OnStatusChanged(Settler settler)
     {

@@ -10,7 +10,7 @@ public class Noisable : ECSComponent
         
     public void MakeNoise()
     {
-        var noisePosition = VectorUtils.ToVector2Int(_gridable.GetCenterOnGrid);
+        var noisePosition = _gridable.GetCenterOnGrid.ToVector2Int();
         var listeners = FindObjectsByType<Listener>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         
         HashSet<Vector2Int> noisePoints = new HashSet<Vector2Int>();
