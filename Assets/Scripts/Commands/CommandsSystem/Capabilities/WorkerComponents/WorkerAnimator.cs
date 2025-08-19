@@ -14,6 +14,7 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 	private readonly int _hitStateHash = Animator.StringToHash("Hit");
 	private readonly int _moveStateHash = Animator.StringToHash("Move");
 	private readonly int _jumpStateHash = Animator.StringToHash("Jump");
+	private readonly int _sleepStateHash = Animator.StringToHash("Sleep");
 	
 	public AnimatorState State { get; private set; }
 	public event Action<AnimatorState> StateEntered;
@@ -25,6 +26,7 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 	public void PlaySearch() => _animator.SetTrigger(_searchStateHash);
 	public void PlayHit() => _animator.SetTrigger(_hitStateHash);
 	public void PlayMove() => _animator.SetTrigger(_moveStateHash);
+	public void PlaySleep() => _animator.SetTrigger(_sleepStateHash);
 	public void ResetToIdle() {
 		_animator.SetTrigger(_idleStateHash);
 		OnContactPointWhileMove = false;
@@ -68,6 +70,9 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader{
 		else if (stateHash == _jumpStateHash) {
 			state = AnimatorState.Jump;
 		}
+		else if (stateHash == _sleepStateHash) {
+			state = AnimatorState.Sleep;
+		}
 		else {
 			state = AnimatorState.None;
 		}
@@ -84,5 +89,6 @@ public enum AnimatorState {
 	Craft,
 	Water,
 	Search,
-	Jump
+	Jump,
+	Sleep
 }

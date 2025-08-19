@@ -9133,7 +9133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &792023545
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12493,6 +12493,38 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 2fe4bb44c56eb0846b0d7ee1018098c6, type: 2}
+    - target: {fileID: 6090516338986082009, guid: b9bb48e1c3656e54fa6804f742a6a6a4, type: 3}
+      propertyPath: Data.maxEnergy
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090516338986082009, guid: b9bb48e1c3656e54fa6804f742a6a6a4, type: 3}
+      propertyPath: Data.energyChange
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090516338986082009, guid: b9bb48e1c3656e54fa6804f742a6a6a4, type: 3}
+      propertyPath: Data.currentEnergy
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090516338986082009, guid: b9bb48e1c3656e54fa6804f742a6a6a4, type: 3}
+      propertyPath: Data.energyCooldown
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090516338986082009, guid: b9bb48e1c3656e54fa6804f742a6a6a4, type: 3}
+      propertyPath: Data.tiredThreshold
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090516338986082009, guid: b9bb48e1c3656e54fa6804f742a6a6a4, type: 3}
+      propertyPath: Data.defaultEnergyChange
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090516338986082009, guid: b9bb48e1c3656e54fa6804f742a6a6a4, type: 3}
+      propertyPath: Data.onGroundEnergyChange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090516338986082009, guid: b9bb48e1c3656e54fa6804f742a6a6a4, type: 3}
+      propertyPath: Data.criticalTiredThreshold
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6293949615691963799, guid: b9bb48e1c3656e54fa6804f742a6a6a4, type: 3}
       propertyPath: m_Name
       value: Chamomile
