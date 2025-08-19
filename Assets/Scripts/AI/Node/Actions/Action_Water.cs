@@ -11,10 +11,10 @@ namespace AI.Node.Jobs {
 			if (target.EnoughWater) {
 				_settler.Waterer.Cancel();
 				_settler.Data.currTarget.CancelJob();
-				return BTNodeState.Success;
+				return _state = BTNodeState.Success;
 			}
 			_settler.Waterer.Water(target);
-			return BTNodeState.Running;
+			return _state = BTNodeState.Running;
 		}
 	}
 }

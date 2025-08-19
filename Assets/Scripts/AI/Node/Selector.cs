@@ -1,25 +1,28 @@
 using System.Collections.Generic;
 using AI.Node;
 
-namespace AI {
+namespace AI.Node {
 	public class Selector : BTNode {
 		private List<BTNode> _children = new List<BTNode>(5);
-
+		private int _currentChild = 0;
 
 		public override BTNodeState Evaluate() {
-			foreach (var child in _children) {
-				var result = child.EvaluateWithDebug();
+			while (_currentChild < _children.Count) {
+				var result = _children[_currentChild].EvaluateWithDebug();
 
 				if (result == BTNodeState.Success) {
-					return BTNodeState.Success;
+					_currentChild = 0;
+					return _state = BTNodeState.Success;
 				}
 
 				if (result == BTNodeState.Running) {
-					return BTNodeState.Running;
+					return _state = BTNodeState.Running;
 				}
-			}
 
-			return BTNodeState.Failure;
+				_currentChild++;
+			}
+			_currentChild = 0;
+			return _state = BTNodeState.Failure;
 		}
 		
 		public Selector AddChild(BTNode child) {

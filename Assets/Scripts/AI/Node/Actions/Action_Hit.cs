@@ -11,10 +11,10 @@ namespace AI.Node.Jobs {
 				_settler.Destroyer.Cancel();
 				_settler.Data.currTarget.CancelJob();
 				damagable.Die();
-				return BTNodeState.Success;
+				return _state = BTNodeState.Success;
 			}
 			_settler.Destroyer.Hit(damagable);
-			return BTNodeState.Running;
+			return _state = BTNodeState.Running;
 		}
 	}
 }

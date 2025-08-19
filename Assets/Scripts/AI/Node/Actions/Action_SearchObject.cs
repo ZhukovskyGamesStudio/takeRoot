@@ -10,14 +10,16 @@ namespace AI.Node.Jobs {
 		
 		public override BTNodeState Evaluate() {
 			var searchable = _settler.Data.currTarget;
-			if (searchable.Searched) {
+			if (searchable.Searched ) {
 				_settler.Searcher.Cancel();
 				_settler.Data.currTarget.CancelJob();
+				_settler.Data.currJob = JobType.None;
+				_settler.Data.currTarget = null;
 				searchable.EndSearch();
-				return BTNodeState.Success;
+				return _state = BTNodeState.Success;
 			}
 			_settler.Searcher.Search(searchable);
-			return BTNodeState.Running;
+			return _state = BTNodeState.Running;
 		}
 	}
 }

@@ -14,7 +14,7 @@ namespace AI.Node {
 			var result = Evaluate();
 			BTDebug.Log(result.ToString());
 			BTDebug.Exit();
-			return result;
+			return _state = result;
 		}
 	
 		public abstract BTNodeState Evaluate();

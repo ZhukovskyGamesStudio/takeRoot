@@ -12,13 +12,13 @@ namespace AI.Node.Jobs {
 		public override BTNodeState Evaluate() {
 			var target = _useSubsequentTarget ? _settler.Data.subsequentTarget : _settler.Data.currTarget;
 			if (!_settler.Mover.HasPath(target.InteractPosition.position)) {
-				return BTNodeState.Failure;
+				return _state = BTNodeState.Failure;
 			}
 			if (_settler.Mover.IsAtPosition(target.InteractPosition.position)) {
-				return BTNodeState.Success;
+				return _state = BTNodeState.Success;
 			}
 			_settler.Mover.MoveTo(target.InteractPosition.position, _settler.WorkerAnimator);
-			return BTNodeState.Running;
+			return _state = BTNodeState.Running;
 		}
 	}
 }

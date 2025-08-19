@@ -13,11 +13,11 @@ namespace AI.Node.Jobs {
 
 		public override BTNodeState Evaluate() {
 			var obj = _commands.GetJob();
-			if (obj == null) return BTNodeState.Failure;
+			if (obj == null) return _state = BTNodeState.Failure;
 			obj.Reserved = true;
 			_settler.Data.currJob = obj.CurrentJobType;
 			_settler.Data.currTarget = obj;
-			return BTNodeState.Success;
+			return _state = BTNodeState.Success;
 		}
 	}
 }

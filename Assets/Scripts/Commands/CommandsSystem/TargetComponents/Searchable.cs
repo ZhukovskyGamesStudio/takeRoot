@@ -13,10 +13,6 @@ public class SearchableObj : MonoBehaviour {
 
 	public void Search() {
 		currentResearchPoints++;
-		if (Searched) {
-			EndSearch();
-			return;
-		}
 	}
 
 	public void EndSearch() {

@@ -52,6 +52,7 @@ public class CommandTarget : MonoBehaviour {
 	}
 
 	public void CancelJob() {
+		Reserved = false;
 		ServiceLocator.Container.Single<ICommandService>().UnregisterJob(this); //TODO: cache service
 	}
 	

@@ -14,9 +14,9 @@ namespace AI.Node.Jobs {
 			if (_settler.Mover.HasPath(pos)) {
 				_settler.Data.curMovePos = pos;
 				_settler.Data.HasMovePos = true;
-				return BTNodeState.Success;
+				return _state = BTNodeState.Success;
 			}
-			return BTNodeState.Failure;
+			return _state = BTNodeState.Failure;
 		}
 	}
 }

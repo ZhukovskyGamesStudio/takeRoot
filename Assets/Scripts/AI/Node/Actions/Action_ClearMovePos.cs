@@ -10,7 +10,7 @@ namespace AI.Node.Jobs {
 		public override BTNodeState Evaluate() {
 			_settler.Data.HasMovePos = false;
 			_settler.Data.IdleMoveTimer = 0;
-			return BTNodeState.Success;
+			return _state = BTNodeState.Success;
 		}
 	}
 }

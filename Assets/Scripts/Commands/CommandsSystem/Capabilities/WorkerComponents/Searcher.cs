@@ -30,7 +30,8 @@ public class Searcher : MonoBehaviour, ISearcher {
 		_isSearching = true;
 		_animator.PlaySearch();
 		while (!token.IsCancellationRequested) {
-			await _asyncRunner.Wait(searchTime);
+			await _asyncRunner.Wait(searchTime, token);
+			if (token.IsCancellationRequested) break;
 			target.Search();
 		}
 	}

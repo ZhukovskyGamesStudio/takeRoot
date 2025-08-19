@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace AI.Node.Jobs {
@@ -5,10 +6,19 @@ namespace AI.Node.Jobs {
 		private Settler _settler;
 
 		public Job_Destroy(Settler settler) {
-			AddChild(new Conditional(() => settler.Data.currTarget));
-			AddChild(new Conditional(() => settler.Data.currTarget.CurrentJobType == JobType.Destroy));
-			AddChild(new Action_MoveTo(settler));
-			AddChild(new Action_Hit(settler));
+			var data = settler.Data;
+			Func<bool> condition = () =>  data.currTarget &&
+			                    data.currTarget.CurrentJobType == JobType.Destroy &&
+			                    data.currJob == JobType.Destroy;
+			var move = new ConditionalAction()
+				.Do(new Action_MoveTo(settler))
+				.While(condition);
+			var hit = new ConditionalAction()
+				.Do(new Action_Hit(settler))
+				.While(condition);
+			
+			AddChild(move);
+			AddChild(hit);
 		}
 
 	}
