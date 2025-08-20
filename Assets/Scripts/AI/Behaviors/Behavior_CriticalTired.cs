@@ -4,7 +4,7 @@ using AI.Node.Jobs;
 namespace AI.Behaviors {
 	public class Behavior_CriticalTired : Sequence {
 		public Behavior_CriticalTired(Settler settler) {
-			AddChild(new Conditional(() => settler.Data.IsCriticalTired));
+			AddChild(new Conditional(() => settler.Data.energy.IsCriticalTired));
 			AddChild(new Action_SleepOnGround(settler));
 		}
 	}

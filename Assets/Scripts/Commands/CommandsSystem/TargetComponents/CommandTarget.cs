@@ -23,7 +23,6 @@ public class CommandTarget : MonoBehaviour {
 	private Health _health;
 	private SearchableObj _searchable;
 	private WaterLevel _waterLevel;
-	private ICarriable _carriable;
 
 	private void Start() {
 		if (TryGetComponent(out _health))
@@ -88,7 +87,6 @@ public class CommandTarget : MonoBehaviour {
 	public bool EnoughWater => _waterLevel.EnoughWater;
 	
 	//Carry
-	public void TakeItem(Worker worker) => _carriable.TakeItem(worker);
 	
 	public Health Health => _health;
 	public SearchableObj Searchable => _searchable;

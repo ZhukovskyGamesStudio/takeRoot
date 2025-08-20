@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5360544545775680652}
   - component: {fileID: 8179209980606278940}
-  - component: {fileID: 3784940072256482673}
   - component: {fileID: 6069951586794995288}
   m_Layer: 0
   m_Name: PlannedJobView
@@ -61,23 +60,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: cabb72bf7a36ae34380095da4433b85b, type: 3}
   - {fileID: 21300000, guid: 61ce13a5a78d33e44b88c62bc97c4ee0, type: 3}
   - {fileID: 21300000, guid: cabb72bf7a36ae34380095da4433b85b, type: 3}
---- !u!114 &3784940072256482673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 284833012599788668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5974d36a78594347865bff3657250e4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  X: 0
-  Y: 0
-  Layer: 0
-  Obstacle: 0
-  MultiplyGridOffset: {x: 0, y: 0}
+  _viewOffset: {fileID: 0}
 --- !u!210 &6069951586794995288
 SortingGroup:
   m_ObjectHideFlags: 0

@@ -222,21 +222,22 @@ MonoBehaviour:
     subsequentTarget: {fileID: 0}
     HasMovePos: 0
     curMovePos: {x: 0, y: 0, z: 0}
+    ItemInHands: {fileID: 0}
+    energy:
+      maxEnergy: 500
+      currentEnergy: 500
+      tiredThreshold: 50
+      criticalTiredThreshold: 15
+      energyChange: -2
+      defaultEnergyChange: -2
+      onGroundEnergyChange: 2
+      energyCooldown: 5
+      energyTimer: 0
+      isSleeping: 0
+      bed: {fileID: 0}
     IdleMoveCooldown: 11
     IdleMoveTimer: 0
     HitTime: 1.3
-    ItemInHands: {fileID: 0}
-    maxEnergy: 500
-    currentEnergy: 500
-    tiredThreshold: 50
-    criticalTiredThreshold: 5
-    energyChange: 0
-    defaultEnergyChange: -1
-    onGroundEnergyChange: 5
-    energyCooldown: 3
-    energyTimer: 0
-    isSleeping: 0
-    bed: {fileID: 0}
 --- !u!114 &4083847707166725687
 MonoBehaviour:
   m_ObjectHideFlags: 0

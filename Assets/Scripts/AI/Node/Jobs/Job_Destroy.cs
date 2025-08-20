@@ -9,7 +9,8 @@ namespace AI.Node.Jobs {
 			var data = settler.Data;
 			Func<bool> condition = () =>  data.currTarget &&
 			                    data.currTarget.Data.CurrentJob == JobType.Destroy &&
-			                    data.currJob == JobType.Destroy;
+			                    data.currJob == JobType.Destroy &&
+			                    !data.IsTactical;
 			var move = new ConditionalAction()
 				.Do(new Action_MoveTo(settler))
 				.While(condition);

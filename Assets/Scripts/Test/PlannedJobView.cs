@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Settlers.Test {
 	public class PlannedJobView : MonoBehaviour{
@@ -10,6 +11,7 @@ namespace Settlers.Test {
 		[SerializeField] private SpriteRenderer _jobIcon;
 		[SerializeField] private GridObject _grid;
 		[SerializeField] private List<Sprite> _plannedJob;
+		[SerializeField] private Transform _view;
 		private void Start() {
 			var corners = _grid.GetObjectCorners();
 			_lb.transform.position = new Vector3(corners[0].x, corners[0].y);
@@ -21,6 +23,7 @@ namespace Settlers.Test {
 			_rb.localScale = new Vector3(-1, -1);
 			_lt.localScale = new Vector3(1, 1);
 			_jobIcon.transform.position = _grid.GetObjectCenter();
+			gameObject.transform.position = _grid.transform.position;
 		}
 
 		public void Enable(JobType jobType) {

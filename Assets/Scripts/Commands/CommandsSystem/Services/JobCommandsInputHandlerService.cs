@@ -8,8 +8,7 @@ public class JobCommandsInputHandlerService : IJobCommandsInputHandlerService, I
 	private readonly IInputService _input;
 	private readonly IPhysicsService _physics;
 	private readonly IUpdateService _updateService;
-
-	private int id = 0;
+	
 	public ReactiveProperty<JobType> PendingCommand { get; set; } = new ReactiveProperty<JobType>();
 	public bool IsEnabled { get; set; } = true;
 
