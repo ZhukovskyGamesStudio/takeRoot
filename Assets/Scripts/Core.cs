@@ -70,7 +70,7 @@ public class Core : MonoBehaviour , IResetable {
         SceneManager.LoadScene("MenuScene");
     }
 
-    public static Race MyRace() {
+    public Race MyRace() {
         return NetworkManager.Singleton != null ? PlayerRaceSelection.GetRace() : CurrentNetworkFakeRace;
     }
     

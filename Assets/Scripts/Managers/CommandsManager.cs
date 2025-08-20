@@ -160,7 +160,7 @@ public class CommandsManager : MonoBehaviour {
     }
 
     private void TryAddCommandFromMouseClick(Command command) {
-        if (Core.MyRace() != _race) {
+        if (Core.Instance.MyRace() != _race) {
             return;
         }
 

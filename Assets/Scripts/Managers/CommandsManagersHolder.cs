@@ -20,8 +20,8 @@ public class CommandsManagersHolder : NetworkBehaviour, IInitableInstance {
     private Dictionary<Race, TacticalCommandsManager> _tacticalCommandsManagers;
 
 
-    public CommandsManager CommandsManager => _commandsManagers[Core.MyRace()];
-    public TacticalCommandsManager TacticalCommandsManager => _tacticalCommandsManagers[Core.MyRace()];
+    public CommandsManager CommandsManager => _commandsManagers[Core.Instance.MyRace()];
+    public TacticalCommandsManager TacticalCommandsManager => _tacticalCommandsManagers[Core.Instance.MyRace()];
 
     public void Init() {
         Core.CommandsManagersHolder = this;

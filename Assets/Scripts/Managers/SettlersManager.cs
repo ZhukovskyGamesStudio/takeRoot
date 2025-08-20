@@ -21,7 +21,7 @@ public class SettlersManager : MonoBehaviour, IInitableInstance {
 
     public IEnumerable<SettlerData> MySettlers {
         get {
-            Race race = Core.MyRace();
+            Race race = Core.Instance.MyRace();
             return _settlersDatas.Where(d => d.Race == Race.Both || d.Race == race);
         }
     }
