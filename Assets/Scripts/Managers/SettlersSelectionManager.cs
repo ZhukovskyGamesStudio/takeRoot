@@ -17,7 +17,7 @@ public class SettlersSelectionManager : MonoBehaviour {
     private SelectionView _selectionViewPrefab;
 
     private SelectionView _selectionView;
-
+ 
     public Settler SelectedSettler { get; private set; }
 
     private void Awake() {
