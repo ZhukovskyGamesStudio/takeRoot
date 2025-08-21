@@ -1,0 +1,401 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"bd9462de-fda1-4b0f-b4d3-c167f20b34c9\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scenes/CoreScene.unity\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scenes/CoreScene.unity\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scenes/CoreScene.unity.meta\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scenes/CoreScene.unity.meta\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/ITacticalInteractable.cs\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/ITacticalInteractable.cs.meta\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/PlannedCommandView.cs\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scripts/PlannedCommandView.cs\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/PlannedCommandView.cs.meta\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scripts/PlannedCommandView.cs.meta\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/Settlers/SettlersSelectionManager.cs\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/Settlers/SettlersSelectionManager.cs.meta\" beforeDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/TacticalCommandData.cs.meta\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scripts/TacticalCommandData.cs.meta\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/TacticalCommandPanel.cs.meta\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scripts/TacticalCommandPanel.cs.meta\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/WorldObjects/Creatures/Chamomile.cs\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scripts/WorldObjects/Creatures/Chamomile.cs\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/WorldObjects/Interactable.cs\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scripts/WorldObjects/Interactable.cs\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Scripts/WorldObjects/Searchable.cs\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Scripts/WorldObjects/Searchable.cs\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/Assets/Shaders/TilemapTransparencyCursor.mat\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/Assets/Shaders/TilemapTransparencyCursor.mat\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/ProjectSettings/Packages/com.unity.learn.iet-framework/Settings.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/ProjectSettings/Packages/com.unity.learn.iet-framework/Settings.json\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2s31fLR6gP3kgBTo1eMX36hpB5D\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\"\r\n  }\r\n}]]></component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"bd9462de-fda1-4b0f-b4d3-c167f20b34c9\" name=\"Changes\" comment=\"\" />\r\n      <created>1737669549299</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1737669549299</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 0a273653f6f4febab8a3d3b4a6d00c0147b538e4)
++++ b/.idea/workspace.xml	(date 1755601322019)
+@@ -2,22 +2,10 @@
+ <project version="4">
+   <component name="ChangeListManager">
+     <list default="true" id="bd9462de-fda1-4b0f-b4d3-c167f20b34c9" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CoreScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CoreScene.unity" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/CoreScene.unity.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/CoreScene.unity.meta" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ITacticalInteractable.cs" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ITacticalInteractable.cs.meta" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlannedCommandView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlannedCommandView.cs" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlannedCommandView.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlannedCommandView.cs.meta" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Settlers/SettlersSelectionManager.cs" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Settlers/SettlersSelectionManager.cs.meta" beforeDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TacticalCommandData.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TacticalCommandData.cs.meta" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/TacticalCommandPanel.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/TacticalCommandPanel.cs.meta" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/WorldObjects/Creatures/Chamomile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WorldObjects/Creatures/Chamomile.cs" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/WorldObjects/Interactable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WorldObjects/Interactable.cs" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/WorldObjects/Searchable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/WorldObjects/Searchable.cs" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/Assets/Shaders/TilemapTransparencyCursor.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Shaders/TilemapTransparencyCursor.mat" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.learn.iet-framework/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.learn.iet-framework/Settings.json" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -27,6 +15,12 @@
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
++  <component name="HighlightingSettingsPerFile">
++    <setting file="file://$PROJECT_DIR$/Assets/Scripts/BuildVersionText.cs" root0="SKIP_HIGHLIGHTING" />
++  </component>
++  <component name="ProjectColorInfo"><![CDATA[{
++  "associatedIndex": 1
++}]]></component>
+   <component name="ProjectId" id="2s31fLR6gP3kgBTo1eMX36hpB5D" />
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+@@ -34,8 +28,13 @@
+   </component>
+   <component name="PropertiesComponent"><![CDATA[{
+   "keyToString": {
++    "ModuleVcsDetector.initialDetectionPerformed": "true",
+     "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true"
++    "RunOnceActivity.ShowReadmeOnStart": "true",
++    "RunOnceActivity.git.unshallow": "true",
++    "git-widget-placeholder": "main",
++    "nodejs_package_manager_path": "npm",
++    "vue.rearranger.settings.migration": "true"
+   }
+ }]]></component>
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+@@ -46,7 +45,33 @@
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+       <updated>1737669549299</updated>
++      <workItem from="1755601196207" duration="122000" />
+     </task>
+     <servers />
+   </component>
++  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
++  <component name="UnityProjectDiscoverer">
++    <option name="unityProjectFolder" value="true" />
++  </component>
++  <component name="VcsManagerConfiguration">
++    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
++  </component>
++  <component name="XDebuggerManager">
++    <breakpoint-manager>
++      <breakpoints>
++        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
++          <properties exception="System.OperationCanceledException" breakIfHandledByOtherCode="false" displayValue="System.OperationCanceledException" />
++          <option name="timeStamp" value="1" />
++        </breakpoint>
++        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
++          <properties exception="System.Threading.Tasks.TaskCanceledException" breakIfHandledByOtherCode="false" displayValue="System.Threading.Tasks.TaskCanceledException" />
++          <option name="timeStamp" value="2" />
++        </breakpoint>
++        <breakpoint enabled="true" type="DotNet_Exception_Breakpoints">
++          <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
++          <option name="timeStamp" value="3" />
++        </breakpoint>
++      </breakpoints>
++    </breakpoint-manager>
++  </component>
+ </project>
+\ No newline at end of file
+Index: ProjectSettings/ProjectVersion.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>m_EditorVersion: 6000.0.31f1\r\nm_EditorVersionWithRevision: 6000.0.31f1 (a206c360e2a8)\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ProjectSettings/ProjectVersion.txt b/ProjectSettings/ProjectVersion.txt
+--- a/ProjectSettings/ProjectVersion.txt	(revision 0a273653f6f4febab8a3d3b4a6d00c0147b538e4)
++++ b/ProjectSettings/ProjectVersion.txt	(date 1755599945504)
+@@ -1,2 +1,2 @@
+-m_EditorVersion: 6000.0.31f1
+-m_EditorVersionWithRevision: 6000.0.31f1 (a206c360e2a8)
++m_EditorVersion: 6000.0.55f1
++m_EditorVersionWithRevision: 6000.0.55f1 (c5f59906196d)
+Index: Packages/packages-lock.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"dependencies\": {\r\n    \"com.unity.2d.sprite\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.2d.tilemap\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.tilemap\": \"1.0.0\",\r\n        \"com.unity.modules.uielements\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.2d.tilemap.extras\": {\r\n      \"version\": \"4.1.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.2d.tilemap\": \"1.0.0\",\r\n        \"com.unity.modules.tilemap\": \"1.0.0\",\r\n        \"com.unity.modules.jsonserialize\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.ai.navigation\": {\r\n      \"version\": \"2.0.5\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.ai\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.bindings.openimageio\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.collections\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.burst\": {\r\n      \"version\": \"1.8.18\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.mathematics\": \"1.2.1\",\r\n        \"com.unity.modules.jsonserialize\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.collab-proxy\": {\r\n      \"version\": \"2.5.2\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.collections\": {\r\n      \"version\": \"2.5.1\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.burst\": \"1.8.17\",\r\n        \"com.unity.test-framework\": \"1.4.5\",\r\n        \"com.unity.nuget.mono-cecil\": \"1.11.4\",\r\n        \"com.unity.test-framework.performance\": \"3.0.3\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.editorcoroutines\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.ext.nunit\": {\r\n      \"version\": \"2.0.5\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.ide.rider\": {\r\n      \"version\": \"3.0.34\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.ext.nunit\": \"1.0.6\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.inputsystem\": {\r\n      \"version\": \"1.11.2\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.uielements\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.learn.iet-framework\": {\r\n      \"version\": \"4.0.3\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.editorcoroutines\": \"1.0.0\",\r\n        \"com.unity.settings-manager\": \"1.0.3\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.mathematics\": {\r\n      \"version\": \"1.3.2\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.memoryprofiler\": {\r\n      \"version\": \"1.1.3\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.burst\": \"1.8.0\",\r\n        \"com.unity.collections\": \"1.2.3\",\r\n        \"com.unity.mathematics\": \"1.2.1\",\r\n        \"com.unity.profiling.core\": \"1.0.0\",\r\n        \"com.unity.editorcoroutines\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.multiplayer.center\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.uielements\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.multiplayer.samples.coop\": {\r\n      \"version\": \"https://github.com/Unity-Technologies/com.unity.multiplayer.samples.coop.git?path=/Packages/com.unity.multiplayer.samples.coop#main\",\r\n      \"depth\": 0,\r\n      \"source\": \"git\",\r\n      \"dependencies\": {\r\n        \"com.unity.learn.iet-framework\": \"3.1.3\",\r\n        \"com.unity.multiplayer.tools\": \"1.1.0\",\r\n        \"com.unity.netcode.gameobjects\": \"1.8.1\",\r\n        \"com.unity.services.relay\": \"1.0.5\"\r\n      },\r\n      \"hash\": \"74afaebf85e062923fdad63f399315800b969c44\"\r\n    },\r\n    \"com.unity.multiplayer.tools\": {\r\n      \"version\": \"2.2.1\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.burst\": \"1.8.17\",\r\n        \"com.unity.collections\": \"2.4.0\",\r\n        \"com.unity.mathematics\": \"1.3.1\",\r\n        \"com.unity.profiling.core\": \"1.0.2\",\r\n        \"com.unity.nuget.mono-cecil\": \"1.11.4\",\r\n        \"com.unity.modules.uielements\": \"1.0.0\",\r\n        \"com.unity.nuget.newtonsoft-json\": \"3.2.1\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.netcode.gameobjects\": {\r\n      \"version\": \"2.2.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.transport\": \"2.4.0\",\r\n        \"com.unity.nuget.mono-cecil\": \"1.11.4\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.nuget.mono-cecil\": {\r\n      \"version\": \"1.11.4\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.nuget.newtonsoft-json\": {\r\n      \"version\": \"3.2.1\",\r\n      \"depth\": 2,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.profiling.core\": {\r\n      \"version\": \"1.0.2\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.recorder\": {\r\n      \"version\": \"5.1.2\",\r\n      \"depth\": 0,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.timeline\": \"1.8.7\",\r\n        \"com.unity.collections\": \"1.2.4\",\r\n        \"com.unity.bindings.openimageio\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.services.authentication\": {\r\n      \"version\": \"3.3.3\",\r\n      \"depth\": 2,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.ugui\": \"1.0.0\",\r\n        \"com.unity.services.core\": \"1.13.0\",\r\n        \"com.unity.nuget.newtonsoft-json\": \"3.2.1\",\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.services.core\": {\r\n      \"version\": \"1.13.0\",\r\n      \"depth\": 2,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.androidjni\": \"1.0.0\",\r\n        \"com.unity.nuget.newtonsoft-json\": \"3.2.1\",\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.services.qos\": {\r\n      \"version\": \"1.3.0\",\r\n      \"depth\": 2,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.collections\": \"1.2.4\",\r\n        \"com.unity.services.core\": \"1.12.4\",\r\n        \"com.unity.nuget.newtonsoft-json\": \"3.0.2\",\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\",\r\n        \"com.unity.services.authentication\": \"2.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.services.relay\": {\r\n      \"version\": \"1.0.5\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.transport\": \"1.3.0\",\r\n        \"com.unity.services.qos\": \"1.1.0\",\r\n        \"com.unity.services.core\": \"1.4.0\",\r\n        \"com.unity.nuget.newtonsoft-json\": \"3.0.2\",\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\",\r\n        \"com.unity.services.authentication\": \"2.0.0\",\r\n        \"com.unity.modules.unitywebrequestwww\": \"1.0.0\",\r\n        \"com.unity.modules.unitywebrequestaudio\": \"1.0.0\",\r\n        \"com.unity.modules.unitywebrequesttexture\": \"1.0.0\",\r\n        \"com.unity.modules.unitywebrequestassetbundle\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.settings-manager\": {\r\n      \"version\": \"2.0.1\",\r\n      \"depth\": 2,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {},\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.test-framework\": {\r\n      \"version\": \"1.4.5\",\r\n      \"depth\": 2,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.ext.nunit\": \"2.0.3\",\r\n        \"com.unity.modules.imgui\": \"1.0.0\",\r\n        \"com.unity.modules.jsonserialize\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.test-framework.performance\": {\r\n      \"version\": \"3.0.3\",\r\n      \"depth\": 2,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.test-framework\": \"1.1.31\",\r\n        \"com.unity.modules.jsonserialize\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.timeline\": {\r\n      \"version\": \"1.8.7\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.audio\": \"1.0.0\",\r\n        \"com.unity.modules.director\": \"1.0.0\",\r\n        \"com.unity.modules.animation\": \"1.0.0\",\r\n        \"com.unity.modules.particlesystem\": \"1.0.0\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.transport\": {\r\n      \"version\": \"2.4.0\",\r\n      \"depth\": 1,\r\n      \"source\": \"registry\",\r\n      \"dependencies\": {\r\n        \"com.unity.burst\": \"1.8.12\",\r\n        \"com.unity.collections\": \"2.2.1\",\r\n        \"com.unity.mathematics\": \"1.3.1\"\r\n      },\r\n      \"url\": \"https://packages.unity.com\"\r\n    },\r\n    \"com.unity.ugui\": {\r\n      \"version\": \"2.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.ui\": \"1.0.0\",\r\n        \"com.unity.modules.imgui\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.veriorpies.parrelsync\": {\r\n      \"version\": \"https://github.com/VeriorPies/ParrelSync.git?path=/ParrelSync\",\r\n      \"depth\": 0,\r\n      \"source\": \"git\",\r\n      \"dependencies\": {},\r\n      \"hash\": \"d1ef610e9fe3ad0b490cce91594449fc0af809a6\"\r\n    },\r\n    \"com.unity.modules.ai\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 1,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.androidjni\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.animation\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.assetbundle\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.audio\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.director\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.audio\": \"1.0.0\",\r\n        \"com.unity.modules.animation\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.hierarchycore\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 1,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.imageconversion\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.imgui\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.jsonserialize\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.particlesystem\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.physics\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.physics2d\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.screencapture\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.imageconversion\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.tilemap\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.physics2d\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.ui\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.uielements\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.ui\": \"1.0.0\",\r\n        \"com.unity.modules.imgui\": \"1.0.0\",\r\n        \"com.unity.modules.jsonserialize\": \"1.0.0\",\r\n        \"com.unity.modules.hierarchycore\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.umbra\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.unityanalytics\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\",\r\n        \"com.unity.modules.jsonserialize\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.unitywebrequest\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {}\r\n    },\r\n    \"com.unity.modules.unitywebrequestassetbundle\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.assetbundle\": \"1.0.0\",\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.unitywebrequestaudio\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\",\r\n        \"com.unity.modules.audio\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.unitywebrequesttexture\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\",\r\n        \"com.unity.modules.imageconversion\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.unitywebrequestwww\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\",\r\n        \"com.unity.modules.unitywebrequestassetbundle\": \"1.0.0\",\r\n        \"com.unity.modules.unitywebrequestaudio\": \"1.0.0\",\r\n        \"com.unity.modules.audio\": \"1.0.0\",\r\n        \"com.unity.modules.assetbundle\": \"1.0.0\",\r\n        \"com.unity.modules.imageconversion\": \"1.0.0\"\r\n      }\r\n    },\r\n    \"com.unity.modules.video\": {\r\n      \"version\": \"1.0.0\",\r\n      \"depth\": 0,\r\n      \"source\": \"builtin\",\r\n      \"dependencies\": {\r\n        \"com.unity.modules.audio\": \"1.0.0\",\r\n        \"com.unity.modules.ui\": \"1.0.0\",\r\n        \"com.unity.modules.unitywebrequest\": \"1.0.0\"\r\n      }\r\n    }\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Packages/packages-lock.json b/Packages/packages-lock.json
+--- a/Packages/packages-lock.json	(revision 0a273653f6f4febab8a3d3b4a6d00c0147b538e4)
++++ b/Packages/packages-lock.json	(date 1755599813743)
+@@ -20,14 +20,14 @@
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.2d.tilemap": "1.0.0",
+         "com.unity.modules.tilemap": "1.0.0",
++        "com.unity.2d.tilemap": "1.0.0",
+         "com.unity.modules.jsonserialize": "1.0.0"
+       },
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.ai.navigation": {
+-      "version": "2.0.5",
++      "version": "2.0.8",
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {
+@@ -45,7 +45,7 @@
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.burst": {
+-      "version": "1.8.18",
++      "version": "1.8.23",
+       "depth": 1,
+       "source": "registry",
+       "dependencies": {
+@@ -55,7 +55,7 @@
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.collab-proxy": {
+-      "version": "2.5.2",
++      "version": "2.8.2",
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {},
+@@ -67,8 +67,8 @@
+       "source": "registry",
+       "dependencies": {
+         "com.unity.burst": "1.8.17",
+-        "com.unity.test-framework": "1.4.5",
+         "com.unity.nuget.mono-cecil": "1.11.4",
++        "com.unity.test-framework": "1.4.5",
+         "com.unity.test-framework.performance": "3.0.3"
+       },
+       "url": "https://packages.unity.com"
+@@ -83,12 +83,11 @@
+     "com.unity.ext.nunit": {
+       "version": "2.0.5",
+       "depth": 1,
+-      "source": "registry",
+-      "dependencies": {},
+-      "url": "https://packages.unity.com"
++      "source": "builtin",
++      "dependencies": {}
+     },
+     "com.unity.ide.rider": {
+-      "version": "3.0.34",
++      "version": "3.0.36",
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {
+@@ -97,7 +96,7 @@
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.inputsystem": {
+-      "version": "1.11.2",
++      "version": "1.14.1",
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {
+@@ -106,7 +105,7 @@
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.learn.iet-framework": {
+-      "version": "4.0.3",
++      "version": "4.0.4",
+       "depth": 1,
+       "source": "registry",
+       "dependencies": {
+@@ -123,15 +122,15 @@
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.memoryprofiler": {
+-      "version": "1.1.3",
++      "version": "1.1.6",
+       "depth": 0,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.burst": "1.8.0",
++        "com.unity.editorcoroutines": "1.0.0",
+         "com.unity.collections": "1.2.3",
+         "com.unity.mathematics": "1.2.1",
+-        "com.unity.profiling.core": "1.0.0",
+-        "com.unity.editorcoroutines": "1.0.0"
++        "com.unity.burst": "1.8.0",
++        "com.unity.profiling.core": "1.0.0"
+       },
+       "url": "https://packages.unity.com"
+     },
+@@ -156,17 +155,17 @@
+       "hash": "74afaebf85e062923fdad63f399315800b969c44"
+     },
+     "com.unity.multiplayer.tools": {
+-      "version": "2.2.1",
++      "version": "2.2.5",
+       "depth": 1,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.burst": "1.8.17",
+-        "com.unity.collections": "2.4.0",
+-        "com.unity.mathematics": "1.3.1",
+         "com.unity.profiling.core": "1.0.2",
++        "com.unity.nuget.newtonsoft-json": "3.2.1",
+         "com.unity.nuget.mono-cecil": "1.11.4",
++        "com.unity.collections": "2.5.1",
+         "com.unity.modules.uielements": "1.0.0",
+-        "com.unity.nuget.newtonsoft-json": "3.2.1"
++        "com.unity.burst": "1.8.18",
++        "com.unity.mathematics": "1.3.2"
+       },
+       "url": "https://packages.unity.com"
+     },
+@@ -213,25 +212,25 @@
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.services.authentication": {
+-      "version": "3.3.3",
++      "version": "3.4.1",
+       "depth": 2,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.ugui": "1.0.0",
+-        "com.unity.services.core": "1.13.0",
+         "com.unity.nuget.newtonsoft-json": "3.2.1",
+-        "com.unity.modules.unitywebrequest": "1.0.0"
++        "com.unity.services.core": "1.14.0",
++        "com.unity.modules.unitywebrequest": "1.0.0",
++        "com.unity.ugui": "1.0.0"
+       },
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.services.core": {
+-      "version": "1.13.0",
++      "version": "1.14.0",
+       "depth": 2,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.modules.androidjni": "1.0.0",
++        "com.unity.modules.unitywebrequest": "1.0.0",
+         "com.unity.nuget.newtonsoft-json": "3.2.1",
+-        "com.unity.modules.unitywebrequest": "1.0.0"
++        "com.unity.modules.androidjni": "1.0.0"
+       },
+       "url": "https://packages.unity.com"
+     },
+@@ -240,11 +239,11 @@
+       "depth": 2,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.collections": "1.2.4",
+         "com.unity.services.core": "1.12.4",
++        "com.unity.modules.unitywebrequest": "1.0.0",
+         "com.unity.nuget.newtonsoft-json": "3.0.2",
+-        "com.unity.modules.unitywebrequest": "1.0.0",
+-        "com.unity.services.authentication": "2.0.0"
++        "com.unity.services.authentication": "2.0.0",
++        "com.unity.collections": "1.2.4"
+       },
+       "url": "https://packages.unity.com"
+     },
+@@ -253,43 +252,42 @@
+       "depth": 1,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.transport": "1.3.0",
++        "com.unity.services.core": "1.4.0",
++        "com.unity.services.authentication": "2.0.0",
+         "com.unity.services.qos": "1.1.0",
+-        "com.unity.services.core": "1.4.0",
+-        "com.unity.nuget.newtonsoft-json": "3.0.2",
+         "com.unity.modules.unitywebrequest": "1.0.0",
+-        "com.unity.services.authentication": "2.0.0",
+-        "com.unity.modules.unitywebrequestwww": "1.0.0",
++        "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+         "com.unity.modules.unitywebrequestaudio": "1.0.0",
+         "com.unity.modules.unitywebrequesttexture": "1.0.0",
+-        "com.unity.modules.unitywebrequestassetbundle": "1.0.0"
++        "com.unity.modules.unitywebrequestwww": "1.0.0",
++        "com.unity.nuget.newtonsoft-json": "3.0.2",
++        "com.unity.transport": "1.3.0"
+       },
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.settings-manager": {
+-      "version": "2.0.1",
++      "version": "2.1.0",
+       "depth": 2,
+       "source": "registry",
+       "dependencies": {},
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.test-framework": {
+-      "version": "1.4.5",
++      "version": "1.5.1",
+       "depth": 2,
+-      "source": "registry",
++      "source": "builtin",
+       "dependencies": {
+         "com.unity.ext.nunit": "2.0.3",
+         "com.unity.modules.imgui": "1.0.0",
+         "com.unity.modules.jsonserialize": "1.0.0"
+-      },
+-      "url": "https://packages.unity.com"
++      }
+     },
+     "com.unity.test-framework.performance": {
+-      "version": "3.0.3",
++      "version": "3.1.0",
+       "depth": 2,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.test-framework": "1.1.31",
++        "com.unity.test-framework": "1.1.33",
+         "com.unity.modules.jsonserialize": "1.0.0"
+       },
+       "url": "https://packages.unity.com"
+@@ -299,20 +297,20 @@
+       "depth": 1,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.modules.audio": "1.0.0",
+         "com.unity.modules.director": "1.0.0",
+         "com.unity.modules.animation": "1.0.0",
++        "com.unity.modules.audio": "1.0.0",
+         "com.unity.modules.particlesystem": "1.0.0"
+       },
+       "url": "https://packages.unity.com"
+     },
+     "com.unity.transport": {
+-      "version": "2.4.0",
++      "version": "2.5.2",
+       "depth": 1,
+       "source": "registry",
+       "dependencies": {
+-        "com.unity.burst": "1.8.12",
+         "com.unity.collections": "2.2.1",
++        "com.unity.burst": "1.8.12",
+         "com.unity.mathematics": "1.3.1"
+       },
+       "url": "https://packages.unity.com"
+Index: Packages/manifest.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\r\n  \"dependencies\": {\r\n    \"com.unity.2d.sprite\": \"1.0.0\",\r\n    \"com.unity.2d.tilemap\": \"1.0.0\",\r\n    \"com.unity.2d.tilemap.extras\": \"4.1.0\",\r\n    \"com.unity.ai.navigation\": \"2.0.5\",\r\n    \"com.unity.collab-proxy\": \"2.5.2\",\r\n    \"com.unity.ide.rider\": \"3.0.34\",\r\n    \"com.unity.inputsystem\": \"1.11.2\",\r\n    \"com.unity.memoryprofiler\": \"1.1.3\",\r\n    \"com.unity.multiplayer.center\": \"1.0.0\",\r\n    \"com.unity.multiplayer.samples.coop\": \"https://github.com/Unity-Technologies/com.unity.multiplayer.samples.coop.git?path=/Packages/com.unity.multiplayer.samples.coop#main\",\r\n    \"com.unity.netcode.gameobjects\": \"2.2.0\",\r\n    \"com.unity.recorder\": \"5.1.2\",\r\n    \"com.unity.ugui\": \"2.0.0\",\r\n    \"com.veriorpies.parrelsync\": \"https://github.com/VeriorPies/ParrelSync.git?path=/ParrelSync\",\r\n    \"com.unity.modules.androidjni\": \"1.0.0\",\r\n    \"com.unity.modules.animation\": \"1.0.0\",\r\n    \"com.unity.modules.assetbundle\": \"1.0.0\",\r\n    \"com.unity.modules.audio\": \"1.0.0\",\r\n    \"com.unity.modules.director\": \"1.0.0\",\r\n    \"com.unity.modules.imageconversion\": \"1.0.0\",\r\n    \"com.unity.modules.imgui\": \"1.0.0\",\r\n    \"com.unity.modules.jsonserialize\": \"1.0.0\",\r\n    \"com.unity.modules.particlesystem\": \"1.0.0\",\r\n    \"com.unity.modules.physics\": \"1.0.0\",\r\n    \"com.unity.modules.physics2d\": \"1.0.0\",\r\n    \"com.unity.modules.screencapture\": \"1.0.0\",\r\n    \"com.unity.modules.tilemap\": \"1.0.0\",\r\n    \"com.unity.modules.ui\": \"1.0.0\",\r\n    \"com.unity.modules.uielements\": \"1.0.0\",\r\n    \"com.unity.modules.umbra\": \"1.0.0\",\r\n    \"com.unity.modules.unityanalytics\": \"1.0.0\",\r\n    \"com.unity.modules.unitywebrequest\": \"1.0.0\",\r\n    \"com.unity.modules.unitywebrequestassetbundle\": \"1.0.0\",\r\n    \"com.unity.modules.unitywebrequestaudio\": \"1.0.0\",\r\n    \"com.unity.modules.unitywebrequesttexture\": \"1.0.0\",\r\n    \"com.unity.modules.unitywebrequestwww\": \"1.0.0\",\r\n    \"com.unity.modules.video\": \"1.0.0\"\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Packages/manifest.json b/Packages/manifest.json
+--- a/Packages/manifest.json	(revision 0a273653f6f4febab8a3d3b4a6d00c0147b538e4)
++++ b/Packages/manifest.json	(date 1755599729517)
+@@ -3,11 +3,11 @@
+     "com.unity.2d.sprite": "1.0.0",
+     "com.unity.2d.tilemap": "1.0.0",
+     "com.unity.2d.tilemap.extras": "4.1.0",
+-    "com.unity.ai.navigation": "2.0.5",
+-    "com.unity.collab-proxy": "2.5.2",
+-    "com.unity.ide.rider": "3.0.34",
+-    "com.unity.inputsystem": "1.11.2",
+-    "com.unity.memoryprofiler": "1.1.3",
++    "com.unity.ai.navigation": "2.0.8",
++    "com.unity.collab-proxy": "2.8.2",
++    "com.unity.ide.rider": "3.0.36",
++    "com.unity.inputsystem": "1.14.1",
++    "com.unity.memoryprofiler": "1.1.6",
+     "com.unity.multiplayer.center": "1.0.0",
+     "com.unity.multiplayer.samples.coop": "https://github.com/Unity-Technologies/com.unity.multiplayer.samples.coop.git?path=/Packages/com.unity.multiplayer.samples.coop#main",
+     "com.unity.netcode.gameobjects": "2.2.0",
