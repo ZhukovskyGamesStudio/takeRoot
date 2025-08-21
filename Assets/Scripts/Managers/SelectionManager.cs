@@ -23,11 +23,11 @@ public class SelectionManager : MonoBehaviour {
     private void TryAutoOpenInfoPanel() {
         if (Input.GetMouseButtonDown(0) && _commandsPanel.SelectedCommand == Command.None) {
             
-            if(Interactable != null) Core.UI.OpenInfoPanel(Interactable);
+            if(Interactable != null) ObsoleteCoreEntryPoint.UI.OpenInfoPanel(Interactable);
             else if (TacticalInteractable != null) {
                 if (TacticalInteractable.GetGameObject().GetComponent<SettlerData>() != null) return;
                 
-                Core.UI.OpenInfoPanel(TacticalInteractable);
+                ObsoleteCoreEntryPoint.UI.OpenInfoPanel(TacticalInteractable);
             }
         }
     }

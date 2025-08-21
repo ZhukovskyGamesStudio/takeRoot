@@ -21,7 +21,7 @@ public class SettlersSelectionManager : MonoBehaviour {
     public Settler SelectedSettler { get; private set; }
 
     private void Awake() {
-        Core.SettlersSelectionManager = this;
+        ObsoleteCoreEntryPoint.SettlersSelectionManager = this;
         CreateSelectionView();
     }
 
@@ -63,12 +63,12 @@ public class SettlersSelectionManager : MonoBehaviour {
             return;
         }
 
-        if (settler.SettlerData.Race != Core.Instance.MyRace() && settler.SettlerData.Race != Race.Both) {
+        if (settler.SettlerData.Race != ObsoleteCoreEntryPoint.Instance.MyRace() && settler.SettlerData.Race != Race.Both) {
             return;
         }
 
         SelectedSettler = settler;
-        Core.UI.OpenSettlerPanel(settler.SettlerData);
+        ObsoleteCoreEntryPoint.UI.OpenSettlerPanel(settler.SettlerData);
         _changeModeToggle.gameObject.SetActive(true);
         _changeModeToggle.SetToggleValue(SelectedSettler.Mode == Mode.Tactical);
         ChangePanels(SelectedSettler.Mode == Mode.Tactical);
@@ -85,12 +85,12 @@ public class SettlersSelectionManager : MonoBehaviour {
         //SelectedSettler.ChangeMode(Mode.Planning);
         SelectedSettler = null;
         _selectionView.Release(transform);
-        Core.UI.CloseInfoPanel();
+        ObsoleteCoreEntryPoint.UI.CloseInfoPanel();
     }
 
     private void ChangePanels(bool isTactical) {
-        Core.CommandsManagersHolder.TacticalCommandsManager.SetActivePanel(isTactical);
-        Core.CommandsManagersHolder.CommandsManager.SetActivePanel(!isTactical);
+        ObsoleteCoreEntryPoint.CommandsManagersHolder.TacticalCommandsManager.SetActivePanel(isTactical);
+        ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.SetActivePanel(!isTactical);
     }
 
     public void TryChangeSelectedSettlerMode(bool isTactical) {
@@ -99,6 +99,6 @@ public class SettlersSelectionManager : MonoBehaviour {
         }
 
         SelectedSettler.ChangeMode(isTactical ? Mode.Tactical : Mode.Planning);
-        Core.GameEventsManager.WorldObjectsEvents.OnSettlerModeChanged(SelectedSettler);
+        ObsoleteCoreEntryPoint.GameEventsManager.WorldObjectsEvents.OnSettlerModeChanged(SelectedSettler);
     }
 }
