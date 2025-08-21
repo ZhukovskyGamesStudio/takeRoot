@@ -47,8 +47,7 @@ public class SettlersSelectionManager : MonoBehaviour {
         TryAutoOpenInfoPanel();
     }
 
-    public void TryUnselectSpecificSettler(Settler settler)
-    {
+    public void TryUnselectSpecificSettler(Settler settler) {
         _tacticalCommandPanel.ClearSelectedTacticalCommand(_tacticalCommandPanel.SelectedTacticalCommand);
         if (SelectedSettler == settler) {
             TryUnselectSettler();

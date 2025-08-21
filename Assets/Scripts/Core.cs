@@ -71,11 +71,7 @@ public class Core : MonoBehaviour , IResetable {
     }
 
     public Race MyRace() {
-        if (NetworkManager.Singleton != null) {
-            return PlayerRaceSelection.GetRace();
-        } else {
-            return CurrentNetworkFakeRace;
-        }
+        return NetworkManager.Singleton != null ? PlayerRaceSelection.GetRace() : CurrentNetworkFakeRace;
     }
     
     public void Reset() {

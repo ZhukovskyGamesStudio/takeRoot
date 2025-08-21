@@ -366,6 +366,60 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &721473403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 721473405}
+  - component: {fileID: 721473404}
+  m_Layer: 0
+  m_Name: CursorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &721473404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721473403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f5be1ecf2a252746a94042291a76140, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _normal: {fileID: 2800000, guid: e9bc6f9139513b1488e080e4d1506dbc, type: 3}
+  _search: {fileID: 2800000, guid: 9a0d84358b1dd1d418c552823b4d8dc6, type: 3}
+  _move: {fileID: 2800000, guid: e9bc6f9139513b1488e080e4d1506dbc, type: 3}
+  _attack: {fileID: 2800000, guid: e9bc6f9139513b1488e080e4d1506dbc, type: 3}
+  _undecidedCursor: {fileID: 2800000, guid: e9bc6f9139513b1488e080e4d1506dbc, type: 3}
+  _roboCursor: {fileID: 2800000, guid: c2669b4a923494a4888430f3e18f37d7, type: 3}
+  _plantsCursor: {fileID: 2800000, guid: 85404ce412dde784b9c00bd0956223e5, type: 3}
+  _wakeupAnimation:
+  - {fileID: 2800000, guid: 2d82e164b1dc1b34ea23a26d4d434112, type: 3}
+  - {fileID: 2800000, guid: ce0c997b4b0407b479845f3aaf2ccedd, type: 3}
+--- !u!4 &721473405
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721473403}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &835015943
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,7 +453,7 @@ MonoBehaviour:
   m_ProtocolType: 0
   m_UseWebSockets: 1
   m_UseEncryption: 0
-  m_MaxPacketQueueSize: 128
+  m_MaxPacketQueueSize: 1024
   m_MaxPayloadSize: 6144
   m_HeartbeatTimeoutMS: 500
   m_ConnectTimeoutMS: 1000
@@ -1472,3 +1526,4 @@ SceneRoots:
   - {fileID: 1103238643}
   - {fileID: 1965940269}
   - {fileID: 835015946}
+  - {fileID: 721473405}

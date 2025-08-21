@@ -77,11 +77,21 @@ jobs:
           if [ ! -d "build/StandaloneOSX/StandaloneOSX.app" ]; then echo "Build failed!"; exit 1; fi
           echo "Build found, proceeding to upload."
 
+      - name: Rename Build
+        run: |
+          mkdir -p "build/$GAME_NAME"  # Ensure the target directory exists
+          mv "build/StandaloneOSX/StandaloneOSX.app" "build/$GAME_NAME/$GAME_NAME.app"
+          echo "Build renamed to $GAME_NAME."
+        env:
+          GAME_NAME: ${{ vars.ITCH_IO_GAME_NAME }}
+          
       - name: Upload macOS Build
         uses: actions/upload-artifact@v4
         with:
           name: MacOS-Build
-          path: build/StandaloneOSX/StandaloneOSX.app
+          path: "build/${{ env.GAME_NAME }}"  
+        env:
+          GAME_NAME: ${{ vars.ITCH_IO_GAME_NAME }}
 
   deploy-itch:
     needs: [build-windows, build-macos]
@@ -109,7 +119,6 @@ jobs:
       - name: Authenticate butler
         run: |
           butler login
-          butler whoami
         env:
           BUTLER_API_KEY: ${{ secrets.ITCH_IO_API_KEY }}
 
