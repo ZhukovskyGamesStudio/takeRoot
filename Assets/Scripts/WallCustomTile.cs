@@ -8,11 +8,11 @@ public class WallCustomTile : RuleTile<WallCustomTile.Neighbor> {
 
     public override void GetTileData(Vector3Int position, ITilemap tilemap, ref TileData tileData) {
         _cuttedTile.GetTileData(position, tilemap, ref tileData);
-        if (Core.FogOfWarManager == null || _cuttedTile == null) {
+        if (ObsoleteCoreEntryPoint.FogOfWarManager == null || _cuttedTile == null) {
             return;
         }
 
-        if (!Core.FogOfWarManager.IsOpened(position + Vector3Int.up)) {
+        if (!ObsoleteCoreEntryPoint.FogOfWarManager.IsOpened(position + Vector3Int.up)) {
             _bigWallsTile.GetTileData(position, tilemap, ref tileData);
             return;
         }

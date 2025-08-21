@@ -4,9 +4,9 @@ using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class Core : MonoBehaviour , IResetable {
-    public static Core Instance;
+[Obsolete]
+public class ObsoleteCoreEntryPoint : EntryPointBase, IResetable {
+    public static ObsoleteCoreEntryPoint Instance;
     public static CoreCanvasUi UI;
     public static CommandsManagersHolder CommandsManagersHolder;
     public static SettlersManager SettlersManager;
@@ -27,9 +27,16 @@ public class Core : MonoBehaviour , IResetable {
     public static LayerManager LayerManager;
     public static WarpManager WarpManager;
     
+
     public Race CurrentNetworkFakeRace = Race.Plants;
 
+    public Action<Race> OnChangeRace;
+
     private void Awake() {
+        if (TrySwitchToLoading()) {
+            return;
+        }
+        
         Instance = this;
 
         LoadAndInit();
@@ -73,7 +80,16 @@ public class Core : MonoBehaviour , IResetable {
     public Race MyRace() {
         return NetworkManager.Singleton != null ? PlayerRaceSelection.GetRace() : CurrentNetworkFakeRace;
     }
-    
+
+    public void SwitchFakeRace() {
+        CurrentNetworkFakeRace = CurrentNetworkFakeRace switch {
+            Race.Plants => Race.Robots,
+            Race.Robots => Race.Plants,
+            _ => CurrentNetworkFakeRace
+        };
+        OnChangeRace?.Invoke(CurrentNetworkFakeRace);
+    }
+
     public void Reset() {
         UI = null;
         CommandsManagersHolder = null;

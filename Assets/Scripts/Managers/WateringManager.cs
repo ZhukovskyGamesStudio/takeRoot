@@ -15,7 +15,7 @@ public class WateringManager : MonoBehaviour
 
     private void Awake()
     {
-        Core.WateringManager = this;
+        ObsoleteCoreEntryPoint.WateringManager = this;
     }
 
     private void Update()
@@ -43,7 +43,7 @@ public class WateringManager : MonoBehaviour
                     }
                 };
                 canBeWatered.AlreadyWatering = true;
-                Core.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
+                ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
             }
         }
     }

@@ -10,12 +10,12 @@ public class CanBeWatered : ECSComponent
     public Interactable Interactable {get; private set;}
     public override void Init(ECSEntity entity)
     {
-        if (Core.WateringManager == null)
+        if (ObsoleteCoreEntryPoint.WateringManager == null)
         {
             Debug.LogWarning("Watering Manager not found");
             return;
         }
-        Core.WateringManager.AddCanBeWateredObject(this);
+        ObsoleteCoreEntryPoint.WateringManager.AddCanBeWateredObject(this);
         Interactable = entity.GetEcsComponent<Interactable>();
         Interactable.OnCommandPerformed += OnCommandPerformed;
     }
@@ -50,7 +50,7 @@ public class CanBeWatered : ECSComponent
     }
     private void OnDestroy()
     {
-        Core.WateringManager.RemoveCanBeWateredObject(this);
+        ObsoleteCoreEntryPoint.WateringManager.RemoveCanBeWateredObject(this);
     }
     
     public override int GetDependancyPriority()

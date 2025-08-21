@@ -23,14 +23,14 @@ public abstract class QuestStep : MonoBehaviour
         if (IsFinished) return;
         IsFinished = true;
         
-        Core.QuestManager.UpdateQuestStepState(_questId, _stageId, _questStepId, QuestStepState.Finished);
-        Core.QuestManager.AdvanceQuest(_questId, _stageId);
+        ObsoleteCoreEntryPoint.QuestManager.UpdateQuestStepState(_questId, _stageId, _questStepId, QuestStepState.Finished);
+        ObsoleteCoreEntryPoint.QuestManager.AdvanceQuest(_questId, _stageId);
         Destroy(gameObject);
         Debug.Log($"{_stageId} step is finished");
     }
 
     protected void UpdateQuestStepStatus(string status)
     {
-        Core.QuestManager.UpdateQuestStepStatus(_questId, _stageId, _questStepId, status);
+        ObsoleteCoreEntryPoint.QuestManager.UpdateQuestStepStatus(_questId, _stageId, _questStepId, status);
     }
 }

@@ -19,7 +19,7 @@ public class SelectionManager : MonoBehaviour {
     public ISelectable TacticalInteractable { get; private set; }
 
     private void Awake() {
-        Core.SelectionManager = this;
+        ObsoleteCoreEntryPoint.SelectionManager = this;
     }
 
     public void Update() {

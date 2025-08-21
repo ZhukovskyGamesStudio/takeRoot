@@ -12,7 +12,7 @@ public class GridManager : MonoBehaviour, IInitableInstance {
     private TileBase _grassRandomTile;
 
     public void Init() {
-        Core.GridManager = this;
+        ObsoleteCoreEntryPoint.GridManager = this;
         FillGrass();
     }
 

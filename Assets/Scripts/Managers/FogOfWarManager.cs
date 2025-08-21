@@ -15,16 +15,16 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
 
     private readonly Dictionary<Race, HashSet<Vector2Int>> _openedCellsD = new();
 
-    private HashSet<Vector2Int> _openedCells => _openedCellsD[Core.Instance.MyRace()];
+    private HashSet<Vector2Int> _openedCells => _openedCellsD[ObsoleteCoreEntryPoint.Instance.MyRace()];
 
-    private int ViewRadius => Core.ConfigManager.CreaturesParametersConfig.ViewRadius;
+    private int ViewRadius => ObsoleteCoreEntryPoint.ConfigManager.CreaturesParametersConfig.ViewRadius;
 
     public List<Type> GetDependencies() {
         return new List<Type>() { typeof(SettlersManager), typeof(GridManager), typeof(ConfigManager) };
     }
 
     public void Init() {
-        Core.FogOfWarManager = this;
+        ObsoleteCoreEntryPoint.FogOfWarManager = this;
         if (!gameObject.activeSelf) {
             return;
         }
@@ -35,16 +35,16 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
         Fill(_blackTilemap, _blackTile);
         Fill(_greyTilemap, _greyTile);
 
-        Core.UI.NetworkReplacement.OnChangeRace += OnChangeRace;
+        ObsoleteCoreEntryPoint.Instance.OnChangeRace += OnChangeRace;
     }
 
     private void Start() {
         FindAllBlockingViews();
-        foreach (SettlerData settler in Core.SettlersManager.MySettlers) {
+        foreach (SettlerData settler in ObsoleteCoreEntryPoint.SettlersManager.MySettlers) {
             OpenAroundMovedSettler(settler);
         }
 
-        Core.GridManager.RefreshAllWalls();
+        ObsoleteCoreEntryPoint.GridManager.RefreshAllWalls();
         InvokeRepeating(nameof(FindAllBlockingViews), 0, 1);
     }
 
@@ -75,7 +75,7 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
     }
 
     private void OpenAroundMovedSettler(SettlerData settlerData) {
-        if (settlerData.Race != Core.Instance.MyRace()) {
+        if (settlerData.Race != ObsoleteCoreEntryPoint.Instance.MyRace()) {
             return;
         }
 
@@ -114,14 +114,14 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
         for (int i = -updateRadius; i < updateRadius + 1; i++) {
             for (int j = -updateRadius; j < updateRadius + 1; j++) {
                 Vector2Int tileCoord = new Vector2Int(tile.x + i, tile.y + j);
-                Core.GridManager.RefreshWalls(new Vector3Int(tileCoord.x, tileCoord.y));
+                ObsoleteCoreEntryPoint.GridManager.RefreshWalls(new Vector3Int(tileCoord.x, tileCoord.y));
             }
         }
     }
 
     private void UpdateGreyFog(Vector2Int tile, int radius) {
         int sqrViewRadius = ViewRadius * ViewRadius;
-        HashSet<Vector2Int> settlerPositions = new(Core.SettlersManager.MySettlers.Select(settler => settler.GetCellOnGrid));
+        HashSet<Vector2Int> settlerPositions = new(ObsoleteCoreEntryPoint.SettlersManager.MySettlers.Select(settler => settler.GetCellOnGrid));
 
         List<Vector3Int> tilePositions = new();
         List<TileBase> tileTypes = new();
@@ -148,7 +148,7 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
     }
 
     private void Fill(Tilemap tilemap, TileBase tile) {
-        Rect rect = Core.GridManager.GridSize;
+        Rect rect = ObsoleteCoreEntryPoint.GridManager.GridSize;
         Vector2Int min = new Vector2Int((int)rect.x, (int)rect.y);
         Vector2Int max = new Vector2Int((int)rect.width, (int)rect.height);
         tilemap.ClearAllTiles();
@@ -174,12 +174,12 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
             _blackTilemap.SetTile(tilePos, null);
         }
 
-        foreach (SettlerData settler in Core.SettlersManager.MySettlers) {
+        foreach (SettlerData settler in ObsoleteCoreEntryPoint.SettlersManager.MySettlers) {
             OpenAroundMovedSettler(settler);
         }
     }
 
     private void OnDestroy() {
-        Core.UI.NetworkReplacement.OnChangeRace -= OnChangeRace;
+        ObsoleteCoreEntryPoint.Instance.OnChangeRace -= OnChangeRace;
     }
 }

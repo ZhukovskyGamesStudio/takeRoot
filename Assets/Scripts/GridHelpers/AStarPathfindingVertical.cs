@@ -27,7 +27,7 @@ public class AStarPathfindingVertical : MonoBehaviour
 
     private void Awake()
     {
-        Core.AStarPathfindingVertical = this;
+        ObsoleteCoreEntryPoint.AStarPathfindingVertical = this;
         _walkableMap = new bool[height, width, layers];
         _grid = new NodeData[width, height, layers];
         for (int i = 0; i < width; i++)

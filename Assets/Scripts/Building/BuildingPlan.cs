@@ -62,7 +62,7 @@ public class BuildingPlan : ECSEntity {
     private void Update() {
         if (!_isPlaced) {
             BuildingShadowMouseFollow();
-            if (Core.AStarPathfinding.IsInited()) {
+            if (ObsoleteCoreEntryPoint.AStarPathfinding.IsInited()) {
                 CheckObstacles();
             }
 
@@ -97,7 +97,7 @@ public class BuildingPlan : ECSEntity {
             return;
         _isPlaced = true;
         _gridable.PositionChanged();
-        Core.BuildingManager.OnPlanPlaced();
+        ObsoleteCoreEntryPoint.BuildingManager.OnPlanPlaced();
     }
 
     private void CheckObstacles() {
@@ -133,7 +133,7 @@ public class BuildingPlan : ECSEntity {
                 command.Interactable.AssignCommand(command);
                 command.TriggerCancel += delegate { CancelGatherCommand(command); };
                 _activeGatherCommands.Add(command);
-                Core.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
+                ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
             }
 
             var requiredResourcesAmount = LeftToBring(requiredResource.ResourceType);
@@ -154,7 +154,7 @@ public class BuildingPlan : ECSEntity {
                 command.Interactable.AssignCommand(command);
                 command.TriggerCancel += delegate { CancelGatherCommand(command); };
                 _activeGatherCommands.Add(command);
-                Core.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
+                ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
             }
         }
     }
@@ -200,7 +200,7 @@ public class BuildingPlan : ECSEntity {
             Interactable = _interactable,
             CommandType = Command.Build
         };
-        Core.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
+        ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
         _interactable.AssignCommand(command);
     }
 
@@ -233,7 +233,7 @@ public class BuildingPlan : ECSEntity {
         //TODO надо выбрасывать принесённые ресурсы на землю
         foreach (CommandData command in _activeGatherCommands.ToList()) {
             command.Interactable.CancelCommand();
-            Core.CommandsManagersHolder.CommandsManager.RemoveCommandManually(command);
+            ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.RemoveCommandManually(command);
         }
     }
 }

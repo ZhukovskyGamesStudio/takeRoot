@@ -11,8 +11,8 @@ public class CombinedSettler : Settler
 
     public void OnDied()
     {
-        Core.SettlersSelectionManager.TryUnselectSpecificSettler(this);
-        Core.SettlersManager.DestroySettler(this);
+        ObsoleteCoreEntryPoint.SettlersSelectionManager.TryUnselectSpecificSettler(this);
+        ObsoleteCoreEntryPoint.SettlersManager.DestroySettler(this);
         SpawnSettlersAround();
     }
 
@@ -27,7 +27,7 @@ public class CombinedSettler : Settler
             if (spawnPos != pos && AStarPathfinding.IsWalkable(pos))
             {
                 spawnPos = pos;
-                Core.SettlersManager.SpawnSettlerAt(race, spawnPos);
+                ObsoleteCoreEntryPoint.SettlersManager.SpawnSettlerAt(race, spawnPos);
                 remainingSpawnPos--;
                 race = Race.Robots;
             }

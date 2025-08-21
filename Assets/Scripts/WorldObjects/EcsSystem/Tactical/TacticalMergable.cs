@@ -35,14 +35,14 @@ public class TacticalMergable : ECSComponent
 
         
         var settler = _tacticalInteractable.CommandToExecute.Settler;
-        Core.SettlersManager.DestroySettler(
+        ObsoleteCoreEntryPoint.SettlersManager.DestroySettler(
             _tacticalInteractable.CommandToExecute.TacticalInteractable.GetComponent<Settler>());
-        Core.SettlersSelectionManager.TryUnselectSpecificSettler(settler);
-        Core.SettlersManager.DestroySettler(settler);
+        ObsoleteCoreEntryPoint.SettlersSelectionManager.TryUnselectSpecificSettler(settler);
+        ObsoleteCoreEntryPoint.SettlersManager.DestroySettler(settler);
         
         ServiceLocator.Container.Single<IGameFactory>()
             .CreateSettler("combined", new Vector3((int)spawnPos.x, (int)spawnPos.y));
         
-        Core.GameEventsManager.WorldObjectsEvents.OnSettlersMerged();
+        ObsoleteCoreEntryPoint.GameEventsManager.WorldObjectsEvents.OnSettlersMerged();
     }
 }

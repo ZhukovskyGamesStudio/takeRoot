@@ -29,7 +29,7 @@ public class ChooseRacePanel : MonoBehaviour {
     private void Update() {
         if (_playerRaceSelection.Player1Ready.Value && _playerRaceSelection.Player2Ready.Value) {
             gameObject.SetActive(false);
-            Menu.Instance.Play();
+            MenuEntryPoint.Instance.Play();
         }
 
         if (_playerRaceSelection.Player2Race.Value != Race.None && _playerRaceSelection.Player1Race.Value != Race.None) {

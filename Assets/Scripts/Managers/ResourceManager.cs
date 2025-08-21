@@ -18,7 +18,7 @@ public class ResourceManager : MonoBehaviour {
     public Transform ResourcesHolder => _resourcesHolder;
 
     private void Awake() {
-        Core.ResourceManager = this;
+        ObsoleteCoreEntryPoint.ResourceManager = this;
     }
 
     public static ResourceData FindAllAvailableResources(ResourceType type)
@@ -36,15 +36,15 @@ public class ResourceManager : MonoBehaviour {
     }
 
     private static ResourceView SpawnResource(ResourceType resourceType, Vector2Int cell) {
-        var prefab = Core.ResourceManager._resourcesTable.ResourceViewPrefabs.First(s => s.ResourceType == resourceType);
+        var prefab = ObsoleteCoreEntryPoint.ResourceManager._resourcesTable.ResourceViewPrefabs.First(s => s.ResourceType == resourceType);
         //TODO add pool
-        ResourceView r = Instantiate(prefab, Core.ResourceManager._resourcesHolder);
+        ResourceView r = Instantiate(prefab, ObsoleteCoreEntryPoint.ResourceManager._resourcesHolder);
         //Core.ResourceManager._scatteredResources.Add(cell, r);
         return r;
     }
 
     public static ResouseUiView SpawnResourceUi(ResourceType resourceType) {
-        var prefab = Core.ResourceManager._resourcesTable.ResourceUiViewPrefabs.First(s => s.ResourceType == resourceType);
+        var prefab = ObsoleteCoreEntryPoint.ResourceManager._resourcesTable.ResourceUiViewPrefabs.First(s => s.ResourceType == resourceType);
         //TODO add pool
         ResouseUiView r = Instantiate(prefab);
         return r;
@@ -59,8 +59,8 @@ public class ResourceManager : MonoBehaviour {
 
     public static void ClearResourceView(ResourceView resource)
     { 
-        if (Core.ResourceManager._scatteredResources.TryGetValue(resource.Interactable.GetInteractableCell, out _))
-            Core.ResourceManager._scatteredResources.Remove(resource.Interactable.GetInteractableCell);
+        if (ObsoleteCoreEntryPoint.ResourceManager._scatteredResources.TryGetValue(resource.Interactable.GetInteractableCell, out _))
+            ObsoleteCoreEntryPoint.ResourceManager._scatteredResources.Remove(resource.Interactable.GetInteractableCell);
     }
     
     public static List<ResourceView> SpawnResourcesAround(List<ResourceData> resources, Vector2Int centerCell) {
@@ -74,7 +74,7 @@ public class ResourceManager : MonoBehaviour {
                 Vector2Int targetCell = centerCell + GetSpiralOffset(checkedN);
 
                 // Check if the cell is occupied by a different resource
-                if (Core.ResourceManager._scatteredResources.TryGetValue(targetCell, out ResourceView existingResource)) {
+                if (ObsoleteCoreEntryPoint.ResourceManager._scatteredResources.TryGetValue(targetCell, out ResourceView existingResource)) {
                     if (existingResource.ResourceType == resourceData.ResourceType) {
                         // Add to the existing resource if it doesn't exceed the limit
                         var availableSpace = maxResourceInCell - existingResource.Amount;
@@ -92,7 +92,7 @@ public class ResourceManager : MonoBehaviour {
                     newResource.SetAmount(toSpawn);
 
                     spawnedResources.Add(newResource);
-                    Core.ResourceManager._scatteredResources[targetCell] = newResource;
+                    ObsoleteCoreEntryPoint.ResourceManager._scatteredResources[targetCell] = newResource;
 
                     remainingAmount -= toSpawn;
                 }
@@ -128,7 +128,7 @@ public class ResourceManager : MonoBehaviour {
                     }
 
                     // Check if the cell is occupied by a different resource
-                    if (Core.ResourceManager._scatteredResources.TryGetValue(targetCell, out ResourceView existingResource))
+                    if (ObsoleteCoreEntryPoint.ResourceManager._scatteredResources.TryGetValue(targetCell, out ResourceView existingResource))
                     {
                         if (existingResource.ResourceType == resourceData.ResourceType)
                         {
@@ -151,7 +151,7 @@ public class ResourceManager : MonoBehaviour {
                         newResource.SetAmount(toSpawn);
 
                         spawnedResources.Add(newResource);
-                        Core.ResourceManager._scatteredResources[targetCell] = newResource;
+                        ObsoleteCoreEntryPoint.ResourceManager._scatteredResources[targetCell] = newResource;
 
                         remainingAmount -= toSpawn;
                     }
@@ -224,7 +224,7 @@ public class ResourceManager : MonoBehaviour {
         Storagable closestStorage = null;
         for (int i = 0; i < fittingStorage.Count; i++) {
             if (i == 10) break;
-            var pathLength = Core.AStarPathfinding
+            var pathLength = ObsoleteCoreEntryPoint.AStarPathfinding
                 .FindPath(from, fittingStorage[i].GetComponent<Interactable>().InteractableCells, out bool isPathExist).Count;
             if (!isPathExist) {
                 continue;

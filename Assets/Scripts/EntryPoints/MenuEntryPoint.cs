@@ -2,10 +2,14 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Menu : MonoBehaviour {
-    public static Menu Instance;
+public class MenuEntryPoint : EntryPointBase {
+    public static MenuEntryPoint Instance;
 
     private void Awake() {
+        if (TrySwitchToLoading()) {
+            return;
+        }
+
         Instance = this;
     }
 

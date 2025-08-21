@@ -63,7 +63,7 @@ public class Video1 : MonoBehaviour {
             CommandType = Command.Search,
             Interactable = secondFlower
         });
-        Core.ConfigManager.CreaturesParametersConfig.ChangeMoveSpeed(movementTimeChange);
+        ObsoleteCoreEntryPoint.ConfigManager.CreaturesParametersConfig.ChangeMoveSpeed(movementTimeChange);
         var animator = flowerSettler.GetComponentInChildren<Animator>();
         flowerSettler.SettlerData._mood = Mood.Angry;
         yield return WaitUntilAnimationEnds(animator, "Jump");
@@ -77,7 +77,7 @@ public class Video1 : MonoBehaviour {
         yield return AddMoveAndWaitFinish(_movePoses[5].position);
         yield return AddMoveAndWaitFinish(_movePoses[6].position);
         flowerSettler.GetComponentInChildren<Shooter>().EnableShooting = true;
-        Core.ConfigManager.CreaturesParametersConfig.ChangeMoveSpeed(-movementTimeChange);
+        ObsoleteCoreEntryPoint.ConfigManager.CreaturesParametersConfig.ChangeMoveSpeed(-movementTimeChange);
     }
 
     private IEnumerator WaitUntilAnimationEnds(Animator animator, string trigger)
@@ -92,7 +92,7 @@ public class Video1 : MonoBehaviour {
     }
     private IEnumerator AddCommandAndWaitFinish(CommandData data) {
         var settler = data.Settler;
-        CommandsManager commandsManager = Core.CommandsManagersHolder.GetCommandManagerByRace(Race.Plants);
+        CommandsManager commandsManager = ObsoleteCoreEntryPoint.CommandsManagersHolder.GetCommandManagerByRace(Race.Plants);
         commandsManager.AddSubsequentCommand(data);
         yield return new WaitWhile(() => settler.TakenCommand != null);
     }

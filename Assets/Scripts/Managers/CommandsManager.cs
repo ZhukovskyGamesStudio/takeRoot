@@ -37,7 +37,7 @@ public class CommandsManager : MonoBehaviour {
 
     private void Start()
     {
-        _settlers = Core.SettlersManager.Settlers.Where(s => s.SettlerData.Race == _race).ToList();
+        _settlers = ObsoleteCoreEntryPoint.SettlersManager.Settlers.Where(s => s.SettlerData.Race == _race).ToList();
     }
 
     public void AddCommandManually(CommandData command) {
@@ -160,11 +160,11 @@ public class CommandsManager : MonoBehaviour {
     }
 
     private void TryAddCommandFromMouseClick(Command command) {
-        if (Core.Instance.MyRace() != _race) {
+        if (ObsoleteCoreEntryPoint.Instance.MyRace() != _race) {
             return;
         }
 
-        Interactable interactable =Core.SelectionManager.Interactable as Interactable;
+        Interactable interactable =ObsoleteCoreEntryPoint.SelectionManager.Interactable as Interactable;
         if (interactable == null) {
             return;
         }

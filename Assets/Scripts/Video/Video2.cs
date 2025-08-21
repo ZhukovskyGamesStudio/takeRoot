@@ -99,17 +99,17 @@ public class Video2 : MonoBehaviour
         
         yield return AddMoveAndWaitFinish(goToCreateWirePos[0].position, chamomileSettler);
         yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 0.2f);
-        Core.PowerManager.CreateWireAt(biogenerator.transform.position.ToVector2Int());
+        ObsoleteCoreEntryPoint.PowerManager.CreateWireAt(biogenerator.transform.position.ToVector2Int());
         foreach (Transform pos in goToCreateWirePos)
         {
             yield return AddMoveAndWaitFinish(pos.position, chamomileSettler);
             yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 0.2f);
-            Core.PowerManager.CreateWireAt(pos.position.ToVector2Int());
+            ObsoleteCoreEntryPoint.PowerManager.CreateWireAt(pos.position.ToVector2Int());
         }
         yield return AddMoveAndWaitFinish(goToChamomileRechargerPos.position, chamomileSettler);
         yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
         var rechargerPos = goToChamomileRechargerPos.position.ToVector2Int();
-        Core.PowerManager.CreateWireAt(new Vector2Int(rechargerPos.x, rechargerPos.y + 1));
+        ObsoleteCoreEntryPoint.PowerManager.CreateWireAt(new Vector2Int(rechargerPos.x, rechargerPos.y + 1));
         CinemachineCamera.Target.TrackingTarget = mainLampSettler.transform;
         yield return AddMoveAndWaitFinish(goAwayChamomilePos.position, chamomileSettler);
         mainLampSettler.transform.position = new Vector3(-11, 44.6f, 0);

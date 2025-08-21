@@ -47,7 +47,7 @@ public class CraftingGridUiView : MonoBehaviour
         craftingLineView.UpdateRecipesAmount(recipesToCraftCount);
         craftingLineView.UpdateRecipesAmountButtons(recipesToCraftCount);
         
-        var recipe = Core.CraftingManager.GetRecipe(recipeUid);
+        var recipe = ObsoleteCoreEntryPoint.CraftingManager.GetRecipe(recipeUid);
         foreach (ResourceData resource in recipe.RequiredResources)
         {
             var allAvailableResources = ResourceManager.FindAllAvailableResources(resource.ResourceType);

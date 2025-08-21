@@ -16,7 +16,7 @@ public class TacticalCommandsManager : MonoBehaviour {
     
     private void Update() {
         if (_tacticalCommandPanel.SelectedTacticalCommand == TacticalCommand.RoundAttack &&
-            Core.SettlersSelectionManager.SelectedSettler.TakenTacticalCommand == null) {
+            ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler.TakenTacticalCommand == null) {
             TryAddTacticalCommandFromMouseClick(TacticalCommand.RoundAttack);
         }
 
@@ -25,14 +25,14 @@ public class TacticalCommandsManager : MonoBehaviour {
         }
 
         if (Input.GetMouseButtonDown(1)) {
-            if (Core.SettlersSelectionManager.SelectedSettler && Core.SettlersSelectionManager.SelectedSettler.Mode == Mode.Tactical) {
+            if (ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler && ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler.Mode == Mode.Tactical) {
                 TryAddTacticalCommandFromMouseClick(TacticalCommand.Move);
                 return;
             }
         }
 
         if (Input.GetMouseButtonDown(0) && _tacticalCommandPanel.SelectedTacticalCommand != TacticalCommand.None) {
-            if (Core.SettlersSelectionManager.SelectedSettler) {
+            if (ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler) {
                 TryAddTacticalCommandFromMouseClick(_tacticalCommandPanel.SelectedTacticalCommand);
             }
         }
@@ -46,12 +46,12 @@ public class TacticalCommandsManager : MonoBehaviour {
     }
 
     private void TryAddTacticalCommandFromMouseClick(TacticalCommand tacticalCommand) {
-        if (Core.Instance.MyRace() != _race)
+        if (ObsoleteCoreEntryPoint.Instance.MyRace() != _race)
             return;
 
-        TacticalInteractable interactable =Core.SelectionManager.TacticalInteractable as TacticalInteractable;
+        TacticalInteractable interactable =ObsoleteCoreEntryPoint.SelectionManager.TacticalInteractable as TacticalInteractable;
         if (tacticalCommand == TacticalCommand.RoundAttack) {
-            interactable = Core.SettlersSelectionManager.SelectedSettler.GetEcsComponent<TacticalInteractable>();
+            interactable = ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler.GetEcsComponent<TacticalInteractable>();
 
             //Выключает тугл RoundAttack чтобы избежать повторных добавлений команды
             var toggle = _tacticalCommandPanel.GetComponentsInChildren<TacticalCommandToggle>()
@@ -75,14 +75,14 @@ public class TacticalCommandsManager : MonoBehaviour {
             var position = GetFloorCell();
             data.TargetPosition = position;
             var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition).ToVector2Int();
-            data.TargetPoint = new Point(mousePosition.x, mousePosition.y, Core.LayerManager.currentGlobalLayer);
+            data.TargetPoint = new Point(mousePosition.x, mousePosition.y, ObsoleteCoreEntryPoint.LayerManager.currentGlobalLayer);
         } else {
             if (!interactable.CanBeCommanded(tacticalCommand)) {
                 return;
             }
 
             if (tacticalCommand == TacticalCommand.Merge && interactable.TryGetComponent(out Settler settler)) {
-                if (settler.SettlerData.Race == Core.Instance.MyRace())
+                if (settler.SettlerData.Race == ObsoleteCoreEntryPoint.Instance.MyRace())
                     return;
                 if (settler.SettlerData._mode == Mode.Planning)
                     return;
@@ -90,7 +90,7 @@ public class TacticalCommandsManager : MonoBehaviour {
 
             if (tacticalCommand == TacticalCommand.Equip && interactable.TryGetComponent(out TacticalEquippable equippable)) {
                 var equipType = equippable.GetEquipmentType();
-                if (!Core.SettlersSelectionManager.SelectedSettler.SettlerData.PossibleEquipment.Contains(equipType)) {
+                if (!ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler.SettlerData.PossibleEquipment.Contains(equipType)) {
                     return;
                 }
             }
@@ -101,7 +101,7 @@ public class TacticalCommandsManager : MonoBehaviour {
         }
 
         AddCommand(data);
-        Core.SettlersSelectionManager.SelectedSettler.SetTacticalCommand(data);
+        ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler.SetTacticalCommand(data);
     }
 
     private void AddCommand(TacticalCommandData data) {
@@ -121,7 +121,7 @@ public class TacticalCommandsManager : MonoBehaviour {
                 _currentCommand.PlannedCommandView.Release();
 
             _currentCommand = null;
-            Core.SettlersSelectionManager.SelectedSettler.ClearTacticalCommand();
+            ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler.ClearTacticalCommand();
         }
     }
 
