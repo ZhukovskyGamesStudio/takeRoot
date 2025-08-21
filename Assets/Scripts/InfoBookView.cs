@@ -36,17 +36,6 @@ public class InfoBookView : MonoBehaviour {
         _equipmentGridView.gameObject.SetActive(false);
     }
 
-    public void Init(SettlerData settlerData) {
-        
-        _craftingGridUiView.gameObject.SetActive(false);
-        
-        _icon.sprite = settlerData.InfoBookIcon;
-        _nameText.text = settlerData.Name;
-
-        _equipmentGridView.gameObject.SetActive(true);
-        _equipmentGridView.Set(settlerData);
-    }
-
     public void Init(CraftingStationable craftingStationable)
     {
         _equipmentGridView.gameObject.SetActive(false);

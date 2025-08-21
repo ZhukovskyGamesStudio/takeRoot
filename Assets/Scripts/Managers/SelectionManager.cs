@@ -7,13 +7,7 @@ public class SelectionManager : MonoBehaviour {
     private CommandsPanel _commandsPanel;
 
     [SerializeField]
-    private Toggle _infoToggle;
-
-    [SerializeField]
-    private InfoBookView _infoPanel;
-
-    [SerializeField]
-    private bool _autoOpenInfoPanel = false;
+    private bool _autoOpenInfoPanel;
 
     public Interactable Interactable { get; private set; }
     public ISelectable TacticalInteractable { get; private set; }
@@ -24,38 +18,22 @@ public class SelectionManager : MonoBehaviour {
 
     public void Update() {
         TryAutoOpenInfoPanel();
-
-        if (_infoToggle.isOn && _commandsPanel.SelectedCommand != Command.None) {
-            _infoToggle.isOn = false;
-        }
     }
 
     private void TryAutoOpenInfoPanel() {
-        if (Input.GetMouseButtonDown(0) && _commandsPanel.SelectedCommand == Command.None && Interactable != null) {
-            if (_autoOpenInfoPanel) {
-                _infoToggle.isOn = true;
-            }
-
-            if (Interactable.TryGetComponent(out CraftingStationable craftingStationable))
-            {
-                _infoPanel.Init(craftingStationable);
-                return;
-            }
+        if (Input.GetMouseButtonDown(0) && _commandsPanel.SelectedCommand == Command.None) {
             
-            _infoPanel.Init(Interactable.GetInfoData());
-        }
-
-        if (Input.GetMouseButton(0) && _commandsPanel.SelectedCommand == Command.None && TacticalInteractable != null) {
-            if (_autoOpenInfoPanel) {
-                _infoToggle.isOn = true;
+            if(Interactable != null) Core.UI.OpenInfoPanel(Interactable);
+            else if (TacticalInteractable != null) {
+                if (TacticalInteractable.GetGameObject().GetComponent<SettlerData>() != null) return;
+                
+                Core.UI.OpenInfoPanel(TacticalInteractable);
             }
-
-            _infoPanel.Init(TacticalInteractable.GetInfoData());
         }
     }
 
     public void SetSelected(Interactable obj) {
-            Interactable = obj;
+        Interactable = obj;
     }
 
     public void TryClearSelected(Interactable obj) {

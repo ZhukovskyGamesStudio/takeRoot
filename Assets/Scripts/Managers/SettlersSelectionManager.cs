@@ -27,8 +27,9 @@ public class SettlersSelectionManager : MonoBehaviour {
 
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (EventSystem.current?.IsPointerOverGameObject() == true) return;
+            
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (!hit) {
                 TryUnselectSettler();
                 return;
@@ -43,8 +44,6 @@ public class SettlersSelectionManager : MonoBehaviour {
                 TryUnselectSettler();
             }
         }
-
-        TryAutoOpenInfoPanel();
     }
 
     public void TryUnselectSpecificSettler(Settler settler) {
@@ -52,18 +51,6 @@ public class SettlersSelectionManager : MonoBehaviour {
         if (SelectedSettler == settler) {
             TryUnselectSettler();
         }
-    }
-
-    private void TryAutoOpenInfoPanel() {
-        if (!Input.GetMouseButton(0) || _commandsPanel.SelectedCommand != Command.None || SelectedSettler == null) {
-            return;
-        }
-
-        if (Core.UI.InfoPanelView.IsAutoOpenInfoPanel) {
-            Core.UI.InfoPanelView.SetToggle(true);
-        }
-
-        Core.UI.InfoPanelView.Init(SelectedSettler.SettlerData);
     }
 
     private void CreateSelectionView() {
@@ -81,10 +68,9 @@ public class SettlersSelectionManager : MonoBehaviour {
         }
 
         SelectedSettler = settler;
+        Core.UI.OpenSettlerPanel(settler.SettlerData);
         _changeModeToggle.gameObject.SetActive(true);
         _changeModeToggle.SetToggleValue(SelectedSettler.Mode == Mode.Tactical);
-        Gridable gridable = SelectedSettler.GetEcsComponent<Gridable>();
-        _selectionView.Init(gridable, gridable.transform);
         ChangePanels(SelectedSettler.Mode == Mode.Tactical);
     }
 
@@ -99,10 +85,7 @@ public class SettlersSelectionManager : MonoBehaviour {
         //SelectedSettler.ChangeMode(Mode.Planning);
         SelectedSettler = null;
         _selectionView.Release(transform);
-
-        if (Core.UI.InfoPanelView.GetToggle()) {
-            Core.UI.InfoPanelView.SetToggle(false);
-        }
+        Core.UI.CloseInfoPanel();
     }
 
     private void ChangePanels(bool isTactical) {

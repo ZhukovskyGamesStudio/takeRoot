@@ -7,7 +7,7 @@ using WorldObjects;
 
 public class SettlerData : ECSComponent {
     [field: SerializeField]
-    public string Name { get; private set; }
+    public string Name { get; set; }
 
     [field: SerializeField]
     public Sprite InfoBookIcon;

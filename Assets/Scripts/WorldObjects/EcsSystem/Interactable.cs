@@ -37,6 +37,10 @@ public class Interactable : ECSComponent, ISelectable {
         return GetInfoFunc?.Invoke();
     }
 
+    public GameObject GetGameObject() {
+        return gameObject;
+    }
+
     public bool CanBeCommanded(Command command) {
         if (CommandToExecute != null && CommandToExecute.CommandType == command) {
             return false;

@@ -6,8 +6,14 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
     [field: SerializeField]
     public NetworkReplacementUi NetworkReplacement { get; private set; }
 
-    [field: SerializeField]
-    public InfoBookView InfoPanelView;
+    [SerializeField]
+    private InfoBookView _infoPanel;
+
+    [SerializeField]
+    private SettlerPanel _settlerPanel;
+    
+    [SerializeField]
+    private Toggle _infoToggle;
 
     public void Init() {
         Core.UI = this;
@@ -35,5 +41,30 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
         foreach (IHasRaceVariant variable in variableChildren) {
             variable.SetVariant(race);
         }
+    }
+
+    public void OpenInfoPanel(ISelectable selectable) {
+        CloseInfoPanel();
+        _infoToggle.isOn = true;
+
+        if (selectable.GetGameObject().TryGetComponent(out CraftingStationable craftingStationable)) {
+            _infoPanel.Init(craftingStationable);
+            return;
+        }
+        
+        _infoPanel.Init(selectable.GetInfoData());
+    }
+
+    public void OpenSettlerPanel(SettlerData settlerData) {
+        CloseInfoPanel();
+        
+        _settlerPanel.gameObject.SetActive(true);
+        _settlerPanel.Init(settlerData);
+    }
+
+    public void CloseInfoPanel() {
+        _settlerPanel.gameObject.SetActive(false);
+        _infoPanel.gameObject.SetActive(false);
+        _infoToggle.isOn = false;
     }
 }
