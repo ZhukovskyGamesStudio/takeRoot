@@ -13,7 +13,7 @@ public class Wire : ECSComponent
         WireDirection = wireDirection;
         Connected = connected;
         Generator = generator;
-        _spriteRenderer.sprite = Core.PowerManager.WireDirectionSprites[WireDirection];
+        _spriteRenderer.sprite = ObsoleteCoreEntryPoint.PowerManager.WireDirectionSprites[WireDirection];
         //spriteRenderer.color = Connected ? Color.red : Color.blue;
     }
     public override int GetDependancyPriority()

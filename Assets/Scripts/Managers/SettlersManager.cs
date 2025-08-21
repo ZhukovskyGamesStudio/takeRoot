@@ -21,13 +21,13 @@ public class SettlersManager : MonoBehaviour, IInitableInstance {
 
     public IEnumerable<SettlerData> MySettlers {
         get {
-            Race race = Core.Instance.MyRace();
+            Race race = ObsoleteCoreEntryPoint.Instance.MyRace();
             return _settlersDatas.Where(d => d.Race == Race.Both || d.Race == race);
         }
     }
 
     public void Init() {
-        Core.SettlersManager = this;
+        ObsoleteCoreEntryPoint.SettlersManager = this;
         _settlers = new HashSet<Settler>(FindObjectsByType<Settler>(FindObjectsInactive.Exclude, FindObjectsSortMode.None));
         _settlersDatas = new HashSet<SettlerData>(_settlers.Select(s => s.SettlerData));
     }

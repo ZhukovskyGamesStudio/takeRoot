@@ -7,8 +7,8 @@ public class SetAllSettlersToTacticalMode : QuestStep
     private int _settlersInTacticalMode;
     private void Start()
     {
-        _settlersCount = Core.SettlersManager.MySettlers.Count();
-        foreach (SettlerData settler in Core.SettlersManager.MySettlers)
+        _settlersCount = ObsoleteCoreEntryPoint.SettlersManager.MySettlers.Count();
+        foreach (SettlerData settler in ObsoleteCoreEntryPoint.SettlersManager.MySettlers)
         {
             if (settler._mode == Mode.Tactical)
                 _settlersInTacticalMode++;
@@ -20,15 +20,15 @@ public class SetAllSettlersToTacticalMode : QuestStep
             // TODO: Add Merge toggle to command panel
             return;
         }
-        Core.GameEventsManager.WorldObjectsEvents.onSettlerModeChanged += OnStatusChanged;
+        ObsoleteCoreEntryPoint.GameEventsManager.WorldObjectsEvents.onSettlerModeChanged += OnStatusChanged;
     }
     private void OnStatusChanged(Settler settler)
     {
         if (IsFinished)
             return;
-        if (Core.SettlersManager.MySettlers.Contains(settler.SettlerData) && settler.Mode == Mode.Tactical)
+        if (ObsoleteCoreEntryPoint.SettlersManager.MySettlers.Contains(settler.SettlerData) && settler.Mode == Mode.Tactical)
             _settlersInTacticalMode++;
-        if (Core.SettlersManager.MySettlers.Contains(settler.SettlerData) && settler.Mode == Mode.Planning)
+        if (ObsoleteCoreEntryPoint.SettlersManager.MySettlers.Contains(settler.SettlerData) && settler.Mode == Mode.Planning)
             _settlersInTacticalMode--;
         
         UpdateQuestStepStatus(_status + _settlersInTacticalMode + "/" + _settlersCount);

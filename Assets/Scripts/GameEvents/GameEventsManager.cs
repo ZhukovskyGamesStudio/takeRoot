@@ -7,7 +7,7 @@ public class GameEventsManager : MonoBehaviour, IInitableInstance
     
     public void Init()
     {
-        Core.GameEventsManager = this;
+        ObsoleteCoreEntryPoint.GameEventsManager = this;
         
         WorldObjectsEvents = new WorldObjectsEvents();
     }

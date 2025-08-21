@@ -34,7 +34,7 @@ public class TacticalRoundAttack : ECSComponent
 
     private void DoRoundAttack()
     {
-        _tacticalInteractable.CommandToExecute.Settler.SettlerData.RoundAttackCooldown = Core.ConfigManager.CreaturesParametersConfig.RoundAttackCooldown;
+        _tacticalInteractable.CommandToExecute.Settler.SettlerData.RoundAttackCooldown = ObsoleteCoreEntryPoint.ConfigManager.CreaturesParametersConfig.RoundAttackCooldown;
         var attackCells = _tacticalInteractable.CommandToExecute.TacticalInteractable.Gridable.InteractableCells;
         var zombies = FindObjectsByType<Zombie>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         foreach (Zombie zombie in zombies)

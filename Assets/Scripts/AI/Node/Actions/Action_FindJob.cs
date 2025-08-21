@@ -14,8 +14,8 @@ namespace AI.Node.Jobs {
 		public override BTNodeState Evaluate() {
 			var obj = _commands.GetJob();
 			if (obj == null) return _state = BTNodeState.Failure;
-			obj.Reserved = true;
-			_settler.Data.currJob = obj.CurrentJobType;
+			obj.Data.AssignedSettler = _settler;
+			_settler.Data.currJob = obj.Data.CurrentJob;
 			_settler.Data.currTarget = obj;
 			return _state = BTNodeState.Success;
 		}

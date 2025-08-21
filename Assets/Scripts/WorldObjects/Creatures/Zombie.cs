@@ -83,13 +83,13 @@ public class Zombie : ECSEntity {
 
     private void AddAttackTarget(Vector2Int targetCell) {
         _currentAttackTarget = targetCell;
-        _changeAttackTargetCooldown = Core.ConfigManager.ZombieConfig.ChangeTargetCooldown;
+        _changeAttackTargetCooldown = ObsoleteCoreEntryPoint.ConfigManager.ZombieConfig.ChangeTargetCooldown;
     }
 
     private void CheckForSettlerNear() {
         if (_changeAttackTargetCooldown > 0)
             return;
-        foreach (Settler settler in Core.SettlersManager.Settlers) {
+        foreach (Settler settler in ObsoleteCoreEntryPoint.SettlersManager.Settlers) {
             if (Gridable.InteractableCells.Contains(settler.GetCellOnGrid) && settler.SettlerData._mood != Mood.Neutral) {
                 SetRagePoints(ZombieData.PointsToRageState);
                 AddAttackTarget(settler.GetCellOnGrid);
@@ -120,7 +120,7 @@ public class Zombie : ECSEntity {
         var newPosX = Random.Range(-5 + currentPosition.x, 5 + currentPosition.x);
         var target = new HashSet<Vector2Int> { new(newPosX, newPosY) };
 
-        var path = Core.AStarPathfinding.FindPathForZombies(currentPosition, target, 1);
+        var path = ObsoleteCoreEntryPoint.AStarPathfinding.FindPathForZombies(currentPosition, target, 1);
         if (path != null) {
             return target;
         }
@@ -140,7 +140,7 @@ public class Zombie : ECSEntity {
 
         if (_currentMovementTarget.Contains(target)) {
             _currentMovementTarget = null;
-            _movingCooldown = Core.ConfigManager.ZombieConfig.MoveCooldown;
+            _movingCooldown = ObsoleteCoreEntryPoint.ConfigManager.ZombieConfig.MoveCooldown;
             return null;
         }
 
@@ -175,8 +175,8 @@ public class Zombie : ECSEntity {
     }
 
     private IEnumerator StartAttack() {
-        yield return new WaitForSeconds(Core.ConfigManager.ZombieConfig.AttackTime);
-        var settler = Core.SettlersManager.GetSettlerAt(_currentAttackTarget.Value);
+        yield return new WaitForSeconds(ObsoleteCoreEntryPoint.ConfigManager.ZombieConfig.AttackTime);
+        var settler = ObsoleteCoreEntryPoint.SettlersManager.GetSettlerAt(_currentAttackTarget.Value);
         if (settler != null) {
             settler.GetEcsComponent<Damagable>().OnAttacked(1);
         }
@@ -199,9 +199,9 @@ public class Zombie : ECSEntity {
     }
 
     private IEnumerator TryDestroy(Destructable target) {
-        yield return new WaitForSeconds(Core.ConfigManager.ZombieConfig.DestroyTime);
+        yield return new WaitForSeconds(ObsoleteCoreEntryPoint.ConfigManager.ZombieConfig.DestroyTime);
         if (target != null)
-            target.OnAttacked(Core.ConfigManager.ZombieConfig.DestroyDamage);
+            target.OnAttacked(ObsoleteCoreEntryPoint.ConfigManager.ZombieConfig.DestroyDamage);
         _performingCoroutine = null;
     }
 
@@ -216,8 +216,8 @@ public class Zombie : ECSEntity {
             _spriteRenderer.flipX = false;
         }
 
-        yield return new WaitForSeconds(Core.ConfigManager.ZombieConfig.MovePause);
-        yield return StartCoroutine(LerpFromTo(transform.position, target3 * CellSize, Core.ConfigManager.ZombieConfig.MoveTime));
+        yield return new WaitForSeconds(ObsoleteCoreEntryPoint.ConfigManager.ZombieConfig.MovePause);
+        yield return StartCoroutine(LerpFromTo(transform.position, target3 * CellSize, ObsoleteCoreEntryPoint.ConfigManager.ZombieConfig.MoveTime));
         Gridable.PositionChanged();
         _performingCoroutine = null;
     }

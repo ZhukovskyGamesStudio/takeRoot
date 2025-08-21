@@ -3,7 +3,7 @@ using UnityEngine;
 namespace AI.Node.Jobs {
 	public class Action_PickRandomPos : BTNode {
 		private readonly Settler _settler;
-		private int _range = 2;
+		private int _range = 1;
 		
 		public Action_PickRandomPos(Settler settler) {
 			_settler = settler;

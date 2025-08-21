@@ -11,7 +11,7 @@ public class QuestManager : MonoBehaviour, IInitableInstance {
     public Transform QuestContainer => transform;
 
     public void Init() {
-        Core.QuestManager = this;
+        ObsoleteCoreEntryPoint.QuestManager = this;
         _quests = CreateQuestsMap();
 
         StartQuest("door");
@@ -39,14 +39,14 @@ public class QuestManager : MonoBehaviour, IInitableInstance {
 
         quest.State = QuestState.InProgress;
         quest.InitializeStage();
-        if (quest.config.Race == Core.Instance.MyRace() || quest.config.Race == Race.Both)
+        if (quest.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || quest.config.Race == Race.Both)
             _questsView.RedrawQuest(quest);
     }
 
     public void AdvanceQuest(string questId, int stageId) {
         Quest quest = GetQuestById(questId);
         if (!quest.Stages[stageId].AllStepsComplete()) {
-            if (quest.config.Race == Core.Instance.MyRace() || quest.config.Race == Race.Both)
+            if (quest.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || quest.config.Race == Race.Both)
                 _questsView.RedrawQuest(quest);
             return;
         }
@@ -54,7 +54,7 @@ public class QuestManager : MonoBehaviour, IInitableInstance {
         quest.MoveToNextStage();
         if (quest.HasCurrentStage()) {
             quest.InitializeStage();
-            if (quest.config.Race == Core.Instance.MyRace() || quest.config.Race == Race.Both)
+            if (quest.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || quest.config.Race == Race.Both)
                 _questsView.RedrawQuest(quest);
         } else FinishQuest(questId);
     }
@@ -69,7 +69,7 @@ public class QuestManager : MonoBehaviour, IInitableInstance {
     private IEnumerator FinishQuestWithFadeAway(Quest quest) {
         float duration = 3f;
         yield return StartCoroutine(_questsView.FadeAway(quest, duration));
-        if (quest.config.Race == Core.Instance.MyRace() || quest.config.Race == Race.Both)
+        if (quest.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || quest.config.Race == Race.Both)
             _questsView.RemoveQuestNote(quest);
         foreach (string nextQuest in quest.NextQuests) {
             StartQuest(nextQuest);
@@ -101,7 +101,7 @@ public class QuestManager : MonoBehaviour, IInitableInstance {
 
     public void RedrawAllQuests() {
         var quests = _quests.Values.Where(q => q.State == QuestState.InProgress &&
-                                               (q.config.Race == Core.Instance.MyRace() || q.config.Race == Race.Both));
+                                               (q.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || q.config.Race == Race.Both));
         _questsView.ClearQuestNotes();
         foreach (Quest quest in quests) {
             _questsView.RedrawQuest(quest);

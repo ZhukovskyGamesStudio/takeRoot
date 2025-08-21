@@ -72,7 +72,7 @@ public class CraftingStationable : ECSComponent
     
     public void AddRecipeToCraft(string uid)
     {
-        var recipe = Core.CraftingManager.GetRecipe(uid);
+        var recipe = ObsoleteCoreEntryPoint.CraftingManager.GetRecipe(uid);
         _recipesToCraftList.Add(uid);
         foreach (ResourceData resource in recipe.RequiredResources)
         {
@@ -83,7 +83,7 @@ public class CraftingStationable : ECSComponent
     
     public void RemoveRecipeToCraft(string uid)
     {
-        var recipe = Core.CraftingManager.GetRecipe(uid);
+        var recipe = ObsoleteCoreEntryPoint.CraftingManager.GetRecipe(uid);
         RemoveLastAddedRecipeToCraft(uid);
         foreach (ResourceData resource in recipe.RequiredResources)
         {

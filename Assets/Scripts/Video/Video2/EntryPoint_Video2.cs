@@ -46,8 +46,8 @@ public class EntryPoint_Video2 : MonoBehaviour, ICoroutineRunner {
 	private void Awake() {
 		_services = ServiceLocator.Container;
 		var updateService = GetComponent<UpdateService>();
-		var serviceLoader = new ServiceLocatorLoader_Main(updateService, this, GetComponent<MapFromSceneObjects>());
-		serviceLoader.RegisterServices();
+		//var serviceLoader = new ServiceLocatorLoader_Main(updateService, this, GetComponent<MapFromSceneObjects>());
+		//serviceLoader.RegisterServices();
 	}
 
 	private void Update() {

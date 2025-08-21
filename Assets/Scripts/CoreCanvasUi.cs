@@ -16,23 +16,16 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
     private Toggle _infoToggle;
 
     public void Init() {
-        Core.UI = this;
+        ObsoleteCoreEntryPoint.UI = this;
+        ObsoleteCoreEntryPoint.Instance.OnChangeRace += SetRace;
         InitRace();
-        InitRaceChangeButton();
-    }
-
-    private void InitRaceChangeButton() {
-        if (NetworkManager.Singleton == null) {
-            NetworkReplacement.gameObject.SetActive(true);
-            NetworkReplacement.OnChangeRace += SetRace;
-        }
     }
 
     private void InitRace() {
         if (NetworkManager.Singleton != null) {
             SetRace(PlayerRaceSelection.GetRace());
         } else {
-            SetRace(Core.Instance.CurrentNetworkFakeRace);
+            SetRace(ObsoleteCoreEntryPoint.Instance.CurrentNetworkFakeRace);
         }
     }
 
@@ -41,6 +34,11 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
         foreach (IHasRaceVariant variable in variableChildren) {
             variable.SetVariant(race);
         }
+    }
+
+    public override void OnDestroy() {
+        ObsoleteCoreEntryPoint.Instance.OnChangeRace -= SetRace;
+        base.OnDestroy();
     }
 
     public void OpenInfoPanel(ISelectable selectable) {

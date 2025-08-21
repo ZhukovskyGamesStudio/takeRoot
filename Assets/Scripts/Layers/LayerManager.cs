@@ -10,7 +10,7 @@ public class LayerManager : MonoBehaviour
 
     private void Awake()
     {
-        Core.LayerManager = this;
+        ObsoleteCoreEntryPoint.LayerManager = this;
     }
 
     private void Start()
@@ -26,7 +26,7 @@ public class LayerManager : MonoBehaviour
             _renderers.Add(layerRenderer);
         }
 
-        Core.WarpManager.Init();
+        ObsoleteCoreEntryPoint.WarpManager.Init();
         SwitchWorldLayer(currentGlobalLayer);
     }
     public void MoveToAnotherLayer(short layer, HasLayer hasLayerObject)

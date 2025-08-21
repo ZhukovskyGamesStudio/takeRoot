@@ -7,7 +7,7 @@ public class DestroyObjectQuestStep : QuestStep
 
     private void Start()
     {
-        Core.GameEventsManager.WorldObjectsEvents.onDestroyed += RequiredObjectsDestroyed;
+        ObsoleteCoreEntryPoint.GameEventsManager.WorldObjectsEvents.onDestroyed += RequiredObjectsDestroyed;
         UpdateQuestStepStatus(_status);
     }
 

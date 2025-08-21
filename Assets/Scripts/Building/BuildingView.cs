@@ -24,10 +24,10 @@ public class BuildingView : MonoBehaviour
             var text = _buildingNotes[i].GetComponentInChildren<TextMeshProUGUI>();
             var icon = _buildingNotes[i].GetComponentInChildren<Image>();
             var button = _buildingNotes[i].GetComponentInChildren<Button>();
-            text.text = Core.BuildingManager.GetBuildingPlanText(i);
-            icon.sprite = Core.BuildingManager.GetBuildingPlanIcon(i).sprite;
+            text.text = ObsoleteCoreEntryPoint.BuildingManager.GetBuildingPlanText(i);
+            icon.sprite = ObsoleteCoreEntryPoint.BuildingManager.GetBuildingPlanIcon(i).sprite;
             var i1 = i;
-            button.onClick.AddListener(delegate { Core.BuildingManager.EnablePlan(i1);});
+            button.onClick.AddListener(delegate { ObsoleteCoreEntryPoint.BuildingManager.EnablePlan(i1);});
         }
     }
 

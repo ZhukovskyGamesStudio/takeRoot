@@ -65,12 +65,12 @@ public class Settler : ECSEntity {
                 bool canPerform = CanPerform();
 
                 if (canPerform) {
-                    TryStartPerform(() => { Core.CommandsManagersHolder.CommandsManager.PerformedCommand(TakenCommand); });
+                    TryStartPerform(() => { ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.PerformedCommand(TakenCommand); });
                 } else {
                     Vector2Int? nextStepCell = TryMoveToCommandTarget();
                     if (nextStepCell == null) {
                         TakenCommand.UnablePerformSettlers.Add(this);
-                        Core.CommandsManagersHolder.CommandsManager.ReturnCommand(TakenCommand);
+                        ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.ReturnCommand(TakenCommand);
                     } else {
                         if (_performingCoroutine != null) {
                             return;
@@ -87,7 +87,7 @@ public class Settler : ECSEntity {
         if (TakenTacticalCommand != null) {
             if (_performingCoroutine == null) {
                 if (TakenTacticalCommand.TacticalCommandType == TacticalCommand.RoundAttack) {
-                    TryStartPerform(() => { Core.CommandsManagersHolder.TacticalCommandsManager.PerformedCommand(TakenTacticalCommand); });
+                    TryStartPerform(() => { ObsoleteCoreEntryPoint.CommandsManagersHolder.TacticalCommandsManager.PerformedCommand(TakenTacticalCommand); });
                     return;
                 }
 
@@ -95,7 +95,7 @@ public class Settler : ECSEntity {
                     var canPerform = CanPerformTactical();
                     if (canPerform) {
                         TryStartPerform(() => {
-                            Core.CommandsManagersHolder.TacticalCommandsManager.PerformedCommand(TakenTacticalCommand);
+                            ObsoleteCoreEntryPoint.CommandsManagersHolder.TacticalCommandsManager.PerformedCommand(TakenTacticalCommand);
                         });
                     } else {
                         Vector2Int? nextStepCell = TryMoveToTacticalCommandTarget();
@@ -220,7 +220,7 @@ public class Settler : ECSEntity {
             StoreCommandData data = (StoreCommandData)TakenCommand.AdditionalData;
             Storagable st = data.TargetStorage;
             if (st != null && !st.CanStore(data.Resource.ResourceData)) {
-                st = Core.ResourceManager.FindClosestAvailableStorage(data.Resource.ResourceData, GetCellOnGrid);
+                st = ObsoleteCoreEntryPoint.ResourceManager.FindClosestAvailableStorage(data.Resource.ResourceData, GetCellOnGrid);
             }
 
             if (st == null) {
@@ -317,19 +317,19 @@ public class Settler : ECSEntity {
         //transform.position = target3 * CELL_SIZE;
      
         RotateToMoveDirection(diff);
-        yield return StartCoroutine(LerpFromTo(transform.position, target3 * CellSize, Core.ConfigManager.CreaturesParametersConfig.MoveTime));
+        yield return StartCoroutine(LerpFromTo(transform.position, target3 * CellSize, ObsoleteCoreEntryPoint.ConfigManager.CreaturesParametersConfig.MoveTime));
 
         _gridable.PositionChanged();
-        Core.FogOfWarManager.OpenAroundMovedSettler(this);
+        ObsoleteCoreEntryPoint.FogOfWarManager.OpenAroundMovedSettler(this);
         _performingCoroutine = null;
     }
 
     private IEnumerator MoveToCell(Point target)
     {
-        if (Core.WarpManager.warps.TryGetValue(new Point(transform.localPosition.ToVector2Int().x, transform.localPosition.ToVector2Int().y, _gridable.HasLayer.layer), out Point warpDestination))
+        if (ObsoleteCoreEntryPoint.WarpManager.warps.TryGetValue(new Point(transform.localPosition.ToVector2Int().x, transform.localPosition.ToVector2Int().y, _gridable.HasLayer.layer), out Point warpDestination))
             if (warpDestination.Equals(target))
             {
-                Core.LayerManager.MoveToAnotherLayer((short)warpDestination.Layer, _gridable.HasLayer);
+                ObsoleteCoreEntryPoint.LayerManager.MoveToAnotherLayer((short)warpDestination.Layer, _gridable.HasLayer);
                 transform.localPosition = new Vector3(warpDestination.X, warpDestination.Y, transform.position.z);
                 yield break;
             }
@@ -338,10 +338,10 @@ public class Settler : ECSEntity {
         //transform.position = target3 * CELL_SIZE;
      
         RotateToMoveDirection(diff);
-        yield return StartCoroutine(LerpFromTo(transform.localPosition, target3 * CellSize, Core.ConfigManager.CreaturesParametersConfig.MoveTime));
+        yield return StartCoroutine(LerpFromTo(transform.localPosition, target3 * CellSize, ObsoleteCoreEntryPoint.ConfigManager.CreaturesParametersConfig.MoveTime));
 
         _gridable.PositionChanged();
-        Core.FogOfWarManager.OpenAroundMovedSettler(this);
+        ObsoleteCoreEntryPoint.FogOfWarManager.OpenAroundMovedSettler(this);
         _performingCoroutine = null;
     }
     private void RotateToMoveDirection(Vector3 diff) {
@@ -401,7 +401,7 @@ public class Settler : ECSEntity {
         yield return null; //Пропускаем кадр так как стейт не меняется в одном кадре с SetInteger
         
         var elapsedTime = 0f;
-        while (elapsedTime < Core.ConfigManager.CreaturesParametersConfig.PerformingTime)
+        while (elapsedTime < ObsoleteCoreEntryPoint.ConfigManager.CreaturesParametersConfig.PerformingTime)
         {
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -414,7 +414,7 @@ public class Settler : ECSEntity {
         Transform targetTransform = target.transform;
         Vector3 startPosition = transform.position;
         Vector3 direction = (targetTransform.position - startPosition).normalized;
-        Vector3 targetPosition = startPosition + direction * Core.ConfigManager.CreaturesParametersConfig.AttackAnimationShift;
+        Vector3 targetPosition = startPosition + direction * ObsoleteCoreEntryPoint.ConfigManager.CreaturesParametersConfig.AttackAnimationShift;
 
         float elapsedTime = 0f;
         while (elapsedTime < delay / 2f) {
@@ -447,7 +447,7 @@ public class Settler : ECSEntity {
 
         Vector2Int? nextStepCell = TryMoveToCommandTarget();
         if (nextStepCell == null) {
-            Core.CommandsManagersHolder.CommandsManager.RevokeCommandBecauseItsUnreachable(TakenCommand);
+            ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.RevokeCommandBecauseItsUnreachable(TakenCommand);
         }
     }
 
@@ -490,7 +490,7 @@ public class Settler : ECSEntity {
             //Core.CommandsManagersHolder.CommandsManager.SetActivePanel(false);
             //TacticalCore.CommandsManagersHolder.CommandsManager.SetActivePanel(true);
             if (TakenCommand != null) {
-                Core.CommandsManagersHolder.CommandsManager.RevokeCommandBecauseItsUnreachable(TakenCommand);
+                ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.RevokeCommandBecauseItsUnreachable(TakenCommand);
             }
         }
 

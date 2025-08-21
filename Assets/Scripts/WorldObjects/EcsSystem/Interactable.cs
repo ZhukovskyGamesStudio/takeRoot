@@ -25,12 +25,12 @@ public class Interactable : ECSComponent, ISelectable {
 
     private void OnMouseEnter() {
         if (CanSelect)
-           Core.SelectionManager.SetSelected(this);
+           ObsoleteCoreEntryPoint.SelectionManager.SetSelected(this);
     }
 
     private void OnMouseExit() {
         if (CanSelect)
-           Core.SelectionManager.TryClearSelected(this);
+           ObsoleteCoreEntryPoint.SelectionManager.TryClearSelected(this);
     }
 
     public InfoBookData GetInfoData() {

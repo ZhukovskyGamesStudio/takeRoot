@@ -9,7 +9,7 @@ public class CraftingManager : MonoBehaviour, IInitableInstance {
     private List<CraftingRecipeConfig> _recipe;
 
     public void Init() {
-        Core.CraftingManager = this;
+        ObsoleteCoreEntryPoint.CraftingManager = this;
     }
 
     public CraftingRecipeConfig GetRecipe(string uid) {

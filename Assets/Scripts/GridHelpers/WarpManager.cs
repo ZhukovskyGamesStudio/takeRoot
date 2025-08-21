@@ -7,7 +7,7 @@ public class WarpManager : MonoBehaviour
 
     private void Awake()
     {
-        Core.WarpManager = this;
+        ObsoleteCoreEntryPoint.WarpManager = this;
     }
 
     public void Init()

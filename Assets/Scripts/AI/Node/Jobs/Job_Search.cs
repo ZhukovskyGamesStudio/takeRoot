@@ -7,8 +7,9 @@ namespace AI.Node.Jobs {
 		public Job_Search(Settler settler) { 
 			var data = settler.Data;
 			Func<bool> condition = () => data.currTarget &&
-			                             data.currTarget.CurrentJobType == JobType.Search &&
-			                             data.currJob == JobType.Search;
+			                             data.currTarget.Data.CurrentJob == JobType.Search &&
+			                             data.currJob == JobType.Search &&
+			                             !data.IsTactical;
 			
 			var move = new ConditionalAction()
 				.Do(new Action_MoveTo(settler))

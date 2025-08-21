@@ -15,7 +15,7 @@ public class PowerManager : MonoBehaviour
     public GameObject wirePrefab;
     private void Awake()
     {
-        Core.PowerManager = this;
+        ObsoleteCoreEntryPoint.PowerManager = this;
         AddCreatedBeforeGameStartedWires();
         AddCreatedBeforeGameStartedGenerators();
         AddCreatedBeforeGameStartedPowerConsumers();

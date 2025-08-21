@@ -30,7 +30,7 @@ public class AStar : IPathfindService
             !graph.NodesMap.TryGetValue(endPos, out var endNode))
             return null;
 
-        var openSet = new SortedSet<(float f, int insertOrder, SimpleNode node)>();
+        var openSet = new SortedSet<(float f, int insertOrder, SimpleNode node)>(new NodeComparer());
         var cameFrom = new Dictionary<SimpleNode, SimpleNode>();
         var gScore = new Dictionary<SimpleNode, float>();
         var fScore = new Dictionary<SimpleNode, float>();
@@ -80,4 +80,16 @@ public class AStar : IPathfindService
     {
         return math.abs(a.x - b.x) + math.abs(a.y - b.y);
     }
+    private class NodeComparer : IComparer<(float f, int insertOrder, SimpleNode node)>
+    {
+        public int Compare((float f, int insertOrder, SimpleNode node) x, (float f, int insertOrder, SimpleNode node) y)
+        {
+            int cmp = x.f.CompareTo(y.f);
+            if (cmp != 0) return cmp;
+            cmp = x.insertOrder.CompareTo(y.insertOrder);
+            if (cmp != 0) return cmp;
+            return x.node.GetHashCode().CompareTo(y.node.GetHashCode()); // или ReferenceEquals
+        }
+    }
+
 }

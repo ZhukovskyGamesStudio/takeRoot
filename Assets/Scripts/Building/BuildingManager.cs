@@ -14,7 +14,7 @@ public class BuildingManager : MonoBehaviour {
     private List<BuildingPlan> _plans;
 
     private void Awake() {
-        Core.BuildingManager = this;
+        ObsoleteCoreEntryPoint.BuildingManager = this;
         LoadPlans();
     }
 

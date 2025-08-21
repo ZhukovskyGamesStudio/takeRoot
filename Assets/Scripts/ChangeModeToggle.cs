@@ -26,12 +26,12 @@ public class ChangeModeToggle : MonoBehaviour {
     }
 
     public void OnValueChanged(bool val) {
-        Core.SettlersSelectionManager.TryChangeSelectedSettlerMode(val);
+        ObsoleteCoreEntryPoint.SettlersSelectionManager.TryChangeSelectedSettlerMode(val);
         ChangeCommandsPanelsWithSettlerMode();
     }
 
     private void ChangeCommandsPanelsWithSettlerMode() {
-        var settler = Core.SettlersSelectionManager.SelectedSettler;
+        var settler = ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler;
         if (settler != null) {
             switch (settler.Mode) {
                 case Mode.Planning:
@@ -47,7 +47,7 @@ public class ChangeModeToggle : MonoBehaviour {
     }
 
     private void ChangePanels(bool isTactical) {
-        Core.CommandsManagersHolder.TacticalCommandsManager.SetActivePanel(isTactical);
-        Core.CommandsManagersHolder.CommandsManager.SetActivePanel(!isTactical);
+        ObsoleteCoreEntryPoint.CommandsManagersHolder.TacticalCommandsManager.SetActivePanel(isTactical);
+        ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.SetActivePanel(!isTactical);
     }
 }

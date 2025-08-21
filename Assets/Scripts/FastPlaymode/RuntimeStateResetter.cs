@@ -4,6 +4,7 @@ using UnityEngine;
 public class RuntimeStateResetter : MonoBehaviour {
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     static void Init() {
-        Core.Instance?.Reset();
+        ObsoleteCoreEntryPoint.Instance?.Reset();
+        LoadingEntryPoint.LoadingSceneVisited = false;
     }
 }

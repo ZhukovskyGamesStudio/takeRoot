@@ -14,7 +14,7 @@ public class AStarPathfinding : MonoBehaviour {
     private HashSet<Vector2Int> _wallsPositions = new HashSet<Vector2Int>();
 
     private void Awake() {
-        Core.AStarPathfinding = this;
+        ObsoleteCoreEntryPoint.AStarPathfinding = this;
     }
 
     private void Start() {
@@ -33,7 +33,7 @@ public class AStarPathfinding : MonoBehaviour {
 
     // Initialize the grid with walkable and blocked nodes
     private void InitializeGrid() {
-        Rect rect = Core.GridManager.GridSize;
+        Rect rect = ObsoleteCoreEntryPoint.GridManager.GridSize;
         Vector2Int min = new Vector2Int((int)rect.x, (int)rect.y);
         Vector2Int max = new Vector2Int((int)rect.width, (int)rect.height);
         _grid = new Dictionary<Vector2Int, Node>((max.x - min.x) * (max.y - min.y));
@@ -330,7 +330,7 @@ public class AStarPathfinding : MonoBehaviour {
     }
 
     public static bool IsWalkable(Vector2Int position) {
-        return Core.AStarPathfinding._grid[position].Walkable;
+        return ObsoleteCoreEntryPoint.AStarPathfinding._grid[position].Walkable;
     }
 
     // Get the Manhattan distance (heuristic) between two nodes

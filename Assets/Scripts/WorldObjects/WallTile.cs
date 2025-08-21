@@ -21,7 +21,7 @@ public class WallTile : ECSEntity, IInteractable, IDamageable {
 
     private void OnDiedAction() {
         Vector2Int pos = GetEcsComponent<Gridable>().GetBottomLeftOnGrid;
-        Core.GridManager.RemoveWall(pos);
+        ObsoleteCoreEntryPoint.GridManager.RemoveWall(pos);
     }
 
     private void OnCommandPerformed(CommandData obj) {

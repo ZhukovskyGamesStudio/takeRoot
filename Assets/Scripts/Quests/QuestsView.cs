@@ -65,7 +65,7 @@ public class QuestsView : MonoBehaviour, IHasRaceVariant
 
     public void SetVariant(Race race)
     {
-        if(Core.QuestManager != null)
-            Core.QuestManager.RedrawAllQuests();
+        if(ObsoleteCoreEntryPoint.QuestManager != null)
+            ObsoleteCoreEntryPoint.QuestManager.RedrawAllQuests();
     }
 }

@@ -9,6 +9,6 @@ public class ConfigManager : MonoBehaviour, IInitableInstance {
     public ZombieConfig ZombieConfig { get; private set; }
     
     public void Init() {
-        Core.ConfigManager = this;
+        ObsoleteCoreEntryPoint.ConfigManager = this;
     }
 }

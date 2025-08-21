@@ -60,7 +60,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                 command.Interactable.AssignCommand(command);
                 command.TriggerCancel += delegate { CancelGatherCommand(command); };
                 _activeGatherCommands.Add(command);
-                Core.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
+                ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
             }
 
             int requiredResourcesAmount = LeftToBring(resourceData.Key);
@@ -81,7 +81,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                 command.Interactable.AssignCommand(command);
                 command.TriggerCancel += delegate { CancelGatherCommand(command); };
                 _activeGatherCommands.Add(command);
-                Core.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
+                ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
             }
         }
     }
@@ -106,7 +106,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
             return;
         foreach (string recipe in _craftingStation.RecipesToCraftList) {
             bool canCraft = true;
-            var config = Core.CraftingManager.GetRecipe(recipe);
+            var config = ObsoleteCoreEntryPoint.CraftingManager.GetRecipe(recipe);
             foreach (ResourceData resource in config.RequiredResources) {
                 if (_craftingStation.GetResourceAmountFromStorage(resource.ResourceType) < resource.Amount) {
                     canCraft = false;
@@ -139,7 +139,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                     CraftingStation = _craftingStation
                 }
             };
-            Core.CommandsManagersHolder.GetCommandManagerByRace(race).AddCommandManually(command);
+            ObsoleteCoreEntryPoint.CommandsManagersHolder.GetCommandManagerByRace(race).AddCommandManually(command);
         }
     }
 
@@ -154,7 +154,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                 Settler = settler
             };
             _activeCraftingCommands.Add(command);
-            Core.CommandsManagersHolder.GetCommandManagerByRace(settler.SettlerData.Race).AddSubsequentCommand(command);
+            ObsoleteCoreEntryPoint.CommandsManagersHolder.GetCommandManagerByRace(settler.SettlerData.Race).AddSubsequentCommand(command);
         }
     }
 
