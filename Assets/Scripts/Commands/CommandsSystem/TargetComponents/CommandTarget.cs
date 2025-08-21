@@ -1,11 +1,15 @@
 using System;
 using CodeBase.Services;
+using Settlers.Test;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class CommandTarget : MonoBehaviour {
+
+	public CommandTargetData Data;
 	public JobType JobCapabilities { get; private set; }
 
+	public PlannedJobView PlannedJob;
 	public bool UseAnimatorWhenPerform = true;
 	public Animator PerformingAnimator;
 	
@@ -13,13 +17,12 @@ public class CommandTarget : MonoBehaviour {
 	
 	public int CurrentJobId = -1;
 
-	public JobType CurrentJobType = JobType.None;
+	//public JobType CurrentJobType = JobType.None;
 	public bool Reserved;
 	
 	private Health _health;
 	private SearchableObj _searchable;
 	private WaterLevel _waterLevel;
-	private ICarriable _carriable;
 
 	private void Start() {
 		if (TryGetComponent(out _health))
@@ -35,9 +38,11 @@ public class CommandTarget : MonoBehaviour {
 	
 	public void AddCapability(JobType job) {
 		JobCapabilities |= job;
+		Data.JobCapabilities |= job;
 	}
 	public void RemoveCapability(JobType job) {
 		JobCapabilities &= ~job;
+		Data.JobCapabilities &= ~job;
 	}
 
 	public bool CanPerform(JobType job) {
@@ -51,9 +56,19 @@ public class CommandTarget : MonoBehaviour {
 		} else PerformingAnimator?.SetTrigger("Idle");
 	}
 
+	public void TrySetJob(JobType job) {
+		if (Data.HasJob) return;
+		if ((Data.JobCapabilities & job) != job) return; //TODO: update capabilities change
+		Data.CurrentJob = job;
+		PlannedJob.Enable(job);
+		ServiceLocator.Container.Single<ICommandService>().RegisterJob(Data.Id, this);
+	}
 	public void CancelJob() {
 		Reserved = false;
-		ServiceLocator.Container.Single<ICommandService>().UnregisterJob(this); //TODO: cache service
+		Data.CurrentJob = JobType.None;
+		Data.AssignedSettler = null;
+		PlannedJob.gameObject.SetActive(false);
+		ServiceLocator.Container.Single<ICommandService>().UnregisterJob(Data.Id); //TODO: cache service
 	}
 	
 	//Health
@@ -72,7 +87,6 @@ public class CommandTarget : MonoBehaviour {
 	public bool EnoughWater => _waterLevel.EnoughWater;
 	
 	//Carry
-	public void TakeItem(Worker worker) => _carriable.TakeItem(worker);
 	
 	public Health Health => _health;
 	public SearchableObj Searchable => _searchable;

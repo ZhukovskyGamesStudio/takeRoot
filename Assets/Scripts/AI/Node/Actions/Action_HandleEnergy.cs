@@ -9,10 +9,10 @@ namespace AI.Node.Jobs {
 		}
 
 		public override BTNodeState Evaluate() {
-			_settler.Data.energyTimer += Time.deltaTime;
-			if (_settler.Data.energyTimer >= _settler.Data.energyCooldown) {
-				_settler.Data.currentEnergy += _settler.Data.energyChange;
-				_settler.Data.energyTimer = 0;
+			_settler.Data.energy.energyTimer += Time.deltaTime;
+			if (_settler.Data.energy.energyTimer >= _settler.Data.energy.energyCooldown) {
+				_settler.Data.energy.currentEnergy += _settler.Data.energy.energyChange;
+				_settler.Data.energy.energyTimer = 0;
 			}
 			return _state = BTNodeState.Success;
 		}

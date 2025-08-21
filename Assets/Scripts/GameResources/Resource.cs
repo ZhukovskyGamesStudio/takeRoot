@@ -1,8 +1,25 @@
+using System;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Resource : MonoBehaviour {
-	
-	public void TakeResource(Worker worker) {
+namespace GameResources {
+	public class Resource : MonoBehaviour {
+		[SerializeField]private ResourceType _resourceType;
+		[SerializeField]private TextMeshPro _amountText;
+		public int Amount { get; private set; }
+		public ResourceType Type => _resourceType;
+
+		public void Init(int amount) {
+			Amount = amount;
+			_amountText.text = amount.ToString();
+		}
 		
+
+	}
+	[Serializable]
+	public class ResourcesData {
+		public ResourceType type;
+		public int amount;
 	}
 }

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using AI.Behaviors;
 using AI.Node;
 using AI.Node.Jobs;
 using CodeBase.Services;
@@ -30,7 +26,6 @@ namespace AI {
 			Searcher.Init(WorkerAnimator);
 			Destroyer.Init(WorkerAnimator);
 			Waterer.Init(WorkerAnimator);
-
 			_root = CreateBT();
 			_stateBt = new Sequence()
 				.AddChild(new Action_HandleEnergy(this));
@@ -46,12 +41,12 @@ namespace AI {
 		}
 
 		public void Sleep() {
-			Data.isSleeping = true;
+			Data.energy.isSleeping = true;
 			WorkerAnimator.PlaySleep();
 		}
 
 		public void WakeUp() {
-			Data.isSleeping = false;
+			Data.energy.isSleeping = false;
 			WorkerAnimator.ResetToIdle();
 		}
 		

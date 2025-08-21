@@ -1,9 +1,11 @@
 using System;
 using CodeBase.Services;
+using GameResources;
 using UnityEngine;
 
 public class EntryPoint : MonoBehaviour
-{
+{	[SerializeField]private WorldConfig _worldConfig;
+	[SerializeField]private ResourcesConfig _resourceConfig;
 	[SerializeField]private CommandView _commandView;
 	
 	private ServiceLocator _services;
@@ -12,7 +14,7 @@ public class EntryPoint : MonoBehaviour
 		var updateService = GetComponent<IUpdateService>();
 		var coroutineRunner = GetComponent<ICoroutineRunner>();
 		var map = GetComponent<MapFromSceneObjects>();
-		var loader = new ServiceLocatorLoader_Main(updateService, coroutineRunner, map);
+		var loader = new ServiceLocatorLoader_Main(updateService, coroutineRunner, _resourceConfig, map);
 		
 		loader.RegisterServices();
 		_services = ServiceLocator.Container;
