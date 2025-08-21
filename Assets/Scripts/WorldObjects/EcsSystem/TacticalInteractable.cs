@@ -30,6 +30,10 @@ namespace WorldObjects {
             return GetInfoFunc?.Invoke();
         }
 
+        public GameObject GetGameObject() {
+            return gameObject;
+        }
+
         public bool CanBeCommanded(TacticalCommand command) {
             if (CommandToExecute != null && CommandToExecute.TacticalCommandType == command) {
                 return false;

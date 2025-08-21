@@ -21,14 +21,15 @@ public class SettlersSelectionManager : MonoBehaviour {
     public Settler SelectedSettler { get; private set; }
 
     private void Awake() {
-        ObsoleteCoreEntryPoint.SettlersSelectionManager = this;
+        Core.SettlersSelectionManager = this;
         CreateSelectionView();
     }
 
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (EventSystem.current?.IsPointerOverGameObject() == true) return;
+            
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (!hit) {
                 TryUnselectSettler();
                 return;
@@ -43,8 +44,6 @@ public class SettlersSelectionManager : MonoBehaviour {
                 TryUnselectSettler();
             }
         }
-
-        TryAutoOpenInfoPanel();
     }
 
     public void TryUnselectSpecificSettler(Settler settler) {
@@ -52,18 +51,6 @@ public class SettlersSelectionManager : MonoBehaviour {
         if (SelectedSettler == settler) {
             TryUnselectSettler();
         }
-    }
-
-    private void TryAutoOpenInfoPanel() {
-        if (!Input.GetMouseButton(0) || _commandsPanel.SelectedCommand != Command.None || SelectedSettler == null) {
-            return;
-        }
-
-        if (ObsoleteCoreEntryPoint.UI.InfoPanelView.IsAutoOpenInfoPanel) {
-            ObsoleteCoreEntryPoint.UI.InfoPanelView.SetToggle(true);
-        }
-
-        ObsoleteCoreEntryPoint.UI.InfoPanelView.Init(SelectedSettler.SettlerData);
     }
 
     private void CreateSelectionView() {
@@ -76,15 +63,14 @@ public class SettlersSelectionManager : MonoBehaviour {
             return;
         }
 
-        if (settler.SettlerData.Race != ObsoleteCoreEntryPoint.Instance.MyRace() && settler.SettlerData.Race != Race.Both) {
+        if (settler.SettlerData.Race != Core.Instance.MyRace() && settler.SettlerData.Race != Race.Both) {
             return;
         }
 
         SelectedSettler = settler;
+        Core.UI.OpenSettlerPanel(settler.SettlerData);
         _changeModeToggle.gameObject.SetActive(true);
         _changeModeToggle.SetToggleValue(SelectedSettler.Mode == Mode.Tactical);
-        Gridable gridable = SelectedSettler.GetEcsComponent<Gridable>();
-        _selectionView.Init(gridable, gridable.transform);
         ChangePanels(SelectedSettler.Mode == Mode.Tactical);
     }
 
@@ -99,15 +85,12 @@ public class SettlersSelectionManager : MonoBehaviour {
         //SelectedSettler.ChangeMode(Mode.Planning);
         SelectedSettler = null;
         _selectionView.Release(transform);
-
-        if (ObsoleteCoreEntryPoint.UI.InfoPanelView.GetToggle()) {
-            ObsoleteCoreEntryPoint.UI.InfoPanelView.SetToggle(false);
-        }
+        Core.UI.CloseInfoPanel();
     }
 
     private void ChangePanels(bool isTactical) {
-        ObsoleteCoreEntryPoint.CommandsManagersHolder.TacticalCommandsManager.SetActivePanel(isTactical);
-        ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.SetActivePanel(!isTactical);
+        Core.CommandsManagersHolder.TacticalCommandsManager.SetActivePanel(isTactical);
+        Core.CommandsManagersHolder.CommandsManager.SetActivePanel(!isTactical);
     }
 
     public void TryChangeSelectedSettlerMode(bool isTactical) {
@@ -116,6 +99,6 @@ public class SettlersSelectionManager : MonoBehaviour {
         }
 
         SelectedSettler.ChangeMode(isTactical ? Mode.Tactical : Mode.Planning);
-        ObsoleteCoreEntryPoint.GameEventsManager.WorldObjectsEvents.OnSettlerModeChanged(SelectedSettler);
+        Core.GameEventsManager.WorldObjectsEvents.OnSettlerModeChanged(SelectedSettler);
     }
 }
