@@ -68,11 +68,9 @@ public class SettlersSelectionManager : MonoBehaviour {
         }
 
         SelectedSettler = settler;
-        Core.UI.OpenSettlerPanel(settler.SettlerData);
+        ObsoleteCoreEntryPoint.UI.OpenSettlerPanel(settler.SettlerData);
         _changeModeToggle.gameObject.SetActive(true);
         _changeModeToggle.SetToggleValue(SelectedSettler.Mode == Mode.Tactical);
-        Gridable gridable = SelectedSettler.GetEcsComponent<Gridable>();
-        _selectionView.Init(gridable, gridable.transform);
         ChangePanels(SelectedSettler.Mode == Mode.Tactical);
     }
 
@@ -87,7 +85,7 @@ public class SettlersSelectionManager : MonoBehaviour {
         //SelectedSettler.ChangeMode(Mode.Planning);
         SelectedSettler = null;
         _selectionView.Release(transform);
-        Core.UI.CloseInfoPanel();
+        ObsoleteCoreEntryPoint.UI.CloseInfoPanel();
     }
 
     private void ChangePanels(bool isTactical) {

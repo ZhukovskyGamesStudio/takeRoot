@@ -3,21 +3,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
-    [field: SerializeField]
-    public NetworkReplacementUi NetworkReplacement { get; private set; }
-
     [SerializeField]
     private InfoBookView _infoPanel;
 
     [SerializeField]
     private SettlerPanel _settlerPanel;
-    
+
     [SerializeField]
     private Toggle _infoToggle;
 
     public void Init() {
         ObsoleteCoreEntryPoint.UI = this;
-        ObsoleteCoreEntryPoint.Instance.OnChangeRace += SetRace;
         InitRace();
     }
 
@@ -36,11 +32,6 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
         }
     }
 
-    public override void OnDestroy() {
-        ObsoleteCoreEntryPoint.Instance.OnChangeRace -= SetRace;
-        base.OnDestroy();
-    }
-
     public void OpenInfoPanel(ISelectable selectable) {
         CloseInfoPanel();
         _infoToggle.isOn = true;
@@ -49,13 +40,13 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
             _infoPanel.Init(craftingStationable);
             return;
         }
-        
+
         _infoPanel.Init(selectable.GetInfoData());
     }
 
     public void OpenSettlerPanel(SettlerData settlerData) {
         CloseInfoPanel();
-        
+
         _settlerPanel.gameObject.SetActive(true);
         _settlerPanel.Init(settlerData);
     }

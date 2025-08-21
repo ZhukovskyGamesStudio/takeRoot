@@ -13,6 +13,9 @@ public class CoreEntryPoint : EntryPointBase {
     [SerializeField]
     private CommandView _commandView;
 
+    [SerializeField]
+    private CoreCanvasUi _coreCanvasUi;
+
     private ServiceLocator _services;
 
     private void Awake() {
@@ -23,7 +26,7 @@ public class CoreEntryPoint : EntryPointBase {
         var updateService = GetComponent<IUpdateService>();
         var coroutineRunner = GetComponent<ICoroutineRunner>();
         var map = GetComponent<MapFromSceneObjects>();
-        var loader = new ServiceLocatorLoader_Main(updateService, coroutineRunner, _resourceConfig, map);
+        var loader = new ServiceLocatorLoader_Main(updateService, coroutineRunner, _resourceConfig,_coreCanvasUi, map, _worldConfig);
 
         loader.RegisterServices();
         _services = ServiceLocator.Container;
