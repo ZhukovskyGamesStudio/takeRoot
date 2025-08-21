@@ -8,15 +8,17 @@ using UnityEngine;
 public class ServiceLocatorLoader_Main {
 	private WorldConfig _worldConfig;
 	private ResourcesConfig _resourceConfig;
+	private CoreCanvasUi _coreCanvasUi;
 	
 	private readonly MapFromSceneObjects _mapFromSceneObjects;
 
 	private IUpdateService _updateService;
 	private ICoroutineRunner _coroutineRunner;
 	private readonly ServiceLocator _services;
-    
-	public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner,
-		ResourcesConfig resourceConfig, MapFromSceneObjects mapFromSceneObjects = null, WorldConfig worldConfig = null) {
+
+	public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner, ResourcesConfig resourceConfig,
+		CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects, WorldConfig worldConfig) {
+		_coreCanvasUi = coreUI;
 		_worldConfig = worldConfig;
 		_resourceConfig = resourceConfig;
 		_mapFromSceneObjects = mapFromSceneObjects;
