@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -27,7 +28,7 @@ public class InfoBookView : MonoBehaviour {
 
 
     public void SetData(CommandTargetData data) {
-        Debug.Log($"Selectable {JsonUtility.ToJson(data)}");
+        Init(data.InfoBookData);
     }
     
     public void Init(InfoBookData data) {
@@ -60,7 +61,7 @@ public class InfoBookView : MonoBehaviour {
         return _infoToggle.isOn;
     }
 }
-
+[Serializable]
 public class InfoBookData {
     public Sprite Icon;
     public string Name;

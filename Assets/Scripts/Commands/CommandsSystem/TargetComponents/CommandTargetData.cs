@@ -12,4 +12,6 @@ public class CommandTargetData {
 	public AI.Settler AssignedSettler;
 	public bool HasJob => CurrentJob != JobType.None;
 	public bool Reserved => AssignedSettler != null;
+	
+	public InfoBookData InfoBookData;
 }
