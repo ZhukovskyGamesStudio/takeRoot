@@ -19,14 +19,18 @@ public class SelectionServicePresenter : IDisposable {
     }
 
     private void SwitchPanel(Selectable selectable) {
-
         if (selectable is SettlerSelectable) {
             _settlerPanel.gameObject.SetActive(true);
-            _settlerPanel.Init((AI.SettlerData)selectable.GetData());
+            _settlerPanel.SetData((AI.SettlerData)selectable.GetData());
+            _infoBookView.gameObject.SetActive(false);
+        } else if (selectable is CommandTargetSelectable) {
+            _settlerPanel.gameObject.SetActive(false);
+            _infoBookView.gameObject.SetActive(selectable != null);
+            _infoBookView.SetData((CommandTargetData)selectable.GetData());
+        } else {
+            _settlerPanel.gameObject.SetActive(false);
+            _infoBookView.gameObject.SetActive(false);
         }
-        
-        _infoBookView.gameObject.SetActive(selectable != null);
-        _infoBookView.SetData(selectable);
     }
 
     public void Dispose() {

@@ -26,8 +26,8 @@ public class InfoBookView : MonoBehaviour {
     public Toggle _infoToggle;
 
 
-    public void SetData(Selectable selectable) {
-        Debug.Log($"Selectable {JsonUtility.ToJson(selectable)}");
+    public void SetData(CommandTargetData data) {
+        Debug.Log($"Selectable {JsonUtility.ToJson(data)}");
     }
     
     public void Init(InfoBookData data) {

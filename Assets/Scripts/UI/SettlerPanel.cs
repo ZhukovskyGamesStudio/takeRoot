@@ -14,7 +14,7 @@ public class SettlerPanel : MonoBehaviour {
 
     private AI.SettlerData _settlerData;
 
-    public void Init(AI.SettlerData settlerData) {
+    public void SetData(AI.SettlerData settlerData) {
         _settlerData = settlerData;
 
         _nameText.text = settlerData.names.Name;

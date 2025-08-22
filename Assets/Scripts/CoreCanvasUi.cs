@@ -48,7 +48,7 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
         CloseInfoPanel();
 
         _settlerPanel.gameObject.SetActive(true);
-        _settlerPanel.Init(settlerData);
+        _settlerPanel.SetData(settlerData);
     }
 
     public void CloseInfoPanel() {
