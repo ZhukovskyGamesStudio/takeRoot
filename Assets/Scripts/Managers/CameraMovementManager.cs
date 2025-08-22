@@ -43,6 +43,7 @@ public class CameraMovementManager : MonoBehaviour {
     private Vector2 _startPosition;
 
     void Start() {
+        //TODO rework via service
         _main = Camera.main; // Cache Camera.main once in Start
     }
 
