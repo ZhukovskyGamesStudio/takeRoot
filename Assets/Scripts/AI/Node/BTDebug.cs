@@ -22,6 +22,6 @@ public static class BTDebug
 	public static void Log(string message)
 	{
 		if (!Enabled) return;
-		Debug.Log($"[BT] {string.Join(" > ", _context)} : {message}");
+		//Debug.Log($"[BT] {string.Join(" > ", _context)} : {message}");
 	}
 }

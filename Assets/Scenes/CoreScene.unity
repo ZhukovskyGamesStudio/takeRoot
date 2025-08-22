@@ -35289,6 +35289,7 @@ MonoBehaviour:
   _worldConfig: {fileID: 11400000, guid: 858835da3294fc64bbb7d57ec0cbca86, type: 2}
   _resourceConfig: {fileID: 11400000, guid: 82b7b31d83d741842b1960f8e1e568ee, type: 2}
   _commandView: {fileID: 995292499}
+  _infoBookView: {fileID: 1761549642}
   _coreCanvasUi: {fileID: 1970964712}
 --- !u!4 &1484566829
 Transform:
@@ -35497,6 +35498,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b5e21395ef34324aa007fdea2a6f53c, type: 3}
+--- !u!114 &1761549642 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5715854520525625784, guid: 71d5477656095674191ccd469ca0cae6, type: 3}
+  m_PrefabInstance: {fileID: 1804048064}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ac1a4ffab190644bc34377203c9122, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1804048064
 PrefabInstance:
   m_ObjectHideFlags: 0

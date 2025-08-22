@@ -26,7 +26,7 @@ public class WorkerAssigner : IUpdatable, IWorkerAssigner {
 
 	public Worker FindAvailableWorker(CommandType type, bool withSelectedWorker) {
 		return withSelectedWorker ? 
-			_selection.Selected.GetComponent<Worker>() : //TODO: cache worker
+			_selection.SelectedReactive.Value.GetComponent<Worker>() : //TODO: cache worker
 			Workers.FirstOrDefault(w => w.CanPerformNow(type));
 	}
 

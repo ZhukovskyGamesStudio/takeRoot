@@ -2,6 +2,7 @@ using UniRx;
 
 public interface ISelectionService : IService
 {
-	public Selectable Selected { get;}
+	
+	public ReactiveProperty<Selectable> SelectedReactive {get; set;}
 	public ReactiveProperty<bool> IsEnabled {get; set;}
 }

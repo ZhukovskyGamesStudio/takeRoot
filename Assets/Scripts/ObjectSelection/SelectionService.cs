@@ -7,7 +7,7 @@ public class SelectionService : ISelectionService, IUpdatable
 	private readonly IInputService _input;
 	private readonly IPhysicsService _physics;
 	private readonly ICommandService _commandService;
-	public Selectable Selected { get; private set; }
+	public ReactiveProperty<Selectable> SelectedReactive { get; set; }= new ReactiveProperty<Selectable>(null);
 	public ReactiveProperty<bool> IsEnabled { get; set; } = new ReactiveProperty<bool>(true);
 
 	public SelectionService(IInputService inputService, IPhysicsService physics, IUpdateService updateService, ICommandService commandService) {
@@ -21,7 +21,7 @@ public class SelectionService : ISelectionService, IUpdatable
 		if (!IsEnabled.Value) return;
 		if (_input.GetMouseButtonDown(MouseButton.Left)) {
 			Selectable selectable = _physics.Raycast<Selectable>(_input.GetWorldMousePosition(), Vector2.zero);
-			if (selectable != null && selectable != Selected) {
+			if (selectable != null && selectable != SelectedReactive.Value) {
 				TryUnselect();
 				SetSelected(selectable, true);
 			}
@@ -33,14 +33,14 @@ public class SelectionService : ISelectionService, IUpdatable
 	}
 
 	private void TryUnselect() {
-		if (Selected != null) {
-			Selected.Selected = false;
-				Selected = null;
+		if (SelectedReactive.Value != null) {
+			SelectedReactive.Value.Selected = false;
+			SelectedReactive.Value = null;
 		}
 	}
 
 	private void SetSelected(Selectable selectable, bool selected) {
-		Selected = selectable;
+		SelectedReactive.Value = selectable;
 		selectable.Selected = true;
 	}
 }

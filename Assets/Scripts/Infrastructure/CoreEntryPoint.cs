@@ -12,6 +12,9 @@ public class CoreEntryPoint : EntryPointBase {
 
     [SerializeField]
     private CommandView _commandView;
+    
+    [SerializeField]
+    private InfoBookView _infoBookView;
 
     [SerializeField]
     private CoreCanvasUi _coreCanvasUi;
@@ -34,7 +37,14 @@ public class CoreEntryPoint : EntryPointBase {
         _services.Single<IDataProvider>().WorldResourcesData = new WorldResourcesData();
         _services.Single<IDataProvider>().CreaturesData = new CreaturesData();
 
-        var commandPresentation = new CommandPresenter();
-        commandPresentation.Init(_commandView, _services.Single<IJobCommandsInputHandlerService>());
+        InitPresenters();
+    }
+
+    private void InitPresenters() {
+        var commandPresenter = new CommandPresenter();
+        commandPresenter.Init(_commandView, _services.Single<IJobCommandsInputHandlerService>());
+
+        var selectionPresenter = new SelectionServicePresenter(_infoBookView,_services.Single<IJobCommandsInputHandlerService>(),_services.Single<ISelectionService>());
+        
     }
 }

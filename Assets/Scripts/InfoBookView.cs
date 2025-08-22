@@ -25,6 +25,11 @@ public class InfoBookView : MonoBehaviour {
     [field: SerializeField]
     public Toggle _infoToggle;
 
+
+    public void SetData(Selectable selectable) {
+        Debug.Log($"Selectable {JsonUtility.ToJson(selectable)}");
+    }
+    
     public void Init(InfoBookData data) {
         
         _craftingGridUiView.gameObject.SetActive(false);
