@@ -1,6 +1,5 @@
-public interface IRaceService : IService {
-    public Race MyRace();
+using UniRx;
 
-    //TODO add admin attrubite
-    public void SetRace(Race race);
+public interface IRaceService : IService {
+    public ReactiveProperty<Race> RaceRactive { get; set; }
 }

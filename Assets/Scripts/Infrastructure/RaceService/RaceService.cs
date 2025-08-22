@@ -1,15 +1,9 @@
+using UniRx;
+
 public class RaceService : IRaceService {
-    private Race _race;
-
     public RaceService(Race race) {
-        _race = race;
+        RaceRactive.Value = race;
     }
 
-    public Race MyRace() {
-        return _race;
-    }
-
-    public void SetRace(Race race) {
-        _race = race;
-    }
+    public ReactiveProperty<Race> RaceRactive { get; set; } = new ReactiveProperty<Race>();
 }
