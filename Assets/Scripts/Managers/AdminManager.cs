@@ -1,10 +1,12 @@
 using System;
+using CodeBase.Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class AdminManager : MonoBehaviour {
     [SerializeField]
     private GameObject _adminPanel;
+
     private void Awake() {
         DontDestroyOnLoad(gameObject);
         _adminPanel.SetActive(false);
@@ -15,6 +17,7 @@ public class AdminManager : MonoBehaviour {
     }
 
     public void SwitchFakeRace() {
-        //ObsoleteCoreEntryPoint.Instance.SwitchFakeRace();
+        var service = ServiceLocator.Container.Single<IRaceService>();
+        service.SetRace(service.MyRace() == Race.Plants ? Race.Robots : Race.Plants);
     }
 }

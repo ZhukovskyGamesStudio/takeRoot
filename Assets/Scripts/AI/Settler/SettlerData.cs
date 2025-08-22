@@ -21,7 +21,10 @@ namespace AI {
         public CommandTarget ItemInHands;
         public bool HasItem => ItemInHands != null;
 
-        [Header("Energy")]
+        [Header("Needs")]
+        public Settler_Needs needs;
+
+        [Header("Names")]
         public Settler_Names names;
 
         [Header("Energy")]

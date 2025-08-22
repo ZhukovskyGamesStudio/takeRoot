@@ -15,39 +15,18 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
     [SerializeField]
     private Toggle _infoToggle;
 
-    [SerializeField]
-    private Transform _settlersContainer;
+    [field: SerializeField]
+    public AvatarsView AvatarsView { get; private set; }
 
-    [SerializeField]
-    private SettlerView _settlerViewPrefab;
 
-    private void FixedUpdate() {
-        UpdateSettlers();
-    }
 
     public void Init() {
         ObsoleteCoreEntryPoint.UI = this;
+        //TODO refactor
         InitRace();
-        InitSettlers(ObsoleteCoreEntryPoint.SettlersManager.MySettlers);
     }
 
-    public void InitSettlers(IEnumerable<SettlerData> settlers) {
-        foreach (Transform child in _settlersContainer) {
-            Destroy(child.gameObject);
-        }
-
-        foreach (SettlerData settler in settlers) {
-            SettlerView newSettler = Instantiate(_settlerViewPrefab, _settlersContainer);
-            
-            newSettler.Init(settler);
-        }
-    }
-
-    private void UpdateSettlers() {
-        foreach (Transform child in _settlersContainer) {
-            child.GetComponent<SettlerView>().UpdateData();
-        }
-    }
+   
 
     private void InitRace() {
         if (NetworkManager.Singleton != null) {

@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using UnityEngine;
 using WorldObjects;
-
+[Obsolete]
 public class SettlerData : ECSComponent {
     [field: SerializeField]
     public string Name { get; set; }

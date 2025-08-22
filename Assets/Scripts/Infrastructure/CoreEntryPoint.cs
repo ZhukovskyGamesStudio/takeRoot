@@ -12,9 +12,10 @@ public class CoreEntryPoint : EntryPointBase {
 
     [SerializeField]
     private CommandView _commandView;
-    
+
     [SerializeField]
     private InfoBookView _infoBookView;
+
     [SerializeField]
     private SettlerPanel _settlerPanel;
 
@@ -31,7 +32,7 @@ public class CoreEntryPoint : EntryPointBase {
         var updateService = GetComponent<IUpdateService>();
         var coroutineRunner = GetComponent<ICoroutineRunner>();
         var map = GetComponent<MapFromSceneObjects>();
-        var loader = new ServiceLocatorLoader_Main(updateService, coroutineRunner, _resourceConfig,_coreCanvasUi, map, _worldConfig);
+        var loader = new ServiceLocatorLoader_Main(updateService, coroutineRunner, _resourceConfig, _coreCanvasUi, map, _worldConfig);
 
         loader.RegisterServices();
         _services = ServiceLocator.Container;
@@ -46,7 +47,9 @@ public class CoreEntryPoint : EntryPointBase {
         var commandPresenter = new CommandPresenter();
         commandPresenter.Init(_commandView, _services.Single<IJobCommandsInputHandlerService>());
 
-        var selectionPresenter = new SelectionServicePresenter(_infoBookView, _settlerPanel,_services.Single<IJobCommandsInputHandlerService>(),_services.Single<ISelectionService>());
-        
+        var selectionPresenter = new SelectionServicePresenter(_infoBookView, _settlerPanel,
+            _services.Single<IJobCommandsInputHandlerService>(), _services.Single<ISelectionService>());
+        var avatarsPresenter = new SettlersViewPresenter(_coreCanvasUi.AvatarsView, _services.Single<ISettlersService>(),
+            _services.Single<IRaceService>(), _services.Single<IUpdateService>());
     }
 }

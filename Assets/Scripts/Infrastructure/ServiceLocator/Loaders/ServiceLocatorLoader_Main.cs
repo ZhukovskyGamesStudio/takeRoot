@@ -49,6 +49,9 @@ public class ServiceLocatorLoader_Main {
 		var graph = _mapFromSceneObjects.CreateSimpleGraph();
 		_services.RegisterSingle<IPathfindService>(new AStar(graph));
 		
+		//TODO setup race from online service
+		_services.RegisterSingle<IRaceService>(new RaceService(Race.Plants));
+		
 		_services.RegisterSingle<IResourceManager>(new ResourcesManager(_resourceConfig));
 		_services.RegisterSingle<ICommandService>(new CommandService());
 		_services.RegisterSingle<IJobCommandsInputHandlerService>(new JobCommandsInputHandlerService(
@@ -59,5 +62,6 @@ public class ServiceLocatorLoader_Main {
 
 		_services.RegisterSingle<ISelectionService>(new SelectionService(_services.Single<IInputService>(), _services.Single<IPhysicsService>(),
 			_services.Single<IUpdateService>(), _services.Single<ICommandService>()));
+		_services.RegisterSingle<ISettlersService>(new SettlersService());
 	}
 }

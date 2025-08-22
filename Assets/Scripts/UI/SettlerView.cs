@@ -6,22 +6,32 @@ public class SettlerView : MonoBehaviour {
     private Image _bgImage, _gradientImage, _iconImage;
 
     [SerializeField]
+    private Sprite _chamomile, _succulent, _toster, _lamp;
+
+    [SerializeField]
     private Color _minStressColor, _maxStressColor, _minHpColor, _maxHpColor;
-    
-    private SettlerData _settlerData;
-    
-    public void Init(SettlerData settlerData) {
+
+    private AI.SettlerData _settlerData;
+
+    public void Init(AI.SettlerData settlerData) {
         _settlerData = settlerData;
-        
+
         UpdateData();
     }
 
     public void UpdateData() {
-        _iconImage.sprite = _settlerData.InfoBookIcon;
+        _iconImage.sprite = _settlerData.names.Subrace switch {
+            Subrace.Chamomile => _chamomile,
+            Subrace.Succulent => _succulent,
+            Subrace.Toster => _toster,
+            Subrace.Lamp => _lamp,
+            _ => _iconImage.sprite
+        };
 
-        float stress = (float)_settlerData.Stress / _settlerData.MaxStress;
-        float hp = (float)_settlerData.Hp / _settlerData.MaxHp;
-        
+        var needs = _settlerData.needs;
+        float stress = (float)needs.Stress / needs.MaxStress;
+        float hp = (float)needs.Hp / needs.MaxHp;
+
         _bgImage.color = Color.Lerp(_minStressColor, _maxStressColor, stress);
 
         _gradientImage.enabled = hp < 0.9f;

@@ -1631,6 +1631,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chamomile
       objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: Data.names.Race
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
