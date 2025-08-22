@@ -22,6 +22,11 @@ public class SettlerData : ECSComponent {
 
     public float RoundAttackCooldown;
 
+    public int Hp;
+    public int MaxHp;
+    public int Stress;
+    public int MaxStress;
+
     public List<EquipmentType> PossibleEquipment = new List<EquipmentType>();
 
     [HideInInspector]
