@@ -56,5 +56,8 @@ public class ServiceLocatorLoader_Main {
 			_services.Single<IPhysicsService>(),
 			_services.Single<IUpdateService>()));
 		_services.RegisterSingle<IWorkerAssigner>(new WorkerAssigner(_services.Single<IUpdateService>(), _services.Single<ICommandService>()));
+
+		_services.RegisterSingle<ISelectionService>(new SelectionService(_services.Single<IInputService>(), _services.Single<IPhysicsService>(),
+			_services.Single<IUpdateService>(), _services.Single<ICommandService>()));
 	}
 }
