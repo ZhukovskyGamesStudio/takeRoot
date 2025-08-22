@@ -18,6 +18,6 @@ public class AdminManager : MonoBehaviour {
 
     public void SwitchFakeRace() {
         var service = ServiceLocator.Container.Single<IRaceService>();
-        service.RaceRactive.Value = service.RaceRactive.Value == Race.Plants ? Race.Robots : Race.Plants;
+        service.RaceReactive.Value = service.RaceReactive.Value == Race.Plants ? Race.Robots : Race.Plants;
     }
 }

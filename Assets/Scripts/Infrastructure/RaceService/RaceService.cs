@@ -2,8 +2,8 @@ using UniRx;
 
 public class RaceService : IRaceService {
     public RaceService(Race race) {
-        RaceRactive.Value = race;
+        RaceReactive.Value = race;
     }
 
-    public ReactiveProperty<Race> RaceRactive { get; set; } = new ReactiveProperty<Race>();
+    public ReactiveProperty<Race> RaceReactive { get; set; } = new ReactiveProperty<Race>();
 }

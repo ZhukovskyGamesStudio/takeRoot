@@ -49,7 +49,7 @@ public class CoreEntryPoint : EntryPointBase {
 
         var selectionPresenter = new SelectionServicePresenter(_infoBookView, _settlerPanel,
             _services.Single<IJobCommandsInputHandlerService>(), _services.Single<ISelectionService>());
-        var avatarsPresenter = new SettlersViewPresenter(_coreCanvasUi.AvatarsView, _services.Single<ISettlersService>(),
+        var avatarsPresenter = new AvatarsViewPresenter(_coreCanvasUi.AvatarsView, _services.Single<ISettlersService>(),
             _services.Single<IRaceService>(), _services.Single<IUpdateService>());
     }
 }
