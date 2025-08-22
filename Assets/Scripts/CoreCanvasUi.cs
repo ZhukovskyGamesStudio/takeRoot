@@ -44,7 +44,7 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
         _infoPanel.Init(selectable.GetInfoData());
     }
 
-    public void OpenSettlerPanel(SettlerData settlerData) {
+    public void OpenSettlerPanel(AI.SettlerData settlerData) {
         CloseInfoPanel();
 
         _settlerPanel.gameObject.SetActive(true);

@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 2743286669860116333}
   - component: {fileID: 933429075467480961}
   - component: {fileID: 3575029597453831756}
+  - component: {fileID: 1378913489894693337}
   m_Layer: 0
   m_Name: CommandTarget
   m_TagString: Untagged
@@ -106,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+  _drop: []
 --- !u!114 &933429075467480961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,6 +171,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1378913489894693337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939751201788196949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cdfc22a460d4678ba38a44f83ac948a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Selected: 0
+  _commandTarget: {fileID: 1266403541157989836}
 --- !u!1 &4817668026266952817
 GameObject:
   m_ObjectHideFlags: 0

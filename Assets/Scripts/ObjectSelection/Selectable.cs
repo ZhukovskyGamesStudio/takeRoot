@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-public class Selectable : MonoBehaviour {
+public abstract class Selectable : MonoBehaviour {
+    public bool Selected;
+    public Action OnSelect;
 
-	public bool Selected;
-	public Action OnSelect;
-
+    public abstract object GetData();
 }

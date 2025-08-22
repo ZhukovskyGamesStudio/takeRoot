@@ -180,8 +180,8 @@ GameObject:
   - component: {fileID: 2103746484482911072}
   - component: {fileID: 5479621761811720109}
   - component: {fileID: 8351437046665042791}
-  - component: {fileID: 3342236595309409753}
   - component: {fileID: 4688000518883778013}
+  - component: {fileID: 3136998818145820946}
   m_Layer: 0
   m_Name: BaseSettler
   m_TagString: Untagged
@@ -298,19 +298,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterAmount: 15
   waterTime: 1.2
---- !u!114 &3342236595309409753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6094444002186240976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ad219c367b14b789c8a3e370d9908d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Selected: 0
 --- !u!61 &4688000518883778013
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -357,3 +344,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &3136998818145820946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6094444002186240976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 705137a90553486095826333d21849d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Selected: 0
+  _settler: {fileID: 6291129578118111390}

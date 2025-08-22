@@ -15,6 +15,8 @@ public class CoreEntryPoint : EntryPointBase {
     
     [SerializeField]
     private InfoBookView _infoBookView;
+    [SerializeField]
+    private SettlerPanel _settlerPanel;
 
     [SerializeField]
     private CoreCanvasUi _coreCanvasUi;
@@ -44,7 +46,7 @@ public class CoreEntryPoint : EntryPointBase {
         var commandPresenter = new CommandPresenter();
         commandPresenter.Init(_commandView, _services.Single<IJobCommandsInputHandlerService>());
 
-        var selectionPresenter = new SelectionServicePresenter(_infoBookView,_services.Single<IJobCommandsInputHandlerService>(),_services.Single<ISelectionService>());
+        var selectionPresenter = new SelectionServicePresenter(_infoBookView, _settlerPanel,_services.Single<IJobCommandsInputHandlerService>(),_services.Single<ISelectionService>());
         
     }
 }

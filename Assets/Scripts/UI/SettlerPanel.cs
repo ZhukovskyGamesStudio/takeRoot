@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using AI;
 
 public class SettlerPanel : MonoBehaviour {
     [SerializeField]
@@ -11,12 +12,12 @@ public class SettlerPanel : MonoBehaviour {
     [SerializeField]
     private TMP_InputField _nameInput;
 
-    private SettlerData _settlerData;
-    
-    public void Init(SettlerData settlerData) {
+    private AI.SettlerData _settlerData;
+
+    public void Init(AI.SettlerData settlerData) {
         _settlerData = settlerData;
-        
-        _nameText.text = settlerData.Name;
+
+        _nameText.text = settlerData.names.Name;
     }
 
     public void StartEdit() {
@@ -25,13 +26,13 @@ public class SettlerPanel : MonoBehaviour {
 
         _nameInput.text = _nameText.text;
     }
-    
+
     public void EndEdit(bool apply) {
         _nameContainer.SetActive(true);
         _editNameContainer.SetActive(false);
 
         if (_nameInput.text == string.Empty || !apply) return;
         _nameText.text = _nameInput.text;
-        _settlerData.Name = _nameInput.text;
+        _settlerData.names.Name = _nameInput.text;
     }
 }

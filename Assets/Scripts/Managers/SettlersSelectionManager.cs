@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+[Obsolete]
 public class SettlersSelectionManager : MonoBehaviour {
 
     [SerializeField]
@@ -68,7 +70,7 @@ public class SettlersSelectionManager : MonoBehaviour {
         }
 
         SelectedSettler = settler;
-        ObsoleteCoreEntryPoint.UI.OpenSettlerPanel(settler.SettlerData);
+        //ObsoleteCoreEntryPoint.UI.OpenSettlerPanel(settler.SettlerData);
         _changeModeToggle.gameObject.SetActive(true);
         _changeModeToggle.SetToggleValue(SelectedSettler.Mode == Mode.Tactical);
         ChangePanels(SelectedSettler.Mode == Mode.Tactical);
