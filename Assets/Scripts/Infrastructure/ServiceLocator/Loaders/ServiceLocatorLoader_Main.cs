@@ -1,7 +1,6 @@
 using System;
 using CodeBase.Services;
 using GameResources;
-using Settlers.Infrastructure;
 using UnityEngine;
 
 [Serializable]

@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using CodeBase.Services;
 using GameResources;
-using Settlers.Infrastructure;
 
 public class Health : MonoBehaviour {
 	[Header("Health Settings")]
