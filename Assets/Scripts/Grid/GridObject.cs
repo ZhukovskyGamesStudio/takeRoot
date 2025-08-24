@@ -1,29 +1,32 @@
-using System;
 using System.Collections.Generic;
+using CodeBase.Services;
 using UnityEngine;
 
 public class GridObject : MonoBehaviour {
 	
+	private IGridService _grid;
 	public int X, Y, Layer;
 
 	public bool Obstacle;
+	public int3 Position => new int3(X, Y, Layer);
+	[Min(0)]
+	public Vector2Int MultiplyGridOffset;
+	public int SizeX => MultiplyGridOffset.x + 1;
+	public int SizeY => MultiplyGridOffset.y + 1;
+	
+	private void Start() {
+		_grid = ServiceLocator.Container.Single<IGridService>();
+	}
+	public void Init() {
+		X = (int)transform.position.x;
+		Y = (int)transform.position.y;
+	}
 
 	public Vector3 GetObjectCenter()
 	{
 		var origin = transform.position - Vector3.one / 2; // нижний левый угол
 		return origin + new Vector3(SizeX / 2f, SizeY / 2f, 0);
 	}	
-	public int3 Position => new int3(X, Y, Layer);
-	[Min(0)]
-	public Vector2Int MultiplyGridOffset;
-
-	public int SizeX => MultiplyGridOffset.x + 1;
-	public int SizeY => MultiplyGridOffset.y + 1;
-
-	public void Init() {
-		X = (int)transform.position.x;
-		Y = (int)transform.position.y;
-	}
 
 	public bool IsObstacle(int3 pos) {
 		return Obstacle && (
@@ -44,4 +47,10 @@ public class GridObject : MonoBehaviour {
 		return corners;
 	}
 
+	public void Destroy() {
+		for (int y = Y; y < Y + SizeY; y++)
+		for (int x = X; x < X + SizeX; x++) {
+			_grid.FreeTile(x, y);
+		}
+	}
 }

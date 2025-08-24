@@ -3,11 +3,13 @@ using System.Linq;
 using GameResources;
 using UnityEngine;
 
-public class ResourcesManager : IResourceManager{
+public class ResourcesManager : IResourceManager {
+	private readonly IGridService _grid;
 	private List<Resource> ResourcesPrefabs;
 	private Dictionary<Vector3, Resource> ExistingResourcesOnGround = new Dictionary<Vector3, Resource>();
 
-	public ResourcesManager(ResourcesConfig config) {
+	public ResourcesManager(ResourcesConfig config, IGridService grid) {
+		_grid = grid;
 		ResourcesPrefabs = config.ResourcesPrefabs;
 	}
 	public void SpawnResource(Vector3 at, ResourceType type, int amount) {
@@ -28,7 +30,7 @@ public class ResourcesManager : IResourceManager{
 	private Vector3? PickSpawnPos(Vector3 at) {
 		var positions = GetAroundPos(at);
 		for (int i = 0; i < positions.Count; i++) {
-			if (!ExistingResourcesOnGround.ContainsKey(positions[i])) {
+			if (!ExistingResourcesOnGround.ContainsKey(positions[i]) && !_grid.IsOccupiedPos(at)) {
 				return positions[i];
 			}
 		}

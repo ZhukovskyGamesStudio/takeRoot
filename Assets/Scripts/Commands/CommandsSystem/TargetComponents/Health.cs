@@ -10,6 +10,7 @@ public class Health : MonoBehaviour {
 	public float currentHealth;
 	private IResourceManager _resources;
 	[SerializeField] private List<ResourcesData> _drop;
+	private GridObject _grid;
 	public event Action OnDeath;
 	public event Action<float> OnHealthChanged;
 	
@@ -20,6 +21,7 @@ public class Health : MonoBehaviour {
 	private void Start() {
 		currentHealth = maxHealth;
 		_resources = ServiceLocator.Container.Single<IResourceManager>();
+		_grid = GetComponent<GridObject>();
 	}
 	
 	public void TakeDamage(float damage) {
@@ -28,6 +30,7 @@ public class Health : MonoBehaviour {
 	}
 	public void Die() {
 		OnDeath?.Invoke();
+		_grid.Destroy();
 		foreach (ResourcesData drop in _drop) {
 			_resources.SpawnResource(transform.position, drop.type, drop.amount);
 		}
