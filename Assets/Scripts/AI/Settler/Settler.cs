@@ -52,7 +52,9 @@ namespace AI {
 		
 		private BTNode CreateBT() {
 			var commands = ServiceLocator.Container.Single<ICommandService>();
-			var root = new BTRoot_Settler(this, commands);
+			var crafting = ServiceLocator.Container.Single<ICraftingService>();
+			var resources = ServiceLocator.Container.Single<IResourceManager>();
+			var root = new BTRoot_Settler(this, commands, crafting, resources);
 			return root;
 		}
 	}

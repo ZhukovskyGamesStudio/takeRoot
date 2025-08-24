@@ -26,7 +26,6 @@ public class MapFromSceneObjects : MonoBehaviour{
 	}
 
 	public SimpleGraph CreateSimpleGraph() {
-		CreateMap();
 		var graph = new SimpleGraph();
 		foreach (var kvp in Map) {
 			if (!kvp.Value) {
@@ -64,5 +63,7 @@ public class MapFromSceneObjects : MonoBehaviour{
 				Gizmos.DrawLine(new Vector3(edge.from.pos.x, edge.from.pos.y), new Vector3(edge.destinationNode.pos.x, edge.destinationNode.pos.y));
 			}
 		}
+		
+		
 	}
 }

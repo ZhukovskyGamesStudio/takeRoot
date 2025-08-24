@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class AStar : IPathfindService
 {
-    private readonly SimpleGraph _graph;
+    private readonly MapFromSceneObjects _graph;
 
-    public AStar(SimpleGraph graph)
-    {
+    public AStar(MapFromSceneObjects graph) {
         _graph = graph;
     }
 
@@ -16,7 +15,7 @@ public class AStar : IPathfindService
     {
         var startPos = new int3((int)start.x, (int)start.y, 0);
         var endPos = new int3((int)end.x, (int)end.y, 0);
-        var path = FindPathInternal(_graph, startPos, endPos);
+        var path = FindPathInternal(_graph.Graph, startPos, endPos);
         
         if (path == null)
             return null;

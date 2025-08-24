@@ -32,6 +32,9 @@ namespace AI {
         [Header("Energy")]
         public Settler_EnergyData energy;
 
+        [Header("Transport for crafting")]
+        public Settler_TransportForCrafting craftingTransport;
+
         [Header("Idle move")]
         public float IdleMoveCooldown;
 

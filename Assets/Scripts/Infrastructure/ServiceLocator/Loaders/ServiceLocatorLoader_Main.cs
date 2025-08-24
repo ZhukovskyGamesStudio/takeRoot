@@ -45,14 +45,16 @@ public class ServiceLocatorLoader_Main {
 		_services.RegisterSingle<IPathfindService>(new MockPathfindService());
 		_services.RegisterSingle<IIdentifierService>(new IdentifierService());
 		_services.RegisterSingle<IAsyncRunner>(new UniTaskAsyncRunner());
+		_mapFromSceneObjects.CreateMap();
 		var graph = _mapFromSceneObjects.CreateSimpleGraph();
-		_services.RegisterSingle<IPathfindService>(new AStar(graph));
+		_services.RegisterSingle<IPathfindService>(new AStar(_mapFromSceneObjects));
 		_services.RegisterSingle<IGridService>(new GridService(_mapFromSceneObjects));
 		
 		//TODO setup race from online service
 		_services.RegisterSingle<IRaceService>(new RaceService(Race.Plants));
 		
 		_services.RegisterSingle<IResourceManager>(new ResourcesManager(_resourceConfig, _services.Single<IGridService>()));
+		_services.RegisterSingle<ICraftingService>(new CraftingService());
 		_services.RegisterSingle<ICommandService>(new CommandService());
 		_services.RegisterSingle<IJobCommandsInputHandlerService>(new JobCommandsInputHandlerService(
 			_services.Single<IInputService>(),

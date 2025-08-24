@@ -27,6 +27,13 @@ public class ResourcesManager : IResourceManager {
 		r.Init(amount);
 	}
 
+	public Resource FindResourceOnGround(ResourceType type) {
+		foreach (Resource resource in ExistingResourcesOnGround.Values) {
+			if (resource.Type == type) return resource;
+		}
+		return null;
+	}
+
 	private Vector3? PickSpawnPos(Vector3 at) {
 		var positions = GetAroundPos(at);
 		for (int i = 0; i < positions.Count; i++) {
