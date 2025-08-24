@@ -21,6 +21,8 @@ namespace AI {
         public CommandTarget ItemInHands;
         public bool HasItem => ItemInHands != null;
 
+        public SettlerCondition Condition;
+        
         [Header("Needs")]
         public Settler_Needs needs;
 
@@ -37,5 +39,12 @@ namespace AI {
 
         [Header("Hit")]
         public float HitTime = 1.3f;
+    }
+
+    public enum SettlerCondition {
+        Neutral,
+        Sleep,
+        Breakdown,
+        Inspiration
     }
 }

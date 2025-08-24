@@ -22,21 +22,21 @@ public class SelectionService : ISelectionService, IUpdatable
 		if (_input.GetMouseButtonDown(MouseButton.Left)) {
 			Selectable selectable = _physics.Raycast<Selectable>(_input.GetWorldMousePosition(), Vector2.zero);
 			if (selectable != null && selectable != SelectedReactive.Value) {
-				TryUnselect();
+				Unselect();
 				SetSelected(selectable, true);
 			}
 			else {
-				TryUnselect();
+				Unselect();
 			}
 
 		}
 	}
 
-	private void TryUnselect() {
-		if (SelectedReactive.Value != null) {
-			SelectedReactive.Value.Selected = false;
-			SelectedReactive.Value = null;
-		}
+	public void Unselect() {
+		if (SelectedReactive.Value == null) return;
+		
+		SelectedReactive.Value.Selected = false;
+		SelectedReactive.Value = null;
 	}
 
 	private void SetSelected(Selectable selectable, bool selected) {

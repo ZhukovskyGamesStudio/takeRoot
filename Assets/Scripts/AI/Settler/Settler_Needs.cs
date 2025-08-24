@@ -4,6 +4,13 @@ using System;
 public class Settler_Needs {
     public int Hp;
     public int MaxHp;
+    
     public int Stress;
     public int MaxStress;
+    
+    public int Hunger;
+    public int MaxHunger;
+    
+    public int Condition;
+    public int MaxCondition;
 }
