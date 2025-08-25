@@ -13,7 +13,7 @@ public class BuildingsPanelView : MonoBehaviour {
 
     [SerializeField]
     private int _shownAmount = 9;
-    
+
     [SerializeField]
     private ToggleGroup _toggleGroup;
 
@@ -26,9 +26,11 @@ public class BuildingsPanelView : MonoBehaviour {
     [Header("Remove from here!!!")]
     [SerializeField]
     private List<BuildingRecipeConfig> _mockRecipeConfigs;
-    
+
     private List<BuildingPanelGridView> _gridItems;
     private List<BuildingRecipeConfig> _recipeConfigs;
+    private BuildingRecipeConfig _selectedConfig;
+    private Action<BuildingRecipeConfig> _onBuild;
 
     private BuildingCategory _currentCategory = BuildingCategory.General;
 
@@ -45,7 +47,7 @@ public class BuildingsPanelView : MonoBehaviour {
 
     private void Start() {
         InitToggles();
-        SetData(_mockRecipeConfigs);
+        SetData(_mockRecipeConfigs, recipeConfig => Debug.Log($"Starting build of {recipeConfig.HeaderName}"));
     }
 
     private void OnEnable() {
@@ -56,12 +58,13 @@ public class BuildingsPanelView : MonoBehaviour {
         _gridItems = new List<BuildingPanelGridView>();
         for (int i = 0; i < _shownAmount; i++) {
             var item = Instantiate(_itemPrefab, _gridItemsContainer);
-            item.Init(OpenInfoPanel,_toggleGroup);
+            item.Init(OpenInfoPanel, _toggleGroup);
             _gridItems.Add(item);
         }
     }
 
-    public void SetData(List<BuildingRecipeConfig> costConfigs) {
+    public void SetData(List<BuildingRecipeConfig> costConfigs, Action<BuildingRecipeConfig> onBuild) {
+        _onBuild = onBuild;
         if (_gridItems == null) {
             CreateEmptyGrid();
         }
@@ -85,5 +88,9 @@ public class BuildingsPanelView : MonoBehaviour {
 
     private void OpenInfoPanel(BuildingRecipeConfig config) {
         _infoPage.SetData(config);
+    }
+
+    public void Build() {
+        _onBuild?.Invoke(_selectedConfig);
     }
 }
