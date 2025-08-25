@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class ServiceLocatorLoader_Main {
 	private WorldConfig _worldConfig;
+	private readonly CameraMovementConfig _cameraMovementConfig;
 	private ResourcesConfig _resourceConfig;
 	private CoreCanvasUi _coreCanvasUi;
 	
@@ -16,9 +17,10 @@ public class ServiceLocatorLoader_Main {
 	private readonly ServiceLocator _services;
 
 	public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner, ResourcesConfig resourceConfig,
-		CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects, WorldConfig worldConfig) {
+		CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects, WorldConfig worldConfig, CameraMovementConfig cameraMovementConfig) {
 		_coreCanvasUi = coreUI;
 		_worldConfig = worldConfig;
+		_cameraMovementConfig = cameraMovementConfig;
 		_resourceConfig = resourceConfig;
 		_mapFromSceneObjects = mapFromSceneObjects;
 		_services = ServiceLocator.Container;
@@ -46,6 +48,7 @@ public class ServiceLocatorLoader_Main {
 		_services.RegisterSingle<IIdentifierService>(new IdentifierService());
 		_services.RegisterSingle<IAsyncRunner>(new UniTaskAsyncRunner());
 		_services.RegisterSingle<IResearchService>(new ResearchService());
+		_services.RegisterSingle<ICameraMovementService>(new CameraMovementService(_cameraMovementConfig,_services.Single<IUpdateService>()));
 		_mapFromSceneObjects.CreateMap();
 		var graph = _mapFromSceneObjects.CreateSimpleGraph();
 		_services.RegisterSingle<IPathfindService>(new AStar(_mapFromSceneObjects));
