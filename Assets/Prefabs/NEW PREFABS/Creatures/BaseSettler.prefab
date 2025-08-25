@@ -225,6 +225,20 @@ MonoBehaviour:
     HasMovePos: 0
     curMovePos: {x: 0, y: 0, z: 0}
     ItemInHands: {fileID: 0}
+    Condition: 0
+    needs:
+      Hp: 100
+      MaxHp: 100
+      Stress: 0
+      MaxStress: 100
+      Hunger: 0
+      MaxHunger: 100
+      Care: 100
+      MaxCare: 100
+    names:
+      Name: 
+      Race: 0
+      Subrace: 0
     energy:
       maxEnergy: 500
       currentEnergy: 500
@@ -237,6 +251,11 @@ MonoBehaviour:
       energyTimer: 0
       isSleeping: 0
       bed: {fileID: 0}
+    craftingTransport:
+      resourceToHaul: {fileID: 0}
+      amountToPick: 0
+      craftingStation: {fileID: 0}
+      isHoldingResource: 0
     IdleMoveCooldown: 11
     IdleMoveTimer: 0
     HitTime: 1.3

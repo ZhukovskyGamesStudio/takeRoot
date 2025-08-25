@@ -6,7 +6,7 @@ public class AvatarsView : MonoBehaviour {
     private Transform _settlersContainer;
 
     [SerializeField]
-    private SettlerView _settlerViewPrefab;
+    private AvatarView _settlerViewPrefab;
 
     public void InitSettlers(IEnumerable<AI.Settler> settlers) {
         foreach (Transform child in _settlersContainer) {
@@ -14,7 +14,7 @@ public class AvatarsView : MonoBehaviour {
         }
 
         foreach (AI.Settler settler in settlers) {
-            SettlerView newSettler = Instantiate(_settlerViewPrefab, _settlersContainer);
+            AvatarView newSettler = Instantiate(_settlerViewPrefab, _settlersContainer);
 
             newSettler.Init(settler.Data);
         }
@@ -22,7 +22,7 @@ public class AvatarsView : MonoBehaviour {
 
     public void UpdateSettlers() {
         foreach (Transform child in _settlersContainer) {
-            child.GetComponent<SettlerView>().UpdateData();
+            child.GetComponent<AvatarView>().UpdateData();
         }
     }
 }

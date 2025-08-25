@@ -11,6 +11,6 @@ public class Settler_Needs {
     public int Hunger;
     public int MaxHunger;
     
-    public int Condition;
-    public int MaxCondition;
+    public int Care;
+    public int MaxCare;
 }

@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 6154407299822746261}
   - component: {fileID: 2742164233151228586}
   m_Layer: 5
-  m_Name: SettlerView
+  m_Name: AvatarView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -127,10 +127,70 @@ MonoBehaviour:
   _bgImage: {fileID: 3217984967328932294}
   _gradientImage: {fileID: 5497818960919206195}
   _iconImage: {fileID: 7383895441305997097}
-  _minStressColor: {r: 0.9098039, g: 0.93333334, b: 0.8039216, a: 1}
-  _maxStressColor: {r: 0.43137255, g: 0.44705883, b: 0.34901962, a: 1}
-  _minHpColor: {r: 0.5803922, g: 0.20784314, b: 0.15686275, a: 0.69803923}
-  _maxHpColor: {r: 0.7019608, g: 0.5882353, b: 0.13333334, a: 0.69803923}
+  _chamomile: {fileID: 21300000, guid: 83d356dcb467c984380c1c563492f0e8, type: 3}
+  _succulent: {fileID: 21300000, guid: 8b6f411396b395a4ba65fc48b085c102, type: 3}
+  _toster: {fileID: 21300000, guid: 8a0ac171a02e76e49af27acf8a49ee67, type: 3}
+  _lamp: {fileID: 21300000, guid: 26bac6afea3f953449487049017a85d5, type: 3}
+  _stressGradient:
+    serializedVersion: 2
+    key0: {r: 0.43137255, g: 0.44705883, b: 0.34901962, a: 1}
+    key1: {r: 0.9098039, g: 0.93333334, b: 0.8039216, a: 0}
+    key2: {r: 1, g: 1, b: 1, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 13107
+    ctime1: 52428
+    ctime2: 65535
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 32768
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 3
+    m_NumAlphaKeys: 2
+  _hpGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 0, b: 0, a: 1}
+    key1: {r: 1, g: 0.9284844, b: 0, a: 0}
+    key2: {r: 0.19726443, g: 1, b: 0, a: 0}
+    key3: {r: 1, g: 1, b: 1, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 13107
+    ctime1: 32768
+    ctime2: 52428
+    ctime3: 65535
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 32768
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
 --- !u!1 &7725324734471925595
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +258,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 5db5ca7982174e64680a61bd56bada19, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

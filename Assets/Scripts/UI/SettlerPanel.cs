@@ -51,7 +51,7 @@ public class SettlerPanel : MonoBehaviour {
         float stress = 1 - (float)_settlerData.needs.Stress / _settlerData.needs.MaxStress;
         float hunger = 1 - (float)_settlerData.needs.Hunger / _settlerData.needs.MaxHunger;
         float energy = (float)_settlerData.energy.currentEnergy / _settlerData.energy.maxEnergy;
-        float condition = (float)_settlerData.needs.Condition / _settlerData.needs.MaxCondition;
+        float condition = (float)_settlerData.needs.Care / _settlerData.needs.MaxCare;
 
         _hpSlider.value = hp;
         _stressSlider.value = stress;

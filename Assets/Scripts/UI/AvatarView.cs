@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettlerView : MonoBehaviour {
+public class AvatarView : MonoBehaviour {
     [SerializeField]
     private Image _bgImage, _gradientImage, _iconImage;
 
@@ -9,7 +9,7 @@ public class SettlerView : MonoBehaviour {
     private Sprite _chamomile, _succulent, _toster, _lamp;
 
     [SerializeField]
-    private Color _minStressColor, _maxStressColor, _minHpColor, _maxHpColor;
+    private Gradient _stressGradient, _hpGradient;
 
     private AI.SettlerData _settlerData;
 
@@ -29,12 +29,10 @@ public class SettlerView : MonoBehaviour {
         };
 
         var needs = _settlerData.needs;
-        float stress = (float)needs.Stress / needs.MaxStress;
-        float hp = (float)needs.Hp / needs.MaxHp;
+        float stressPercent = (float)needs.Stress / needs.MaxStress;
+        float hpPercent = (float)needs.Hp / needs.MaxHp;
 
-        _bgImage.color = Color.Lerp(_minStressColor, _maxStressColor, stress);
-
-        _gradientImage.enabled = hp < 0.9f;
-        _gradientImage.color = Color.Lerp(_minHpColor, _maxHpColor, hp);
+        _bgImage.color = _stressGradient.Evaluate(stressPercent);
+        _gradientImage.color = _hpGradient.Evaluate(hpPercent);
     }
 }
