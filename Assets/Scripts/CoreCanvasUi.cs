@@ -17,8 +17,10 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
 
     [field: SerializeField]
     public AvatarsView AvatarsView { get; private set; }
-
-
+    [field: SerializeField]
+    public PanelsView PanelsView { get; private set; }
+    [field: SerializeField]
+    public PanelTogglesView PanelTogglesView { get; private set; }
 
     public void Init() {
         ObsoleteCoreEntryPoint.UI = this;

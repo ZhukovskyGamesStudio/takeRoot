@@ -2,6 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class PanelTogglesView : MonoBehaviour {
-    [SerializeField]
-    private AYellowpaper.SerializedCollections.SerializedDictionary<PanelType, Toggle> _toggles;
+    [field: SerializeField]
+    public AYellowpaper.SerializedCollections.SerializedDictionary<PanelType, Toggle> Toggles { get; private set; } = new();
 }

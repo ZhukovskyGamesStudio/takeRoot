@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
+[Obsolete]
 public class BuildingView : MonoBehaviour
 {
     [SerializeField]private GameObject _buildingToggle;

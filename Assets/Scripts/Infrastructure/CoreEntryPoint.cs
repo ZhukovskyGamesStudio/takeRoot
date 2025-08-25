@@ -51,5 +51,7 @@ public class CoreEntryPoint : EntryPointBase {
             _services.Single<IJobCommandsInputHandlerService>(), _services.Single<ISelectionService>());
         var avatarsPresenter = new AvatarsViewPresenter(_coreCanvasUi.AvatarsView, _services.Single<ISettlersService>(),
             _services.Single<IRaceService>(), _services.Single<IUpdateService>());
+
+        var panelsPresenter = new PanelsPresenter(_coreCanvasUi.PanelTogglesView, _coreCanvasUi.PanelsView);
     }
 }
