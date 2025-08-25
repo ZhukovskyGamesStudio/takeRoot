@@ -10,6 +10,7 @@ public class CraftingStation : MonoBehaviour {
 	private void Start() {
 		ServiceLocator.Container.Single<ICraftingService>().AddCraftingStation(this);
 		RequiredResources = new Dictionary<ResourceType, int>();
+		RequiredResources.Add(ResourceType.Planks, 5);
 	}
 
 	public ResourceType GetRequiredResource() => RequiredResources.Keys.FirstOrDefault();

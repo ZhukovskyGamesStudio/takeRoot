@@ -14,6 +14,7 @@ namespace AI {
 		public ISearcher Searcher;
 		public IDestroyer Destroyer;
 		public IWaterer Waterer;
+		public IResourceCarrier ResourceCarrier;
 		public WorkerAnimator WorkerAnimator { get; private set; }
 
 
@@ -23,6 +24,7 @@ namespace AI {
 			Searcher = GetComponent<ISearcher>();
 			Destroyer = GetComponent<IDestroyer>();
 			Waterer = GetComponent<IWaterer>();
+			ResourceCarrier = GetComponent<IResourceCarrier>();
 			Searcher.Init(WorkerAnimator);
 			Destroyer.Init(WorkerAnimator);
 			Waterer.Init(WorkerAnimator);

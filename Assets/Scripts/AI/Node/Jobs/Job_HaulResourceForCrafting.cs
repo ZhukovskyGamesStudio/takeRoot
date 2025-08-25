@@ -13,7 +13,10 @@ namespace AI.Node.Jobs {
 			var move = new ConditionalAction()
 				.Do(new Action_MoveToPos(settler))
 				.While(condition);
-			var pickUp = new Action_PickupResource(settler);
+			var pickUp = new Selector()
+				.AddChild(new Conditional(() => data.craftingTransport.HasResourceInHands))
+				.AddChild(new Action_PickupResource(settler));
+			
 			var moveToCraftingStation = new ConditionalAction()
 				.Do(new Action_MoveToPos(settler))
 				.While(condition);

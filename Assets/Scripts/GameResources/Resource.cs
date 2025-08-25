@@ -15,7 +15,15 @@ namespace GameResources {
 			Amount = amount;
 			_amountText.text = amount.ToString();
 		}
-		
+
+		public void PickUp(int amount) {
+			Amount -= amount;
+			Reserved -= amount;
+			_amountText.text = Amount.ToString();
+			if (Amount == 0) {
+				Destroy(this.gameObject);
+			}
+		}
 	}
 	[Serializable]
 	public class ResourcesData {

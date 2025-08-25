@@ -8,5 +8,8 @@ namespace AI {
 		public int amountToPick;
 		public CraftingStation craftingStation;
 		public bool isHoldingResource;
+
+		public ResourceData resourceInHands;
+		public bool HasResourceInHands => resourceInHands.ResourceType != ResourceType.None;
 	}
 }
