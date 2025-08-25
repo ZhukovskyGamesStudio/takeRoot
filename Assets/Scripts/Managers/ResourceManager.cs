@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class ResourceManager : MonoBehaviour {
 
-    [SerializeField]
-    private ResourcesTable _resourcesTable;
+    [field:SerializeField]
+    public ResourcesTable ResourcesTable;
 
     [SerializeField]
     private Transform _resourcesHolder;
@@ -36,7 +36,7 @@ public class ResourceManager : MonoBehaviour {
     }
 
     private static ResourceView SpawnResource(ResourceType resourceType, Vector2Int cell) {
-        var prefab = ObsoleteCoreEntryPoint.ResourceManager._resourcesTable.ResourceViewPrefabs.First(s => s.ResourceType == resourceType);
+        var prefab = ObsoleteCoreEntryPoint.ResourceManager.ResourcesTable.ResourceViewPrefabs.First(s => s.ResourceType == resourceType);
         //TODO add pool
         ResourceView r = Instantiate(prefab, ObsoleteCoreEntryPoint.ResourceManager._resourcesHolder);
         //Core.ResourceManager._scatteredResources.Add(cell, r);
@@ -44,7 +44,7 @@ public class ResourceManager : MonoBehaviour {
     }
 
     public static ResouseUiView SpawnResourceUi(ResourceType resourceType) {
-        var prefab = ObsoleteCoreEntryPoint.ResourceManager._resourcesTable.ResourceUiViewPrefabs.First(s => s.ResourceType == resourceType);
+        var prefab = ObsoleteCoreEntryPoint.ResourceManager.ResourcesTable.ResourceUiViewPrefabs.First(s => s.ResourceType == resourceType);
         //TODO add pool
         ResouseUiView r = Instantiate(prefab);
         return r;
