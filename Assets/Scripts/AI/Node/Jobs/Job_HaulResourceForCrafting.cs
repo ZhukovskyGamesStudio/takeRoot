@@ -20,9 +20,12 @@ namespace AI.Node.Jobs {
 			var moveToCraftingStation = new ConditionalAction()
 				.Do(new Action_MoveToPos(settler))
 				.While(condition);
+
+			var storeInCraftingStation = new Action_StoreInCraftingStation(settler); 
 			AddChild(move);
 			AddChild(pickUp);
 			AddChild(moveToCraftingStation);
+			AddChild(storeInCraftingStation);
 		}
 	}
 }
