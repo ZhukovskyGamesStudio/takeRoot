@@ -1,4 +1,5 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -16,34 +17,39 @@ public class ResourcesView : MonoBehaviour {
     [SerializeField]
     private Transform _resourcesContainer;
 
-    private void Start() {
-        InitMockData();
+    private List<ResourceLineView> _resourceLines;
+
+    private void InitEmptyLines() {
+        _resourceLines = new List<ResourceLineView>();
+        for (int i = 0; i < _maxVisibleResources; i++) {
+            var line = Instantiate(_resorceLinePrefab, _resourcesContainer);
+            _resourceLines.Add(line);
+            line.gameObject.SetActive(false);
+        }
     }
 
-    private void InitMockData() {
-        SetData(new AYellowpaper.SerializedCollections.SerializedDictionary<ResourceType, int>() {
-            { ResourceType.MetalScraps, Random.Range(1, 99) },
-            { ResourceType.Biofuel, Random.Range(1, 99) },
-            { ResourceType.MashedPotato, Random.Range(1, 99) },
-            { ResourceType.CleanedMetal, Random.Range(1, 99) },
-            { ResourceType.CleanedPlank, Random.Range(1, 99) },
-            { ResourceType.EmptyBottle, Random.Range(1, 99) },
-            { ResourceType.Planks, Random.Range(1, 99) },
-            { ResourceType.Potato, Random.Range(1, 99) },
-        });
-    }
+    public void SetData(Dictionary<ResourceType, int> dictionary) {
+        if (_resourceLines == null) {
+            InitEmptyLines();
+        }
 
-    public void SetData(AYellowpaper.SerializedCollections.SerializedDictionary<ResourceType, int> dictionary) {
         var isTooLong = dictionary.Count >= _maxVisibleResources;
         _upButton.gameObject.SetActive(isTooLong);
         _downButton.gameObject.SetActive(isTooLong);
-        foreach (Transform child in _resourcesContainer) {
-            Destroy(child.gameObject);
+        foreach (var line in _resourceLines!) {
+            line.gameObject.SetActive(false);
         }
 
-        foreach (var item in dictionary) {
-            var line = Instantiate(_resorceLinePrefab, _resourcesContainer);
-            line.SetData(item.Key, item.Value);
+        int curShown = Mathf.Min(dictionary.Count, _maxVisibleResources);
+
+        for (int i = 0; i < curShown; i++) {
+            var line = _resourceLines[i];
+            var type = dictionary.Keys.ElementAt(i);
+            var amount = dictionary.Values.ElementAt(i);
+            line.gameObject.SetActive(true);
+            line.SetData(type, amount);
         }
     }
+
+    //TODO add working up and down buttons
 }

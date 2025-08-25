@@ -53,5 +53,8 @@ public class CoreEntryPoint : EntryPointBase {
             _services.Single<IRaceService>(), _services.Single<IUpdateService>());
 
         var panelsPresenter = new PanelsPresenter(_coreCanvasUi.PanelTogglesView, _coreCanvasUi.PanelsView);
+
+        var resorcesPresenter = new ResourcesViewPresenter(_coreCanvasUi.ResourcesView, _services.Single<IResourceManager>(),
+            _services.Single<IUpdateService>());
     }
 }

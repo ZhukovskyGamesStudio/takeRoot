@@ -21,6 +21,9 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
     public PanelsView PanelsView { get; private set; }
     [field: SerializeField]
     public PanelTogglesView PanelTogglesView { get; private set; }
+    
+    [field: SerializeField]
+    public ResourcesView ResourcesView  { get; private set; }
 
     public void Init() {
         ObsoleteCoreEntryPoint.UI = this;

@@ -4839,6 +4839,7 @@ MonoBehaviour:
   <AvatarsView>k__BackingField: {fileID: 6192013297115147934}
   <PanelsView>k__BackingField: {fileID: 5622320916375446610}
   <PanelTogglesView>k__BackingField: {fileID: 38066053271203595}
+  <ResourcesView>k__BackingField: {fileID: 5475529851738297918}
 --- !u!1 &7282043398161551022
 GameObject:
   m_ObjectHideFlags: 0
@@ -6599,6 +6600,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9dd6a557a3ed9c24bb06e76fed8a2067, type: 3}
+--- !u!114 &5475529851738297918 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 325258796194709054, guid: 9dd6a557a3ed9c24bb06e76fed8a2067, type: 3}
+  m_PrefabInstance: {fileID: 5728420694415976448}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605018bd4a73060489641d04ba287823, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8963931206553998208 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3682035421335370624, guid: 9dd6a557a3ed9c24bb06e76fed8a2067, type: 3}
