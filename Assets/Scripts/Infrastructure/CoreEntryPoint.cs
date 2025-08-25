@@ -56,5 +56,7 @@ public class CoreEntryPoint : EntryPointBase {
 
         var resorcesPresenter = new ResourcesViewPresenter(_coreCanvasUi.ResourcesView, _services.Single<IResourceManager>(),
             _services.Single<IUpdateService>());
+
+        var researchPresenter = new ResearchViewPresenter(_coreCanvasUi.ResearchPanelView, _services.Single<IResearchService>());
     }
 }

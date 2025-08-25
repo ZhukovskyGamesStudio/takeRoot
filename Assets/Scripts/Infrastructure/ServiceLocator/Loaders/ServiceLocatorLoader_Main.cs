@@ -45,6 +45,7 @@ public class ServiceLocatorLoader_Main {
 		_services.RegisterSingle<IPathfindService>(new MockPathfindService());
 		_services.RegisterSingle<IIdentifierService>(new IdentifierService());
 		_services.RegisterSingle<IAsyncRunner>(new UniTaskAsyncRunner());
+		_services.RegisterSingle<IResearchService>(new ResearchService());
 		_mapFromSceneObjects.CreateMap();
 		var graph = _mapFromSceneObjects.CreateSimpleGraph();
 		_services.RegisterSingle<IPathfindService>(new AStar(_mapFromSceneObjects));
