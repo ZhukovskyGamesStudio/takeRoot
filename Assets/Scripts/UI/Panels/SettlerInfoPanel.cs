@@ -4,7 +4,7 @@ using UnityEngine;
 using AI;
 using UnityEngine.UI;
 
-public class SettlerPanel : MonoBehaviour {
+public class SettlerInfoPanel : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _nameText, _typeText, _conditionText;
 

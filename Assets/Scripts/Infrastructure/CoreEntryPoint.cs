@@ -17,7 +17,7 @@ public class CoreEntryPoint : EntryPointBase {
     private InfoBookView _infoBookView;
 
     [SerializeField]
-    private SettlerPanel _settlerPanel;
+    private SettlerInfoPanel _settlerPanel;
 
     [SerializeField]
     private CoreCanvasUi _coreCanvasUi;

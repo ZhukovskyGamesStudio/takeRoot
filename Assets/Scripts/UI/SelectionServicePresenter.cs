@@ -6,9 +6,9 @@ public class SelectionServicePresenter : IDisposable {
 
     public ReactiveProperty<bool> SelectionEnabled;
     private InfoBookView _infoBookView;
-    private SettlerPanel _settlerPanel;
+    private SettlerInfoPanel _settlerPanel;
 
-    public SelectionServicePresenter(InfoBookView infoBookView, SettlerPanel settlerPanel, IJobCommandsInputHandlerService commandInputHandler,
+    public SelectionServicePresenter(InfoBookView infoBookView, SettlerInfoPanel settlerPanel, IJobCommandsInputHandlerService commandInputHandler,
         ISelectionService selection) {
         _infoBookView = infoBookView;
         _settlerPanel = settlerPanel;

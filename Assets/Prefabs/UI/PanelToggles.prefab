@@ -1035,6 +1035,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d196069a281e371428424d6f7c6268a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _toggles:
+    _serializedList:
+    - Key: 1
+      Value: {fileID: 2049024956444250355}
+    - Key: 2
+      Value: {fileID: 6875631508267324629}
+    - Key: 3
+      Value: {fileID: 6382799000194613701}
+    - Key: 4
+      Value: {fileID: 9151895339780322103}
 --- !u!1 &5730740744635719192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,7 +1559,7 @@ GameObject:
   - component: {fileID: 9151895339780322103}
   - component: {fileID: 6537729345998818937}
   m_Layer: 5
-  m_Name: Maps Toggle
+  m_Name: Map Toggle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

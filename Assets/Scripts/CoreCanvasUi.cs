@@ -10,7 +10,7 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
     private InfoBookView _infoPanel;
 
     [SerializeField]
-    private SettlerPanel _settlerPanel;
+    private SettlerInfoPanel _settlerPanel;
 
     [SerializeField]
     private Toggle _infoToggle;
