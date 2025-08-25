@@ -2723,7 +2723,7 @@ MonoBehaviour:
   _buildingPanel: {fileID: 1748642026459056035}
   _buildingNotes:
   - {fileID: 5407507170912065096}
-  - {fileID: 4481095148041766055}
+  - {fileID: 0}
 --- !u!1 &3477112005304835182
 GameObject:
   m_ObjectHideFlags: 0
@@ -4807,7 +4807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3177333105
+  GlobalObjectIdHash: 634665288
   InScenePlacedSourceGlobalObjectIdHash: 634665288
   DeferredDespawnTick: 0
   Ownership: 1
@@ -4837,6 +4837,7 @@ MonoBehaviour:
   _settlerPanel: {fileID: 3802430347043795114}
   _infoToggle: {fileID: 7162712298565899178}
   <AvatarsView>k__BackingField: {fileID: 6192013297115147934}
+  <ResearchPanelView>k__BackingField: {fileID: 0}
   <PanelsView>k__BackingField: {fileID: 5622320916375446610}
   <PanelTogglesView>k__BackingField: {fileID: 38066053271203595}
   <ResourcesView>k__BackingField: {fileID: 5475529851738297918}
@@ -6050,11 +6051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41006bd5e01c73b4ea20013ea7f13a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &4481095148041766055 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3072747417083215314, guid: f25cb024a1728824daf2fffce8ddb959, type: 3}
-  m_PrefabInstance: {fileID: 1482980831134742901}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5407507170912065096 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6890446039139528509, guid: f25cb024a1728824daf2fffce8ddb959, type: 3}
