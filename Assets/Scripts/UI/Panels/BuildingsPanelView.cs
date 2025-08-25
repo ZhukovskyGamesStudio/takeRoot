@@ -87,6 +87,7 @@ public class BuildingsPanelView : MonoBehaviour {
     }
 
     private void OpenInfoPanel(BuildingRecipeConfig config) {
+        _selectedConfig = config;
         _infoPage.SetData(config);
     }
 
