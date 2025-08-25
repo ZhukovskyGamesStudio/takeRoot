@@ -13,7 +13,9 @@ namespace AI.Node.Jobs {
 		public override BTNodeState Evaluate() {
 			if (_settler.Data.craftingTransport.resourceToHaul != null) return BTNodeState.Success;
 			var type = _settler.Data.craftingTransport.craftingStation.GetRequiredResource();
+			if (type == ResourceType.None) return BTNodeState.Failure;
 			var amount = _settler.Data.craftingTransport.craftingStation.RequiredResources[type];
+			
 			var resourceOnGround = _resources.FindResourceOnGround(type);
 			if (resourceOnGround == null) return BTNodeState.Failure;
 

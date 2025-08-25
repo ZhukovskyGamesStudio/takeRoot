@@ -6,10 +6,13 @@ namespace AI.Node.Jobs {
 			_settler = settler;
 		}
 		public override BTNodeState Evaluate() {
-			//Mock
 			var resource = _settler.Data.craftingTransport.resourceToHaul;
-			resource.transform.SetParent(_settler.transform);
-			_settler.Data.craftingTransport.isHoldingResource = true;
+			resource.PickUp(_settler.Data.craftingTransport.amountToPick);
+			_settler.Data.craftingTransport.resourceInHands = new ResourceData() {
+				ResourceType = resource.Type,
+				Amount = _settler.Data.craftingTransport.amountToPick
+			};
+			_settler.ResourceCarrier.CarryResource(resource.Type);
 			_settler.Data.curMovePos = _settler.Data.craftingTransport.craftingStation.transform.position;
 			return BTNodeState.Success;
 		}
