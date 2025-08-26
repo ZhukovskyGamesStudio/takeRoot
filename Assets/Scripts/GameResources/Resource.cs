@@ -26,7 +26,7 @@ namespace GameResources {
             Reserved -= amount;
             _amountText.text = Amount.ToString();
             if (Amount == 0) {
-                Destroy(this.gameObject);
+                Destroy(gameObject);
             }
         }
     }

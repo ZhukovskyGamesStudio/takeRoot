@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Settlers.Crafting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CraftingManager : MonoBehaviour, IInitableInstance {
     [SerializeField]

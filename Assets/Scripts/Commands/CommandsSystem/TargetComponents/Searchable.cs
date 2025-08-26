@@ -2,22 +2,20 @@ using UnityEngine;
 using System;
 
 public class SearchableObj : MonoBehaviour {
-	[Header("Searchable Settings")]
-	public int requiredSearchPoints = 5;
-	public int currentResearchPoints;
-	
-	
-	public event Action onSearched;
-	
-	public bool Searched => currentResearchPoints >= requiredSearchPoints;
+    [Header("Searchable Settings")]
+    public int requiredSearchPoints = 5;
 
-	public void Search() {
-		currentResearchPoints++;
-	}
+    public int currentResearchPoints;
 
-	public void EndSearch() {
-		onSearched?.Invoke();
-	}
-	
-	
-} 
+    public event Action onSearched;
+
+    public bool Searched => currentResearchPoints >= requiredSearchPoints;
+
+    public void Search() {
+        currentResearchPoints++;
+    }
+
+    public void EndSearch() {
+        onSearched?.Invoke();
+    }
+}

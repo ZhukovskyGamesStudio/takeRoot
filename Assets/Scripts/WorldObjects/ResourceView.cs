@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
-using Unity.Netcode;
 using UnityEngine;
 using WorldObjects;
 
@@ -13,8 +11,7 @@ public class ResourceView : ECSEntity {
     [field: SerializeField]
     public ResourceType ResourceType { get; private set; }
 
-    [Space(20)]
-    [SerializeField]
+    [Space(20), SerializeField]
     private TextMeshPro _amountText;
 
     public bool IsBeingCarried;
@@ -27,7 +24,7 @@ public class ResourceView : ECSEntity {
     private Interactable _interactable;
     public Action<ResourceView> OnResourceViewChanged;
 
-    public ResourceData ResourceData { get; private set; } = new ResourceData();
+    public ResourceData ResourceData { get; private set; } = new();
 
     public Interactable Interactable => _interactable;
 
@@ -65,7 +62,7 @@ public class ResourceView : ECSEntity {
     }
 
     private InfoBookData GetInfoData() {
-        InfoBookData d = new InfoBookData() {
+        InfoBookData d = new() {
             Icon = _icon.sprite,
             Name = gameObject.name,
             Resources = new List<ResourceData>()
@@ -81,7 +78,7 @@ public class ResourceView : ECSEntity {
 
     private void OnCommandPerformed(CommandData cData) {
         if (cData.CommandType == Command.GatherResources) {
-            var resource = new ResourceData() {
+            ResourceData resource = new() {
                 ResourceType = ResourceType,
                 Amount = AmountToGather
             };
@@ -91,22 +88,22 @@ public class ResourceView : ECSEntity {
                 _interactable.CanSelect = false;
                 GetEcsComponent<Networkable>().ChangeParent(cData.Settler.ResourceHolder);
                 cData.CommandType = Command.Delivery;
-                cData.AdditionalData = new DeliveryCommandData() {
+                cData.AdditionalData = new DeliveryCommandData {
                     TargetPlan = _interactable.CommandToExecute.Additional.GetComponent<BuildingPlan>()
                 };
                 AmountToGather = 0;
                 ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.AddSubsequentCommand(cData);
             } else {
-                var position = cData.Settler.GetCellOnGrid;
-                var resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
+                Vector2Int position = cData.Settler.GetCellOnGrid;
+                ResourceView resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
                 resourceToGather.IsBeingCarried = true;
                 resourceToGather._interactable.CanSelect = false;
                 AmountToGather = 0;
                 SetAmount(Amount - resource.Amount);
-                CommandData command = new CommandData() {
+                CommandData command = new() {
                     Interactable = resourceToGather.Interactable,
                     Additional = cData.Additional,
-                    AdditionalData = new DeliveryCommandData() {
+                    AdditionalData = new DeliveryCommandData {
                         TargetPlan = cData.Additional.GetComponent<BuildingPlan>()
                     },
                     CommandType = Command.Delivery,
@@ -117,13 +114,15 @@ public class ResourceView : ECSEntity {
                 resourceToGather._interactable.AssignCommand(command);
                 resourceToGather.GetEcsComponent<Networkable>()
                     .ChangeParent(resourceToGather._interactable.CommandToExecute.Settler.ResourceHolder);
-                ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.AddSubsequentCommand(resourceToGather._interactable.CommandToExecute);
+                ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.AddSubsequentCommand(resourceToGather._interactable
+                    .CommandToExecute);
             }
+
             return;
         }
-        if (cData.CommandType == Command.GatherResourcesForCraft)
-        {
-            var resource = new ResourceData() {
+
+        if (cData.CommandType == Command.GatherResourcesForCraft) {
+            ResourceData resource = new() {
                 ResourceType = ResourceType,
                 Amount = AmountToGather
             };
@@ -132,12 +131,10 @@ public class ResourceView : ECSEntity {
                 IsBeingCarried = true;
                 _interactable.CanSelect = false;
                 GetEcsComponent<Networkable>().ChangeParent(cData.Settler.ResourceHolder);
-                CommandData command = new CommandData()
-                {
+                CommandData command = new() {
                     Interactable = _interactable,
                     Additional = cData.Additional,
-                    AdditionalData = new DeliveryToCraftCommandData()
-                    {
+                    AdditionalData = new DeliveryToCraftCommandData {
                         CraftingStation = cData.Additional.GetComponent<CraftingStationable>()
                     },
                     CommandType = Command.DeliveryForCraft,
@@ -146,16 +143,16 @@ public class ResourceView : ECSEntity {
                 AmountToGather = 0;
                 ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.AddSubsequentCommand(command);
             } else {
-                var position = cData.Settler.GetCellOnGrid;
-                var resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
+                Vector2Int position = cData.Settler.GetCellOnGrid;
+                ResourceView resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
                 resourceToGather.IsBeingCarried = true;
                 resourceToGather._interactable.CanSelect = false;
                 AmountToGather = 0;
                 SetAmount(Amount - resource.Amount);
-                CommandData command = new CommandData() {
+                CommandData command = new() {
                     Interactable = resourceToGather.Interactable,
                     Additional = cData.Additional,
-                    AdditionalData = new DeliveryToCraftCommandData() {
+                    AdditionalData = new DeliveryToCraftCommandData {
                         CraftingStation = cData.Additional.GetComponent<CraftingStationable>()
                     },
                     CommandType = Command.DeliveryForCraft,
@@ -166,8 +163,10 @@ public class ResourceView : ECSEntity {
                 resourceToGather._interactable.AssignCommand(command);
                 resourceToGather.GetEcsComponent<Networkable>()
                     .ChangeParent(resourceToGather._interactable.CommandToExecute.Settler.ResourceHolder);
-                ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.AddSubsequentCommand(resourceToGather._interactable.CommandToExecute);
+                ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.AddSubsequentCommand(resourceToGather._interactable
+                    .CommandToExecute);
             }
+
             return;
         }
 
@@ -179,8 +178,7 @@ public class ResourceView : ECSEntity {
             return;
         }
 
-        if (cData.CommandType == Command.DeliveryForCraft)
-        {
+        if (cData.CommandType == Command.DeliveryForCraft) {
             DeliveryToCraftCommandData deliveryData = (DeliveryToCraftCommandData)cData.AdditionalData;
             deliveryData.CraftingStation.GetComponent<CraftingStationable>().AddResourceToStorage(ResourceData);
             _interactable.CancelCommand();
@@ -192,8 +190,9 @@ public class ResourceView : ECSEntity {
             IsBeingCarried = true;
             _interactable.CanSelect = false;
             cData.CommandType = Command.Store;
-            Storagable storage = ObsoleteCoreEntryPoint.ResourceManager.FindClosestAvailableStorage(ResourceData, _interactable.GetInteractableCell);
-            cData.AdditionalData = new StoreCommandData() {
+            Storagable storage =
+                ObsoleteCoreEntryPoint.ResourceManager.FindClosestAvailableStorage(ResourceData, _interactable.GetInteractableCell);
+            cData.AdditionalData = new StoreCommandData {
                 TargetStorage = storage,
                 Resource = this
             };
@@ -212,17 +211,16 @@ public class ResourceView : ECSEntity {
             storeData.TargetStorage.AddResource(ResourceData);
             _interactable.CancelCommand();
             SetAmount(ResourceData.Amount);
-            if (ResourceData.Amount == 0)
+            if (ResourceData.Amount == 0) {
                 OnDestroy();
+            }
         }
     }
 
-    private void OnDestroy()
-    {
+    private void OnDestroy() {
         ResourceManager.ClearResourceView(this);
         _interactable.OnDestroyed();
     }
-
 
     private void OnCommandCanceled(CommandData type) {
         DropOnGround();

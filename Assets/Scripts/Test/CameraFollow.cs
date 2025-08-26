@@ -4,7 +4,7 @@ public class SmoothCameraFollow2D : MonoBehaviour {
     [Header("Target Settings")]
     public Transform target; // Объект, за которым следует камера
 
-    public Vector2 offset = new Vector2(0f, 0f); // Смещение камеры относительно цели
+    public Vector2 offset = new(0f, 0f); // Смещение камеры относительно цели
 
     [Header("Smooth Settings")]
     public float smoothSpeed = 0.125f; // Скорость сглаживания (меньше = плавнее)
@@ -31,7 +31,9 @@ public class SmoothCameraFollow2D : MonoBehaviour {
     }
 
     private void LateUpdate() {
-        if (target == null) return;
+        if (target == null) {
+            return;
+        }
 
         Vector3 targetPosition = GetNextPos();
 

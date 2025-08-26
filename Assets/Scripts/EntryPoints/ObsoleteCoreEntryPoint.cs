@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 [Obsolete]
 public class ObsoleteCoreEntryPoint : EntryPointBase, IResetable {
     public static ObsoleteCoreEntryPoint Instance;
@@ -26,7 +27,6 @@ public class ObsoleteCoreEntryPoint : EntryPointBase, IResetable {
     public static PowerManager PowerManager;
     public static LayerManager LayerManager;
     public static WarpManager WarpManager;
-    
 
     public Race CurrentNetworkFakeRace = Race.Plants;
 
@@ -36,7 +36,7 @@ public class ObsoleteCoreEntryPoint : EntryPointBase, IResetable {
         if (TrySwitchToLoading()) {
             return;
         }
-        
+
         Instance = this;
 
         LoadAndInit();

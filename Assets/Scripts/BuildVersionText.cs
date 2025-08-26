@@ -5,7 +5,7 @@ public class BuildVersionText : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _buildText;
 
-    void Start() {
+    private void Start() {
         _buildText.text = $"Ver. {Application.version}";
     }
 }

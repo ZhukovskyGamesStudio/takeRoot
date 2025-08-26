@@ -1,4 +1,1 @@
-public class Lamppost : ECSEntity
-{
-        
-}
+public class Lamppost : ECSEntity { }

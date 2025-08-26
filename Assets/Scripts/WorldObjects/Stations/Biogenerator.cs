@@ -1,4 +1,1 @@
-public class Biogenerator : Furniture
-{
-        
-}
+public class Biogenerator : Furniture { }

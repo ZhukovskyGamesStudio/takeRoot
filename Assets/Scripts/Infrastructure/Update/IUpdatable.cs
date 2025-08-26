@@ -1,4 +1,3 @@
-public interface IUpdatable
-{
-	public void Update();
+public interface IUpdatable {
+    public void Update();
 }

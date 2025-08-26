@@ -3,67 +3,61 @@ using System.Linq;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class AStar : IPathfindService
-{
+public class AStar : IPathfindService {
     private readonly MapFromSceneObjects _graph;
 
     public AStar(MapFromSceneObjects graph) {
         _graph = graph;
     }
 
-    public List<Vector2> FindPath(Vector2 start, Vector2 end)
-    {
-        var startPos = new int3((int)start.x, (int)start.y, 0);
-        var endPos = new int3((int)end.x, (int)end.y, 0);
-        var path = FindPathInternal(_graph.Graph, startPos, endPos);
-        
-        if (path == null)
+    public List<Vector2> FindPath(Vector2 start, Vector2 end) {
+        int3 startPos = new((int)start.x, (int)start.y, 0);
+        int3 endPos = new((int)end.x, (int)end.y, 0);
+        List<int3> path = FindPathInternal(_graph.Graph, startPos, endPos);
+
+        if (path == null) {
             return null;
+        }
 
         return path.Select(p => new Vector2(p.x, p.y)).ToList();
     }
 
-    private List<int3> FindPathInternal(SimpleGraph graph, int3 startPos, int3 endPos)
-    {
-        if (!graph.NodesMap.TryGetValue(startPos, out var startNode) ||
-            !graph.NodesMap.TryGetValue(endPos, out var endNode))
+    private List<int3> FindPathInternal(SimpleGraph graph, int3 startPos, int3 endPos) {
+        if (!graph.NodesMap.TryGetValue(startPos, out SimpleNode startNode) || !graph.NodesMap.TryGetValue(endPos, out SimpleNode endNode)) {
             return null;
+        }
 
-        var openSet = new SortedSet<(float f, int insertOrder, SimpleNode node)>(new NodeComparer());
-        var cameFrom = new Dictionary<SimpleNode, SimpleNode>();
-        var gScore = new Dictionary<SimpleNode, float>();
-        var fScore = new Dictionary<SimpleNode, float>();
+        SortedSet<(float f, int insertOrder, SimpleNode node)> openSet = new(new NodeComparer());
+        Dictionary<SimpleNode, SimpleNode> cameFrom = new();
+        Dictionary<SimpleNode, float> gScore = new();
+        Dictionary<SimpleNode, float> fScore = new();
         int insertCounter = 0;
 
         gScore[startNode] = 0;
         fScore[startNode] = Heuristic(startPos, endPos);
         openSet.Add((fScore[startNode], insertCounter++, startNode));
 
-        while (openSet.Count > 0)
-        {
-            var current = openSet.Min.node;
+        while (openSet.Count > 0) {
+            SimpleNode current = openSet.Min.node;
             openSet.Remove(openSet.Min);
 
-            if (current == endNode)
-            {
-                var result = new List<int3>();
-                while (cameFrom.ContainsKey(current))
-                {
+            if (current == endNode) {
+                List<int3> result = new();
+                while (cameFrom.ContainsKey(current)) {
                     result.Add(current.pos);
                     current = cameFrom[current];
                 }
+
                 result.Add(startPos);
                 result.Reverse();
                 return result;
             }
 
-            foreach (var edge in current.outgoingEdges)
-            {
-                var neighbor = edge.destinationNode;
+            foreach (SimpleEdge edge in current.outgoingEdges) {
+                SimpleNode neighbor = edge.destinationNode;
                 float tentativeG = gScore[current] + edge.weight;
 
-                if (!gScore.ContainsKey(neighbor) || tentativeG < gScore[neighbor])
-                {
+                if (!gScore.ContainsKey(neighbor) || tentativeG < gScore[neighbor]) {
                     cameFrom[neighbor] = current;
                     gScore[neighbor] = tentativeG;
                     fScore[neighbor] = tentativeG + Heuristic(neighbor.pos, endPos);
@@ -75,20 +69,23 @@ public class AStar : IPathfindService
         return null;
     }
 
-    private float Heuristic(int3 a, int3 b)
-    {
+    private float Heuristic(int3 a, int3 b) {
         return math.abs(a.x - b.x) + math.abs(a.y - b.y);
     }
-    private class NodeComparer : IComparer<(float f, int insertOrder, SimpleNode node)>
-    {
-        public int Compare((float f, int insertOrder, SimpleNode node) x, (float f, int insertOrder, SimpleNode node) y)
-        {
+
+    private class NodeComparer : IComparer<(float f, int insertOrder, SimpleNode node)> {
+        public int Compare((float f, int insertOrder, SimpleNode node) x, (float f, int insertOrder, SimpleNode node) y) {
             int cmp = x.f.CompareTo(y.f);
-            if (cmp != 0) return cmp;
+            if (cmp != 0) {
+                return cmp;
+            }
+
             cmp = x.insertOrder.CompareTo(y.insertOrder);
-            if (cmp != 0) return cmp;
+            if (cmp != 0) {
+                return cmp;
+            }
+
             return x.node.GetHashCode().CompareTo(y.node.GetHashCode()); // или ReferenceEquals
         }
     }
-
 }

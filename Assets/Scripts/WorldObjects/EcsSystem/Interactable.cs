@@ -6,31 +6,33 @@ public class Interactable : ECSComponent, ISelectable {
     [SerializeField]
     private Vector2Int _interactableShift;
 
-    private readonly List<Command> _availableCommands = new List<Command>() { };
+    private readonly List<Command> _availableCommands = new() { };
     public Func<InfoBookData> GetInfoFunc;
 
     public Action<CommandData> OnCommandPerformed, OnCommandCanceled;
 
     public Gridable Gridable { get; private set; }
-    
+
     //For videos
     public Animator Animator { get; private set; }
-    
+
     //TODO get rid of it
     public CommandData CommandToExecute { get; private set; }
-    
+
     public HashSet<Vector2Int> InteractableCells => Gridable.InteractableCells;
     public Vector2Int GetInteractableCell => Gridable.GetBottomLeftOnGrid + _interactableShift;
     public bool CanSelect { get; set; } = true;
 
     private void OnMouseEnter() {
-        if (CanSelect)
-           ObsoleteCoreEntryPoint.SelectionManager.SetSelected(this);
+        if (CanSelect) {
+            ObsoleteCoreEntryPoint.SelectionManager.SetSelected(this);
+        }
     }
 
     private void OnMouseExit() {
-        if (CanSelect)
-           ObsoleteCoreEntryPoint.SelectionManager.TryClearSelected(this);
+        if (CanSelect) {
+            ObsoleteCoreEntryPoint.SelectionManager.TryClearSelected(this);
+        }
     }
 
     public InfoBookData GetInfoData() {

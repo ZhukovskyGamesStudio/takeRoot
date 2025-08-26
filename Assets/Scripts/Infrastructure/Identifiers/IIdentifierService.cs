@@ -1,3 +1,3 @@
 public interface IIdentifierService : IService {
-	public int Next();
+    public int Next();
 }

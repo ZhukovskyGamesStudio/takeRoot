@@ -28,7 +28,7 @@ public class AvatarView : MonoBehaviour {
             _ => _iconImage.sprite
         };
 
-        var needs = _settlerData.needs;
+        Settler_Needs needs = _settlerData.needs;
         float stressPercent = (float)needs.Stress / needs.MaxStress;
         float hpPercent = (float)needs.Hp / needs.MaxHp;
 

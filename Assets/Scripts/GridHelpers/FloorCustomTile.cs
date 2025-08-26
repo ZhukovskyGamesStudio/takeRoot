@@ -2,8 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [CreateAssetMenu]
-public class FloorCustomTile : RuleTile<WallCustomTile>
-{
+public class FloorCustomTile : RuleTile<WallCustomTile> {
     [SerializeField]
     private Sprite _evenXEvenY, _evenXOddY, _oddXEvenY, _oddXOddY;
 

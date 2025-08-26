@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class EquipmentView : MonoBehaviour {
@@ -10,7 +9,7 @@ public class EquipmentView : MonoBehaviour {
     public SpriteRenderer _equipmentRenderer;
 
     [SerializeField]
-    private SerializedDictionary<ResourceType, Sprite> _itemsDict = new SerializedDictionary<ResourceType, Sprite>();
+    private SerializedDictionary<ResourceType, Sprite> _itemsDict = new();
 
     public void SetEquipment(ResourceType type) {
         if (type == ResourceType.None) {

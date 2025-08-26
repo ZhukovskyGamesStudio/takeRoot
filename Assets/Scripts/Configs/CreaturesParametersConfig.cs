@@ -18,12 +18,11 @@ public class CreaturesParametersConfig : ScriptableObject {
     [field: SerializeField]
     [Min(1)]
     public int ViewRadius { get; private set; }
-    
+
     [field: SerializeField]
     public float RoundAttackCooldown { get; private set; }
 
-    public void ChangeMoveSpeed(float value)
-    {
+    public void ChangeMoveSpeed(float value) {
         MoveTime += value;
     }
 }

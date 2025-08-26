@@ -1,20 +1,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyObjectQuestStep : QuestStep
-{
-    [SerializeField] private List<string> _requiredObjectsIds;
+public class DestroyObjectQuestStep : QuestStep {
+    [SerializeField]
+    private List<string> _requiredObjectsIds;
 
-    private void Start()
-    {
+    private void Start() {
         ObsoleteCoreEntryPoint.GameEventsManager.WorldObjectsEvents.onDestroyed += RequiredObjectsDestroyed;
         UpdateQuestStepStatus(_status);
     }
 
-    private void RequiredObjectsDestroyed(string id)
-    {
-        if (_requiredObjectsIds.Contains(id))
-        {
+    private void RequiredObjectsDestroyed(string id) {
+        if (_requiredObjectsIds.Contains(id)) {
             FinishStep();
         }
     }

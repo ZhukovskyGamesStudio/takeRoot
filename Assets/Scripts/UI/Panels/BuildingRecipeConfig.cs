@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BuildingRecipeConfig", menuName = "Scriptable Objects/BuildingRecipeConfig", order = 0)]
@@ -16,4 +15,3 @@ public class BuildingRecipeConfig : ScriptableObject {
 
     public AYellowpaper.SerializedCollections.SerializedDictionary<ResourceType, int> Ingridients;
 }
-

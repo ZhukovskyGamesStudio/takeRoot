@@ -20,13 +20,13 @@ public class QuestManager : MonoBehaviour, IInitableInstance {
     private Dictionary<string, Quest> CreateQuestsMap() {
         QuestConfig[] questConfigs = Resources.LoadAll<QuestConfig>("Quests");
         Debug.Log("Quests length: " + questConfigs.Length);
-        Dictionary<string, Quest> quests = new Dictionary<string, Quest>();
+        Dictionary<string, Quest> quests = new();
         foreach (QuestConfig config in questConfigs) {
             if (quests.ContainsKey(config.ID)) {
                 Debug.LogWarning("Quest " + config.ID + " already exists");
             }
 
-            Quest quest = new Quest(config);
+            Quest quest = new(config);
             quests.Add(config.ID, quest);
         }
 
@@ -35,28 +35,36 @@ public class QuestManager : MonoBehaviour, IInitableInstance {
 
     private void StartQuest(string questId) {
         Quest quest = GetQuestById(questId);
-        if (!CanTakeQuest(quest)) return;
+        if (!CanTakeQuest(quest)) {
+            return;
+        }
 
         quest.State = QuestState.InProgress;
         quest.InitializeStage();
-        if (quest.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || quest.config.Race == Race.Both)
+        if (quest.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || quest.config.Race == Race.Both) {
             _questsView.RedrawQuest(quest);
+        }
     }
 
     public void AdvanceQuest(string questId, int stageId) {
         Quest quest = GetQuestById(questId);
         if (!quest.Stages[stageId].AllStepsComplete()) {
-            if (quest.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || quest.config.Race == Race.Both)
+            if (quest.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || quest.config.Race == Race.Both) {
                 _questsView.RedrawQuest(quest);
+            }
+
             return;
         }
 
         quest.MoveToNextStage();
         if (quest.HasCurrentStage()) {
             quest.InitializeStage();
-            if (quest.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || quest.config.Race == Race.Both)
+            if (quest.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || quest.config.Race == Race.Both) {
                 _questsView.RedrawQuest(quest);
-        } else FinishQuest(questId);
+            }
+        } else {
+            FinishQuest(questId);
+        }
     }
 
     public void FinishQuest(string questId) {
@@ -69,8 +77,10 @@ public class QuestManager : MonoBehaviour, IInitableInstance {
     private IEnumerator FinishQuestWithFadeAway(Quest quest) {
         float duration = 3f;
         yield return StartCoroutine(_questsView.FadeAway(quest, duration));
-        if (quest.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || quest.config.Race == Race.Both)
+        if (quest.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || quest.config.Race == Race.Both) {
             _questsView.RemoveQuestNote(quest);
+        }
+
         foreach (string nextQuest in quest.NextQuests) {
             StartQuest(nextQuest);
         }
@@ -89,19 +99,23 @@ public class QuestManager : MonoBehaviour, IInitableInstance {
     }
 
     private bool CanTakeQuest(Quest quest) {
-        foreach (QuestConfig questConfig in quest.config.QuestPrerequisites)
-            if (_quests[questConfig.ID].State != QuestState.Completed)
+        foreach (QuestConfig questConfig in quest.config.QuestPrerequisites) {
+            if (_quests[questConfig.ID].State != QuestState.Completed) {
                 return false;
+            }
+        }
 
-        if (quest.State == QuestState.Completed)
+        if (quest.State == QuestState.Completed) {
             return false;
+        }
 
         return true;
     }
 
     public void RedrawAllQuests() {
-        var quests = _quests.Values.Where(q => q.State == QuestState.InProgress &&
-                                               (q.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() || q.config.Race == Race.Both));
+        IEnumerable<Quest> quests = _quests.Values.Where(q => q.State == QuestState.InProgress &&
+                                                              (q.config.Race == ObsoleteCoreEntryPoint.Instance.MyRace() ||
+                                                               q.config.Race == Race.Both));
         _questsView.ClearQuestNotes();
         foreach (Quest quest in quests) {
             _questsView.RedrawQuest(quest);
@@ -109,9 +123,11 @@ public class QuestManager : MonoBehaviour, IInitableInstance {
     }
 
     private Quest GetQuestById(string questId) {
-        var quest = _quests[questId];
-        if (quest == null)
+        Quest quest = _quests[questId];
+        if (quest == null) {
             Debug.LogWarning("Quest " + questId + " does not exist");
+        }
+
         return quest;
     }
 }

@@ -1,16 +1,13 @@
 using System;
-using System.Collections.Generic;
 
-public class QuestData
-{
+public class QuestData {
     public string ID;
     public QuestState State;
     public Race Race;
     public bool IsMain;
     public QuestStepStatus[] QuestStepData;
 
-    public QuestData(string id, QuestState state, QuestStepStatus[] questStepData, Race race, bool isMain)
-    {
+    public QuestData(string id, QuestState state, QuestStepStatus[] questStepData, Race race, bool isMain) {
         ID = id;
         State = state;
         Race = race;
@@ -20,8 +17,7 @@ public class QuestData
 }
 
 [Serializable]
-public enum QuestState
-{
+public enum QuestState {
     None,
     InProgress,
     Completed

@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace AI {
     [Serializable]
@@ -22,7 +21,7 @@ namespace AI {
         public bool HasItem => ItemInHands != null;
 
         public SettlerCondition Condition;
-        
+
         [Header("Needs")]
         public Settler_Needs needs;
 

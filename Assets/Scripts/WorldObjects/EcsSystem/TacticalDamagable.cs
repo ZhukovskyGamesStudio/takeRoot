@@ -26,8 +26,7 @@ public class TacticalDamagable : ECSComponent {
     private float _flashDuration = 0.6f;
 
     [SerializeField]
-    private AnimationCurve
-        flashCurve = new AnimationCurve(new Keyframe(0, 0), new Keyframe(0.5f, 1), new Keyframe(1, 0)); // Кривая для плавности
+    private AnimationCurve flashCurve = new(new Keyframe(0, 0), new Keyframe(0.5f, 1), new Keyframe(1, 0)); // Кривая для плавности
 
     private TacticalInteractable _interactable;
     public Action OnDiedAction;

@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
-public class Wardrobe : Furniture, ISearchable
-{
-    public ResourseStorage ResorceStorage = new ResourseStorage();
+public class Wardrobe : Furniture, ISearchable {
+    public ResourseStorage ResorceStorage = new();
 
     public bool IsStorageActive;
 
@@ -21,7 +20,7 @@ public class Wardrobe : Furniture, ISearchable
     }
 
     protected override InfoBookData GetInfoData() {
-        var d = new InfoBookData() {
+        InfoBookData d = new() {
             Icon = _icon.sprite,
             Name = gameObject.name,
             Resources = ResorceStorage.ResorceDatas.ToList()

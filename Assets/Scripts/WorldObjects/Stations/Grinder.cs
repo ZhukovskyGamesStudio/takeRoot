@@ -1,4 +1,1 @@
-public class Grinder : Furniture
-{
-        
-}
+public class Grinder : Furniture { }

@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 public class Video1 : MonoBehaviour {
-    
     public CinemachineCamera CinemachineCamera;
     public Transform CameraFollowTarget;
     public Settler flowerSettler;
     public Interactable firstFlower;
     public Interactable secondFlower;
-    
+
     public CraftingStationable craftingStation;
 
     [SerializeField]
@@ -20,7 +18,7 @@ public class Video1 : MonoBehaviour {
 
     public bool runIntoCraftingRoom;
     public Transform craftingRoom;
-    
+
     public Transform changeToRemboPos;
     public Settler remboPrefab;
 
@@ -30,7 +28,7 @@ public class Video1 : MonoBehaviour {
     public SmoothCameraFollow2D CameraFollow;
     public bool CanUnZoomCamera;
     public float CameraSize;
-    private Vector2 CenterCamerav2 => new Vector2(_lastCamera.transform.position.x, _lastCamera.transform.position.y);
+    private Vector2 CenterCamerav2 => new(_lastCamera.transform.position.x, _lastCamera.transform.position.y);
 
     [SerializeField]
     private float _craftingUnzoom = 4.5f;
@@ -52,19 +50,19 @@ public class Video1 : MonoBehaviour {
 
     private IEnumerator MainCoroutine() {
         yield return new WaitForSeconds(0.5f);
-        yield return AddCommandAndWaitFinish(new CommandData() {
+        yield return AddCommandAndWaitFinish(new CommandData {
             Settler = flowerSettler,
             CommandType = Command.Search,
             Interactable = firstFlower
         });
         yield return AddMoveAndWaitFinish(_movePoses[0].position);
-        yield return AddCommandAndWaitFinish(new CommandData() {
+        yield return AddCommandAndWaitFinish(new CommandData {
             Settler = flowerSettler,
             CommandType = Command.Search,
             Interactable = secondFlower
         });
         ObsoleteCoreEntryPoint.ConfigManager.CreaturesParametersConfig.ChangeMoveSpeed(movementTimeChange);
-        var animator = flowerSettler.GetComponentInChildren<Animator>();
+        Animator animator = flowerSettler.GetComponentInChildren<Animator>();
         flowerSettler.SettlerData._mood = Mood.Angry;
         yield return WaitUntilAnimationEnds(animator, "Jump");
         yield return new WaitForSeconds(0.5f);
@@ -80,25 +78,24 @@ public class Video1 : MonoBehaviour {
         ObsoleteCoreEntryPoint.ConfigManager.CreaturesParametersConfig.ChangeMoveSpeed(-movementTimeChange);
     }
 
-    private IEnumerator WaitUntilAnimationEnds(Animator animator, string trigger)
-    {
+    private IEnumerator WaitUntilAnimationEnds(Animator animator, string trigger) {
         animator.SetInteger("Action", 99);
         yield return null;
-        
 
         yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName(trigger) &&
-                                   animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f);
+                                         animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f);
         animator.SetInteger("Action", 0);
     }
+
     private IEnumerator AddCommandAndWaitFinish(CommandData data) {
-        var settler = data.Settler;
+        Settler settler = data.Settler;
         CommandsManager commandsManager = ObsoleteCoreEntryPoint.CommandsManagersHolder.GetCommandManagerByRace(Race.Plants);
         commandsManager.AddSubsequentCommand(data);
         yield return new WaitWhile(() => settler.TakenCommand != null);
     }
 
     private IEnumerator AddMoveAndWaitFinish(Vector3 newPos) {
-        yield return StartCoroutine(AddCommandAndWaitFinish(new TacticalCommandData() {
+        yield return StartCoroutine(AddCommandAndWaitFinish(new TacticalCommandData {
             Settler = flowerSettler,
             TacticalCommandType = TacticalCommand.Move,
             TargetPosition = newPos.ToVector2Int()
@@ -106,7 +103,7 @@ public class Video1 : MonoBehaviour {
     }
 
     private IEnumerator AddCommandAndWaitFinish(TacticalCommandData data) {
-        var settler = data.Settler;
+        Settler settler = data.Settler;
         settler.SettlerData._mode = Mode.Tactical;
         settler.SetTacticalCommand(data);
         yield return new WaitWhile(() => settler.TakenTacticalCommand != null);
@@ -128,10 +125,8 @@ public class Video1 : MonoBehaviour {
         //    CameraFollow.target = flowerSettler.gameObject.transform;
         //    craftingRoomCameraStarted = true;
         //}
-        
-        
-        if (flowerSettler.transform.position.ToVector2Int() == craftingRoom.position.ToVector2Int() &&
-            !runIntoCraftingRoom) {
+
+        if (flowerSettler.transform.position.ToVector2Int() == craftingRoom.position.ToVector2Int() && !runIntoCraftingRoom) {
             runIntoCraftingRoom = true;
         }
 
@@ -144,18 +139,17 @@ public class Video1 : MonoBehaviour {
             CinemachineCamera.Lens.OrthographicSize = CameraSize;
         }
 
-        if (flowerSettler.transform.position.ToVector2Int() == removeCameraObstaclePos.position.ToVector2Int())
-        {
+        if (flowerSettler.transform.position.ToVector2Int() == removeCameraObstaclePos.position.ToVector2Int()) {
             CinemachineCamera.GetComponent<CinemachineConfiner2D>().BoundingShape2D = null;
         }
-        
+
         if (CanUnZoomCamera && CameraSize < _lastCamera.orthographicSize) {
             CameraSize += _lastUnzoomSpeed;
             CinemachineCamera.Lens.OrthographicSize = CameraSize;
             {
                 CameraFollow.target = null;
-                var curVec = new Vector2(CinemachineCamera.transform.position.x, CinemachineCamera.transform.position.y);
-                var newPos = Vector2.MoveTowards(curVec, CenterCamerav2, _lastToCenterSpeed);
+                Vector2 curVec = new(CinemachineCamera.transform.position.x, CinemachineCamera.transform.position.y);
+                Vector2 newPos = Vector2.MoveTowards(curVec, CenterCamerav2, _lastToCenterSpeed);
                 CinemachineCamera.transform.position = new Vector3(newPos.x, newPos.y, CinemachineCamera.transform.position.z);
             }
         }
@@ -170,7 +164,7 @@ public class Video1 : MonoBehaviour {
     }
 
     private void SwapToRembo() {
-        var rembo = Instantiate(remboPrefab, changeToRemboPos.position, Quaternion.identity);
+        Settler rembo = Instantiate(remboPrefab, changeToRemboPos.position, Quaternion.identity);
         rembo.transform.localScale = new Vector3(rembo.transform.localScale.x * -1, rembo.transform.localScale.y, rembo.transform.localScale.z);
         CameraFollowTarget.SetParent(rembo.transform);
         Destroy(flowerSettler.gameObject);

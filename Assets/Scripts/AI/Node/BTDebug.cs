@@ -1,27 +1,31 @@
 using System.Collections.Generic;
-using UnityEngine;
 
-public static class BTDebug
-{
-	private static readonly Stack<string> _context = new Stack<string>();
-	public static bool Enabled = true;
+public static class BTDebug {
+    private static readonly Stack<string> _context = new();
+    public static bool Enabled = true;
 
-	public static void Enter(string nodeName)
-	{
-		if (!Enabled) return;
-		_context.Push(nodeName);
-	}
+    public static void Enter(string nodeName) {
+        if (!Enabled) {
+            return;
+        }
 
-	public static void Exit()
-	{
-		if (!Enabled) return;
-		if (_context.Count > 0)
-			_context.Pop();
-	}
+        _context.Push(nodeName);
+    }
 
-	public static void Log(string message)
-	{
-		if (!Enabled) return;
-		//Debug.Log($"[BT] {string.Join(" > ", _context)} : {message}");
-	}
+    public static void Exit() {
+        if (!Enabled) {
+            return;
+        }
+
+        if (_context.Count > 0) {
+            _context.Pop();
+        }
+    }
+
+    public static void Log(string message) {
+        if (!Enabled) {
+            return;
+        }
+        //Debug.Log($"[BT] {string.Join(" > ", _context)} : {message}");
+    }
 }

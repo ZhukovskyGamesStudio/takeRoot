@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +7,15 @@ public class CommandsManager : MonoBehaviour {
     private CommandsPanel _commandsPanel;
 
     private List<Command> _commandsWithPlannedView;
-    private List<CommandData> _plannedCommands = new List<CommandData>();
+    private List<CommandData> _plannedCommands = new();
     private PlannedCommandView _plannedCommandView;
     private Race _race;
 
     private List<Settler> _settlers;
-    private List<CommandData> _takenCommands = new List<CommandData>();
-    private List<CommandData> _unreachableCommands = new List<CommandData>();
+    private List<CommandData> _takenCommands = new();
+    private List<CommandData> _unreachableCommands = new();
 
-    private List<CommandData> _untakenCommands = new List<CommandData>();
+    private List<CommandData> _untakenCommands = new();
 
     private void Update() {
         if (Input.GetMouseButtonDown(0) && _commandsPanel.SelectedCommand != Command.None) {
@@ -35,8 +34,7 @@ public class CommandsManager : MonoBehaviour {
         _commandsWithPlannedView = commandsWithPlannedView;
     }
 
-    private void Start()
-    {
+    private void Start() {
         _settlers = ObsoleteCoreEntryPoint.SettlersManager.Settlers.Where(s => s.SettlerData.Race == _race).ToList();
     }
 
@@ -73,8 +71,10 @@ public class CommandsManager : MonoBehaviour {
 
         _takenCommands.Remove(data);
 
-        if (data.Settler == null)
+        if (data.Settler == null) {
             return;
+        }
+
         data.Settler.ClearCommand();
         data.Settler = null;
     }
@@ -164,7 +164,7 @@ public class CommandsManager : MonoBehaviour {
             return;
         }
 
-        Interactable interactable =ObsoleteCoreEntryPoint.SelectionManager.Interactable as Interactable;
+        Interactable interactable = ObsoleteCoreEntryPoint.SelectionManager.Interactable as Interactable;
         if (interactable == null) {
             return;
         }
@@ -183,7 +183,7 @@ public class CommandsManager : MonoBehaviour {
             return;
         }
 
-        CommandData data = new CommandData() {
+        CommandData data = new() {
             CommandType = command,
             Interactable = interactable
         };

@@ -1,4 +1,3 @@
-using System;
 using CodeBase.Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -17,7 +16,7 @@ public class AdminManager : MonoBehaviour {
     }
 
     public void SwitchFakeRace() {
-        var service = ServiceLocator.Container.Single<IRaceService>();
+        IRaceService service = ServiceLocator.Container.Single<IRaceService>();
         service.RaceReactive.Value = service.RaceReactive.Value == Race.Plants ? Race.Robots : Race.Plants;
     }
 }

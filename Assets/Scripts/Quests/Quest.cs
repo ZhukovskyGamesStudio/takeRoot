@@ -1,19 +1,16 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Quest
-{
+public class Quest {
     public QuestConfig config;
 
     public string ID;
     public QuestState State;
     public string[] NextQuests;
-    
+
     public int CurrentStageIndex;
     public QuestStage[] Stages;
 
-    public Quest(QuestConfig config)
-    {
+    public Quest(QuestConfig config) {
         this.config = config;
         ID = config.ID;
         State = config.State;
@@ -21,28 +18,28 @@ public class Quest
         Stages = new QuestStage[config.QuestStages.Length];
         CurrentStageIndex = 0;
     }
-    
-    public void InitializeStage()
-    {
-        var stageConfig = GetCurrentStageConfig();
-        var stage = new QuestStage(ID, CurrentStageIndex, stageConfig.QuestStepPrefabs);
+
+    public void InitializeStage() {
+        QuestStageConfig stageConfig = GetCurrentStageConfig();
+        QuestStage stage = new(ID, CurrentStageIndex, stageConfig.QuestStepPrefabs);
         Stages[CurrentStageIndex] = stage;
         stage.InitializeSteps();
     }
-    private QuestStageConfig GetCurrentStageConfig()
-    {
-        if (HasCurrentStage())
+
+    private QuestStageConfig GetCurrentStageConfig() {
+        if (HasCurrentStage()) {
             return config.QuestStages[CurrentStageIndex];
+        }
+
         Debug.LogError("No quest step prefab found");
         return null;
     }
-    
-    public void MoveToNextStage()
-    {
+
+    public void MoveToNextStage() {
         CurrentStageIndex++;
     }
-    public bool HasCurrentStage()
-    {
+
+    public bool HasCurrentStage() {
         return CurrentStageIndex < config.QuestStages.Length;
     }
 
@@ -51,20 +48,22 @@ public class Quest
     //    return new QuestData(config.ID, State, QuestStepData, config.Race, config.IsMain);
     //}
 
-    public string GetQuestName()
-    {
-        if (State == QuestState.Completed)
+    public string GetQuestName() {
+        if (State == QuestState.Completed) {
             return "<s>" + config.Name + "</s>";
+        }
+
         return config.Name;
     }
-    public string GetQuestStatusText()
-    {
+
+    public string GetQuestStatusText() {
         string status = "";
-        foreach (QuestStage stage in Stages)
-        {
-            if (stage != null)
+        foreach (QuestStage stage in Stages) {
+            if (stage != null) {
                 status += stage.GetStageStatusText();
+            }
         }
+
         return status;
     }
 }

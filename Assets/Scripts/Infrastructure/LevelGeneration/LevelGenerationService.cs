@@ -11,8 +11,8 @@ public class LevelGenerationService : ILevelGenerationService {
     private void GenerateSettlers() {
         List<SettlerSelectable> settlers = Object.FindObjectsByType<SettlerSelectable>(FindObjectsInactive.Include, FindObjectsSortMode.None)
             .ToList();
-        foreach (var settler in settlers) {
-            var data = (AI.SettlerData)settler.GetData();
+        foreach (SettlerSelectable settler in settlers) {
+            AI.SettlerData data = (AI.SettlerData)settler.GetData();
 
             data.names.Name = NamesList[Random.Range(0, NamesList.Count)];
             data.needs.Hp = Random.Range(data.needs.MaxHp / 4, data.needs.MaxHp);
@@ -22,7 +22,7 @@ public class LevelGenerationService : ILevelGenerationService {
         }
     }
 
-    private static List<string> NamesList = new List<string>() {
+    private static List<string> NamesList = new() {
         "Гоша",
         "Паша",
         "Дима",
@@ -32,6 +32,6 @@ public class LevelGenerationService : ILevelGenerationService {
         "Марина",
         "Алёна",
         "Дима III",
-        "Кирилл",
+        "Кирилл"
     };
 }

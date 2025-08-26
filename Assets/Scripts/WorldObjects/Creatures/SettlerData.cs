@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using UnityEngine;
 using WorldObjects;
+
 [Obsolete]
 public class SettlerData : ECSComponent {
     [field: SerializeField]
@@ -27,22 +26,23 @@ public class SettlerData : ECSComponent {
     public int Stress;
     public int MaxStress;
 
-    public List<EquipmentType> PossibleEquipment = new List<EquipmentType>();
+    public List<EquipmentType> PossibleEquipment = new();
 
     [HideInInspector]
-    public List<Command> AvailableCommands = new List<Command>();
+    public List<Command> AvailableCommands = new();
 
     [SerializeField]
-    private List<Command> CanPerformCommands = new List<Command>();
+    private List<Command> CanPerformCommands = new();
 
     public Dictionary<EquipmentType, Command> EquipmentAvailableCommands = new();
-    public Dictionary<EquipmentType, ResourceType> Equipped = new Dictionary<EquipmentType, ResourceType>();
+    public Dictionary<EquipmentType, ResourceType> Equipped = new();
 
-    public Vector2Int GetCellOnGrid => new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+    public Vector2Int GetCellOnGrid => new(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
 
     private void Update() {
-        if (RoundAttackCooldown > 0)
+        if (RoundAttackCooldown > 0) {
             RoundAttackCooldown -= Time.deltaTime;
+        }
     }
 
     public override int GetDependancyPriority() {
@@ -50,9 +50,11 @@ public class SettlerData : ECSComponent {
     }
 
     public override void Init(ECSEntity entity) {
-        var interactable = entity.GetEcsComponent<TacticalInteractable>();
-        if (interactable != null)
+        TacticalInteractable interactable = entity.GetEcsComponent<TacticalInteractable>();
+        if (interactable != null) {
             interactable.GetInfoFunc = GetInfoData;
+        }
+
         UpdateAvailableCommands();
     }
 
@@ -63,7 +65,7 @@ public class SettlerData : ECSComponent {
     }
 
     public void Equip(ResourceData resource) {
-        var equppedType = ResourcesHelper.GetEquipmentByResourceType(resource.ResourceType);
+        EquipmentType equppedType = ResourcesHelper.GetEquipmentByResourceType(resource.ResourceType);
         if (equppedType == EquipmentType.None) {
             return;
         }
@@ -88,7 +90,7 @@ public class SettlerData : ECSComponent {
 
     public void Unequip(EquipmentType equipmentType) {
         ResourceType resType = Equipped[equipmentType];
-        ResourceData resData = new ResourceData() {
+        ResourceData resData = new() {
             Amount = 1,
             ResourceType = resType
         };
@@ -96,11 +98,11 @@ public class SettlerData : ECSComponent {
         EquipmentAvailableCommands[equipmentType] = Command.None;
         UpdateAvailableCommands();
 
-        ResourceManager.SpawnResourcesAround(new List<ResourceData>() { resData }, GetCellOnGrid);
+        ResourceManager.SpawnResourcesAround(new List<ResourceData> { resData }, GetCellOnGrid);
     }
 
     private InfoBookData GetInfoData() {
-        InfoBookData data = new InfoBookData() {
+        InfoBookData data = new() {
             Icon = InfoBookIcon,
             Name = Name,
             Resources = new List<ResourceData>()

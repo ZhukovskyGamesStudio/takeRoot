@@ -1,4 +1,1 @@
-public class Distiller : Furniture
-{
-        
-}
+public class Distiller : Furniture { }

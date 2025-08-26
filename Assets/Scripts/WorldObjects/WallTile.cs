@@ -37,7 +37,7 @@ public class WallTile : ECSEntity, IInteractable, IDamageable {
     protected virtual void OnAttacked(int damageAmount) { }
 
     protected virtual InfoBookData GetInfoData() {
-        var d = new InfoBookData() {
+        InfoBookData d = new() {
             Icon = _icon,
             Name = gameObject.name,
             Resources = new List<ResourceData>()

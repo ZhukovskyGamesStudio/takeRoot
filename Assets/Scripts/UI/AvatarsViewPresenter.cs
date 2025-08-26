@@ -14,7 +14,7 @@ public class AvatarsViewPresenter : IUpdatable, IDisposable {
         _updateService = updateService;
 
         _raceService.RaceReactive.Subscribe(OnRaceChangeFromAdmin);
-        
+
         _avatarsView.InitSettlers(_service.MySettlers(_raceService.RaceReactive.Value));
         _updateService.Register(this);
     }

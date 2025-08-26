@@ -3,13 +3,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ResearchView : MonoBehaviour
-{
+public class ResearchView : MonoBehaviour {
     [SerializeField]
     private AYellowpaper.SerializedCollections.SerializedDictionary<Graphic, Color> _startedColors, _inProcessColors, _completedColors;
 
     private AYellowpaper.SerializedCollections.SerializedDictionary<Graphic, Color> _defaultColors = new();
-    
+
     [SerializeField]
     private GameObject _bg;
 
@@ -23,10 +22,10 @@ public class ResearchView : MonoBehaviour
 
     public void InitData(ResearchData data) {
         _data = data;
-        
+
         _titleText.text = data.DisplayName;
         _progressText.text = data.Price.ToString();
-        
+
         foreach (KeyValuePair<Graphic, Color> pair in _startedColors) {
             _defaultColors[pair.Key] = pair.Key.color;
         }
@@ -46,7 +45,7 @@ public class ResearchView : MonoBehaviour
             ApplyColors(_defaultColors);
         }
     }
-    
+
     private void ApplyColors(AYellowpaper.SerializedCollections.SerializedDictionary<Graphic, Color> colors) {
         foreach (KeyValuePair<Graphic, Color> pair in colors) {
             pair.Key.color = pair.Value;

@@ -1,12 +1,10 @@
-using System;
 using CodeBase.Services;
 using Cysharp.Threading.Tasks;
 using GameResources;
 using UnityEngine;
 
 public class CoreEntryPoint : EntryPointBase {
-    [Header("Configs")]
-    [SerializeField]
+    [Header("Configs"), SerializeField]
     private WorldConfig _worldConfig;
 
     [SerializeField]
@@ -18,8 +16,7 @@ public class CoreEntryPoint : EntryPointBase {
     [SerializeField]
     private CameraMovementConfig _cameraMovementConfig;
 
-    [Header("Views")]
-    [SerializeField]
+    [Header("Views"), SerializeField]
     private CommandView _commandView;
 
     [SerializeField]
@@ -28,8 +25,7 @@ public class CoreEntryPoint : EntryPointBase {
     [SerializeField]
     private SettlerInfoPanel _settlerPanel;
 
-    [Space]
-    [SerializeField]
+    [Space, SerializeField]
     private CoreCanvasUi _coreCanvasUi;
 
     private ServiceLocator _services;
@@ -39,10 +35,10 @@ public class CoreEntryPoint : EntryPointBase {
             return;
         }
 
-        var updateService = GetComponent<IUpdateService>();
-        var coroutineRunner = GetComponent<ICoroutineRunner>();
-        var map = GetComponent<MapFromSceneObjects>();
-        var loader = new ServiceLocatorLoader_Main(updateService, coroutineRunner, _resourceConfig, _coreCanvasUi, map, _worldConfig,
+        IUpdateService updateService = GetComponent<IUpdateService>();
+        ICoroutineRunner coroutineRunner = GetComponent<ICoroutineRunner>();
+        MapFromSceneObjects map = GetComponent<MapFromSceneObjects>();
+        ServiceLocatorLoader_Main loader = new(updateService, coroutineRunner, _resourceConfig, _coreCanvasUi, map, _worldConfig,
             _researchConfig, _cameraMovementConfig);
 
         loader.RegisterServices();
@@ -60,19 +56,19 @@ public class CoreEntryPoint : EntryPointBase {
     }
 
     private void InitPresenters() {
-        var commandPresenter = new CommandPresenter();
+        CommandPresenter commandPresenter = new();
         commandPresenter.Init(_commandView, _services.Single<IJobCommandsInputHandlerService>());
 
-        var selectionPresenter = new SelectionServicePresenter(_infoBookView, _settlerPanel,
-            _services.Single<IJobCommandsInputHandlerService>(), _services.Single<ISelectionService>());
-        var avatarsPresenter = new AvatarsViewPresenter(_coreCanvasUi.AvatarsView, _services.Single<ISettlersService>(),
+        SelectionServicePresenter selectionPresenter = new(_infoBookView, _settlerPanel, _services.Single<IJobCommandsInputHandlerService>(),
+            _services.Single<ISelectionService>());
+        AvatarsViewPresenter avatarsPresenter = new(_coreCanvasUi.AvatarsView, _services.Single<ISettlersService>(),
             _services.Single<IRaceService>(), _services.Single<IUpdateService>());
 
-        var panelsPresenter = new PanelsPresenter(_coreCanvasUi.PanelTogglesView, _coreCanvasUi.PanelsView);
+        PanelsPresenter panelsPresenter = new(_coreCanvasUi.PanelTogglesView, _coreCanvasUi.PanelsView);
 
-        var resorcesPresenter = new ResourcesViewPresenter(_coreCanvasUi.ResourcesView, _services.Single<IResourceManager>(),
+        ResourcesViewPresenter resorcesPresenter = new(_coreCanvasUi.ResourcesView, _services.Single<IResourceManager>(),
             _services.Single<IUpdateService>());
 
-        var researchPresenter = new ResearchViewPresenter(_coreCanvasUi.ResearchPanelView, _services.Single<IResearchService>());
+        ResearchViewPresenter researchPresenter = new(_coreCanvasUi.ResearchPanelView, _services.Single<IResearchService>());
     }
 }

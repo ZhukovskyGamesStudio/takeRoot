@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WorldResourcesData
-{
-	public Dictionary<Vector2Int, ResourceView> ResourcesOnScene = new Dictionary<Vector2Int, ResourceView>();
-		
+public class WorldResourcesData {
+    public Dictionary<Vector2Int, ResourceView> ResourcesOnScene = new();
 }

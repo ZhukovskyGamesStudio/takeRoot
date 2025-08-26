@@ -33,10 +33,10 @@ public class SettlerInfoPanel : MonoBehaviour {
         _settlerData = settlerData;
 
         _onClose = onClose;
-        
+
         _nameContainer.SetActive(true);
         _editNameContainer.SetActive(false);
-        
+
         UpdateData();
     }
 
@@ -61,13 +61,13 @@ public class SettlerInfoPanel : MonoBehaviour {
 
         _hpFill.color = _hpGradient.Evaluate(hp);
         _stressFill.color = _stressGradient.Evaluate(stress);
-        
+
         _typeText.text = _settlerData.names.Subrace switch {
             Subrace.Chamomile => "Ромашка",
             Subrace.Succulent => "Суккулент",
             Subrace.Toster => "Тостер",
             Subrace.Lamp => "Лампа",
-            
+
             _ => string.Empty
         };
         _conditionText.text = _settlerData.Condition switch {
@@ -93,7 +93,10 @@ public class SettlerInfoPanel : MonoBehaviour {
         _nameContainer.SetActive(true);
         _editNameContainer.SetActive(false);
 
-        if (_nameInput.text == string.Empty || !apply) return;
+        if (_nameInput.text == string.Empty || !apply) {
+            return;
+        }
+
         _nameText.text = _nameInput.text;
         _settlerData.names.Name = _nameInput.text;
     }

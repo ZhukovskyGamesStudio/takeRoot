@@ -43,11 +43,17 @@ public class SerializedDictionary<TKey, TValue> : ISerializationCallbackReceiver
         _dictionary[key] = value;
     }
 
-    public bool ContainsKey(TKey key) => _dictionary.ContainsKey(key);
+    public bool ContainsKey(TKey key) {
+        return _dictionary.ContainsKey(key);
+    }
 
-    public bool TryGetValue(TKey key, out TValue value) => _dictionary.TryGetValue(key, out value);
+    public bool TryGetValue(TKey key, out TValue value) {
+        return _dictionary.TryGetValue(key, out value);
+    }
 
-    public void Remove(TKey key) => _dictionary.Remove(key);
+    public void Remove(TKey key) {
+        _dictionary.Remove(key);
+    }
 
     public void Clear() {
         _dictionary.Clear();

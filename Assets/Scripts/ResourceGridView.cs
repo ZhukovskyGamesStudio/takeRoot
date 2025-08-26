@@ -3,7 +3,7 @@ using System.Linq;
 using UnityEngine;
 
 public class ResourceGridView : MonoBehaviour {
-    private readonly List<ResouseUiView> _cells = new List<ResouseUiView>();
+    private readonly List<ResouseUiView> _cells = new();
 
     [SerializeField]
     private ResouseUiView _emptyCell;
@@ -28,8 +28,7 @@ public class ResourceGridView : MonoBehaviour {
         }
     }
 
-    public ResouseUiView GetResourceView(ResourceType type)
-    {
+    public ResouseUiView GetResourceView(ResourceType type) {
         return _cells.FirstOrDefault(r => r.ResourceType == type);
     }
 }

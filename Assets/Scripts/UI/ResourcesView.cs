@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 public class ResourcesView : MonoBehaviour {
     [SerializeField]
@@ -22,7 +21,7 @@ public class ResourcesView : MonoBehaviour {
     private void InitEmptyLines() {
         _resourceLines = new List<ResourceLineView>();
         for (int i = 0; i < _maxVisibleResources; i++) {
-            var line = Instantiate(_resorceLinePrefab, _resourcesContainer);
+            ResourceLineView line = Instantiate(_resorceLinePrefab, _resourcesContainer);
             _resourceLines.Add(line);
             line.gameObject.SetActive(false);
         }
@@ -33,19 +32,19 @@ public class ResourcesView : MonoBehaviour {
             InitEmptyLines();
         }
 
-        var isTooLong = dictionary.Count >= _maxVisibleResources;
+        bool isTooLong = dictionary.Count >= _maxVisibleResources;
         _upButton.gameObject.SetActive(isTooLong);
         _downButton.gameObject.SetActive(isTooLong);
-        foreach (var line in _resourceLines!) {
+        foreach (ResourceLineView line in _resourceLines!) {
             line.gameObject.SetActive(false);
         }
 
         int curShown = Mathf.Min(dictionary.Count, _maxVisibleResources);
 
         for (int i = 0; i < curShown; i++) {
-            var line = _resourceLines[i];
-            var type = dictionary.Keys.ElementAt(i);
-            var amount = dictionary.Values.ElementAt(i);
+            ResourceLineView line = _resourceLines[i];
+            ResourceType type = dictionary.Keys.ElementAt(i);
+            int amount = dictionary.Values.ElementAt(i);
             line.gameObject.SetActive(true);
             line.SetData(type, amount);
         }

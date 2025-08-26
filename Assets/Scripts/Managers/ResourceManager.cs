@@ -4,16 +4,15 @@ using System.Linq;
 using UnityEngine;
 
 public class ResourceManager : MonoBehaviour {
-
-    [field:SerializeField]
+    [field: SerializeField]
     public ResourcesTable ResourcesTable;
 
     [SerializeField]
     private Transform _resourcesHolder;
 
-    public SerializedDictionary<ResourceType, Sprite> EquipmentIcons = new SerializedDictionary<ResourceType, Sprite>();
+    public SerializedDictionary<ResourceType, Sprite> EquipmentIcons = new();
 
-    private Dictionary<Vector2Int, ResourceView> _scatteredResources = new Dictionary<Vector2Int, ResourceView>();
+    private Dictionary<Vector2Int, ResourceView> _scatteredResources = new();
 
     public Transform ResourcesHolder => _resourcesHolder;
 
@@ -21,22 +20,21 @@ public class ResourceManager : MonoBehaviour {
         ObsoleteCoreEntryPoint.ResourceManager = this;
     }
 
-    public static ResourceData FindAllAvailableResources(ResourceType type)
-    {
-        var resourceOnGround = FindFitResourcesOnGround(type);
-        var storages = FindFitStorages(type);
+    public static ResourceData FindAllAvailableResources(ResourceType type) {
+        List<ResourceView> resourceOnGround = FindFitResourcesOnGround(type);
+        List<Storagable> storages = FindFitStorages(type);
         int totalAmount = 0;
         totalAmount += resourceOnGround.Sum(r => r.Amount);
         totalAmount += storages.Sum(s => s.Resource.Amount);
-        return new ResourceData()
-        {
+        return new ResourceData {
             ResourceType = type,
             Amount = totalAmount
         };
     }
 
     private static ResourceView SpawnResource(ResourceType resourceType, Vector2Int cell) {
-        var prefab = ObsoleteCoreEntryPoint.ResourceManager.ResourcesTable.ResourceViewPrefabs.First(s => s.ResourceType == resourceType);
+        ResourceView prefab =
+            ObsoleteCoreEntryPoint.ResourceManager.ResourcesTable.ResourceViewPrefabs.First(s => s.ResourceType == resourceType);
         //TODO add pool
         ResourceView r = Instantiate(prefab, ObsoleteCoreEntryPoint.ResourceManager._resourcesHolder);
         //Core.ResourceManager._scatteredResources.Add(cell, r);
@@ -44,7 +42,8 @@ public class ResourceManager : MonoBehaviour {
     }
 
     public static ResouseUiView SpawnResourceUi(ResourceType resourceType) {
-        var prefab = ObsoleteCoreEntryPoint.ResourceManager.ResourcesTable.ResourceUiViewPrefabs.First(s => s.ResourceType == resourceType);
+        ResouseUiView prefab =
+            ObsoleteCoreEntryPoint.ResourceManager.ResourcesTable.ResourceUiViewPrefabs.First(s => s.ResourceType == resourceType);
         //TODO add pool
         ResouseUiView r = Instantiate(prefab);
         return r;
@@ -57,15 +56,15 @@ public class ResourceManager : MonoBehaviour {
         return resourceView;
     }
 
-    public static void ClearResourceView(ResourceView resource)
-    { 
-        if (ObsoleteCoreEntryPoint.ResourceManager._scatteredResources.TryGetValue(resource.Interactable.GetInteractableCell, out _))
+    public static void ClearResourceView(ResourceView resource) {
+        if (ObsoleteCoreEntryPoint.ResourceManager._scatteredResources.TryGetValue(resource.Interactable.GetInteractableCell, out _)) {
             ObsoleteCoreEntryPoint.ResourceManager._scatteredResources.Remove(resource.Interactable.GetInteractableCell);
+        }
     }
-    
+
     public static List<ResourceView> SpawnResourcesAround(List<ResourceData> resources, Vector2Int centerCell) {
         const int maxResourceInCell = 10;
-        List<ResourceView> spawnedResources = new List<ResourceView>();
+        List<ResourceView> spawnedResources = new();
         int checkedN = 0;
         foreach (ResourceData resourceData in resources) {
             int remainingAmount = resourceData.Amount;
@@ -77,9 +76,9 @@ public class ResourceManager : MonoBehaviour {
                 if (ObsoleteCoreEntryPoint.ResourceManager._scatteredResources.TryGetValue(targetCell, out ResourceView existingResource)) {
                     if (existingResource.ResourceType == resourceData.ResourceType) {
                         // Add to the existing resource if it doesn't exceed the limit
-                        var availableSpace = maxResourceInCell - existingResource.Amount;
+                        int availableSpace = maxResourceInCell - existingResource.Amount;
                         if (availableSpace > 0) {
-                            var toAdd = Mathf.Min(availableSpace, remainingAmount);
+                            int toAdd = Mathf.Min(availableSpace, remainingAmount);
                             existingResource.SetAmount(existingResource.Amount + toAdd);
                             remainingAmount -= toAdd;
                         }
@@ -99,51 +98,43 @@ public class ResourceManager : MonoBehaviour {
 
                 checkedN++;
                 // Break out of the loop once all resources are spawned
-                if (remainingAmount <= 0) break;
+                if (remainingAmount <= 0) {
+                    break;
+                }
             }
         }
 
         return spawnedResources;
     }
 
-    public static List<ResourceView> SpawnResourcesAround(List<ResourceData> resources, List<Vector2Int> centerCells)
-    {
+    public static List<ResourceView> SpawnResourcesAround(List<ResourceData> resources, List<Vector2Int> centerCells) {
         const int maxResourceInCell = 10;
-        List<ResourceView> spawnedResources = new List<ResourceView>();
+        List<ResourceView> spawnedResources = new();
         int checkedN = 0;
-        foreach (ResourceData resourceData in resources)
-        {
+        foreach (ResourceData resourceData in resources) {
             int remainingAmount = resourceData.Amount;
 
-            while (remainingAmount > 0)
-            {
-                foreach (Vector2Int centerCell in centerCells)
-                {
+            while (remainingAmount > 0) {
+                foreach (Vector2Int centerCell in centerCells) {
                     Vector2Int targetCell = centerCell + GetSpiralOffset(checkedN);
 
-                    if (centerCells.Contains(targetCell))
-                    {
+                    if (centerCells.Contains(targetCell)) {
                         checkedN++;
                         continue;
                     }
 
                     // Check if the cell is occupied by a different resource
-                    if (ObsoleteCoreEntryPoint.ResourceManager._scatteredResources.TryGetValue(targetCell, out ResourceView existingResource))
-                    {
-                        if (existingResource.ResourceType == resourceData.ResourceType)
-                        {
+                    if (ObsoleteCoreEntryPoint.ResourceManager._scatteredResources.TryGetValue(targetCell, out ResourceView existingResource)) {
+                        if (existingResource.ResourceType == resourceData.ResourceType) {
                             // Add to the existing resource if it doesn't exceed the limit
-                            var availableSpace = maxResourceInCell - existingResource.Amount;
-                            if (availableSpace > 0)
-                            {
-                                var toAdd = Mathf.Min(availableSpace, remainingAmount);
+                            int availableSpace = maxResourceInCell - existingResource.Amount;
+                            if (availableSpace > 0) {
+                                int toAdd = Mathf.Min(availableSpace, remainingAmount);
                                 existingResource.SetAmount(existingResource.Amount + toAdd);
                                 remainingAmount -= toAdd;
                             }
                         }
-                    }
-                    else
-                    {
+                    } else {
                         // Create a new resource in the cell
                         int toSpawn = Mathf.Min(remainingAmount, maxResourceInCell);
                         ResourceView newResource = SpawnResource(resourceData.ResourceType, targetCell);
@@ -158,7 +149,9 @@ public class ResourceManager : MonoBehaviour {
 
                     checkedN++;
                     // Break out of the loop once all resources are spawned
-                    if (remainingAmount <= 0) break;
+                    if (remainingAmount <= 0) {
+                        break;
+                    }
                 }
             }
         }
@@ -168,7 +161,7 @@ public class ResourceManager : MonoBehaviour {
 
     public static Vector2Int GetSpiralOffset(int n) {
         // Directions: right, up, left, down
-        var directions = new[] {
+        Vector2Int[] directions = new[] {
             new Vector2Int(1, 0), // Right
             new Vector2Int(0, 1), // Up
             new Vector2Int(-1, 0), // Left
@@ -217,14 +210,23 @@ public class ResourceManager : MonoBehaviour {
 
     public Storagable FindClosestAvailableStorage(ResourceData resource, Vector2Int from) {
         Storagable[] storages = FindObjectsByType<Storagable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
-        if (storages.Length == 0) return null;
+        if (storages.Length == 0) {
+            return null;
+        }
+
         List<Storagable> fittingStorage = storages.Where(s => s.CanStore(resource)).ToList();
-        if (fittingStorage.Count == 0) return null;
+        if (fittingStorage.Count == 0) {
+            return null;
+        }
+
         float shortestPath = Mathf.Infinity;
         Storagable closestStorage = null;
         for (int i = 0; i < fittingStorage.Count; i++) {
-            if (i == 10) break;
-            var pathLength = ObsoleteCoreEntryPoint.AStarPathfinding
+            if (i == 10) {
+                break;
+            }
+
+            int pathLength = ObsoleteCoreEntryPoint.AStarPathfinding
                 .FindPath(from, fittingStorage[i].GetComponent<Interactable>().InteractableCells, out bool isPathExist).Count;
             if (!isPathExist) {
                 continue;

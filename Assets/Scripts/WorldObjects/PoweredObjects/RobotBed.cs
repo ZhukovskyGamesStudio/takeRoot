@@ -1,3 +1,1 @@
-public class RobotBed : ECSEntity
-{
-}
+public class RobotBed : ECSEntity { }

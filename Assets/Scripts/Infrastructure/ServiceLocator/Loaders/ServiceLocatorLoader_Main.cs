@@ -29,16 +29,21 @@ public class ServiceLocatorLoader_Main {
         _resourceConfig = resourceConfig;
         _mapFromSceneObjects = mapFromSceneObjects;
         _services = ServiceLocator.Container;
-        if (coroutineRunner == null)
+        if (coroutineRunner == null) {
             Debug.LogError($"The coroutine runner cannot be null.");
-        else _coroutineRunner = coroutineRunner;
-        if (updateService == null)
+        } else {
+            _coroutineRunner = coroutineRunner;
+        }
+
+        if (updateService == null) {
             Debug.LogError($"The update service cannot be null.");
-        else _updateService = updateService;
+        } else {
+            _updateService = updateService;
+        }
     }
 
     public void RegisterServices() {
-        var worldState = new WorldState(_worldConfig);
+        WorldState worldState = new(_worldConfig);
         _services.RegisterSingle<IWorldReader>(worldState);
         _services.RegisterSingle<IWorldWriter>(worldState);
 
@@ -56,7 +61,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<ILevelGenerationService>(new LevelGenerationService());
 
         _mapFromSceneObjects.CreateMap();
-        var graph = _mapFromSceneObjects.CreateSimpleGraph();
+        SimpleGraph graph = _mapFromSceneObjects.CreateSimpleGraph();
         _services.RegisterSingle<IPathfindService>(new AStar(_mapFromSceneObjects));
         _services.RegisterSingle<IGridService>(new GridService(_mapFromSceneObjects));
 

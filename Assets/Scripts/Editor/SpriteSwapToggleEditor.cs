@@ -1,8 +1,7 @@
 using UnityEditor;
 using UnityEditor.UI;
 
-[CustomEditor(typeof(SpriteSwapToggle), true)]
-[CanEditMultipleObjects]
+[CustomEditor(typeof(SpriteSwapToggle), true), CanEditMultipleObjects]
 public class SpriteSwapToggleEditor : ToggleEditor {
     // SerializedProperty for the NeedPlaySound field
     private SerializedProperty _targetImage, _onSprite, _offSprite;
