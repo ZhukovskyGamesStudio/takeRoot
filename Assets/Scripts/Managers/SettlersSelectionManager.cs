@@ -1,11 +1,9 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 [Obsolete]
 public class SettlersSelectionManager : MonoBehaviour {
-
     [SerializeField]
     private CommandsPanel _commandsPanel;
 
@@ -19,7 +17,7 @@ public class SettlersSelectionManager : MonoBehaviour {
     private SelectionView _selectionViewPrefab;
 
     private SelectionView _selectionView;
- 
+
     public Settler SelectedSettler { get; private set; }
 
     private void Awake() {
@@ -29,8 +27,10 @@ public class SettlersSelectionManager : MonoBehaviour {
 
     private void Update() {
         if (Input.GetMouseButtonDown(0)) {
-            if (EventSystem.current?.IsPointerOverGameObject() == true) return;
-            
+            if (EventSystem.current?.IsPointerOverGameObject() == true) {
+                return;
+            }
+
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             if (!hit) {
                 TryUnselectSettler();

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
-public interface IWorkerAssigner : IService{
-	HashSet<Worker> Workers { get; }
-	public void RegisterWorker(Worker worker);
-	public void UnregisterWorker(Worker worker);
+public interface IWorkerAssigner : IService {
+    HashSet<Worker> Workers { get; }
+    public void RegisterWorker(Worker worker);
+    public void UnregisterWorker(Worker worker);
 }

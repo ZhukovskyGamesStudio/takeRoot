@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using WorldObjects;
 
 public class Destructable : ECSComponent {
     [field: SerializeField]
@@ -9,6 +8,7 @@ public class Destructable : ECSComponent {
 
     [SerializeField]
     protected List<ResourceData> _dropOnDestroyed;
+
     [SerializeField]
     private string _id;
 
@@ -28,7 +28,7 @@ public class Destructable : ECSComponent {
             entity.GetEcsComponent<Interactable>().AddToPossibleCommands(Command.Break);
             _interactable = entity.GetEcsComponent<Interactable>();
         }
-        
+
         _noisable = entity.GetEcsComponent<Noisable>();
         _animatable = entity.GetEcsComponent<Animatable>();
         _gridable = entity.GetEcsComponent<Gridable>();

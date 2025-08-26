@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
 using Color = UnityEngine.Color;
 
@@ -13,10 +12,10 @@ public class Gridable : ECSComponent {
     [field: SerializeField]
     public bool IsBlockingView { get; private set; } = true;
 
-    public HashSet<Vector2Int> InteractableCells = new HashSet<Vector2Int>();
+    public HashSet<Vector2Int> InteractableCells = new();
 
     public HasLayer HasLayer { get; private set; }
-    
+
     public Vector2Int GetBottomLeftOnGrid {
         get => transform.position.ToVector2Int();
         private set { }
@@ -57,8 +56,7 @@ public class Gridable : ECSComponent {
         return r;
     }
 
-    public List<Point> GetOccupiedPoints()
-    {
+    public List<Point> GetOccupiedPoints() {
         Vector2Int pos = GetBottomLeftOnGrid;
         List<Point> r = new();
         for (int i = 0; i < _size.x; i++) {
@@ -70,8 +68,7 @@ public class Gridable : ECSComponent {
         return r;
     }
 
-    public List<Vector2Int> GetOccupiedLocalPositions()
-    {
+    public List<Vector2Int> GetOccupiedLocalPositions() {
         Vector2Int pos = transform.localPosition.ToVector2Int();
         List<Vector2Int> r = new();
         for (int i = 0; i < _size.x; i++) {
@@ -84,11 +81,11 @@ public class Gridable : ECSComponent {
     }
 
     public List<Vector3> GetGridEdgePoints() {
-        return new List<Vector3>() {
+        return new List<Vector3> {
             transform.position - Vector3.one / 2,
             transform.position - Vector3.one / 2 + new Vector3(0, _size.y),
             transform.position - Vector3.one / 2 + new Vector3(_size.x, _size.y),
-            transform.position - Vector3.one / 2 + new Vector3(_size.x, 0),
+            transform.position - Vector3.one / 2 + new Vector3(_size.x, 0)
         };
     }
 
@@ -113,7 +110,7 @@ public class Gridable : ECSComponent {
     }
 
     private void GetNeighbors(List<Vector2Int> cells) {
-        HashSet<Vector2Int> neighbors = new HashSet<Vector2Int>();
+        HashSet<Vector2Int> neighbors = new();
         foreach (Vector2Int cell in cells) {
             neighbors.Add(new Vector2Int(cell.x - 1, cell.y - 1)); // Top-Left  
             neighbors.Add(new Vector2Int(cell.x, cell.y - 1)); // Top
@@ -125,7 +122,7 @@ public class Gridable : ECSComponent {
             neighbors.Add(new Vector2Int(cell.x + 1, cell.y + 1)); // Bottom-Right
         }
 
-        foreach (var cell in GetOccupiedPositions()) {
+        foreach (Vector2Int cell in GetOccupiedPositions()) {
             neighbors.Remove(cell);
         }
 
@@ -139,7 +136,9 @@ public static class VectorUtils {
     }
 
     public static void SetLossyScaleToOne(this Transform target) {
-        if (target == null) return;
+        if (target == null) {
+            return;
+        }
 
         Vector3 scale = Vector3.one;
         Transform parent = target.parent;

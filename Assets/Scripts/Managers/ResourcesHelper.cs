@@ -1,5 +1,3 @@
-using System;
-
 public class ResourcesHelper {
     public static EquipmentType GetEquipmentByResourceType(ResourceType resourceType) {
         return resourceType switch {

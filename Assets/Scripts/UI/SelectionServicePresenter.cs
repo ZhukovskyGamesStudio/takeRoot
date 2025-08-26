@@ -8,8 +8,8 @@ public class SelectionServicePresenter : IDisposable {
     private InfoBookView _infoBookView;
     private SettlerInfoPanel _settlerPanel;
 
-    public SelectionServicePresenter(InfoBookView infoBookView, SettlerInfoPanel settlerPanel, IJobCommandsInputHandlerService commandInputHandler,
-        ISelectionService selection) {
+    public SelectionServicePresenter(InfoBookView infoBookView, SettlerInfoPanel settlerPanel,
+        IJobCommandsInputHandlerService commandInputHandler, ISelectionService selection) {
         _infoBookView = infoBookView;
         _settlerPanel = settlerPanel;
         _selection = selection;

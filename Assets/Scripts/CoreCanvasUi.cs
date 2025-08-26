@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,24 +14,24 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
 
     [field: SerializeField]
     public AvatarsView AvatarsView { get; private set; }
-    
+
     [field: SerializeField]
     public ResearchPanelView ResearchPanelView { get; private set; }
+
     [field: SerializeField]
     public PanelsView PanelsView { get; private set; }
+
     [field: SerializeField]
     public PanelTogglesView PanelTogglesView { get; private set; }
-    
+
     [field: SerializeField]
-    public ResourcesView ResourcesView  { get; private set; }
+    public ResourcesView ResourcesView { get; private set; }
 
     public void Init() {
         ObsoleteCoreEntryPoint.UI = this;
         //TODO refactor
         InitRace();
     }
-
-   
 
     private void InitRace() {
         if (NetworkManager.Singleton != null) {

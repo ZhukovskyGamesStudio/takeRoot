@@ -1,4 +1,1 @@
-public class TurretEntity : ECSEntity
-{
-
-}
+public class TurretEntity : ECSEntity { }

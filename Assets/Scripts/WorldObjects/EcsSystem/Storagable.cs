@@ -21,21 +21,21 @@ public class Storagable : ECSComponent {
 
     private void OnCommandPerformed(CommandData cData) {
         if (cData.CommandType == Command.GatherResources) {
-            var resource = new ResourceData() {
+            ResourceData resource = new() {
                 ResourceType = Resource.ResourceType,
                 Amount = AmountToGather
             };
-            var position = _interactable.CommandToExecute.Settler.GetCellOnGrid;
-            var resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
+            Vector2Int position = _interactable.CommandToExecute.Settler.GetCellOnGrid;
+            ResourceView resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
             resourceToGather.IsBeingCarried = true;
             resourceToGather.Interactable.CanSelect = false;
             AmountToGather = 0;
             Resource.Amount -= resource.Amount;
-            CommandData command = new CommandData() {
+            CommandData command = new() {
                 Interactable = resourceToGather.Interactable,
                 Additional = _interactable.CommandToExecute.Additional,
                 CommandType = Command.Delivery,
-                AdditionalData = new DeliveryCommandData() {
+                AdditionalData = new DeliveryCommandData {
                     TargetPlan = _interactable.CommandToExecute.Additional.GetComponent<BuildingPlan>()
                 },
                 Settler = _interactable.CommandToExecute.Settler
@@ -48,21 +48,21 @@ public class Storagable : ECSComponent {
         }
 
         if (cData.CommandType == Command.GatherResourcesForCraft) {
-            var resource = new ResourceData() {
+            ResourceData resource = new() {
                 ResourceType = Resource.ResourceType,
                 Amount = AmountToGather
             };
-            var position = _interactable.CommandToExecute.Settler.GetCellOnGrid;
-            var resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
+            Vector2Int position = _interactable.CommandToExecute.Settler.GetCellOnGrid;
+            ResourceView resourceToGather = ResourceManager.SpawnResourceAt(resource, position);
             resourceToGather.IsBeingCarried = true;
             resourceToGather.Interactable.CanSelect = false;
             AmountToGather = 0;
             Resource.Amount -= resource.Amount;
-            CommandData command = new CommandData() {
+            CommandData command = new() {
                 Interactable = resourceToGather.Interactable,
                 Additional = _interactable.CommandToExecute.Additional,
                 CommandType = Command.DeliveryForCraft,
-                AdditionalData = new DeliveryToCraftCommandData() {
+                AdditionalData = new DeliveryToCraftCommandData {
                     CraftingStation = _interactable.CommandToExecute.Additional.GetComponent<CraftingStationable>()
                 },
                 Settler = _interactable.CommandToExecute.Settler
@@ -76,12 +76,15 @@ public class Storagable : ECSComponent {
     }
 
     public void AddResource(ResourceData resourceData) {
-        if (resourceData.ResourceType != Resource.ResourceType && !IsEmpty())
+        if (resourceData.ResourceType != Resource.ResourceType && !IsEmpty()) {
             return;
-        if (IsEmpty())
-            Resource.ResourceType = resourceData.ResourceType;
+        }
 
-        var canAdd = MaxStack - Resource.Amount;
+        if (IsEmpty()) {
+            Resource.ResourceType = resourceData.ResourceType;
+        }
+
+        int canAdd = MaxStack - Resource.Amount;
         if (resourceData.Amount <= canAdd) {
             Resource.Amount += resourceData.Amount;
             resourceData.Amount -= resourceData.Amount;
@@ -93,25 +96,32 @@ public class Storagable : ECSComponent {
 
     //Work in progress
     public ResourceData RemoveResource(ResourceData resourceData) {
-        if (IsEmpty())
+        if (IsEmpty()) {
             return null;
-        if (resourceData.ResourceType != Resource.ResourceType)
+        }
+
+        if (resourceData.ResourceType != Resource.ResourceType) {
             return null;
-        if (Resource.Amount - resourceData.Amount < 0)
+        }
+
+        if (Resource.Amount - resourceData.Amount < 0) {
             return null;
+        }
 
         int canRemove = Math.Min(resourceData.Amount, Resource.Amount);
         Resource.Amount -= resourceData.Amount;
-        if (Resource.Amount == 0)
+        if (Resource.Amount == 0) {
             Resource.ResourceType = ResourceType.None;
+        }
 
-        var removedResource = new ResourceData {
+        ResourceData removedResource = new() {
             ResourceType = Resource.ResourceType,
             Amount = resourceData.Amount
         };
 
-        if (IsEmpty())
+        if (IsEmpty()) {
             Resource.ResourceType = ResourceType.None;
+        }
 
         return removedResource;
     }

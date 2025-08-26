@@ -19,11 +19,11 @@ namespace WorldObjects {
         public HashSet<Vector2Int> InteractableCells => Gridable.InteractableCells;
 
         private void OnMouseEnter() {
-           ObsoleteCoreEntryPoint.SelectionManager.SetTacticalSelected(this);
+            ObsoleteCoreEntryPoint.SelectionManager.SetTacticalSelected(this);
         }
 
         private void OnMouseExit() {
-           ObsoleteCoreEntryPoint.SelectionManager.TryClearTacticalSelected(this);
+            ObsoleteCoreEntryPoint.SelectionManager.TryClearTacticalSelected(this);
         }
 
         public InfoBookData GetInfoData() {

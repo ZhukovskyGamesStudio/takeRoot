@@ -7,13 +7,13 @@ public class EquipmentGridUiView : MonoBehaviour {
     private List<EquipmentUiView> _views;
 
     public void Set(SettlerData settlerData) {
-        foreach (var VARIABLE in _views) {
+        foreach (EquipmentUiView VARIABLE in _views) {
             VARIABLE.ClearSlot();
         }
 
-        foreach (var kvp in settlerData.Equipped) {
-            var eType = kvp.Key;
-            var v = _views.First(uv => uv.EquipmentType == eType);
+        foreach (KeyValuePair<EquipmentType, ResourceType> kvp in settlerData.Equipped) {
+            EquipmentType eType = kvp.Key;
+            EquipmentUiView v = _views.First(uv => uv.EquipmentType == eType);
             if (v != null) {
                 v.Equip(kvp.Value);
             }

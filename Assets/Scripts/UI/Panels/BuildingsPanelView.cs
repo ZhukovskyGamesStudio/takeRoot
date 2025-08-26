@@ -23,8 +23,7 @@ public class BuildingsPanelView : MonoBehaviour {
     [SerializeField]
     private AYellowpaper.SerializedCollections.SerializedDictionary<BuildingCategory, Toggle> _categoryToggles;
 
-    [Header("Remove from here!!!")]
-    [SerializeField]
+    [Header("Remove from here!!!"), SerializeField]
     private List<BuildingRecipeConfig> _mockRecipeConfigs;
 
     private List<BuildingPanelGridView> _gridItems;
@@ -35,7 +34,7 @@ public class BuildingsPanelView : MonoBehaviour {
     private BuildingCategory _currentCategory = BuildingCategory.General;
 
     private void InitToggles() {
-        foreach (var kvp in _categoryToggles) {
+        foreach (KeyValuePair<BuildingCategory, Toggle> kvp in _categoryToggles) {
             kvp.Value.onValueChanged.AddListener(isOn => {
                 if (isOn) {
                     _currentCategory = kvp.Key;
@@ -57,7 +56,7 @@ public class BuildingsPanelView : MonoBehaviour {
     private void CreateEmptyGrid() {
         _gridItems = new List<BuildingPanelGridView>();
         for (int i = 0; i < _shownAmount; i++) {
-            var item = Instantiate(_itemPrefab, _gridItemsContainer);
+            BuildingPanelGridView item = Instantiate(_itemPrefab, _gridItemsContainer);
             item.Init(OpenInfoPanel, _toggleGroup);
             _gridItems.Add(item);
         }
@@ -74,11 +73,11 @@ public class BuildingsPanelView : MonoBehaviour {
     }
 
     private void UpdateCategory() {
-        foreach (var item in _gridItems) {
+        foreach (BuildingPanelGridView item in _gridItems) {
             item.gameObject.SetActive(false);
         }
 
-        var curShown = _recipeConfigs.Where(c => c.BuildingCategory == _currentCategory).ToList();
+        List<BuildingRecipeConfig> curShown = _recipeConfigs.Where(c => c.BuildingCategory == _currentCategory).ToList();
 
         for (int i = 0; i < curShown.Count; i++) {
             _gridItems[i].gameObject.SetActive(true);

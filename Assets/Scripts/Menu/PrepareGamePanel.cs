@@ -20,9 +20,10 @@ public class PrepareGamePanel : MonoBehaviour {
 
     [SerializeField]
     private ChooseRacePanel _chooseRacePanel;
+
     [SerializeField]
     private PlayerRaceSelection _playerRaceSelection;
-    
+
     private State _state = State.Choosing;
 
     private string _serverCode;

@@ -6,17 +6,14 @@ using UnityEditor;
 using Object = UnityEngine.Object;
 
 [CustomEditor(typeof(ResourcesTable))]
-public class ResourcesTableEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
+public class ResourcesTableEditor : Editor {
+    public override void OnInspectorGUI() {
         // Draw the default inspector
         DrawDefaultInspector();
 
         ResourcesTable resourcesTable = (ResourcesTable)target;
 
-        if (GUILayout.Button("Find and Populate Resources"))
-        {
+        if (GUILayout.Button("Find and Populate Resources")) {
             PopulateResourceLists(resourcesTable);
         }
     }

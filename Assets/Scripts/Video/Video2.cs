@@ -1,13 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-public class Video2 : MonoBehaviour
-{
+public class Video2 : MonoBehaviour {
     public CinemachineCamera CinemachineCamera;
 
     public Settler mainLampSettler;
@@ -18,8 +15,10 @@ public class Video2 : MonoBehaviour
     public Interactable grinder;
     public Interactable biogenerator;
     public Interactable idleBiogenerator;
+
     [Header("Points")]
     public Transform goToLampRechargerPos;
+
     public Transform goToChamomileJumpPos;
     public Transform goToChamomileFarmPos;
     public Transform goToChamomileFarmPosFinal;
@@ -32,9 +31,9 @@ public class Video2 : MonoBehaviour
     public Transform goToGeneratorUnzoomPos;
     public Transform goToGeneratorZoomPos;
     public Transform goAwayChamomilePos;
-    public List<Transform> goToCreateWirePos; 
-    
-    [Header("Item")] 
+    public List<Transform> goToCreateWirePos;
+
+    [Header("Item")]
     public SpriteRenderer itemPlaceholder;
 
     public Sprite potato;
@@ -42,25 +41,30 @@ public class Video2 : MonoBehaviour
     public Sprite biofuel;
 
     private Coroutine _zoomCoroutine;
-    void Start()
-    {
+
+    private void Start() {
         StartCoroutine(MainCoroutine());
     }
 
-    private void LateUpdate()
-    {
-        if (chamomileSettler.transform.position.ToVector2Int() == goToFarmUnzoomPos.position.ToVector2Int())
+    private void LateUpdate() {
+        if (chamomileSettler.transform.position.ToVector2Int() == goToFarmUnzoomPos.position.ToVector2Int()) {
             Zoom(7, 0.5f);
-        if (chamomileSettler.transform.position.ToVector2Int() == goToGrinderZoomPos.position.ToVector2Int())
+        }
+
+        if (chamomileSettler.transform.position.ToVector2Int() == goToGrinderZoomPos.position.ToVector2Int()) {
             Zoom(4, 0.5f);
-        if (chamomileSettler.transform.position.ToVector2Int() == goToGeneratorUnzoomPos.position.ToVector2Int())
+        }
+
+        if (chamomileSettler.transform.position.ToVector2Int() == goToGeneratorUnzoomPos.position.ToVector2Int()) {
             Zoom(7, 0.5f);
-        if (chamomileSettler.transform.position.ToVector2Int() == goToGeneratorZoomPos.position.ToVector2Int())
+        }
+
+        if (chamomileSettler.transform.position.ToVector2Int() == goToGeneratorZoomPos.position.ToVector2Int()) {
             Zoom(4, 0.5f);
+        }
     }
 
-    private IEnumerator MainCoroutine()
-    {
+    private IEnumerator MainCoroutine() {
         RandomPotato();
         idleBiogenerator.Animator.SetTrigger("Work");
         yield return new WaitForSeconds(0.5f);
@@ -96,19 +100,19 @@ public class Video2 : MonoBehaviour
         yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
         biogenerator.Animator.SetTrigger("Work");
         itemPlaceholder.sprite = null;
-        
+
         yield return AddMoveAndWaitFinish(goToCreateWirePos[0].position, chamomileSettler);
         yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 0.2f);
         ObsoleteCoreEntryPoint.PowerManager.CreateWireAt(biogenerator.transform.position.ToVector2Int());
-        foreach (Transform pos in goToCreateWirePos)
-        {
+        foreach (Transform pos in goToCreateWirePos) {
             yield return AddMoveAndWaitFinish(pos.position, chamomileSettler);
             yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 0.2f);
             ObsoleteCoreEntryPoint.PowerManager.CreateWireAt(pos.position.ToVector2Int());
         }
+
         yield return AddMoveAndWaitFinish(goToChamomileRechargerPos.position, chamomileSettler);
         yield return DoFakeCommandAndWaitFinish(chamomileSettler, Command.Craft, 1f);
-        var rechargerPos = goToChamomileRechargerPos.position.ToVector2Int();
+        Vector2Int rechargerPos = goToChamomileRechargerPos.position.ToVector2Int();
         ObsoleteCoreEntryPoint.PowerManager.CreateWireAt(new Vector2Int(rechargerPos.x, rechargerPos.y + 1));
         CinemachineCamera.Target.TrackingTarget = mainLampSettler.transform;
         yield return AddMoveAndWaitFinish(goAwayChamomilePos.position, chamomileSettler);
@@ -117,59 +121,57 @@ public class Video2 : MonoBehaviour
         mainLampSettler.isSleeping = true;
         mainLampSettler.ActionAnimator.enabled = false;
     }
-    
 
-    private void Zoom(float targetZoomValue, float zoomSpeed)
-    {
-        if (_zoomCoroutine != null)
+    private void Zoom(float targetZoomValue, float zoomSpeed) {
+        if (_zoomCoroutine != null) {
             StopCoroutine(_zoomCoroutine);
-        if (CinemachineCamera.Lens.OrthographicSize < targetZoomValue)
+        }
+
+        if (CinemachineCamera.Lens.OrthographicSize < targetZoomValue) {
             _zoomCoroutine = StartCoroutine(SmoothZoom(targetZoomValue, zoomSpeed));
-        else
+        } else {
             _zoomCoroutine = StartCoroutine(SmoothUnzoom(targetZoomValue, zoomSpeed));
+        }
     }
-    private IEnumerator SmoothZoom(float targetZoomValue, float zoomSpeed)
-    {
-        while (CinemachineCamera.Lens.OrthographicSize < targetZoomValue)
-        {
+
+    private IEnumerator SmoothZoom(float targetZoomValue, float zoomSpeed) {
+        while (CinemachineCamera.Lens.OrthographicSize < targetZoomValue) {
             CinemachineCamera.Lens.OrthographicSize += Time.deltaTime * zoomSpeed;
             yield return null;
         }
     }
-    private IEnumerator SmoothUnzoom(float targetZoomValue, float zoomSpeed)
-    {
-        while (CinemachineCamera.Lens.OrthographicSize > targetZoomValue)
-        {
+
+    private IEnumerator SmoothUnzoom(float targetZoomValue, float zoomSpeed) {
+        while (CinemachineCamera.Lens.OrthographicSize > targetZoomValue) {
             CinemachineCamera.Lens.OrthographicSize -= Time.deltaTime * zoomSpeed;
             yield return null;
         }
     }
 
-    private IEnumerator DoFakeCommandAndWaitFinish(Settler settler, Command command, float time)
-    {
+    private IEnumerator DoFakeCommandAndWaitFinish(Settler settler, Command command, float time) {
         settler.FakeCommand = command;
         yield return new WaitForSeconds(time);
         settler.FakeCommand = Command.None;
     }
+
     private IEnumerator AddMoveAndWaitFinish(Vector3 newPos, Settler settler) {
-        yield return StartCoroutine(AddCommandAndWaitFinish(new TacticalCommandData() {
+        yield return StartCoroutine(AddCommandAndWaitFinish(new TacticalCommandData {
             Settler = settler,
             TacticalCommandType = TacticalCommand.Move,
             TargetPosition = newPos.ToVector2Int()
         }));
     }
+
     private IEnumerator AddCommandAndWaitFinish(TacticalCommandData data) {
-        var settler = data.Settler;
+        Settler settler = data.Settler;
         settler.SettlerData._mode = Mode.Tactical;
         settler.SetTacticalCommand(data);
         yield return new WaitWhile(() => settler.TakenTacticalCommand != null);
     }
 
-    private void RandomPotato()
-    {
-        foreach (Gridable potatoBed in potatoContainer.GetComponentsInChildren<Gridable>())
-        {
-            var sprites = potatoBed.GetComponentInChildren<SpriteRenderer>().GetComponentsInChildren<Transform>(true);
+    private void RandomPotato() {
+        foreach (Gridable potatoBed in potatoContainer.GetComponentsInChildren<Gridable>()) {
+            Transform[] sprites = potatoBed.GetComponentInChildren<SpriteRenderer>().GetComponentsInChildren<Transform>(true);
             sprites[Random.Range(1, sprites.Length - 2)].gameObject.SetActive(true);
         }
     }

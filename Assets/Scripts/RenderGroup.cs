@@ -27,6 +27,4 @@ public class RenderGroup : MonoBehaviour {
             spriteRenderer.color = color;
         }
     }
-    
-    
 }

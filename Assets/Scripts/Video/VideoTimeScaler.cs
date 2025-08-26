@@ -1,19 +1,15 @@
 using UnityEngine;
 
-public class VideoTimeScaler : MonoBehaviour
-{
-    public void ChangeTimeScale(float value)
-    {
+public class VideoTimeScaler : MonoBehaviour {
+    public void ChangeTimeScale(float value) {
         Time.timeScale += value;
     }
 
-    public void RevertTimeScale()
-    {
+    public void RevertTimeScale() {
         Time.timeScale = 1;
     }
 
-    public void Pause()
-    {
+    public void Pause() {
         Time.timeScale = 0;
     }
 }

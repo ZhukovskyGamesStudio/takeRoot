@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 using WorldObjects;
 using Random = UnityEngine.Random;
 
@@ -21,7 +20,7 @@ public class Zombie : ECSEntity {
     private object _performingCoroutine;
 
     private SpriteRenderer _spriteRenderer;
-    
+
     public Gridable Gridable;
     public ZombieData ZombieData { get; private set; }
     public SpriteRenderer SpriteRenderer => _spriteRenderer;
@@ -38,21 +37,27 @@ public class Zombie : ECSEntity {
     private void Update() {
         _movingCooldown -= Time.deltaTime;
         _changeAttackTargetCooldown -= Time.deltaTime;
-        if (_performingCoroutine != null)
+        if (_performingCoroutine != null) {
             return;
+        }
+
         switch (ZombieData.State) {
             case EnemyState.Passive:
                 CheckForSettlerNear();
-                if (_currentAttackTarget != null)
+                if (_currentAttackTarget != null) {
                     break;
+                }
+
                 PassiveMove();
                 break;
             case EnemyState.Rage:
                 CheckForSettlerNear();
-                if (_currentAttackTarget == null)
+                if (_currentAttackTarget == null) {
                     PassiveMove();
-                else
+                } else {
                     ForceMove();
+                }
+
                 break;
             case EnemyState.Idle:
                 break;
@@ -87,8 +92,10 @@ public class Zombie : ECSEntity {
     }
 
     private void CheckForSettlerNear() {
-        if (_changeAttackTargetCooldown > 0)
+        if (_changeAttackTargetCooldown > 0) {
             return;
+        }
+
         foreach (Settler settler in ObsoleteCoreEntryPoint.SettlersManager.Settlers) {
             if (Gridable.InteractableCells.Contains(settler.GetCellOnGrid) && settler.SettlerData._mood != Mood.Neutral) {
                 SetRagePoints(ZombieData.PointsToRageState);
@@ -98,29 +105,35 @@ public class Zombie : ECSEntity {
     }
 
     private void PassiveMove() {
-        if (_isMoving)
+        if (_isMoving) {
             return;
-        if (_movingCooldown > 0)
+        }
+
+        if (_movingCooldown > 0) {
             return;
+        }
 
         _currentMovementTarget ??= FindTarget();
-        if (_currentMovementTarget == null)
+        if (_currentMovementTarget == null) {
             return;
+        }
 
         Vector2Int? step = TryPassiveMoveToCell();
-        if (step == null) return;
+        if (step == null) {
+            return;
+        }
 
         _performingCoroutine = StartCoroutine(MoveToCell(step.Value));
     }
 
     private HashSet<Vector2Int> FindTarget() {
-        var currentPosition = ZombieData.GetCellOnGrid;
+        Vector2Int currentPosition = ZombieData.GetCellOnGrid;
 
-        var newPosY = Random.Range(-5 + currentPosition.y, 5 + currentPosition.y);
-        var newPosX = Random.Range(-5 + currentPosition.x, 5 + currentPosition.x);
-        var target = new HashSet<Vector2Int> { new(newPosX, newPosY) };
+        int newPosY = Random.Range(-5 + currentPosition.y, 5 + currentPosition.y);
+        int newPosX = Random.Range(-5 + currentPosition.x, 5 + currentPosition.x);
+        HashSet<Vector2Int> target = new() { new Vector2Int(newPosX, newPosY) };
 
-        var path = ObsoleteCoreEntryPoint.AStarPathfinding.FindPathForZombies(currentPosition, target, 1);
+        List<Vector2Int> path = ObsoleteCoreEntryPoint.AStarPathfinding.FindPathForZombies(currentPosition, target, 1);
         if (path != null) {
             return target;
         }
@@ -130,7 +143,7 @@ public class Zombie : ECSEntity {
 
     private Vector2Int? TryPassiveMoveToCell() {
         Vector2Int target;
-        var pathStep = ExactInteractionChecker.NextStepOnPathForZombies(ZombieData.GetCellOnGrid, _currentMovementTarget, 1);
+        Vector2Int? pathStep = ExactInteractionChecker.NextStepOnPathForZombies(ZombieData.GetCellOnGrid, _currentMovementTarget, 1);
         if (pathStep != null) {
             target = pathStep.Value;
         } else {
@@ -154,11 +167,14 @@ public class Zombie : ECSEntity {
         }
 
         Vector2Int? step = TryForceMoveToCell();
-        if (step == null) return;
+        if (step == null) {
+            return;
+        }
+
         if (!AStarPathfinding.IsWalkable(step.Value) || !AStarPathfinding.IsWalkable(new Vector2Int(step.Value.x + 1, step.Value.y))) {
-            var stepX = step.Value.x;
-            var stepY = step.Value.y;
-            var damagable = FindObjectsByType<Destructable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault(g =>
+            int stepX = step.Value.x;
+            int stepY = step.Value.y;
+            Destructable damagable = FindObjectsByType<Destructable>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault(g =>
                 g.GetComponent<Gridable>().GetOccupiedPositions().Contains(step.Value) ||
                 g.GetComponent<Gridable>().GetOccupiedPositions().Contains(new Vector2Int(stepX + 1, stepY)));
             if (damagable != null) {
@@ -176,7 +192,7 @@ public class Zombie : ECSEntity {
 
     private IEnumerator StartAttack() {
         yield return new WaitForSeconds(ObsoleteCoreEntryPoint.ConfigManager.ZombieConfig.AttackTime);
-        var settler = ObsoleteCoreEntryPoint.SettlersManager.GetSettlerAt(_currentAttackTarget.Value);
+        Settler settler = ObsoleteCoreEntryPoint.SettlersManager.GetSettlerAt(_currentAttackTarget.Value);
         if (settler != null) {
             settler.GetEcsComponent<Damagable>().OnAttacked(1);
         }
@@ -187,7 +203,7 @@ public class Zombie : ECSEntity {
 
     private Vector2Int? TryForceMoveToCell() {
         Vector2Int target;
-        var pathStep = ExactInteractionChecker.NextStepForZombieOnPathWithWallsAsObstacle(ZombieData.GetCellOnGrid,
+        Vector2Int? pathStep = ExactInteractionChecker.NextStepForZombieOnPathWithWallsAsObstacle(ZombieData.GetCellOnGrid,
             new HashSet<Vector2Int> { _currentAttackTarget.Value }, 1);
         if (pathStep != null) {
             target = pathStep.Value;
@@ -200,13 +216,15 @@ public class Zombie : ECSEntity {
 
     private IEnumerator TryDestroy(Destructable target) {
         yield return new WaitForSeconds(ObsoleteCoreEntryPoint.ConfigManager.ZombieConfig.DestroyTime);
-        if (target != null)
+        if (target != null) {
             target.OnAttacked(ObsoleteCoreEntryPoint.ConfigManager.ZombieConfig.DestroyDamage);
+        }
+
         _performingCoroutine = null;
     }
 
     private IEnumerator MoveToCell(Vector2Int target) {
-        Vector3 target3 = new Vector3(target.x, target.y);
+        Vector3 target3 = new(target.x, target.y);
         Vector3 diff = target3 - transform.position;
         if (diff.x > 0) {
             _spriteRenderer.flipX = true;
@@ -217,7 +235,8 @@ public class Zombie : ECSEntity {
         }
 
         yield return new WaitForSeconds(ObsoleteCoreEntryPoint.ConfigManager.ZombieConfig.MovePause);
-        yield return StartCoroutine(LerpFromTo(transform.position, target3 * CellSize, ObsoleteCoreEntryPoint.ConfigManager.ZombieConfig.MoveTime));
+        yield return StartCoroutine(LerpFromTo(transform.position, target3 * CellSize,
+            ObsoleteCoreEntryPoint.ConfigManager.ZombieConfig.MoveTime));
         Gridable.PositionChanged();
         _performingCoroutine = null;
     }
@@ -239,16 +258,16 @@ public class Zombie : ECSEntity {
 
     private void HasHeard(Vector2Int noisePosition) {
         AddRagePoints(10);
-        if (_changeAttackTargetCooldown > 0)
+        if (_changeAttackTargetCooldown > 0) {
             return;
-        if (ZombieData.State == EnemyState.Rage)
+        }
+
+        if (ZombieData.State == EnemyState.Rage) {
             AddAttackTarget(noisePosition);
+        }
     }
 
-    private void OnDied()
-    {
-        
-    }
+    private void OnDied() { }
 }
 
 public enum EnemyState {

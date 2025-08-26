@@ -28,6 +28,7 @@ public class BuildingPanelGridView : MonoBehaviour {
         _name.text = config.HeaderName;
         _selectedNameText.text = config.HeaderName;
         _icon.sprite = _config.Icon;
+        _toggle.isOn = false;
     }
 
     public void Open(bool isOn) {

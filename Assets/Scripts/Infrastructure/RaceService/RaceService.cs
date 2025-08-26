@@ -5,5 +5,5 @@ public class RaceService : IRaceService {
         RaceReactive.Value = race;
     }
 
-    public ReactiveProperty<Race> RaceReactive { get; set; } = new ReactiveProperty<Race>();
+    public ReactiveProperty<Race> RaceReactive { get; set; } = new();
 }

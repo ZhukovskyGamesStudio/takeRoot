@@ -27,7 +27,7 @@ namespace Settlers {
         protected virtual void OnAttacked(int damageAmount) { }
 
         protected virtual InfoBookData GetInfoData() {
-            var d = new InfoBookData() {
+            InfoBookData d = new() {
                 Icon = _icon.sprite,
                 Name = gameObject.name,
                 Resources = new List<ResourceData>()

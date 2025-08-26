@@ -12,8 +12,9 @@ public class RuleTwinTile : RuleTile<RuleTwinTile.Neighbor> {
             case Neighbor.NotNull: return tile != null;
         }
 
-        if (tile is RuleOverrideTile ot)
+        if (tile is RuleOverrideTile ot) {
             tile = ot.m_InstanceTile;
+        }
 
         switch (neighbor) {
             case TilingRuleOutput.Neighbor.This: return tile == this || tile == _twinRuleTile;

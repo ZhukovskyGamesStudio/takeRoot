@@ -4,5 +4,5 @@ using UnityEngine;
 
 [Serializable]
 public class VideoPathsPositions {
-	public List<Transform> positions;
+    public List<Transform> positions;
 }

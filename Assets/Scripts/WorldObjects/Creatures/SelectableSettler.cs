@@ -1,7 +1,8 @@
+using System;
 using UnityEngine;
 
-public class SelectableSettler : MonoBehaviour
-{
-    [SerializeField] Settler _settler;
-    
+[Obsolete]
+public class SelectableSettler : MonoBehaviour {
+    [SerializeField]
+    private Settler _settler;
 }

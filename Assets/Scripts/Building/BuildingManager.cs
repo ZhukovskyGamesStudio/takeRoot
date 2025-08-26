@@ -3,7 +3,6 @@ using System.Linq;
 using UnityEngine;
 
 public class BuildingManager : MonoBehaviour {
-
     [SerializeField]
     private BuildingView _buildingView;
 
@@ -19,8 +18,9 @@ public class BuildingManager : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKeyDown(KeyCode.Mouse1) && _currentPlan != null)
+        if (Input.GetKeyDown(KeyCode.Mouse1) && _currentPlan != null) {
             CancelPlan();
+        }
     }
 
     public void AddNewPlan() {
@@ -29,8 +29,10 @@ public class BuildingManager : MonoBehaviour {
     }
 
     public void EnablePlan(int index) {
-        if (_currentPlan != null)
+        if (_currentPlan != null) {
             CancelPlan();
+        }
+
         _currentPlan = Instantiate(_plans[index]);
     }
 

@@ -20,7 +20,7 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
     private int ViewRadius => ObsoleteCoreEntryPoint.ConfigManager.CreaturesParametersConfig.ViewRadius;
 
     public List<Type> GetDependencies() {
-        return new List<Type>() { typeof(SettlersManager), typeof(GridManager), typeof(ConfigManager) };
+        return new List<Type> { typeof(SettlersManager), typeof(GridManager), typeof(ConfigManager) };
     }
 
     public void Init() {
@@ -52,8 +52,13 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
         ClearAndOpenOpened();
     }
 
-    public bool IsOpened(Vector2Int cell) => _openedCells.Contains(cell);
-    public bool IsOpened(Vector3Int cell) => _openedCells.Contains(new Vector2Int(cell.x, cell.y));
+    public bool IsOpened(Vector2Int cell) {
+        return _openedCells.Contains(cell);
+    }
+
+    public bool IsOpened(Vector3Int cell) {
+        return _openedCells.Contains(new Vector2Int(cell.x, cell.y));
+    }
 
     private void FindAllBlockingViews() {
         _blockingViews.Clear();
@@ -90,7 +95,7 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
 
         for (int i = -updateRadius; i <= updateRadius; i++) {
             for (int j = -updateRadius; j <= updateRadius; j++) {
-                Vector2Int tileCoord = new Vector2Int(tile.x + i, tile.y + j);
+                Vector2Int tileCoord = new(tile.x + i, tile.y + j);
                 if ((tileCoord - tile).sqrMagnitude > sqrViewRadius) {
                     continue;
                 }
@@ -103,7 +108,7 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
                     continue;
                 }
 
-                Vector3Int tilePos = new Vector3Int(tileCoord.x, tileCoord.y, 0);
+                Vector3Int tilePos = new(tileCoord.x, tileCoord.y, 0);
                 _blackTilemap.SetTile(tilePos, null);
                 _openedCells.Add(tileCoord);
             }
@@ -113,7 +118,7 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
     private void RefreshWalls(Vector2Int tile, int updateRadius) {
         for (int i = -updateRadius; i < updateRadius + 1; i++) {
             for (int j = -updateRadius; j < updateRadius + 1; j++) {
-                Vector2Int tileCoord = new Vector2Int(tile.x + i, tile.y + j);
+                Vector2Int tileCoord = new(tile.x + i, tile.y + j);
                 ObsoleteCoreEntryPoint.GridManager.RefreshWalls(new Vector3Int(tileCoord.x, tileCoord.y));
             }
         }
@@ -149,12 +154,12 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
 
     private void Fill(Tilemap tilemap, TileBase tile) {
         Rect rect = ObsoleteCoreEntryPoint.GridManager.GridSize;
-        Vector2Int min = new Vector2Int((int)rect.x, (int)rect.y);
-        Vector2Int max = new Vector2Int((int)rect.width, (int)rect.height);
+        Vector2Int min = new((int)rect.x, (int)rect.y);
+        Vector2Int max = new((int)rect.width, (int)rect.height);
         tilemap.ClearAllTiles();
 
         // Define the bounds
-        BoundsInt bounds = new BoundsInt(min.x, min.y, 0, max.x - min.y + 1, max.y - min.y + 1, 1);
+        BoundsInt bounds = new(min.x, min.y, 0, max.x - min.y + 1, max.y - min.y + 1, 1);
         // Create an array of tiles
         TileBase[] tiles = new TileBase[bounds.size.x * bounds.size.y];
         for (int i = 0; i < tiles.Length; i++) {
@@ -169,8 +174,8 @@ public class FogOfWarManager : MonoBehaviour, IInitableInstance {
         Fill(_blackTilemap, _blackTile);
         Fill(_greyTilemap, _greyTile);
 
-        foreach (var coord in (_openedCells)) {
-            Vector3Int tilePos = new Vector3Int(coord.x, coord.y, 0);
+        foreach (Vector2Int coord in _openedCells) {
+            Vector3Int tilePos = new(coord.x, coord.y, 0);
             _blackTilemap.SetTile(tilePos, null);
         }
 

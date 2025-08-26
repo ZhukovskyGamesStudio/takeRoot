@@ -1,7 +1,6 @@
 using System;
 
 [Serializable]
-public class WateringCommandData
-{
+public class WateringCommandData {
     public float WaterAmount;
 }

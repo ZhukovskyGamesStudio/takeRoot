@@ -1,3 +1,1 @@
-public class CombinedSettlerData
-{
-}
+public class CombinedSettlerData { }

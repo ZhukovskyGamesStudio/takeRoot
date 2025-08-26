@@ -1,8 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class SelectionManager : MonoBehaviour {
-
     [SerializeField]
     private CommandsPanel _commandsPanel;
 
@@ -22,11 +20,13 @@ public class SelectionManager : MonoBehaviour {
 
     private void TryAutoOpenInfoPanel() {
         if (Input.GetMouseButtonDown(0) && _commandsPanel.SelectedCommand == Command.None) {
-            
-            if(Interactable != null) ObsoleteCoreEntryPoint.UI.OpenInfoPanel(Interactable);
-            else if (TacticalInteractable != null) {
-                if (TacticalInteractable.GetGameObject().GetComponent<SettlerData>() != null) return;
-                
+            if (Interactable != null) {
+                ObsoleteCoreEntryPoint.UI.OpenInfoPanel(Interactable);
+            } else if (TacticalInteractable != null) {
+                if (TacticalInteractable.GetGameObject().GetComponent<SettlerData>() != null) {
+                    return;
+                }
+
                 ObsoleteCoreEntryPoint.UI.OpenInfoPanel(TacticalInteractable);
             }
         }

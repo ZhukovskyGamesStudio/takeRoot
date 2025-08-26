@@ -6,6 +6,10 @@ public class ResearchViewPresenter {
         _view = view;
         _service = service;
 
-        _view.SetData(service.GetResearchData());
+        _view.InitData(service.GetInitResearchData());
+    }
+
+    public void UpdateData() {
+        _view.UpdateData(_service.GetResearchData());
     }
 }

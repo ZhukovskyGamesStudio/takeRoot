@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 public class Table : Furniture, ISearchable {
-    public ResourseStorage ResorceStorage = new ResourseStorage();
+    public ResourseStorage ResorceStorage = new();
 
     public bool IsStorageActive;
 
@@ -20,7 +20,7 @@ public class Table : Furniture, ISearchable {
     }
 
     protected override InfoBookData GetInfoData() {
-        var d = new InfoBookData() {
+        InfoBookData d = new() {
             Icon = _icon.sprite,
             Name = gameObject.name,
             Resources = ResorceStorage.ResorceDatas.ToList()

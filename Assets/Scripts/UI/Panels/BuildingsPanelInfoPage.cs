@@ -33,14 +33,14 @@ public class BuildingsPanelInfoPage : MonoBehaviour {
         _footprint.text = $"{recipeConfig.Footprint.x}x{recipeConfig.Footprint.y}";
         _hp.text = $"{recipeConfig.Hp}";
 
-        foreach (var ingridient in _ingridientImages) {
+        foreach (Image ingridient in _ingridientImages) {
             ingridient.gameObject.SetActive(false);
         }
 
         int shownIngridients = Mathf.Min(_ingridientImages.Count, recipeConfig.Ingridients.Count);
         for (int i = 0; i < shownIngridients; i++) {
             _ingridientImages[i].gameObject.SetActive(true);
-            var type = recipeConfig.Ingridients.Keys.ElementAt(i);
+            ResourceType type = recipeConfig.Ingridients.Keys.ElementAt(i);
             _ingridientImages[i].sprite = _resourcesTable.ResourceIconsDictionary[type];
             _ingridientCountTexts[i].text = recipeConfig.Ingridients[type].ToString();
         }

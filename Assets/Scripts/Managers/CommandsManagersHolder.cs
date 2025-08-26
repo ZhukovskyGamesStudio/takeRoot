@@ -19,7 +19,6 @@ public class CommandsManagersHolder : NetworkBehaviour, IInitableInstance {
     private Dictionary<Race, CommandsManager> _commandsManagers;
     private Dictionary<Race, TacticalCommandsManager> _tacticalCommandsManagers;
 
-
     public CommandsManager CommandsManager => _commandsManagers[ObsoleteCoreEntryPoint.Instance.MyRace()];
     public TacticalCommandsManager TacticalCommandsManager => _tacticalCommandsManagers[ObsoleteCoreEntryPoint.Instance.MyRace()];
 
@@ -28,7 +27,9 @@ public class CommandsManagersHolder : NetworkBehaviour, IInitableInstance {
         CreateManagers();
     }
 
-    public List<Type> GetDependencies() => new() { typeof(SettlersManager) };
+    public List<Type> GetDependencies() {
+        return new List<Type> { typeof(SettlersManager) };
+    }
 
     public CommandsManager GetCommandManagerByRace(Race race) {
         return _commandsManagers[race];

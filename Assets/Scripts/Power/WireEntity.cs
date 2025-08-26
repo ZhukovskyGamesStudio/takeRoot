@@ -1,4 +1,1 @@
-public class WireEntity : ECSEntity
-{
-        
-}
+public class WireEntity : ECSEntity { }

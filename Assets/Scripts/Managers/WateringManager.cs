@@ -1,44 +1,33 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WateringManager : MonoBehaviour
-{
+public class WateringManager : MonoBehaviour {
     public float WateringThreshold;
-    
+
     public float DryRate;
     public float WaterAmount;
-    
-    
-    private List<CommandData> _activeWateringCommands = new List<CommandData>(20);
-    private List<CanBeWatered> _canBeWateredObjects = new List<CanBeWatered>(20);
 
-    private void Awake()
-    {
+    private List<CommandData> _activeWateringCommands = new(20);
+    private List<CanBeWatered> _canBeWateredObjects = new(20);
+
+    private void Awake() {
         ObsoleteCoreEntryPoint.WateringManager = this;
     }
 
-    private void Update()
-    {
-        var time = Time.deltaTime;
-        foreach (CanBeWatered canBeWatered in _canBeWateredObjects)
-        {
+    private void Update() {
+        float time = Time.deltaTime;
+        foreach (CanBeWatered canBeWatered in _canBeWateredObjects) {
             canBeWatered.Dry(time, DryRate);
         }
     }
 
-    public void AddWaterCommands()
-    {
-        foreach (CanBeWatered canBeWatered in _canBeWateredObjects)
-        {
-            if (canBeWatered.WaterLevel < WateringThreshold && !canBeWatered.AlreadyWatering)
-            {
-                CommandData command = new CommandData()
-                {
+    public void AddWaterCommands() {
+        foreach (CanBeWatered canBeWatered in _canBeWateredObjects) {
+            if (canBeWatered.WaterLevel < WateringThreshold && !canBeWatered.AlreadyWatering) {
+                CommandData command = new() {
                     Interactable = canBeWatered.Interactable,
                     CommandType = Command.Water,
-                    AdditionalData = new WateringCommandData()
-                    {
+                    AdditionalData = new WateringCommandData {
                         WaterAmount = WaterAmount
                     }
                 };
@@ -47,15 +36,14 @@ public class WateringManager : MonoBehaviour
             }
         }
     }
-    public void AddCanBeWateredObject(CanBeWatered canBeWatered)
-    {
+
+    public void AddCanBeWateredObject(CanBeWatered canBeWatered) {
         _canBeWateredObjects.Add(canBeWatered);
     }
 
-    public void RemoveCanBeWateredObject(CanBeWatered canBeWatered)
-    {
-        if (_canBeWateredObjects.Contains(canBeWatered))
+    public void RemoveCanBeWateredObject(CanBeWatered canBeWatered) {
+        if (_canBeWateredObjects.Contains(canBeWatered)) {
             _canBeWateredObjects.Remove(canBeWatered);
+        }
     }
-
 }

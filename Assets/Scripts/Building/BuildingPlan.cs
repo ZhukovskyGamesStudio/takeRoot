@@ -29,14 +29,14 @@ public class BuildingPlan : ECSEntity {
 
     private bool _canPlace;
 
-    private List<ResourceData> _currentResources = new List<ResourceData>();
+    private List<ResourceData> _currentResources = new();
 
     private Gridable _gridable;
     private Interactable _interactable;
     private bool _isPlaced;
 
     [SerializeField]
-    private Dictionary<ResourceType, int> _reservedResourceAmount = new Dictionary<ResourceType, int>();
+    private Dictionary<ResourceType, int> _reservedResourceAmount = new();
 
     public Interactable Interactable => _interactable;
 
@@ -50,9 +50,9 @@ public class BuildingPlan : ECSEntity {
 
         //TODO создать и наполнить _currentResources пустыми ресурсами из _requiredResources
 
-        foreach (var resource in _requiredResources) {
+        foreach (ResourceData resource in _requiredResources) {
             _reservedResourceAmount.Add(resource.ResourceType, 0);
-            _currentResources.Add(new ResourceData() {
+            _currentResources.Add(new ResourceData {
                 Amount = 0,
                 ResourceType = resource.ResourceType
             });
@@ -82,8 +82,8 @@ public class BuildingPlan : ECSEntity {
     }
 
     private void BuildingShadowMouseFollow() {
-        var mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);
-        var newPosition = AdjustPositionToGrid(mousePosition);
+        Vector3 mousePosition = _camera.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 newPosition = AdjustPositionToGrid(mousePosition);
         newPosition.z = transform.position.z;
         transform.position = newPosition;
     }
@@ -93,17 +93,22 @@ public class BuildingPlan : ECSEntity {
     }
 
     private void TryPlaceBuildingPlan() {
-        if (!_canPlace)
+        if (!_canPlace) {
             return;
+        }
+
         _isPlaced = true;
         _gridable.PositionChanged();
         ObsoleteCoreEntryPoint.BuildingManager.OnPlanPlaced();
     }
 
     private void CheckObstacles() {
-        var occupied = _gridable.GetOccupiedPositions();
+        List<Vector2Int> occupied = _gridable.GetOccupiedPositions();
         foreach (Vector2Int cell in occupied) {
-            if (AStarPathfinding.IsWalkable(cell)) continue;
+            if (AStarPathfinding.IsWalkable(cell)) {
+                continue;
+            }
+
             _canPlace = false;
             _sprite.color = new Color(255, 0, 0, 100);
             return;
@@ -115,20 +120,24 @@ public class BuildingPlan : ECSEntity {
 
     private void FormGatherCommands() {
         foreach (ResourceData requiredResource in _requiredResources) {
-            var requiredResourceAmount = LeftToBring(requiredResource.ResourceType);
-            if (requiredResourceAmount == 0)
+            int requiredResourceAmount = LeftToBring(requiredResource.ResourceType);
+            if (requiredResourceAmount == 0) {
                 continue;
+            }
+
             List<ResourceView> fitResourcesOnGround = ResourceManager.FindFitResourcesOnGround(requiredResource.ResourceType);
             foreach (ResourceView resource in fitResourcesOnGround) {
-                if (requiredResourceAmount == 0)
+                if (requiredResourceAmount == 0) {
                     break;
+                }
+
                 resource.AmountToGather = Mathf.Min(resource.Amount, requiredResourceAmount);
                 _reservedResourceAmount[requiredResource.ResourceType] += resource.AmountToGather;
                 requiredResourceAmount = LeftToBring(requiredResource.ResourceType);
-                CommandData command = new CommandData {
+                CommandData command = new() {
                     Interactable = resource.GetEcsComponent<Interactable>(),
                     Additional = GetEcsComponent<Interactable>(),
-                    CommandType = Command.GatherResources,
+                    CommandType = Command.GatherResources
                 };
                 command.Interactable.AssignCommand(command);
                 command.TriggerCancel += delegate { CancelGatherCommand(command); };
@@ -136,20 +145,24 @@ public class BuildingPlan : ECSEntity {
                 ObsoleteCoreEntryPoint.CommandsManagersHolder.CommandsManager.AddCommandManually(command);
             }
 
-            var requiredResourcesAmount = LeftToBring(requiredResource.ResourceType);
-            if (requiredResourceAmount == 0)
+            int requiredResourcesAmount = LeftToBring(requiredResource.ResourceType);
+            if (requiredResourceAmount == 0) {
                 continue;
+            }
+
             List<Storagable> fitStorages = ResourceManager.FindFitStorages(requiredResource.ResourceType);
             foreach (Storagable storage in fitStorages) {
-                if (requiredResourceAmount == 0)
+                if (requiredResourceAmount == 0) {
                     break;
+                }
+
                 storage.AmountToGather = Mathf.Min(storage.Resource.Amount, requiredResourceAmount);
                 _reservedResourceAmount[requiredResource.ResourceType] += storage.AmountToGather;
                 requiredResourceAmount = LeftToBring(requiredResource.ResourceType);
-                CommandData command = new CommandData {
+                CommandData command = new() {
                     Interactable = storage.GetComponent<Interactable>(),
                     Additional = GetEcsComponent<Interactable>(),
-                    CommandType = Command.GatherResources,
+                    CommandType = Command.GatherResources
                 };
                 command.Interactable.AssignCommand(command);
                 command.TriggerCancel += delegate { CancelGatherCommand(command); };
@@ -174,10 +187,13 @@ public class BuildingPlan : ECSEntity {
 
     private void CancelGatherCommand(CommandData command) {
         _activeGatherCommands.Remove(command);
-        if (TryGetComponent(out ResourceView resource))
+        if (TryGetComponent(out ResourceView resource)) {
             _reservedResourceAmount[resource.ResourceType] -= resource.AmountToGather;
-        if (TryGetComponent(out Storagable storage))
+        }
+
+        if (TryGetComponent(out Storagable storage)) {
             _reservedResourceAmount[storage.Resource.ResourceType] -= resource.AmountToGather;
+        }
     }
 
     //public ResourceData GetRequiredResources()
@@ -188,15 +204,16 @@ public class BuildingPlan : ECSEntity {
     //}
 
     public void AddResource(ResourceData resource) {
-        var currentResource = _currentResources.Find(r => r.ResourceType == resource.ResourceType);
+        ResourceData currentResource = _currentResources.Find(r => r.ResourceType == resource.ResourceType);
         currentResource.Amount += resource.Amount;
         _reservedResourceAmount[resource.ResourceType] -= resource.Amount;
-        if (CanBuild())
+        if (CanBuild()) {
             AssignBuildCommand();
+        }
     }
 
     private void AssignBuildCommand() {
-        CommandData command = new CommandData() {
+        CommandData command = new() {
             Interactable = _interactable,
             CommandType = Command.Build
         };
@@ -206,8 +223,9 @@ public class BuildingPlan : ECSEntity {
 
     private bool CanBuild() {
         foreach (ResourceData currentResource in _currentResources) {
-            if (!EnoughResource(currentResource.ResourceType))
+            if (!EnoughResource(currentResource.ResourceType)) {
                 return false;
+            }
         }
 
         return true;

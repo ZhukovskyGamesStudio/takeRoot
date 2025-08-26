@@ -25,7 +25,7 @@ public class ResourseStorage {
 
             if (ResorceDatas[cell].ResourceType == data.ResourceType) {
                 int diff = MaxStackAmount - ResorceDatas[cell].Amount;
-                ResorceDatas[cell].Amount += Mathf.Min(diff,data.Amount);
+                ResorceDatas[cell].Amount += Mathf.Min(diff, data.Amount);
                 data.Amount -= diff;
             }
 

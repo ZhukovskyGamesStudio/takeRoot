@@ -1,4 +1,3 @@
-using UnityEngine;
 using WorldObjects;
 
 public class TacticalEquippable : ECSComponent {
@@ -31,5 +30,7 @@ public class TacticalEquippable : ECSComponent {
         _tacticalInteractable.OnDestroyed();
     }
 
-    public EquipmentType GetEquipmentType() => ResourcesHelper.GetEquipmentByResourceType(_resourceView.ResourceType);
+    public EquipmentType GetEquipmentType() {
+        return ResourcesHelper.GetEquipmentByResourceType(_resourceView.ResourceType);
+    }
 }

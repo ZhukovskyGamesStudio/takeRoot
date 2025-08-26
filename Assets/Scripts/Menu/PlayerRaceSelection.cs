@@ -6,11 +6,11 @@ public class PlayerRaceSelection : NetworkBehaviour {
 
     public static Action OnCreated;
     public static bool IsCreated = false;
-    public NetworkVariable<Race> Player1Race = new NetworkVariable<Race>(Race.None);
-    public NetworkVariable<Race> Player2Race = new NetworkVariable<Race>(Race.None);
+    public NetworkVariable<Race> Player1Race = new(Race.None);
+    public NetworkVariable<Race> Player2Race = new(Race.None);
 
-    public NetworkVariable<bool> Player1Ready = new NetworkVariable<bool>(false);
-    public NetworkVariable<bool> Player2Ready = new NetworkVariable<bool>(false);
+    public NetworkVariable<bool> Player1Ready = new(false);
+    public NetworkVariable<bool> Player2Ready = new(false);
 
     private void Awake() {
         Instance = this;

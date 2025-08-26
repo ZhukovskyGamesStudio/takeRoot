@@ -31,7 +31,7 @@ public class ChangeModeToggle : MonoBehaviour {
     }
 
     private void ChangeCommandsPanelsWithSettlerMode() {
-        var settler = ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler;
+        Settler settler = ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler;
         if (settler != null) {
             switch (settler.Mode) {
                 case Mode.Planning:

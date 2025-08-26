@@ -13,7 +13,7 @@ public class TacticalCommandsManager : MonoBehaviour {
     private TacticalCommandPanel _tacticalCommandPanel;
 
     private Tilemap _tilemap;
-    
+
     private void Update() {
         if (_tacticalCommandPanel.SelectedTacticalCommand == TacticalCommand.RoundAttack &&
             ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler.TakenTacticalCommand == null) {
@@ -25,7 +25,8 @@ public class TacticalCommandsManager : MonoBehaviour {
         }
 
         if (Input.GetMouseButtonDown(1)) {
-            if (ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler && ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler.Mode == Mode.Tactical) {
+            if (ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler &&
+                ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler.Mode == Mode.Tactical) {
                 TryAddTacticalCommandFromMouseClick(TacticalCommand.Move);
                 return;
             }
@@ -46,24 +47,27 @@ public class TacticalCommandsManager : MonoBehaviour {
     }
 
     private void TryAddTacticalCommandFromMouseClick(TacticalCommand tacticalCommand) {
-        if (ObsoleteCoreEntryPoint.Instance.MyRace() != _race)
+        if (ObsoleteCoreEntryPoint.Instance.MyRace() != _race) {
             return;
+        }
 
-        TacticalInteractable interactable =ObsoleteCoreEntryPoint.SelectionManager.TacticalInteractable as TacticalInteractable;
+        TacticalInteractable interactable = ObsoleteCoreEntryPoint.SelectionManager.TacticalInteractable as TacticalInteractable;
         if (tacticalCommand == TacticalCommand.RoundAttack) {
             interactable = ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler.GetEcsComponent<TacticalInteractable>();
 
             //Выключает тугл RoundAttack чтобы избежать повторных добавлений команды
-            var toggle = _tacticalCommandPanel.GetComponentsInChildren<TacticalCommandToggle>()
+            TacticalCommandToggle toggle = _tacticalCommandPanel.GetComponentsInChildren<TacticalCommandToggle>()
                 .FirstOrDefault(t => t.TacticalCommand == TacticalCommand.RoundAttack);
-            if (toggle != null) toggle.OnValueChanged(false);
+            if (toggle != null) {
+                toggle.OnValueChanged(false);
+            }
         }
 
         if (tacticalCommand == TacticalCommand.Cancel) {
             //RemoveCommand();
         }
 
-        TacticalCommandData data = new TacticalCommandData();
+        TacticalCommandData data = new();
         data.TacticalCommandType = tacticalCommand;
         if (interactable == null && tacticalCommand != TacticalCommand.Move) {
             return;
@@ -72,9 +76,9 @@ public class TacticalCommandsManager : MonoBehaviour {
         if (interactable == null) {
             data.TacticalInteractable = null;
 
-            var position = GetFloorCell();
+            Vector2Int position = GetFloorCell();
             data.TargetPosition = position;
-            var mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition).ToVector2Int();
+            Vector2Int mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition).ToVector2Int();
             data.TargetPoint = new Point(mousePosition.x, mousePosition.y, ObsoleteCoreEntryPoint.LayerManager.currentGlobalLayer);
         } else {
             if (!interactable.CanBeCommanded(tacticalCommand)) {
@@ -82,14 +86,17 @@ public class TacticalCommandsManager : MonoBehaviour {
             }
 
             if (tacticalCommand == TacticalCommand.Merge && interactable.TryGetComponent(out Settler settler)) {
-                if (settler.SettlerData.Race == ObsoleteCoreEntryPoint.Instance.MyRace())
+                if (settler.SettlerData.Race == ObsoleteCoreEntryPoint.Instance.MyRace()) {
                     return;
-                if (settler.SettlerData._mode == Mode.Planning)
+                }
+
+                if (settler.SettlerData._mode == Mode.Planning) {
                     return;
+                }
             }
 
             if (tacticalCommand == TacticalCommand.Equip && interactable.TryGetComponent(out TacticalEquippable equippable)) {
-                var equipType = equippable.GetEquipmentType();
+                EquipmentType equipType = equippable.GetEquipmentType();
                 if (!ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler.SettlerData.PossibleEquipment.Contains(equipType)) {
                     return;
                 }
@@ -117,8 +124,9 @@ public class TacticalCommandsManager : MonoBehaviour {
 
     private void RemoveCommand() {
         if (_currentCommand != null) {
-            if (_currentCommand.PlannedCommandView != null)
+            if (_currentCommand.PlannedCommandView != null) {
                 _currentCommand.PlannedCommandView.Release();
+            }
 
             _currentCommand = null;
             ObsoleteCoreEntryPoint.SettlersSelectionManager.SelectedSettler.ClearTacticalCommand();
