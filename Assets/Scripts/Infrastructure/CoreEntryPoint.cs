@@ -8,12 +8,15 @@ public class CoreEntryPoint : EntryPointBase {
     [Header("Configs")]
     [SerializeField]
     private WorldConfig _worldConfig;
-    
+
     [SerializeField]
     private ResearchConfig _researchConfig;
-    
+
     [SerializeField]
     private ResourcesConfig _resourceConfig;
+
+    [SerializeField]
+    private CameraMovementConfig _cameraMovementConfig;
 
     [Header("Views")]
     [SerializeField]
@@ -28,9 +31,6 @@ public class CoreEntryPoint : EntryPointBase {
     [Space]
     [SerializeField]
     private CoreCanvasUi _coreCanvasUi;
-
-    [SerializeField]
-    private CameraMovementConfig _cameraMovementConfig;
 
     private ServiceLocator _services;
 
