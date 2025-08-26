@@ -1,12 +1,16 @@
 using CodeBase.Services;
 using Cysharp.Threading.Tasks;
 using GameResources;
+using Settlers.Building;
 using UnityEngine;
 
 public class CoreEntryPoint : EntryPointBase {
     [Header("Configs"), SerializeField]
     private WorldConfig _worldConfig;
-
+    [SerializeField]
+    private BuildingsPanelView _buildingsPanelView;
+    [SerializeField]
+    private BuildingsConfig _buildingsConfig;
     [SerializeField]
     private ResearchConfig _researchConfig;
 
@@ -39,7 +43,7 @@ public class CoreEntryPoint : EntryPointBase {
         ICoroutineRunner coroutineRunner = GetComponent<ICoroutineRunner>();
         MapFromSceneObjects map = GetComponent<MapFromSceneObjects>();
         ServiceLocatorLoader_Main loader = new(updateService, coroutineRunner, _resourceConfig, _coreCanvasUi, map, _worldConfig,
-            _researchConfig, _cameraMovementConfig);
+            _researchConfig, _cameraMovementConfig, _buildingsConfig, _buildingsPanelView);
 
         loader.RegisterServices();
         _services = ServiceLocator.Container;

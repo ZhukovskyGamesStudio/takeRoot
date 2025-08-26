@@ -29,11 +29,23 @@ public class GridObject : MonoBehaviour {
         return origin + new Vector3(SizeX / 2f, SizeY / 2f, 0);
     }
 
+    public List<Vector3> GetObjectPositions() {
+        List<Vector3> positions = new List<Vector3>();
+        for (int y = Y; y < Y + SizeY; y++)
+        for (int x = X; x < X + SizeX; x++) {
+            positions.Add(new Vector3(x, y, 0));
+        }
+        return positions;
+    }
+    
     public bool IsObstacle(int3 pos) {
         return Obstacle && pos.x >= X && pos.x < X + MultiplyGridOffset.x && pos.y >= Y && pos.y < Y + MultiplyGridOffset.y && pos.z == Layer;
     }
 
-    public void UpdatePosition() { }
+    public void UpdatePosition() {
+        X = (int)transform.position.x;
+        Y = (int)transform.position.y;
+    }
 
     public List<Vector3> GetObjectCorners() {
         List<Vector3> corners = new(4);

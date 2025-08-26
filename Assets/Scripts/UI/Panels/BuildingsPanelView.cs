@@ -46,7 +46,7 @@ public class BuildingsPanelView : MonoBehaviour {
 
     private void Start() {
         InitToggles();
-        SetData(_mockRecipeConfigs, recipeConfig => Debug.Log($"Starting build of {recipeConfig.HeaderName}"));
+        //SetData(_mockRecipeConfigs, recipeConfig => Debug.Log($"Starting build of {recipeConfig.HeaderName}"));
     }
 
     private void OnEnable() {

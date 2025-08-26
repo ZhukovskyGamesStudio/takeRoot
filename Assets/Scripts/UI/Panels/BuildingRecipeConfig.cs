@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "BuildingRecipeConfig", menuName = "Scriptable Objects/BuildingRecipeConfig", order = 0)]
@@ -6,6 +7,7 @@ public class BuildingRecipeConfig : ScriptableObject {
     public string HeaderName;
 
     public Sprite Icon;
+    public Sprite ObjectSprite;
     public string Description;
     public Vector2Int Footprint;
     public int Hp;
