@@ -14,4 +14,8 @@ public enum ResourceType {
     MashedPotato = 8,
     Biofuel = 9,
     EmptyBottle = 10,
+    Beans = 11,
+    MashedBeans = 12,
+    Screwdriver = 13,
+    SunflowerHead = 14,
 }
