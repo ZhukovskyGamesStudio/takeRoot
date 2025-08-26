@@ -15,6 +15,7 @@ namespace AI {
         public IDestroyer Destroyer;
         public IWaterer Waterer;
         public IResourceCarrier ResourceCarrier;
+        public ICrafter Crafter;
         public WorkerAnimator WorkerAnimator { get; private set; }
 
         private void Start() {
@@ -24,9 +25,11 @@ namespace AI {
             Destroyer = GetComponent<IDestroyer>();
             Waterer = GetComponent<IWaterer>();
             ResourceCarrier = GetComponent<IResourceCarrier>();
+            Crafter = GetComponent<ICrafter>();
             Searcher.Init(WorkerAnimator);
             Destroyer.Init(WorkerAnimator);
             Waterer.Init(WorkerAnimator);
+            Crafter.Init(WorkerAnimator);
             _root = CreateBT();
             _stateBt = new Sequence().AddChild(new Action_HandleEnergy(this));
         }

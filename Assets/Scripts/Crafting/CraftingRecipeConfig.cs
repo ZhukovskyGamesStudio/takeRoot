@@ -14,7 +14,7 @@ namespace Settlers.Crafting {
         public string ExplainText;
 
         [field: SerializeField]
-        public float CraftingPoints;
+        public int CraftingPoints;
 
         [field: SerializeField]
         public List<ResourceData> RequiredResources { get; private set; }
