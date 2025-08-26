@@ -2722,7 +2722,7 @@ MonoBehaviour:
   _buildingToggle: {fileID: 5876377592548657117}
   _buildingPanel: {fileID: 1748642026459056035}
   _buildingNotes:
-  - {fileID: 5407507170912065096}
+  - {fileID: 0}
   - {fileID: 0}
 --- !u!1 &3477112005304835182
 GameObject:
@@ -4353,7 +4353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3884130767924133832
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4807,7 +4807,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 634665288
+  GlobalObjectIdHash: 3177333105
   InScenePlacedSourceGlobalObjectIdHash: 634665288
   DeferredDespawnTick: 0
   Ownership: 1
@@ -6051,11 +6051,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41006bd5e01c73b4ea20013ea7f13a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &5407507170912065096 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6890446039139528509, guid: f25cb024a1728824daf2fffce8ddb959, type: 3}
-  m_PrefabInstance: {fileID: 1482980831134742901}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5622320916375446610 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6526529639218765095, guid: f25cb024a1728824daf2fffce8ddb959, type: 3}
@@ -6091,10 +6086,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2650573814424578}
     m_Modifications:
-    - target: {fileID: 63320058419590894, guid: a782e3ce00635b544b513d046c2f8b2c, type: 3}
-      propertyPath: m_IsOn
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4898442080514852606, guid: a782e3ce00635b544b513d046c2f8b2c, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -6121,11 +6112,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4898442080514852606, guid: a782e3ce00635b544b513d046c2f8b2c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 273.5534
+      value: 312.5
       objectReference: {fileID: 0}
     - target: {fileID: 4898442080514852606, guid: a782e3ce00635b544b513d046c2f8b2c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 97.5
       objectReference: {fileID: 0}
     - target: {fileID: 4898442080514852606, guid: a782e3ce00635b544b513d046c2f8b2c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6175,21 +6166,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5483438676763694363, guid: a782e3ce00635b544b513d046c2f8b2c, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6107554339672523250, guid: a782e3ce00635b544b513d046c2f8b2c, type: 3}
-      propertyPath: m_IsOn
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8266585357624554208, guid: a782e3ce00635b544b513d046c2f8b2c, type: 3}
       propertyPath: m_Name
-      value: TimeStatusPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 8266585357624554208, guid: a782e3ce00635b544b513d046c2f8b2c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: TimeStatusUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
