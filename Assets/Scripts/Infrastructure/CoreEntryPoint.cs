@@ -5,12 +5,17 @@ using GameResources;
 using UnityEngine;
 
 public class CoreEntryPoint : EntryPointBase {
+    [Header("Configs")]
     [SerializeField]
     private WorldConfig _worldConfig;
-
+    
+    [SerializeField]
+    private ResearchConfig _researchConfig;
+    
     [SerializeField]
     private ResourcesConfig _resourceConfig;
 
+    [Header("Views")]
     [SerializeField]
     private CommandView _commandView;
 
@@ -20,6 +25,7 @@ public class CoreEntryPoint : EntryPointBase {
     [SerializeField]
     private SettlerInfoPanel _settlerPanel;
 
+    [Space]
     [SerializeField]
     private CoreCanvasUi _coreCanvasUi;
 
@@ -37,7 +43,7 @@ public class CoreEntryPoint : EntryPointBase {
         var coroutineRunner = GetComponent<ICoroutineRunner>();
         var map = GetComponent<MapFromSceneObjects>();
         var loader = new ServiceLocatorLoader_Main(updateService, coroutineRunner, _resourceConfig, _coreCanvasUi, map, _worldConfig,
-            _cameraMovementConfig);
+            _researchConfig, _cameraMovementConfig);
 
         loader.RegisterServices();
         _services = ServiceLocator.Container;
