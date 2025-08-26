@@ -5,17 +5,19 @@ using UnityEngine;
 
 public class CraftingStation : MonoBehaviour {
     public Dictionary<ResourceType, int> RequiredResources;
+    public Dictionary<ResourceType, int> ReservedRequiredResources;
     public Dictionary<ResourceType, int> ResourceStorage;
 
     private void Start() {
         ServiceLocator.Container.Single<ICraftingService>().AddCraftingStation(this);
         RequiredResources = new Dictionary<ResourceType, int>();
         ResourceStorage = new Dictionary<ResourceType, int>();
+        ReservedRequiredResources = new Dictionary<ResourceType, int>();
         foreach (ResourceType type in (ResourceType[])Enum.GetValues(typeof(ResourceType))) {
             if (type == ResourceType.None) {
                 continue;
             }
-
+            ReservedRequiredResources[type] = 0;
             RequiredResources[type] = 0;
             ResourceStorage[type] = 0;
         }
@@ -28,20 +30,17 @@ public class CraftingStation : MonoBehaviour {
             if (type == ResourceType.None) {
                 continue;
             }
+            var amount = RequiredResources[type] - ReservedRequiredResources[type] - ResourceStorage[type];
 
-            if (RequiredResources[type] == 0) {
-                continue;
-            }
-
-            if (ResourceStorage[type] < RequiredResources[type]) {
+            if (amount > 0) {
                 return type;
             }
         }
-
         return ResourceType.None;
     }
 
     public void StoreResource(ResourceType type, int amount) {
         ResourceStorage[type] += amount;
+        ReservedRequiredResources[type] -= amount;
     }
 }

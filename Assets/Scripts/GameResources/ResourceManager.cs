@@ -30,9 +30,15 @@ public class ResourcesManager : IResourceManager {
         r.Init(amount);
     }
 
+    public void DestroyResource(Vector3 at) {
+        var resource = ExistingResourcesOnGround[at];
+        ExistingResourcesOnGround.Remove(at);
+        Object.Destroy(resource.gameObject);
+    }
+
     public Resource FindResourceOnGround(ResourceType type) {
         foreach (Resource resource in ExistingResourcesOnGround.Values) {
-            if (resource.Type == type) {
+            if (resource.Type == type && resource.Amount - resource.Reserved > 0) {
                 return resource;
             }
         }

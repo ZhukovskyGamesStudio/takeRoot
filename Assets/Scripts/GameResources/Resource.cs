@@ -1,4 +1,5 @@
 using System;
+using CodeBase.Services;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ namespace GameResources {
         [SerializeField]
         private TextMeshPro _amountText;
 
+        private IResourceManager _resourceManager;
+
         [field: SerializeField]
         public int Amount { get; private set; }
 
@@ -19,6 +22,7 @@ namespace GameResources {
         public void Init(int amount) {
             Amount = amount;
             _amountText.text = amount.ToString();
+            _resourceManager = ServiceLocator.Container.Single<IResourceManager>();
         }
 
         public void PickUp(int amount) {
@@ -26,7 +30,7 @@ namespace GameResources {
             Reserved -= amount;
             _amountText.text = Amount.ToString();
             if (Amount == 0) {
-                Destroy(gameObject);
+                _resourceManager.DestroyResource(transform.position);
             }
         }
     }
