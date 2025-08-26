@@ -1,5 +1,6 @@
 using System;
 using CodeBase.Services;
+using Cysharp.Threading.Tasks;
 using GameResources;
 using UnityEngine;
 
@@ -45,6 +46,11 @@ public class CoreEntryPoint : EntryPointBase {
         _services.Single<IDataProvider>().CreaturesData = new CreaturesData();
 
         InitPresenters();
+        GenerateLevel();
+    }
+
+    private async UniTask GenerateLevel() {
+        await _services.Single<ILevelGenerationService>().Generate();
     }
 
     private void InitPresenters() {
