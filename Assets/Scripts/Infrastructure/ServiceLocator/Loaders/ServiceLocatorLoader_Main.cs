@@ -7,6 +7,8 @@ using UnityEngine;
 public class ServiceLocatorLoader_Main {
 	private WorldConfig _worldConfig;
 	private ResourcesConfig _resourceConfig;
+	private ResearchConfig _researchConfig;
+	
 	private CoreCanvasUi _coreCanvasUi;
 	
 	private readonly MapFromSceneObjects _mapFromSceneObjects;
@@ -16,9 +18,10 @@ public class ServiceLocatorLoader_Main {
 	private readonly ServiceLocator _services;
 
 	public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner, ResourcesConfig resourceConfig,
-		CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects, WorldConfig worldConfig) {
+		CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects, WorldConfig worldConfig, ResearchConfig researchConfig) {
 		_coreCanvasUi = coreUI;
 		_worldConfig = worldConfig;
+		_researchConfig = researchConfig;
 		_resourceConfig = resourceConfig;
 		_mapFromSceneObjects = mapFromSceneObjects;
 		_services = ServiceLocator.Container;
@@ -45,7 +48,7 @@ public class ServiceLocatorLoader_Main {
 		_services.RegisterSingle<IPathfindService>(new MockPathfindService());
 		_services.RegisterSingle<IIdentifierService>(new IdentifierService());
 		_services.RegisterSingle<IAsyncRunner>(new UniTaskAsyncRunner());
-		_services.RegisterSingle<IResearchService>(new ResearchService());
+		_services.RegisterSingle<IResearchService>(new ResearchService(_researchConfig));
 		_mapFromSceneObjects.CreateMap();
 		var graph = _mapFromSceneObjects.CreateSimpleGraph();
 		_services.RegisterSingle<IPathfindService>(new AStar(_mapFromSceneObjects));
