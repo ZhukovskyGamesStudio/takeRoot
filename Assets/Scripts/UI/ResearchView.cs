@@ -10,21 +10,37 @@ public class ResearchView : MonoBehaviour {
     private AYellowpaper.SerializedCollections.SerializedDictionary<Graphic, Color> _defaultColors = new();
 
     [SerializeField]
-    private GameObject _bg;
+    private Image _bg;
+
+    [SerializeField]
+    private Sprite _startedBg, _inProcessBg, _completedBg;
 
     [SerializeField]
     private TextMeshProUGUI _titleText, _progressText;
+
+    [SerializeField]
+    private Button _researchButton;
+
+    [SerializeField]
+    private Slider _progressSlider;
+
+    [SerializeField]
+    private CanvasGroup _disabledGroup;
 
     [field: SerializeField]
     public Research Id { get; private set; }
 
     private ResearchData _data;
+    private Sprite _defaultBg;
 
-    public void InitData(ResearchData data) {
+    public void InitData(ResearchData data, ResearchPanelView panelView) {
         _data = data;
+        _defaultBg = _bg.sprite;
 
         _titleText.text = data.DisplayName;
         _progressText.text = data.Price.ToString();
+        
+        _researchButton.onClick.AddListener(() => panelView.SelectResearch(_data));
 
         foreach (KeyValuePair<Graphic, Color> pair in _startedColors) {
             _defaultColors[pair.Key] = pair.Key.color;
@@ -32,17 +48,22 @@ public class ResearchView : MonoBehaviour {
     }
 
     public void UpdateData(int progress, bool inProcess) {
-        _bg.SetActive(!inProcess && progress == 0);
-
+        _progressSlider.value = (float)progress / _data.Price;
+        _disabledGroup.enabled = !_data.Researchable;
+        
         if (progress == _data.Price) {
             ApplyColors(_completedColors);
             _progressText.text = "изучено";
+            _bg.sprite = _completedBg;
         } else if (inProcess) {
             ApplyColors(_inProcessColors);
+            _bg.sprite = _inProcessBg;
         } else if (progress > 0) {
             ApplyColors(_startedColors);
+            _bg.sprite = _startedBg;
         } else {
             ApplyColors(_defaultColors);
+            _bg.sprite = _defaultBg;
         }
     }
 

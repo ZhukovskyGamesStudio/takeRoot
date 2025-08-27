@@ -3,4 +3,6 @@ using System.Collections.Generic;
 public interface IResearchService : IService {
     public Dictionary<Research, ResearchData> GetInitResearchData();
     public ResearchSaveData GetResearchData();
+    public void AddResearchPoints(int points);
+    public void SelectResearch(Research research);
 }

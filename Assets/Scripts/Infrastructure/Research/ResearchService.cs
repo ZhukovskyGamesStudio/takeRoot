@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 public class ResearchService : IResearchService {
     private ResearchSaveData _researchSaveData;
@@ -11,6 +12,7 @@ public class ResearchService : IResearchService {
 
         CreateMockResearchData();
         LoadResearchData();
+        UpdateResearchable();
     }
 
     private void CreateMockResearchData() {
@@ -30,6 +32,17 @@ public class ResearchService : IResearchService {
         return _researchData;
     }
 
+    public ResearchSaveData GetResearchData() {
+        return _researchSaveData;
+    }
+
+    public void SelectResearch(Research research) {
+        if (_researchSaveData.ResearchProgress[research] == _researchData[research].Price) return;
+        if (!_researchData[research].Researchable) return;
+        
+        _researchSaveData.CurrentResearch = research;
+    }
+
     public void AddResearchPoints(int points) {
         if (_researchSaveData.CurrentResearch == Research.None) {
             return;
@@ -43,9 +56,24 @@ public class ResearchService : IResearchService {
         }
 
         _researchSaveData.ResearchProgress[currentResearch] = resultPoints;
+        if (resultPoints == _researchData[currentResearch].Price) {
+            _researchSaveData.CurrentResearch = Research.None;
+            UpdateResearchable();
+        }
     }
 
-    public ResearchSaveData GetResearchData() {
-        return _researchSaveData;
+    private void UpdateResearchable() {
+        foreach (ResearchData research in _researchConfig.Researches) {
+            research.Researchable = true;
+            foreach (Research requirement in research.Requirements) {
+                int progress = _researchSaveData.ResearchProgress[requirement];
+                int price = _researchData[requirement].Price;
+                
+                if (progress != price) {
+                    research.Researchable = false;
+                    break;
+                }
+            }
+        }
     }
 }

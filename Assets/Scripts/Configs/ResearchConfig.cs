@@ -10,14 +10,38 @@ public class ResearchConfig : ScriptableObject {
 [Serializable]
 public class ResearchData {
     public string DisplayName;
+    [TextArea]
+    public string Description;
     public Research Id;
     public int Price;
     public List<Sprite> Rewards;
     public List<Research> Requirements;
+
+    [HideInInspector]
+    public bool Researchable;
 }
 
 public enum Research {
     None,
     HomemadeInstruments,
-    MaterialsProcessing
+    MaterialsProcessing,
+    AdvancedResearches,
+    ArtifactsDetector,
+    TimeStopper,
+    HomemadeSanitary,
+    TubeCooler,
+    TubeDistiller,
+    Waterers,
+    HouseLamp,
+    RestPlace,
+    SettlersCare,
+    Cultivation,
+    ChemicalProcessing,
+    BioFuel,
+    BioGenerator,
+    Lubricant,
+    Fertilizers,
+    RestPlace2Flowers,
+    RestPlace2Robots,
+    SettlersCare2
 }
