@@ -23,7 +23,7 @@ namespace AI.Node.Jobs {
                 _settler.Data.craftingTransport.craftingStation = null;
                 return BTNodeState.Failure;
             }
-            int amount = craftingStation.RequiredResources[type] - craftingStation.ReservedRequiredResources[type] - craftingStation.ResourceStorage[type];
+            int amount = craftingStation.stationData.RequiredResources[type] - craftingStation.ReservedRequiredResources[type] - craftingStation.stationData.ResourceStorage[type];
             if (amount <= 0) {
                 _settler.Data.craftingTransport.craftingStation = null;
                 return BTNodeState.Failure;
