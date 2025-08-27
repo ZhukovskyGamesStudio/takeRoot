@@ -27,6 +27,9 @@ public class ResearchView : MonoBehaviour {
     [SerializeField]
     private CanvasGroup _disabledGroup;
 
+    [SerializeField]
+    private Transform _rewardsContainer;
+
     [field: SerializeField]
     public Research Id { get; private set; }
 
@@ -44,6 +47,13 @@ public class ResearchView : MonoBehaviour {
 
         foreach (KeyValuePair<Graphic, Color> pair in _startedColors) {
             _defaultColors[pair.Key] = pair.Key.color;
+        }
+
+        foreach (SpriteAndName reward in data.Rewards) {
+            Image image = new GameObject().AddComponent<Image>();
+            image.transform.SetParent(_rewardsContainer);
+            image.sprite = reward.Sprite;
+            image.preserveAspect = true;
         }
     }
 

@@ -87,6 +87,11 @@ MonoBehaviour:
     JobCapabilities: 0
     CurrentJob: 0
     AssignedSettler: {fileID: 0}
+    MainInfoData:
+      Icon: {fileID: 0}
+      Name: 
+      Description: 
+      Resources: []
   PlannedJob: {fileID: 8488974201712262369}
   UseAnimatorWhenPerform: 1
   PerformingAnimator: {fileID: 0}
@@ -185,6 +190,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Selected: 0
   _commandTarget: {fileID: 1266403541157989836}
+  _storage: {fileID: 0}
+  _craftingStation: {fileID: 0}
 --- !u!1 &4817668026266952817
 GameObject:
   m_ObjectHideFlags: 0

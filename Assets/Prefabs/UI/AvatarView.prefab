@@ -163,8 +163,8 @@ MonoBehaviour:
     m_NumAlphaKeys: 2
   _hpGradient:
     serializedVersion: 2
-    key0: {r: 1, g: 0, b: 0, a: 1}
-    key1: {r: 1, g: 0.9284844, b: 0, a: 0}
+    key0: {r: 1, g: 0, b: 0, a: 0.69803923}
+    key1: {r: 1, g: 0.9284844, b: 0, a: 0.69803923}
     key2: {r: 0.19726443, g: 1, b: 0, a: 0}
     key3: {r: 1, g: 1, b: 1, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
@@ -179,9 +179,9 @@ MonoBehaviour:
     ctime5: 0
     ctime6: 0
     ctime7: 0
-    atime0: 32768
-    atime1: 65535
-    atime2: 0
+    atime0: 0
+    atime1: 32768
+    atime2: 65535
     atime3: 0
     atime4: 0
     atime5: 0
@@ -190,7 +190,7 @@ MonoBehaviour:
     m_Mode: 0
     m_ColorSpace: -1
     m_NumColorKeys: 4
-    m_NumAlphaKeys: 2
+    m_NumAlphaKeys: 3
 --- !u!1 &7725324734471925595
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class ResearchPanelView : MonoBehaviour {
     private List<ResearchView> _researches;
 
     [SerializeField]
-    private TextMeshProUGUI _titleText, _descriptionText, _requirementsText, _progressText, _selectedText;
+    private TextMeshProUGUI _titleText, _descriptionText, _progressText, _selectedText;
 
     [SerializeField]
     private List<LayoutGroup> _layoutGroups;
@@ -21,6 +21,15 @@ public class ResearchPanelView : MonoBehaviour {
 
     [SerializeField]
     private Button _researchButton;
+
+    [SerializeField]
+    private ResearchReward _rewardPrefab;
+
+    [SerializeField]
+    private ResearchRequirement _requirementPrefab;
+    
+    [SerializeField]
+    private Transform _rewardsContainer, _requirementsContainer;
     
     private ResearchSaveData _saveData;
     private ResearchViewPresenter _presenter;
@@ -77,12 +86,24 @@ public class ResearchPanelView : MonoBehaviour {
         _titleText.text = research.DisplayName;
         _descriptionText.text = research.Description;
 
-        _requirementsText.text = string.Empty;
-        if (research.Requirements.Count == 0) {
-            _requirementsText.text = "Нет";
+        foreach(Transform child in _rewardsContainer) Destroy(child.gameObject);
+        foreach(Transform child in _requirementsContainer) Destroy(child.gameObject);
+        
+        foreach (SpriteAndName reward in research.Rewards) {
+            ResearchReward newReward = Instantiate(_rewardPrefab, _rewardsContainer);
+            newReward.Init(reward);
         }
-        foreach (Research req in research.Requirements) {
-            _requirementsText.text += $"{_presenter.GetResearchData(req).DisplayName}\n";
+        if (research.Rewards.Count == 0) {
+            Instantiate(_rewardPrefab, _rewardsContainer).Init(null);
+        }
+
+        foreach (Research requirement in research.Requirements) {
+            ResearchRequirement newReq = Instantiate(_requirementPrefab, _requirementsContainer);
+            ResearchData researchData = _presenter.GetResearchData(requirement);
+            newReq.Init(researchData.DisplayName, _saveData.ResearchProgress[requirement] == researchData.Price);
+        }
+        if (research.Requirements.Count == 0) {
+            Instantiate(_requirementPrefab, _requirementsContainer).Init();
         }
         
         UpdateLayoutGroups();

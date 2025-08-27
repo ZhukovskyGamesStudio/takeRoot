@@ -14,11 +14,17 @@ public class ResearchData {
     public string Description;
     public Research Id;
     public int Price;
-    public List<Sprite> Rewards;
+    public List<SpriteAndName> Rewards;
     public List<Research> Requirements;
 
     [HideInInspector]
     public bool Researchable;
+}
+
+[Serializable]
+public class SpriteAndName {
+    public string Name;
+    public Sprite Sprite;
 }
 
 public enum Research {
