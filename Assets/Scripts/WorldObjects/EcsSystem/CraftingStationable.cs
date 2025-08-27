@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Settlers.Crafting;
-
+[Obsolete]
 public class CraftingStationable : ECSComponent {
     public Action<string> OnRecipeDataChanged;
     public Action OnResourceStorageDataChanged;

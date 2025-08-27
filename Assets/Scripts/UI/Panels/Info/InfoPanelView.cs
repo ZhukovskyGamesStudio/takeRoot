@@ -1,58 +1,28 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class InfoPanelView : MonoBehaviour {
-    [field: SerializeField]
-    public bool IsAutoOpenInfoPanel { get; private set; }
-
     [SerializeField]
-    private ImageTextPair _mainIconText;
-
-    [SerializeField]
-    private CraftingGridUiView _craftingGridUiView;
+    private MainInfoPart _mainInfoPart;
 
     [SerializeField]
     private StorageInfoPart _storageInfoPart;
 
     [SerializeField]
-    private CraftingInfoPart _craftingInfo;
+    private CraftingInfoPart _craftingInfoPart;
 
-    [field: SerializeField]
-    public Toggle _infoToggle;
+    public void SetData(InfoDataCombined data) {
+        _mainInfoPart.SetData(data.MainInfoData);
 
-    public void SetData(CommandTargetData data) {
-        Init(data.InfoPanelData);
+        if (data.StorageInfoData != null) {
+            _storageInfoPart.SetData(data.StorageInfoData);
+        } else {
+            _storageInfoPart.Disable();
+        }
+
+        if (data.CraftingStation != null) {
+            _craftingInfoPart.SetData(data.CraftingStation);
+        } else {
+            _craftingInfoPart.Disable();
+        }
     }
-
-    public void Init(InfoPanelData data) {
-        _craftingGridUiView.gameObject.SetActive(false);
-
-        _mainIconText.SetData(data.Icon, data.Name);
-        _storageInfoPart.SetData(data.Resources);
-    }
-
-    public void Init(CraftingStationable craftingStationable) {
-        _storageInfoPart.Disable();
-        _mainIconText.SetData(craftingStationable.CraftingStationableData.InfoBookIcon, craftingStationable.CraftingStationableData.Name);
-        _craftingGridUiView.Init(craftingStationable);
-        _craftingGridUiView.gameObject.SetActive(true);
-    }
-
-    public void SetToggle(bool isOn) {
-        _infoToggle.isOn = isOn;
-    }
-
-    public bool GetToggle() {
-        return _infoToggle.isOn;
-    }
-}
-
-[Serializable]
-public class InfoPanelData {
-    public Sprite Icon;
-    public string Name;
-
-    public List<ResourceData> Resources;
 }

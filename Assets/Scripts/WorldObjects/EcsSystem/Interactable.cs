@@ -7,7 +7,7 @@ public class Interactable : ECSComponent, ISelectable {
     private Vector2Int _interactableShift;
 
     private readonly List<Command> _availableCommands = new() { };
-    public Func<InfoPanelData> GetInfoFunc;
+    public Func<MainInfoData> GetInfoFunc;
 
     public Action<CommandData> OnCommandPerformed, OnCommandCanceled;
 
@@ -35,7 +35,7 @@ public class Interactable : ECSComponent, ISelectable {
         }
     }
 
-    public InfoPanelData GetInfoData() {
+    public MainInfoData GetInfoData() {
         return GetInfoFunc?.Invoke();
     }
 

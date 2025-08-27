@@ -13,14 +13,17 @@ public class CraftingInfoPart : MonoBehaviour {
     [SerializeField]
     private Transform _linesContainer;
 
-    public void SetData(List<CraftingRecipeConfig> recipeConfigs) {
+    private CraftingStation _craftingStation;
+    
+    public void SetData(CraftingStation craftingStation) {
         gameObject.SetActive(true);
+        _craftingStation = craftingStation;
 
         foreach (Transform child in _linesContainer) {
             Destroy(child.gameObject);
         }
 
-        foreach (var recipe in recipeConfigs) {
+        foreach (var recipe in craftingStation.AvailableCraftingRecipes) {
             var line = Instantiate(_craftingLineViewPrefab, _linesContainer);
             line.Set(recipe);
         }

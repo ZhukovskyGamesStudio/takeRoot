@@ -61,8 +61,8 @@ public class ResourceView : ECSEntity {
         transform.localScale = scale;
     }
 
-    private InfoPanelData GetInfoData() {
-        InfoPanelData d = new() {
+    private MainInfoData GetInfoData() {
+        MainInfoData d = new() {
             Icon = _icon.sprite,
             Name = gameObject.name,
             Resources = new List<ResourceData>()

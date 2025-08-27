@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,8 +48,9 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
             variable.SetVariant(race);
         }
     }
-
+    [Obsolete]
     public void OpenInfoPanel(ISelectable selectable) {
+       /*
         CloseInfoPanel();
         _infoToggle.isOn = true;
 
@@ -57,7 +59,7 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
             return;
         }
 
-        _infoPanel.Init(selectable.GetInfoData());
+        _infoPanel.Init(selectable.GetInfoData());*/
     }
 
     public void CloseInfoPanel() {

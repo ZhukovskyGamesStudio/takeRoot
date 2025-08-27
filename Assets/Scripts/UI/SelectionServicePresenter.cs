@@ -26,7 +26,7 @@ public class SelectionServicePresenter : IDisposable {
         } else if (selectable is CommandTargetSelectable) {
             _settlerPanel.gameObject.SetActive(false);
             _infoPanelView.gameObject.SetActive(selectable != null);
-            _infoPanelView.SetData((CommandTargetData)selectable.GetData());
+            _infoPanelView.SetData((InfoDataCombined)selectable.GetData());
         } else {
             _settlerPanel.gameObject.SetActive(false);
             _infoPanelView.gameObject.SetActive(false);

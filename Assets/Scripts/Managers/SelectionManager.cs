@@ -1,5 +1,6 @@
+using System;
 using UnityEngine;
-
+[Obsolete]
 public class SelectionManager : MonoBehaviour {
     [SerializeField]
     private CommandsPanel _commandsPanel;

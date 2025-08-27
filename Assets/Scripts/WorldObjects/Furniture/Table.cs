@@ -19,8 +19,8 @@ public class Table : Furniture, ISearchable {
         ResorceStorage.Add(data);
     }
 
-    protected override InfoPanelData GetInfoData() {
-        InfoPanelData d = new() {
+    protected override MainInfoData GetInfoData() {
+        MainInfoData d = new() {
             Icon = _icon.sprite,
             Name = gameObject.name,
             Resources = ResorceStorage.ResorceDatas.ToList()

@@ -1,6 +1,6 @@
 using UnityEngine;
 
 public interface ISelectable {
-    public InfoPanelData GetInfoData();
+    public MainInfoData GetInfoData();
     public GameObject GetGameObject();
 }

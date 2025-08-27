@@ -29,8 +29,8 @@ public abstract class Furniture : ECSEntity, IInteractable, IDamageable {
     protected virtual void OnExplored() { }
     protected virtual void OnAttacked(int damageAmount) { }
 
-    protected virtual InfoPanelData GetInfoData() {
-        InfoPanelData d = new() {
+    protected virtual MainInfoData GetInfoData() {
+        MainInfoData d = new() {
             Icon = _icon.sprite,
             Name = gameObject.name,
             Resources = new List<ResourceData>()

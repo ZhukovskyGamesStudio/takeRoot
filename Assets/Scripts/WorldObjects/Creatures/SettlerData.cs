@@ -101,8 +101,8 @@ public class SettlerData : ECSComponent {
         ResourceManager.SpawnResourcesAround(new List<ResourceData> { resData }, GetCellOnGrid);
     }
 
-    private InfoPanelData GetInfoData() {
-        InfoPanelData data = new() {
+    private MainInfoData GetInfoData() {
+        MainInfoData data = new() {
             Icon = InfoBookIcon,
             Name = Name,
             Resources = new List<ResourceData>()

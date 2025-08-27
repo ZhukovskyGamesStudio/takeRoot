@@ -8,7 +8,7 @@ namespace WorldObjects {
         private Vector2Int _interactableShift;
 
         private readonly List<TacticalCommand> _availableCommands = new();
-        public Func<InfoPanelData> GetInfoFunc;
+        public Func<MainInfoData> GetInfoFunc;
 
         public Action<TacticalCommand> OnCommandPerformed, OnCommandCanceled;
         public Gridable Gridable { get; private set; }
@@ -26,7 +26,7 @@ namespace WorldObjects {
             ObsoleteCoreEntryPoint.SelectionManager.TryClearTacticalSelected(this);
         }
 
-        public InfoPanelData GetInfoData() {
+        public MainInfoData GetInfoData() {
             return GetInfoFunc?.Invoke();
         }
 
