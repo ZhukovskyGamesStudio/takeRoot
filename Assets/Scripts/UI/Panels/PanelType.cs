@@ -8,5 +8,6 @@ public enum PanelType {
     Priorities = 3,
     Map = 4,
     Info = 5,
-    SettlerInfo = 6
+    SettlerInfo = 6,
+    Farming = 7
 }
