@@ -7,11 +7,16 @@ namespace AI.Node.Jobs {
             AddChild(new Action_FindCraftingStation(settler, craftingService));
             AddChild(new Action_ReserveResourceForCrafting(settler, resources));
 
-            ConditionalAction move = new ConditionalAction().Do(new Action_MoveToPos(settler)).While(() => data.craftingTransport.craftingStation && data.craftingTransport.resourceToHaul);
-            Selector pickUp = new Selector().AddChild(new Conditional(() => data.craftingTransport.HasResourceInHands))
+            ConditionalAction move = new ConditionalAction()
+                .Do(new Action_MoveToPos(settler))
+                .While(() => data.craftingTransport.craftingStation && data.craftingTransport.resourceToHaul);
+            Selector pickUp = new Selector()
+                .AddChild(new Conditional(() => data.craftingTransport.HasResourceInHands))
                 .AddChild(new Action_PickupResourceForCrafting(settler));
 
-            ConditionalAction moveToCraftingStation = new ConditionalAction().Do(new Action_MoveToPos(settler)).While(() => data.craftingTransport.craftingStation);
+            ConditionalAction moveToCraftingStation = new ConditionalAction()
+                .Do(new Action_MoveToPos(settler))
+                .While(() => data.craftingTransport.craftingStation);
 
             Action_StoreInCraftingStation storeInCraftingStation = new(settler);
             AddChild(move);

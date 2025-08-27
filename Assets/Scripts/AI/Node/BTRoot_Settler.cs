@@ -7,9 +7,17 @@ namespace AI {
         public BTRoot_Settler(Settler settler, ICommandService commands, ICraftingService crafting,
             IResourceManager resources, IBuildingService building) {
             AddChild(new Behavior_CriticalTired(settler));
+            
+            //находится в тактическом режиме
             AddChild(new Behavior_Tactical(settler));
+            
+            //идёт в кровать
             AddChild(new Behavior_Energy(settler));
+            
             AddChild(new Jobs(settler, commands));
+            
+            
+            
             AddChild(new Job_Craft(settler, crafting));
             AddChild(new Job_HaulResourceForCrafting(settler, crafting, resources));
             AddChild(new Job_HaulResourceForBuilding(settler, building, resources));
@@ -17,3 +25,10 @@ namespace AI {
         }
     }
 }
+
+//FarmingJob
+//Node - FindPlantsToWater
+//Если их нет - fail, иначе sucess
+//Зарезервировали цветок для полива
+//идём к нему
+//

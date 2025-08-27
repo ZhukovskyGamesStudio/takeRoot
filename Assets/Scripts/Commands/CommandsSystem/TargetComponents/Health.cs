@@ -7,7 +7,7 @@ using GameResources;
 public class Health : MonoBehaviour {
     [Header("Health Settings")]
     public float maxHealth = 100f;
-
+    [HideInInspector]
     public float currentHealth;
     private IResourceManager _resources;
 

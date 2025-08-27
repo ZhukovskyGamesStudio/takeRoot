@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GridObject : MonoBehaviour {
     private IGridService _grid;
-    public int X, Y, Layer;
+    [HideInInspector]
+    public int X, Y;
+    public int Layer;
 
     public bool Obstacle;
     public int3 Position => new(X, Y, Layer);

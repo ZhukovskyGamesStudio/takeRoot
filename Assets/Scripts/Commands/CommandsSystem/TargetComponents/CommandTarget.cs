@@ -11,10 +11,12 @@ public class CommandTarget : MonoBehaviour {
     public Animator PerformingAnimator;
 
     public Transform InteractPosition;
-
+    
+    [HideInInspector]
     public int CurrentJobId = -1;
 
     //public JobType CurrentJobType = JobType.None;
+    [HideInInspector]
     public bool Reserved;
 
     private Health _health;

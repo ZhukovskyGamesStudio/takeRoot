@@ -3,11 +3,15 @@ using System;
 namespace AI.Node.Jobs {
     public class Jobs : Sequence {
         public Jobs(Settler settler, ICommandService commands) {
-            Selector findJob = new Selector().AddChild(new Conditional(() => settler.Data.HasJob))
-                .AddChild(new Action_FindJob(settler, commands)).AddChild(new ResetJobOnSettler(settler));
+            Selector findJob = new Selector()
+                .AddChild(new Conditional(() => settler.Data.HasJob))
+                .AddChild(new Action_FindJob(settler, commands))
+                .AddChild(new ResetJobOnSettler(settler));
             AddChild(findJob);
             Selector jobsBehavior = new Selector() //TODO: add priority selector
-                .AddChild(new Job_Search(settler)).AddChild(new Job_Destroy(settler)).AddChild(new Job_Water(settler))
+                .AddChild(new Job_Search(settler))
+                .AddChild(new Job_Destroy(settler))
+                .AddChild(new Job_Water(settler))
                 .AddChild(new ResetJobOnSettler(settler));
             AddChild(jobsBehavior);
         }
