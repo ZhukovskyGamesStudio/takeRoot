@@ -24,7 +24,6 @@ public class CraftingStation : MonoBehaviour {
 			}
 			ReservedRequiredResources[type] = 0;
 		}
-		stationData = new CraftingStationData();
 		stationData.Init();
 	}
 

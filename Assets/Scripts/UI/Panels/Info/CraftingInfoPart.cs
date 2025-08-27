@@ -13,11 +13,11 @@ public class CraftingInfoPart : MonoBehaviour {
     [SerializeField]
     private Transform _linesContainer;
 
-    private CraftingStation _craftingStation;
+    private CraftingStationData _craftingData;
     
-    public void SetData(CraftingStation craftingStation) {
+    public void SetData(CraftingStationData craftingStation) {
         gameObject.SetActive(true);
-        _craftingStation = craftingStation;
+        _craftingData = craftingStation;
 
         foreach (Transform child in _linesContainer) {
             Destroy(child.gameObject);

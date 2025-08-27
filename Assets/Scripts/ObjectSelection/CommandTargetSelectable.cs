@@ -12,7 +12,7 @@ public class CommandTargetSelectable : Selectable {
             MainInfoData = _commandTarget.Data.MainInfoData
         };
         if (_craftingStation != null) {
-            res.CraftingStation = _craftingStation;
+            res.CraftingStation = _craftingStation.stationData;
         }
 
         return res;
