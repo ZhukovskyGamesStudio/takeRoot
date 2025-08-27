@@ -16,7 +16,7 @@ namespace AI.Node.Jobs {
                 Amount = _settler.Data.craftingTransport.amountToPick
             };
             _settler.ResourceCarrier.CarryResource(resource.Type);
-            _settler.Data.curMovePos = _settler.Data.craftingTransport.craftingStation.transform.position;
+            _settler.Data.curMovePos = _settler.Data.craftingTransport.craftingStation.InteractPos[0].position; //TODO: fix interact pos
             return BTNodeState.Success;
         }
     }
