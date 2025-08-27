@@ -7,7 +7,7 @@ namespace AI.Node.Jobs {
 		}
 		public override BTNodeState Evaluate() {
 			var craftingStation = _settler.Data.crafting.craftingStation;
-			if (craftingStation.stationData.CurrentRecipe == null) {
+			if (craftingStation.StationData.CurrentRecipe == null) {
 				_settler.Crafter.Cancel();
 				_settler.Data.crafting.craftingStation = null;
 				return _state = BTNodeState.Success;

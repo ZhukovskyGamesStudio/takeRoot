@@ -1,16 +1,25 @@
 using System;
 using System.Collections.Generic;
 using Settlers.Crafting;
+using UnityEngine;
 
 [Serializable]
 public class CraftingStationData {
+    public List<CraftingRecipeConfig> AvailableCraftingRecipes;
+
+    [HideInInspector]
     public AYellowpaper.SerializedCollections.SerializedDictionary<ResourceType, int> ResourceStorage;
+
+    [HideInInspector]
     public Dictionary<ResourceType, int> RequiredResources;
 
-    public List<CraftingRecipeConfig> AvailableCraftingRecipes;
+    [HideInInspector]
     public Dictionary<string, int> RecipesToCraft;
 
+    [HideInInspector]
     public CraftingRecipeConfig CurrentRecipe;
+
+    [HideInInspector]
     public int CurrentRecipeCraftingPoints;
 
     public void Init() {

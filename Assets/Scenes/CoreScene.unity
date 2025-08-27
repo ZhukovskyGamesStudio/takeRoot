@@ -3764,11 +3764,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2e6879983e456388256cc8cb662124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResourceStorage:
-    _serializedList: []
-  AvailableCraftingRecipes: []
-  CurrentRecipe: {fileID: 0}
-  CurrentRecipeCraftingPoints: 0
+  <StationData>k__BackingField:
+    AvailableCraftingRecipes: []
+    ResourceStorage:
+      _serializedList: []
+    CurrentRecipe: {fileID: 0}
+    CurrentRecipeCraftingPoints: 0
   Crafters:
     _serializedList: []
   InteractPos: []
@@ -36218,6 +36219,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: CraftingTable
       objectReference: {fileID: 0}
+    - target: {fileID: 8235734295133231953, guid: 0a7c139f4d6b445489555f27099b6a76, type: 3}
+      propertyPath: <StationData>k__BackingField.AvailableCraftingRecipes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8235734295133231953, guid: 0a7c139f4d6b445489555f27099b6a76, type: 3}
+      propertyPath: '<StationData>k__BackingField.AvailableCraftingRecipes.Array.data[0]'
+      value: 
+      objectReference: {fileID: 11400000, guid: 62076421a4cadcc40a7e7fd46be232cc, type: 2}
+    - target: {fileID: 8235734295133231953, guid: 0a7c139f4d6b445489555f27099b6a76, type: 3}
+      propertyPath: '<StationData>k__BackingField.AvailableCraftingRecipes.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f3c6514d794556345937323582dd2fca, type: 2}
+    - target: {fileID: 8235734295133231953, guid: 0a7c139f4d6b445489555f27099b6a76, type: 3}
+      propertyPath: '<StationData>k__BackingField.AvailableCraftingRecipes.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: d18dbe62a76c7254fb5c278fce8e7155, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -37827,11 +37844,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2e6879983e456388256cc8cb662124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResourceStorage:
-    _serializedList: []
-  AvailableCraftingRecipes: []
-  CurrentRecipe: {fileID: 0}
-  CurrentRecipeCraftingPoints: 0
+  <StationData>k__BackingField:
+    AvailableCraftingRecipes: []
+    ResourceStorage:
+      _serializedList: []
+    CurrentRecipe: {fileID: 0}
+    CurrentRecipeCraftingPoints: 0
   Crafters:
     _serializedList: []
   InteractPos: []
@@ -38073,11 +38091,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2e6879983e456388256cc8cb662124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ResourceStorage:
-    _serializedList: []
-  AvailableCraftingRecipes: []
-  CurrentRecipe: {fileID: 0}
-  CurrentRecipeCraftingPoints: 0
+  <StationData>k__BackingField:
+    AvailableCraftingRecipes: []
+    ResourceStorage:
+      _serializedList: []
+    CurrentRecipe: {fileID: 0}
+    CurrentRecipeCraftingPoints: 0
   Crafters:
     _serializedList: []
   InteractPos: []

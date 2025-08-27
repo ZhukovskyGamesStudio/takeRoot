@@ -57,6 +57,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1378913489894693337, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: _storage
+      value: 
+      objectReference: {fileID: 4457218376182889559}
+    - target: {fileID: 1378913489894693337, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: _craftingStation
       value: 
       objectReference: {fileID: 8235734295133231953}
@@ -167,6 +171,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8235734295133231953}
+    - targetCorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4457218376182889559}
   m_SourcePrefab: {fileID: 100100000, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
 --- !u!1 &7626318561151303953 stripped
 GameObject:
@@ -185,15 +192,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2e6879983e456388256cc8cb662124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stationData:
+  <StationData>k__BackingField:
     ResourceStorage:
       _serializedList: []
-    AvailableCraftingRecipes:
-    - {fileID: 11400000, guid: 62076421a4cadcc40a7e7fd46be232cc, type: 2}
-    - {fileID: 11400000, guid: d18dbe62a76c7254fb5c278fce8e7155, type: 2}
-    - {fileID: 11400000, guid: f3c6514d794556345937323582dd2fca, type: 2}
+    AvailableCraftingRecipes: []
     CurrentRecipe: {fileID: 0}
     CurrentRecipeCraftingPoints: 0
   Crafters:
     _serializedList: []
   InteractPos: []
+--- !u!114 &4457218376182889559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626318561151303953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6372d345c46642858df988b8a811912e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <StorageData>k__BackingField:
+    Resources:
+    - ResourceType: 1
+      Amount: 5
+    - ResourceType: 0
+      Amount: 0
+    - ResourceType: 0
+      Amount: 0
+    - ResourceType: 0
+      Amount: 0
+    - ResourceType: 0
+      Amount: 0

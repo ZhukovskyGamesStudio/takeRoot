@@ -13,8 +13,8 @@ public class InfoPanelView : MonoBehaviour {
     public void SetData(InfoDataCombined data) {
         _mainInfoPart.SetData(data.MainInfoData);
 
-        if (data.StorageInfoData != null) {
-            _storageInfoPart.SetData(data.StorageInfoData);
+        if (data.StorageData != null) {
+            _storageInfoPart.SetData(data.StorageData);
         } else {
             _storageInfoPart.Disable();
         }

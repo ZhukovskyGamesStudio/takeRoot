@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 
-public class StorageInfoData {
+[Serializable]
+public class StorageData {
     public List<ResourceData> Resources;
 }

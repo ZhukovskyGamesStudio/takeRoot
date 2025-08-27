@@ -11,16 +11,16 @@ public class StorageInfoPart : MonoBehaviour {
     [SerializeField]
     private ResourcesTable _resourcesTable;
 
-    private StorageInfoData  _infoData;
-    public void SetData(StorageInfoData infoData) {
+    private StorageData  _data;
+    public void SetData(StorageData data) {
         gameObject.SetActive(true);
-        _infoData = infoData;
+        _data = data;
 
         foreach (Transform child in _storageSpacesContainer) {
             Destroy(child.gameObject);
         }
 
-        foreach (var resourceData in infoData.Resources) {
+        foreach (var resourceData in data.Resources) {
             var line = Instantiate(_storageSpacePrefab, _storageSpacesContainer);
             line.SetData(_resourcesTable.ResourceIconsDictionary[resourceData.ResourceType], resourceData.Amount.ToString());
         }
