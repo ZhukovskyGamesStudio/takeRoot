@@ -5,12 +5,15 @@ using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.PlayerLoop;
+using UnityEngine.Serialization;
 
 public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 	public Dictionary<ResourceType, int> RequiredResources = new();
 	public Dictionary<ResourceType, int> ReservedRequiredResources = new();
 	public Dictionary<ResourceType, int> ResourceStorage = new();
+	public AI.Settler Builder;
 
+	[FormerlySerializedAs("Builded")] public bool WasBuilded;
 	public bool IsPlaced;
 	private bool _canPlace;
 
@@ -46,7 +49,7 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 
 	public ResourceType GetRequiredResource() {
 		foreach (ResourceType type in (ResourceType[])Enum.GetValues(typeof(ResourceType))) {
-			if (type == ResourceType.None) continue;
+			if (type == ResourceType.None || !RequiredResources.ContainsKey(type)) continue;
 
 			var amount = RequiredResources[type] - ReservedRequiredResources[type] - ResourceStorage[type];
 			if (amount > 0) {
@@ -69,7 +72,7 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 		return canBuild;
 	}
 
-public void Update() {
+	public void Update() {
 		if (IsPlaced) return;
 		BuildingShadowMouseFollow();
 		CheckObstacles();
@@ -130,5 +133,10 @@ public void Update() {
 	public void StoreResource(ResourceType type, int amount) {
 		ResourceStorage[type] += amount;
 		ReservedRequiredResources[type] -= amount;
+	}
+
+	public void Build() {
+		_buildingService.Build(this);
+		Destroy(gameObject);
 	}
 }

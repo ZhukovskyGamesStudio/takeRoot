@@ -39,6 +39,9 @@ namespace AI {
         
         [Header("Transport for Building")]
         public Settler_TransportForBuilding buildingTransport;
+
+        [Header("Building")]
+        public Settler_Building building;
         
         [Header("Idle move")]
         public float IdleMoveCooldown;

@@ -11,6 +11,7 @@ namespace AI {
             AddChild(new Behavior_Energy(settler));
             AddChild(new Jobs(settler, commands));
             AddChild(new Job_Craft(settler, crafting));
+            AddChild(new Job_Build(settler, building));
             AddChild(new Job_HaulResourceForCrafting(settler, crafting, resources));
             AddChild(new Job_HaulResourceForBuilding(settler, building, resources));
             //AddChild(new Behavior_Idle(settler));
