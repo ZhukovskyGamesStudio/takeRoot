@@ -64,6 +64,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IResearchService>(new ResearchService(_researchConfig));
         _services.RegisterSingle<ICameraMovementService>(new CameraMovementService(_cameraMovementConfig, _services.Single<IUpdateService>()));
         _services.RegisterSingle<ILevelGenerationService>(new LevelGenerationService());
+        _services.RegisterSingle<IFarmingService>(new FarmingService());
         
         _mapFromSceneObjects.CreateMap();
         SimpleGraph graph = _mapFromSceneObjects.CreateSimpleGraph();

@@ -4838,6 +4838,7 @@ MonoBehaviour:
   _infoToggle: {fileID: 7162712298565899178}
   <AvatarsView>k__BackingField: {fileID: 6192013297115147934}
   <ResearchPanelView>k__BackingField: {fileID: 4621859301379126625}
+  <FarmingPanelView>k__BackingField: {fileID: 1845519891838506512}
   <PanelsView>k__BackingField: {fileID: 5622320916375446610}
   <PanelTogglesView>k__BackingField: {fileID: 38066053271203595}
   <ResourcesView>k__BackingField: {fileID: 5475529851738297918}
@@ -5720,6 +5721,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 923510181488672470, guid: f25cb024a1728824daf2fffce8ddb959, type: 3}
   m_PrefabInstance: {fileID: 1482980831134742901}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1845519891838506512 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 939002331470262117, guid: f25cb024a1728824daf2fffce8ddb959, type: 3}
+  m_PrefabInstance: {fileID: 1482980831134742901}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9a9cbb9aba3438597ef4620fcfd4eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3802430347043795114 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2328476955743750623, guid: f25cb024a1728824daf2fffce8ddb959, type: 3}

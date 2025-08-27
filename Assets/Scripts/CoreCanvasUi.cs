@@ -18,6 +18,9 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
 
     [field: SerializeField]
     public ResearchPanelView ResearchPanelView { get; private set; }
+    
+    [field: SerializeField]
+    public FarmingPanelView FarmingPanelView { get; private set; }
 
     [field: SerializeField]
     public PanelsView PanelsView { get; private set; }

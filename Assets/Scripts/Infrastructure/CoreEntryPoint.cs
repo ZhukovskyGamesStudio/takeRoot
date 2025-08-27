@@ -7,10 +7,13 @@ using UnityEngine;
 public class CoreEntryPoint : EntryPointBase {
     [Header("Configs"), SerializeField]
     private WorldConfig _worldConfig;
+
     [SerializeField]
     private BuildingsPanelView _buildingsPanelView;
+
     [SerializeField]
     private BuildingsConfig _buildingsConfig;
+
     [SerializeField]
     private ResearchConfig _researchConfig;
 
@@ -74,5 +77,7 @@ public class CoreEntryPoint : EntryPointBase {
             _services.Single<IUpdateService>());
 
         ResearchViewPresenter researchPresenter = new(_coreCanvasUi.ResearchPanelView, _services.Single<IResearchService>());
+
+        FarmingViewPresenter farmingViewPresenter = new(_coreCanvasUi.FarmingPanelView, _services.Single<IFarmingService>());
     }
 }
