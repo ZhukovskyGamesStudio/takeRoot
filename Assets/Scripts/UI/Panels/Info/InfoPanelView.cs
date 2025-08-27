@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,23 +8,17 @@ public class InfoPanelView : MonoBehaviour {
     public bool IsAutoOpenInfoPanel { get; private set; }
 
     [SerializeField]
-    private Image _icon;
-
-    [SerializeField]
-    private TextMeshProUGUI _nameText;
-
-    [SerializeField]
-    private ResourceGridView _resourceGridView;
+    private ImageTextPair _mainIconText;
 
     [SerializeField]
     private CraftingGridUiView _craftingGridUiView;
 
     [SerializeField]
-    private EquipmentGridUiView _equipmentGridView;
+    private StorageInfoPart _storageInfoPart;
 
     [SerializeField]
-    private CraftingReceiptsInfoPart _craftingInfo;
-    
+    private CraftingInfoPart _craftingInfo;
+
     [field: SerializeField]
     public Toggle _infoToggle;
 
@@ -36,19 +29,13 @@ public class InfoPanelView : MonoBehaviour {
     public void Init(InfoPanelData data) {
         _craftingGridUiView.gameObject.SetActive(false);
 
-        _icon.sprite = data.Icon;
-        _nameText.text = data.Name;
-
-        _resourceGridView.FillGrid(data.Resources);
-        _equipmentGridView.gameObject.SetActive(false);
+        _mainIconText.SetData(data.Icon, data.Name);
+        _storageInfoPart.SetData(data.Resources);
     }
 
     public void Init(CraftingStationable craftingStationable) {
-        _equipmentGridView.gameObject.SetActive(false);
-        _resourceGridView.gameObject.SetActive(false);
-
-        _icon.sprite = craftingStationable.CraftingStationableData.InfoBookIcon;
-        _nameText.text = craftingStationable.CraftingStationableData.Name;
+        _storageInfoPart.Disable();
+        _mainIconText.SetData(craftingStationable.CraftingStationableData.InfoBookIcon, craftingStationable.CraftingStationableData.Name);
         _craftingGridUiView.Init(craftingStationable);
         _craftingGridUiView.gameObject.SetActive(true);
     }

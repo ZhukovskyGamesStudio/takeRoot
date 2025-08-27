@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Settlers.Crafting;
 using UnityEngine;
 
-public class CraftingReceiptsInfoPart : MonoBehaviour {
+public class CraftingInfoPart : MonoBehaviour {
     [SerializeField]
     private CraftingLineView _craftingLineViewPrefab;
 
