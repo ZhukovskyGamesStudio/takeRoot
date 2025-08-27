@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class ResouseUiView : MonoBehaviour {
+public class ResourseUiView : MonoBehaviour {
     [field: SerializeField]
     public ResourceType ResourceType { get; private set; }
 

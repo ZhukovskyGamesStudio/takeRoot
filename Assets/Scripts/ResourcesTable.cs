@@ -7,7 +7,7 @@ public class ResourcesTable : ScriptableObject {
     public List<ResourceView> ResourceViewPrefabs { get; private set; } = new();
 
     [field: SerializeField]
-    public List<ResouseUiView> ResourceUiViewPrefabs { get; private set; } = new();
+    public List<ResourseUiView> ResourceUiViewPrefabs { get; private set; } = new();
 
     [field: SerializeField]
     public AYellowpaper.SerializedCollections.SerializedDictionary<ResourceType, Sprite> ResourceIconsDictionary { get; private set; } = new();

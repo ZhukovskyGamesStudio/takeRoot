@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EquipmentUiView : ResouseUiView {
+public class EquipmentUiView : ResourseUiView {
     [SerializeField]
     private EquipmentGridUiView _equipmentGridUi;
 

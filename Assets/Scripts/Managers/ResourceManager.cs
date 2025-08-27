@@ -41,11 +41,11 @@ public class ResourceManager : MonoBehaviour {
         return r;
     }
 
-    public static ResouseUiView SpawnResourceUi(ResourceType resourceType) {
-        ResouseUiView prefab =
+    public static ResourseUiView SpawnResourceUi(ResourceType resourceType) {
+        ResourseUiView prefab =
             ObsoleteCoreEntryPoint.ResourceManager.ResourcesTable.ResourceUiViewPrefabs.First(s => s.ResourceType == resourceType);
         //TODO add pool
-        ResouseUiView r = Instantiate(prefab);
+        ResourseUiView r = Instantiate(prefab);
         return r;
     }
 

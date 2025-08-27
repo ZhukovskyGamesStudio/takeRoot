@@ -35834,7 +35834,7 @@ MonoBehaviour:
   _resourceConfig: {fileID: 11400000, guid: 82b7b31d83d741842b1960f8e1e568ee, type: 2}
   _cameraMovementConfig: {fileID: 11400000, guid: 3ca61f3c1b26d05458fc1f2d4d0dcc18, type: 2}
   _commandView: {fileID: 995292499}
-  _infoBookView: {fileID: 1761549642}
+  _infoPanelView: {fileID: 1761549642}
   _settlerPanel: {fileID: 730839102}
   _coreCanvasUi: {fileID: 1970964712}
 --- !u!4 &1484566829
@@ -38018,19 +38018,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ResourceStorage:
     _serializedList: []
-  AvailableCraftingRecipes:
-  - {fileID: 11400000, guid: f3c6514d794556345937323582dd2fca, type: 2}
+  AvailableCraftingRecipes: []
   CurrentRecipe: {fileID: 0}
   CurrentRecipeCraftingPoints: 0
   Crafters:
-    _serializedList:
-    - Key: 1
-      Value: {fileID: 0}
-    - Key: 2
-      Value: {fileID: 0}
-  InteractPos:
-  - {fileID: 1809547050}
-  - {fileID: 823979942}
+    _serializedList: []
+  InteractPos: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

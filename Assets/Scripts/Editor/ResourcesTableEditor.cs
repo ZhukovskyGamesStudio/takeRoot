@@ -24,7 +24,7 @@ public class ResourcesTableEditor : Editor {
         resourcesTable.ResourceUiViewPrefabs.Clear();
 
         resourcesTable.ResourceViewPrefabs.AddRange(FindAssetsOfType<ResourceView>());
-        resourcesTable.ResourceUiViewPrefabs.AddRange(FindAssetsOfType<ResouseUiView>());
+        resourcesTable.ResourceUiViewPrefabs.AddRange(FindAssetsOfType<ResourseUiView>());
 
         // Save the changes
         EditorUtility.SetDirty(resourcesTable);

@@ -3,13 +3,13 @@ using System.Linq;
 using UnityEngine;
 
 public class ResourceGridView : MonoBehaviour {
-    private readonly List<ResouseUiView> _cells = new();
+    private readonly List<ResourseUiView> _cells = new();
 
     [SerializeField]
-    private ResouseUiView _emptyCell;
+    private ResourseUiView _emptyCell;
 
     public void FillGrid(List<ResourceData> resources) {
-        foreach (ResouseUiView uiView in _cells) {
+        foreach (ResourseUiView uiView in _cells) {
             Destroy(uiView.gameObject);
         }
 
@@ -17,10 +17,10 @@ public class ResourceGridView : MonoBehaviour {
         gameObject.SetActive(resources.Count > 0);
         foreach (ResourceData res in resources) {
             if (res == null) {
-                ResouseUiView r = Instantiate(_emptyCell, transform);
+                ResourseUiView r = Instantiate(_emptyCell, transform);
                 _cells.Add(r);
             } else {
-                ResouseUiView r = ResourceManager.SpawnResourceUi(res.ResourceType);
+                ResourseUiView r = ResourceManager.SpawnResourceUi(res.ResourceType);
                 r.transform.SetParent(transform);
                 r.SetAmount(res.Amount);
                 _cells.Add(r);
@@ -28,7 +28,7 @@ public class ResourceGridView : MonoBehaviour {
         }
     }
 
-    public ResouseUiView GetResourceView(ResourceType type) {
+    public ResourseUiView GetResourceView(ResourceType type) {
         return _cells.FirstOrDefault(r => r.ResourceType == type);
     }
 }

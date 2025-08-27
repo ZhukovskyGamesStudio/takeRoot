@@ -13,5 +13,5 @@ public class CommandTargetData {
     public bool HasJob => CurrentJob != JobType.None;
     public bool Reserved => AssignedSettler != null;
 
-    public InfoBookData InfoBookData;
+    public InfoPanelData InfoPanelData;
 }

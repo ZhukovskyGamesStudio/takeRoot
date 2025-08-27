@@ -1,21 +1,23 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Settlers.Crafting;
 using UnityEngine;
 
+[Obsolete]
 public class CraftingGridUiView : MonoBehaviour {
     [SerializeField]
     private ResourceGridView _storage;
 
     [SerializeField]
-    private CraftingLineUiView _craftingLineUiViewPrefab;
+    private CraftingLineView _craftingLineViewPrefab;
 
     private CraftingStationable _craftingStationable;
 
-    private Dictionary<string, CraftingLineUiView> _craftingLineUiViews = new();
+    private Dictionary<string, CraftingLineView> _craftingLineUiViews = new();
 
     public void Init(CraftingStationable craftingStationable) {
-        foreach (CraftingLineUiView uiView in _craftingLineUiViews.Values) {
+        foreach (CraftingLineView uiView in _craftingLineUiViews.Values) {
             Destroy(uiView.gameObject);
         }
 
@@ -25,11 +27,11 @@ public class CraftingGridUiView : MonoBehaviour {
         _craftingStationable.OnRecipeDataChanged += UpdateCraftingLineUiView;
         _craftingStationable.OnResourceStorageDataChanged += UpdateResourceStorageView;
         foreach (CraftingRecipeConfig recipe in craftingStationable.CraftingStationableData.AvailableRecipes) {
-            CraftingLineUiView craftingLineView = Instantiate(_craftingLineUiViewPrefab, transform.position, Quaternion.identity, transform);
+            CraftingLineView craftingLineView = Instantiate(_craftingLineViewPrefab, transform.position, Quaternion.identity, transform);
 
             _craftingLineUiViews.Add(recipe.RecipeUid, craftingLineView);
 
-            craftingLineView.Set(recipe, this);
+            craftingLineView.Set(recipe);
             UpdateCraftingLineUiView(recipe.RecipeUid);
         }
     }
@@ -39,7 +41,7 @@ public class CraftingGridUiView : MonoBehaviour {
     }
 
     private void UpdateCraftingLineUiView(string recipeUid) {
-        CraftingLineUiView craftingLineView = _craftingLineUiViews[recipeUid];
+        CraftingLineView craftingLineView = _craftingLineUiViews[recipeUid];
         int recipesToCraftCount = _craftingStationable.RecipesToCraftList.Count(r => r == recipeUid);
         craftingLineView.UpdateRecipesAmount(recipesToCraftCount);
         craftingLineView.UpdateRecipesAmountButtons(recipesToCraftCount);

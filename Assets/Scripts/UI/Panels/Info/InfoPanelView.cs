@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InfoBookView : MonoBehaviour {
+public class InfoPanelView : MonoBehaviour {
     [field: SerializeField]
     public bool IsAutoOpenInfoPanel { get; private set; }
 
@@ -23,14 +23,17 @@ public class InfoBookView : MonoBehaviour {
     [SerializeField]
     private EquipmentGridUiView _equipmentGridView;
 
+    [SerializeField]
+    private CraftingReceiptsInfoPart _craftingInfo;
+    
     [field: SerializeField]
     public Toggle _infoToggle;
 
     public void SetData(CommandTargetData data) {
-        Init(data.InfoBookData);
+        Init(data.InfoPanelData);
     }
 
-    public void Init(InfoBookData data) {
+    public void Init(InfoPanelData data) {
         _craftingGridUiView.gameObject.SetActive(false);
 
         _icon.sprite = data.Icon;
@@ -60,7 +63,7 @@ public class InfoBookView : MonoBehaviour {
 }
 
 [Serializable]
-public class InfoBookData {
+public class InfoPanelData {
     public Sprite Icon;
     public string Name;
 

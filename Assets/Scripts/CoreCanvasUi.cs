@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
     [SerializeField]
-    private InfoBookView _infoPanel;
+    private InfoPanelView _infoPanel;
 
     [SerializeField]
     private SettlerInfoPanel _settlerPanel;
