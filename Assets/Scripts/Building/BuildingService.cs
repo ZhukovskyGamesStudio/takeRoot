@@ -15,10 +15,11 @@ public class BuildingService : IBuildingService {
 		buildingsPanelView.SetData(_buildingRecipeConfigs, CreateBuildingBlueprint);
 	}
 	
-	public BuildingBlueprint GetBuildingBlueprintWithJob() {
+	public BuildingBlueprint GetBuildingBlueprintWithTransportJob() {
 		foreach (BuildingBlueprint blueprint in _blueprints) {
 			if (!blueprint.IsPlaced) continue;
-			
+			if (blueprint.CanBuild()) continue;
+			return blueprint;
 		}
 
 		return null;
@@ -38,5 +39,8 @@ public class BuildingService : IBuildingService {
 
 	public void CancelBlueprint(BuildingBlueprint blueprint) {
 		IsEnabled = true;
+	}
+	public void Build(BuildingBlueprint blueprint) {
+		_blueprints.Remove(blueprint);
 	}
 }

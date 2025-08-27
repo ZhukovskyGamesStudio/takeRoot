@@ -56,8 +56,9 @@ namespace AI {
         private BTNode CreateBT() {
             ICommandService commands = ServiceLocator.Container.Single<ICommandService>();
             ICraftingService crafting = ServiceLocator.Container.Single<ICraftingService>();
+            IBuildingService building = ServiceLocator.Container.Single<IBuildingService>();
             IResourceManager resources = ServiceLocator.Container.Single<IResourceManager>();
-            BTRoot_Settler root = new(this, commands, crafting, resources);
+            BTRoot_Settler root = new(this, commands, crafting, resources, building);
             return root;
         }
     }

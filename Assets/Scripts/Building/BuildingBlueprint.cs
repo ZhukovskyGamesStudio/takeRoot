@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CodeBase.Services;
 using Unity.Android.Gradle.Manifest;
@@ -6,14 +7,14 @@ using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.PlayerLoop;
 
 public class BuildingBlueprint : MonoBehaviour, IUpdatable {
-	public Dictionary<ResourceType, int> RequiredResources;
-	public Dictionary<ResourceType, int> ReservedRequiredResources;
-	public Dictionary<ResourceType, int> ResourceStorage;
-	
+	public Dictionary<ResourceType, int> RequiredResources = new();
+	public Dictionary<ResourceType, int> ReservedRequiredResources = new();
+	public Dictionary<ResourceType, int> ResourceStorage = new();
+
 	public bool IsPlaced;
 	private bool _canPlace;
-	
-	[SerializeField]private SpriteRenderer _sprite;
+
+	[SerializeField] private SpriteRenderer _sprite;
 	private IUpdateService _update;
 	private Camera _camera;
 	private IGridService _grid;
@@ -29,14 +30,46 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 		_buildingService = ServiceLocator.Container.Single<IBuildingService>();
 		_input = ServiceLocator.Container.Single<IInputService>();
 		_gridObject = GetComponent<GridObject>();
-
+		
+		foreach (var kvp in config.Ingridients) {
+			var type = kvp.Key;
+			var amount = kvp.Value;
+			RequiredResources.Add(type, amount);
+			ReservedRequiredResources.Add(type, 0);
+			ResourceStorage.Add(type, 0);
+		}
 		_gridObject.MultiplyGridOffset.x = config.Footprint.x - 1;
 		_gridObject.MultiplyGridOffset.y = config.Footprint.y - 1;
 		_sprite.sprite = config.Icon;
 		_update.Register(this);
 	}
 
-	public void Update() {
+	public ResourceType GetRequiredResource() {
+		foreach (ResourceType type in (ResourceType[])Enum.GetValues(typeof(ResourceType))) {
+			if (type == ResourceType.None) continue;
+
+			var amount = RequiredResources[type] - ReservedRequiredResources[type] - ResourceStorage[type];
+			if (amount > 0) {
+				return type;
+			}
+		}
+
+		return ResourceType.None;
+	}
+
+	public bool CanBuild() {
+		var canBuild = true;
+		foreach (var kvp in RequiredResources) {
+			var type = kvp.Key;
+			var amount = kvp.Value;
+			if (ResourceStorage[type] < amount) {
+				canBuild = false;
+			}
+		}
+		return canBuild;
+	}
+
+public void Update() {
 		if (IsPlaced) return;
 		BuildingShadowMouseFollow();
 		CheckObstacles();
@@ -92,5 +125,10 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 		_update.Unregister(this);
 		_buildingService.CancelBlueprint(this);
 		Destroy(gameObject);
+	}
+
+	public void StoreResource(ResourceType type, int amount) {
+		ResourceStorage[type] += amount;
+		ReservedRequiredResources[type] -= amount;
 	}
 }
