@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -5,7 +6,22 @@ public class CraftingService : ICraftingService {
     private List<CraftingStation> _craftingStations = new();
 
     public CraftingStation GetCraftingStationWithJob() {
-        return _craftingStations.FirstOrDefault(c => c.RequiredResources.Count != 0);
+        foreach (CraftingStation craftingStation in _craftingStations) { //TODO: change crafting station pick
+            var type = craftingStation.GetRequiredResource();
+            if (type != ResourceType.None)
+                return craftingStation;
+        }
+        return null;
+    }
+
+    public CraftingStation GetCraftingStationWithAvailableCrafting(Race race) {
+        foreach (CraftingStation station in _craftingStations) {
+            if (!station.CanCraft()) continue;
+            if (station.Crafters.ContainsKey(race) && station.Crafters[race] == null) {
+                return station;
+            }
+        }
+        return null;
     }
 
     public void AddCraftingStation(CraftingStation craftingStation) {

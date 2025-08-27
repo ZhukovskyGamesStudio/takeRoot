@@ -27,4 +27,8 @@ public class InputService : IInputService {
 
         return new Vector2(worldPos.x, worldPos.y);
     }
+
+    public bool GetKeyDown(KeyCode keyCode) {
+        return Input.GetKeyDown(keyCode);
+    }
 }

@@ -1,10 +1,10 @@
 using GameResources;
 
 namespace AI.Node.Jobs {
-    public class Action_PickupResource : BTNode {
+    public class Action_PickupResourceForCrafting : BTNode {
         private readonly Settler _settler;
 
-        public Action_PickupResource(Settler settler) {
+        public Action_PickupResourceForCrafting(Settler settler) {
             _settler = settler;
         }
 

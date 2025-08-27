@@ -15,6 +15,7 @@ namespace AI {
         public IDestroyer Destroyer;
         public IWaterer Waterer;
         public IResourceCarrier ResourceCarrier;
+        public ICrafter Crafter;
         public WorkerAnimator WorkerAnimator { get; private set; }
 
         private void Start() {
@@ -24,9 +25,11 @@ namespace AI {
             Destroyer = GetComponent<IDestroyer>();
             Waterer = GetComponent<IWaterer>();
             ResourceCarrier = GetComponent<IResourceCarrier>();
+            Crafter = GetComponent<ICrafter>();
             Searcher.Init(WorkerAnimator);
             Destroyer.Init(WorkerAnimator);
             Waterer.Init(WorkerAnimator);
+            Crafter.Init(WorkerAnimator);
             _root = CreateBT();
             _stateBt = new Sequence().AddChild(new Action_HandleEnergy(this));
         }
@@ -53,8 +56,9 @@ namespace AI {
         private BTNode CreateBT() {
             ICommandService commands = ServiceLocator.Container.Single<ICommandService>();
             ICraftingService crafting = ServiceLocator.Container.Single<ICraftingService>();
+            IBuildingService building = ServiceLocator.Container.Single<IBuildingService>();
             IResourceManager resources = ServiceLocator.Container.Single<IResourceManager>();
-            BTRoot_Settler root = new(this, commands, crafting, resources);
+            BTRoot_Settler root = new(this, commands, crafting, resources, building);
             return root;
         }
     }

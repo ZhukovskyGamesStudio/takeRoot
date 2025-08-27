@@ -1,11 +1,14 @@
 using System;
 using CodeBase.Services;
 using GameResources;
+using Settlers.Building;
 using UnityEngine;
 
 [Serializable]
 public class ServiceLocatorLoader_Main {
     private WorldConfig _worldConfig;
+    private BuildingsPanelView _buildingsPanelView;
+    private BuildingsConfig _buildingsConfig;
     private readonly CameraMovementConfig _cameraMovementConfig;
 
     private ResourcesConfig _resourceConfig;
@@ -21,11 +24,13 @@ public class ServiceLocatorLoader_Main {
 
     public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner, ResourcesConfig resourceConfig,
         CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects, WorldConfig worldConfig, ResearchConfig researchConfig,
-        CameraMovementConfig cameraMovementConfig) {
+        CameraMovementConfig cameraMovementConfig, BuildingsConfig buildingsConfig, BuildingsPanelView buildingsPanelView) {
         _coreCanvasUi = coreUI;
         _worldConfig = worldConfig;
         _researchConfig = researchConfig;
         _cameraMovementConfig = cameraMovementConfig;
+        _buildingsConfig = buildingsConfig;
+        _buildingsPanelView = buildingsPanelView;
         _resourceConfig = resourceConfig;
         _mapFromSceneObjects = mapFromSceneObjects;
         _services = ServiceLocator.Container;
@@ -59,7 +64,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IResearchService>(new ResearchService(_researchConfig));
         _services.RegisterSingle<ICameraMovementService>(new CameraMovementService(_cameraMovementConfig, _services.Single<IUpdateService>()));
         _services.RegisterSingle<ILevelGenerationService>(new LevelGenerationService());
-
+        
         _mapFromSceneObjects.CreateMap();
         SimpleGraph graph = _mapFromSceneObjects.CreateSimpleGraph();
         _services.RegisterSingle<IPathfindService>(new AStar(_mapFromSceneObjects));
@@ -78,5 +83,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<ISelectionService>(new SelectionService(_services.Single<IInputService>(), _services.Single<IPhysicsService>(),
             _services.Single<IUpdateService>(), _services.Single<ICommandService>()));
         _services.RegisterSingle<ISettlersService>(new SettlersService());
+        
+        _services.RegisterSingle<IBuildingService>(new BuildingService(_buildingsConfig, _buildingsPanelView));
     }
 }

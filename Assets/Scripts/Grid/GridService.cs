@@ -24,4 +24,8 @@ public class GridService : IGridService {
         _map.Map[new int3((int)pos.x, (int)pos.y, (int)pos.z)] = false;
         _map.CreateSimpleGraph();
     }
+
+    public bool OnMap(Vector3 pos) {
+        return _map.Map.ContainsKey(new int3((int)pos.x, (int)pos.y, (int)pos.z));
+    }
 }

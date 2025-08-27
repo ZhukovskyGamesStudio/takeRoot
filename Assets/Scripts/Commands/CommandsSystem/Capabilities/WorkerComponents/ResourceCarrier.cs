@@ -23,7 +23,7 @@ namespace AI {
         }
 
         public void DropResource() {
-            throw new NotImplementedException();
+            _resourceContainer.sprite = null;
         }
     }
 }

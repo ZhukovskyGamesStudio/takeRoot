@@ -8,4 +8,5 @@ public interface IInputService : IService {
 
     public Vector2 GetScreenMousePosition();
     public Vector2 GetWorldMousePosition();
+    public bool GetKeyDown(KeyCode keyCode);
 }
