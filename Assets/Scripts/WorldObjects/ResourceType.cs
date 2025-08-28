@@ -17,5 +17,6 @@ public enum ResourceType {
     MashedBeans = 12,
     Screwdriver = 13,
     SunflowerHead = 14,
-    Artifact = 15
+    Artifact = 15,
+    Dirt = 16,
 }

@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd30a5d4b6654a9ca51a40c4e41c1e0d, type: 3}
   m_Name: CameraMovementConfig
   m_EditorClassIdentifier: 
-  IsEdgeMoving: 1
+  IsEdgeMoving: 0
   IsDragMoving: 1
   CameraSpeed: 10
-  DragMultiplier: 1.5
   EdgeMargin: 20
   CameraBounds:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 80
-    height: 60
+    x: 10
+    y: 5
+    width: 60
+    height: 40
   ZoomSpeed: 2
   MinZoom: 5
   MaxZoom: 20
