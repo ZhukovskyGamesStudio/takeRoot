@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
 using Settlers.Building;
-using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class BuildingService : IBuildingService {
 	private List<BuildingRecipeConfig> _buildingRecipeConfigs;
@@ -17,11 +18,20 @@ public class BuildingService : IBuildingService {
 	
 	public BuildingBlueprint GetBuildingBlueprintWithTransportJob() {
 		foreach (BuildingBlueprint blueprint in _blueprints) {
+			if (blueprint.WasBuilded) continue;
 			if (!blueprint.IsPlaced) continue;
 			if (blueprint.CanBuild()) continue;
 			return blueprint;
 		}
 
+		return null;
+	}
+
+	public BuildingBlueprint GetBuildingBlueprintWithBuildJob() {
+		foreach (BuildingBlueprint blueprint in _blueprints) {
+			if (blueprint.CanBuild() && blueprint.Builder == null)
+				return blueprint;
+		}
 		return null;
 	}
 

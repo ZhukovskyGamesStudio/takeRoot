@@ -9,6 +9,7 @@ namespace AI.Node.Jobs {
 			var craftingStation = _settler.Data.crafting.craftingStation;
 			if (craftingStation.StationData.CurrentRecipe == null) {
 				_settler.Crafter.Cancel();
+				craftingStation.Crafters[_settler.Data.names.Race] = null;
 				_settler.Data.crafting.craftingStation = null;
 				return _state = BTNodeState.Success;
 			}

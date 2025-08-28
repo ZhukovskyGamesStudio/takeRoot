@@ -26,6 +26,10 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader {
         _animator.SetTrigger(_craftStateHash);
     }
 
+    public void PlayBuild() {
+        _animator.SetTrigger((_craftStateHash)); //TODO: make build animation
+    }
+
     public void PlayWater() {
         _animator.SetTrigger(_waterStateHash);
     }

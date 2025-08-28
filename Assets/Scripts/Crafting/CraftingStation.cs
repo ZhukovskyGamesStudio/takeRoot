@@ -15,14 +15,20 @@ public class CraftingStation : MonoBehaviour {
     [HideInInspector]
     public AYellowpaper.SerializedCollections.SerializedDictionary<Race, AI.Settler> Crafters = new();
 
-    [HideInInspector]
+    //[HideInInspector]
     public List<Transform> InteractPos = new List<Transform>(2);
 
     private ICraftingService _craftingService;
+    private IResourceManager _resourceManager;
 
     private void Start() {
+        _resourceManager = ServiceLocator.Container.Single<IResourceManager>();
         _craftingService = ServiceLocator.Container.Single<ICraftingService>();
         _craftingService.AddCraftingStation(this);
+        Crafters = new() {
+            { Race.Plants, null},
+            { Race.Robots, null}
+        };
         ReservedRequiredResources = new Dictionary<ResourceType, int>();
         foreach (ResourceType type in (ResourceType[])Enum.GetValues(typeof(ResourceType))) {
             if (type == ResourceType.None) {
@@ -120,6 +126,7 @@ public class CraftingStation : MonoBehaviour {
             StationData.RequiredResources[requiredResources.ResourceType] -= requiredResources.Amount;
         }
 
+        _resourceManager.SpawnResource(InteractPos[0].position, StationData.CurrentRecipe.ResultingResource.ResourceType, StationData.CurrentRecipe.ResultingResource.Amount);
         StationData.CurrentRecipeCraftingPoints = 0;
         StationData.CurrentRecipe = null;
         Debug.Log($"Crafted {resource.ResourceType}");
