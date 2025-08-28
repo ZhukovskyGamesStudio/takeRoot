@@ -13,4 +13,7 @@ public class CommandView : MonoBehaviour {
     public Button WaterCommandButton;
     public Button CancelCommandButton;
     public Button MoveCommandButton;
+    
+    [field: SerializeField]
+    public AYellowpaper.SerializedCollections.SerializedDictionary<JobType, Toggle> Toggles { get; private set; } = new();
 }
