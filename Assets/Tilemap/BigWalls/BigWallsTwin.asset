@@ -588,4 +588,8 @@ MonoBehaviour:
     - {x: -1, y: 1, z: 0}
     - {x: 1, y: 1, z: 0}
     m_RuleTransform: 0
-  _twinRuleTile: {fileID: 11400000, guid: a02ecb0e77dceb24e9f911c622e3a58d, type: 2}
+  _twinRuleTiles:
+  - {fileID: 11400000, guid: 130d6e7eed5badc41810e40624754107, type: 2}
+  - {fileID: 11400000}
+  - {fileID: 11400000, guid: 93d23ca072642214bb6b25852349cd80, type: 2}
+  - {fileID: 11400000, guid: c49229875632e214884027631592b146, type: 2}

@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 [CreateAssetMenu]
 public class RuleTwinTile : RuleTile<RuleTwinTile.Neighbor> {
     [SerializeField]
-    private RuleTile _twinRuleTile;
+    private List<TileBase> _twinRuleTiles;
 
     public override bool RuleMatch(int neighbor, TileBase tile) {
         switch (neighbor) {
@@ -17,8 +18,8 @@ public class RuleTwinTile : RuleTile<RuleTwinTile.Neighbor> {
         }
 
         switch (neighbor) {
-            case TilingRuleOutput.Neighbor.This: return tile == this || tile == _twinRuleTile;
-            case TilingRuleOutput.Neighbor.NotThis: return tile != this && tile != _twinRuleTile;
+            case TilingRuleOutput.Neighbor.This: return tile == this || _twinRuleTiles.Contains(tile);
+            case TilingRuleOutput.Neighbor.NotThis: return tile != this && !_twinRuleTiles.Contains(tile);
         }
 
         return true;
