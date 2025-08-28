@@ -33,6 +33,8 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
     
     [field: SerializeField]
     public OverlaysView OverlaysView { get; private set; }
+    [field: SerializeField]
+    public NotificationsView NotificationsView { get; private set; }
 
     public void Init() {
         ObsoleteCoreEntryPoint.UI = this;

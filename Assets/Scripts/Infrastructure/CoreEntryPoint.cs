@@ -78,7 +78,9 @@ public class CoreEntryPoint : EntryPointBase {
 
         ResearchViewPresenter researchPresenter = new(_coreCanvasUi.ResearchPanelView, Single<IResearchService>());
 
-        FarmingViewPresenter farmingViewPresenter = new(_coreCanvasUi.FarmingPanelView, Single<IFarmingService>());
+        FarmingViewPresenter farmingPresenter = new(_coreCanvasUi.FarmingPanelView, Single<IFarmingService>());
+        
+        NotificationsPresenter notificationsPresenter = new(_coreCanvasUi.NotificationsView, Single<INotificationsService>());
     }
 
     private TService Single<TService>() where TService : IService {
