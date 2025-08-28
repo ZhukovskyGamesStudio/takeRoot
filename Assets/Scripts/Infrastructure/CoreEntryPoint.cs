@@ -63,8 +63,7 @@ public class CoreEntryPoint : EntryPointBase {
     }
 
     private void InitPresenters() {
-        CommandPresenter commandPresenter = new();
-        commandPresenter.Init(_commandView, _services.Single<IJobCommandsInputHandlerService>());
+        CommandPresenter commandPresenter = new(_commandView, _services.Single<IJobCommandsInputHandlerService>());
 
         SelectionServicePresenter selectionPresenter = new(_infoPanelView, _settlerPanel, _services.Single<IJobCommandsInputHandlerService>(),
             _services.Single<ISelectionService>());
