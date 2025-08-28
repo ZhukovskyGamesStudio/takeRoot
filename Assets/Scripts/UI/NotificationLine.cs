@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class NotificationLine : MonoBehaviour {
     [field: SerializeField]
-    public AYellowpaper.SerializedCollections.SerializedDictionary<NotificationType, Color> Colors { get; private set; } = new();
+    public AYellowpaper.SerializedCollections.SerializedDictionary<NotificationType, Color> Colors { get; private set; }
 
     [SerializeField]
     private TextMeshProUGUI _text;
@@ -20,8 +20,17 @@ public class NotificationLine : MonoBehaviour {
         _data = data;
         _onDelete = onDelete;
         _text.text = data.Message;
-        _text.color = Colors[data.Type];
+        SetNotificationColor(data);
         _deleteButton.gameObject.SetActive(data.IsDeletable);
+    }
+
+    private void SetNotificationColor(NotificationData data) {
+        try {
+            _text.color = Colors[data.Type];
+        } catch (Exception e) {
+            Debug.LogError($"NotificationLine: Color for NotificationType {data.Type} not found. Exception: {e.Message}");
+            _text.color = Color.white; // Fallback color
+        }
     }
 
     public void Delete() {
