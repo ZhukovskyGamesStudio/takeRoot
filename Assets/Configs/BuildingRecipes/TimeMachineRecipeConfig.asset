@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
   m_Name: TimeMachineRecipeConfig
   m_EditorClassIdentifier: 
+  mainInfo: {fileID: 11400000, guid: 59f4b373e34a49e459f7527ab1130516, type: 2}
   HeaderName: "\u041C\u0430\u0448\u0438\u043D\u0430 \u0432\u0440\u0435\u043C\u0435\u043D\u0438"
   Icon: {fileID: 21300000, guid: 509189a34235316479f9b8354bdfd54b, type: 3}
+  ObjectSprite: {fileID: 0}
   Description: "\u041F\u043E\u0437\u0432\u043E\u043B\u044F\u0435\u0442 \u043E\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C
     \u0432\u0440\u0435\u043C\u044F"
   Footprint: {x: 3, y: 1}

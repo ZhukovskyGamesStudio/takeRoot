@@ -12,12 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba062654bd04376998121b10d7ff44a, type: 3}
   m_Name: RedbeansFarmingPlantConfig
   m_EditorClassIdentifier: 
-  <MainData>k__BackingField:
-    Icon: {fileID: 21300000, guid: c0e620facb781364ebe728c6e064964d, type: 3}
-    Name: "\u043A\u0440\u0430\u0441\u043D\u044B\u0435 \u0431\u043E\u0431\u044B"
-    Description: "\u0418\u0437 \u0431\u043E\u0431\u043E\u0432 \u043F\u043E\u043B\u0443\u0447\u0430\u044E\u0442\u0441\u044F
-      \u0432\u043A\u0443\u0441\u043D\u044B\u0435 \u0443\u0434\u043E\u0431\u0440\u0435\u043D\u0438\u044F"
-    Resources: []
+  <MainData>k__BackingField: {fileID: 11400000, guid: 7778c340ef7757745b98e1bc5a8db33c, type: 2}
   <Sprites>k__BackingField:
   - {fileID: 21300000, guid: 168feddcfa74fc549bb04fdcc472910e, type: 3}
   - {fileID: 21300000, guid: 7169bcb1b11c56649bb3e3acabe9517b, type: 3}
