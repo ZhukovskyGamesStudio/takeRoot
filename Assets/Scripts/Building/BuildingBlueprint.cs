@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
 using CodeBase.Services;
-using Unity.Android.Gradle.Manifest;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
-using UnityEngine.PlayerLoop;
 using UnityEngine.Serialization;
 
 public class BuildingBlueprint : MonoBehaviour, IUpdatable {
