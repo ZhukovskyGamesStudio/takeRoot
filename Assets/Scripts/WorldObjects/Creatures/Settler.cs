@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+[Obsolete]
 public class Settler : ECSEntity {
     public const float CellSize = 1f;
     private static readonly int Mood = Animator.StringToHash("Mood");

@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[Obsolete]
 public class ECSEntity : MonoBehaviour {
     private List<ECSComponent> _components;
 
