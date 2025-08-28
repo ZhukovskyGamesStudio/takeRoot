@@ -96,15 +96,21 @@ public class CameraMovementService : ICameraMovementService, IUpdatable, IDispos
     }
 
     private void TryMoveCameraToZoom() {
-        Vector2 delta = Mouse.current.position.ReadValue() - new Vector2(Screen.width / 2f, Screen.height / 2f);
-        Vector3 movement = new(delta.x, delta.y, 0);
-        _cameraTransform.position += movement * _config.DragMultiplier * (_main.orthographicSize / _config.MinZoom) * Time.deltaTime;
+        Vector3 current = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector3 start = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width / 2f, Screen.height / 2f));
+        Vector3 movement = current - start;
+        movement.z = 0;
+
+        _cameraTransform.position += movement;
     }
 
     private void DragCamera() {
-        Vector2 delta = _currentPosition - _startPosition;
-        Vector3 movement = new(delta.x, delta.y, 0);
-        _cameraTransform.position -= movement * _config.DragMultiplier * (_main.orthographicSize / _config.MinZoom) * Time.deltaTime;
+        Vector3 current = Camera.main.ScreenToWorldPoint(_currentPosition);
+        Vector3 start = Camera.main.ScreenToWorldPoint(_startPosition);
+        Vector3 movement = current - start;
+        movement.z = 0;
+
+        _cameraTransform.position -= movement;
 
         _startPosition = _currentPosition;
     }

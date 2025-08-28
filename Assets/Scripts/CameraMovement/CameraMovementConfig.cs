@@ -5,7 +5,7 @@ using UnityEngine.InputSystem.LowLevel;
 public class CameraMovementConfig : ScriptableObject {
     public bool IsEdgeMoving = true, IsDragMoving = true;
 
-    public float CameraSpeed = 10f, DragMultiplier = 2;
+    public float CameraSpeed = 10f;
 
     public float EdgeMargin = 20f;
 
