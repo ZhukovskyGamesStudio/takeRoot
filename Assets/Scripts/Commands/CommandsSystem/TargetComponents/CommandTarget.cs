@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CommandTarget : MonoBehaviour {
     public CommandTargetData Data;
+    
+    [HideInInspector]
     public JobType JobCapabilities { get; private set; }
 
     public PlannedJobView PlannedJob;

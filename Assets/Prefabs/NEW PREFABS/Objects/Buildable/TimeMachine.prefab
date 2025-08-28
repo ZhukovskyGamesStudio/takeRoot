@@ -17,6 +17,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1266403541157989836, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: Data.MainInfoData
+      value: 
+      objectReference: {fileID: 11400000, guid: 59f4b373e34a49e459f7527ab1130516, type: 2}
+    - target: {fileID: 1266403541157989836, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: PerformingAnimator
       value: 
       objectReference: {fileID: 985004555348340709}

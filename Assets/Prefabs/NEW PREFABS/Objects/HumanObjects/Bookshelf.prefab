@@ -186,6 +186,10 @@ PrefabInstance:
       propertyPath: MultiplyGridOffset.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1266403541157989836, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: Data.MainInfoData
+      value: 
+      objectReference: {fileID: 11400000, guid: 4f2b754cb5625ef489e610482633c66b, type: 2}
     - target: {fileID: 1323424012592844595, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Size.x
       value: 1.9375
