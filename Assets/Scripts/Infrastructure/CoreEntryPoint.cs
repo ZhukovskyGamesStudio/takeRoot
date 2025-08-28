@@ -51,32 +51,37 @@ public class CoreEntryPoint : EntryPointBase {
         loader.RegisterServices();
         _services = ServiceLocator.Container;
 
-        _services.Single<IDataProvider>().WorldResourcesData = new WorldResourcesData();
-        _services.Single<IDataProvider>().CreaturesData = new CreaturesData();
+        Single<IDataProvider>().WorldResourcesData = new WorldResourcesData();
+        Single<IDataProvider>().CreaturesData = new CreaturesData();
 
         InitPresenters();
         GenerateLevel();
     }
 
     private async UniTask GenerateLevel() {
-        await _services.Single<ILevelGenerationService>().Generate();
+        await Single<ILevelGenerationService>().Generate();
     }
 
     private void InitPresenters() {
-        CommandPresenter commandPresenter = new(_commandView, _services.Single<IJobCommandsInputHandlerService>());
+        CommandPresenter commandPresenter = new(_commandView, Single<IJobCommandsInputHandlerService>());
 
-        SelectionServicePresenter selectionPresenter = new(_infoPanelView, _settlerPanel, _services.Single<IJobCommandsInputHandlerService>(),
-            _services.Single<ISelectionService>());
-        AvatarsViewPresenter avatarsPresenter = new(_coreCanvasUi.AvatarsView, _services.Single<ISettlersService>(),
-            _services.Single<IRaceService>(), _services.Single<IUpdateService>());
+        OverlaysPresenter overlaysPresenter = new OverlaysPresenter(_coreCanvasUi.OverlaysView, Single<IOverlayService>());
+
+        SelectionServicePresenter selectionPresenter = new(_infoPanelView, _settlerPanel, Single<IJobCommandsInputHandlerService>(),
+            Single<ISelectionService>());
+        AvatarsViewPresenter avatarsPresenter = new(_coreCanvasUi.AvatarsView, Single<ISettlersService>(), Single<IRaceService>(),
+            Single<IUpdateService>());
 
         PanelsPresenter panelsPresenter = new(_coreCanvasUi.PanelTogglesView, _coreCanvasUi.PanelsView);
 
-        ResourcesViewPresenter resorcesPresenter = new(_coreCanvasUi.ResourcesView, _services.Single<IResourceManager>(),
-            _services.Single<IUpdateService>());
+        ResourcesViewPresenter resorcesPresenter = new(_coreCanvasUi.ResourcesView, Single<IResourceManager>(), Single<IUpdateService>());
 
-        ResearchViewPresenter researchPresenter = new(_coreCanvasUi.ResearchPanelView, _services.Single<IResearchService>());
+        ResearchViewPresenter researchPresenter = new(_coreCanvasUi.ResearchPanelView, Single<IResearchService>());
 
-        FarmingViewPresenter farmingViewPresenter = new(_coreCanvasUi.FarmingPanelView, _services.Single<IFarmingService>());
+        FarmingViewPresenter farmingViewPresenter = new(_coreCanvasUi.FarmingPanelView, Single<IFarmingService>());
+    }
+
+    private TService Single<TService>() where TService : IService {
+        return _services.Single<TService>();
     }
 }
