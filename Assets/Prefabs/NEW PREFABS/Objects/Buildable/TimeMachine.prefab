@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 933429075467480961, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: MultiplyGridOffset.x
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 933429075467480961, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: MultiplyGridOffset.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1266403541157989836, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: Data.MainInfoData
@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3575029597453831756, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Size.x
-      value: 2.0132027
+      value: 3.108702
       objectReference: {fileID: 0}
     - target: {fileID: 3575029597453831756, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Size.y
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3575029597453831756, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Offset.x
-      value: 0.50660133
+      value: 1.0543507
       objectReference: {fileID: 0}
     - target: {fileID: 3575029597453831756, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Offset.y
