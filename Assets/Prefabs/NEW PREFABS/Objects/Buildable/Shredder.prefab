@@ -210,7 +210,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <StationData>k__BackingField:
-    AvailableCraftingRecipes: []
+    AvailableCraftingRecipes:
+    - {fileID: 11400000, guid: 59134f0b1e06f8a428e9ba11babf4864, type: 2}
+    - {fileID: 11400000, guid: b336f32715f24a64fb0778b65a49420f, type: 2}
+    - {fileID: 11400000, guid: 7fdf5b28b82559c489641ed294476fdd, type: 2}
     ResourceStorage:
       _serializedList: []
     CurrentRecipe: {fileID: 0}

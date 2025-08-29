@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 842f9349c2204217902cd1d28ab1e682, type: 3}
-  m_Name: MashedPotato
+  m_Name: Oil
   m_EditorClassIdentifier: 
   RecipeUid: 1
-  RecipeIcon: {fileID: 21300000, guid: cb8a862065a0c414a8e663ad60305583, type: 3}
-  ExplainText: "\u043F\u044E\u0440\u0435 \u0438\u0437 \u043A\u0430\u0440\u0442\u043E\u0448\u043A\u0438"
+  RecipeIcon: {fileID: 21300000, guid: 2f8175a6ebc2ab54faa4d1f3f5c8731b, type: 3}
+  ExplainText: "\u043C\u0430\u0441\u043B\u043E"
   CraftingPoints: 10
   <RequiredResources>k__BackingField:
-  - ResourceType: 7
+  - ResourceType: 14
     Amount: 1
   <ResultingResource>k__BackingField:
-    ResourceType: 8
+    ResourceType: 1
     Amount: 1
