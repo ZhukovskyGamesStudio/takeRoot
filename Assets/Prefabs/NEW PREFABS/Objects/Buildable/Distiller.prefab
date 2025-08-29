@@ -68,7 +68,7 @@ PrefabInstance:
     - target: {fileID: 1378913489894693337, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: _craftingStation
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 217487338992961142}
     - target: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Name
       value: Distiller
@@ -187,14 +187,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1676900400950888927}
+      addedObject: {fileID: 217487338992961142}
   m_SourcePrefab: {fileID: 100100000, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
 --- !u!1 &7626318561151303953 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
   m_PrefabInstance: {fileID: 8303864909110491460}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1676900400950888927
+--- !u!114 &217487338992961142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -203,7 +203,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7626318561151303953}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c351717f7d249df85884edcddee78fc, type: 3}
+  m_Script: {fileID: 11500000, guid: ce2e6879983e456388256cc8cb662124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _icon: {fileID: 0}
+  <StationData>k__BackingField:
+    AvailableCraftingRecipes: []
+    ResourceStorage:
+      _serializedList: []
+    CurrentRecipe: {fileID: 0}
+    CurrentRecipeCraftingPoints: 0
+  Crafters:
+    _serializedList: []
+  InteractPos: []
