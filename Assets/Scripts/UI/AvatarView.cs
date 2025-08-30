@@ -20,6 +20,11 @@ public class AvatarView : MonoBehaviour {
     }
 
     public void UpdateData() {
+        if (_settlerData.Dead) {
+            Destroy(gameObject);
+            return;
+        }
+        
         _iconImage.sprite = _settlerData.names.Subrace switch {
             Subrace.Chamomile => _chamomile,
             Subrace.Succulent => _succulent,
