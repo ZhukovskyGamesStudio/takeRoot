@@ -53,6 +53,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IWorldWriter>(worldState);
 
         _services.RegisterSingle<IAssetProvider>(new AssetProvider());
+        _services.RegisterSingle<IConfigsProvider>(new ConfigsProvider());
         _services.RegisterSingle<IDataProvider>(new DataProvider());
         _services.RegisterSingle<IPhysicsService>(new PhysicsService());
         _services.RegisterSingle<IInputService>(new InputService());
@@ -64,7 +65,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IResearchService>(new ResearchService(_researchConfig));
         _services.RegisterSingle<ICameraMovementService>(new CameraMovementService(_cameraMovementConfig, _services.Single<IUpdateService>()));
         _services.RegisterSingle<ILevelGenerationService>(new LevelGenerationService());
-        _services.RegisterSingle<IFarmingService>(new FarmingService());
+        _services.RegisterSingle<IFarmingService>(new FarmingService(_services.Single<IUpdateService>(), _services.Single<IConfigsProvider>()));
         _services.RegisterSingle<IOverlayService>(new OverlayService());
       
         

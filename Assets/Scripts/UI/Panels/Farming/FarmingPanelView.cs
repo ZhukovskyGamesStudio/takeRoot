@@ -7,18 +7,11 @@ public class FarmingPanelView : MonoBehaviour {
     private FarmingLineView _farmingLinesPrefab;
 
     [SerializeField]
-    private List<FarmingPlantConfig> _farmingConfigsMock;
-
-    [SerializeField]
     private Transform _linesContainer;
 
     private List<FarmingPlantConfig> _farmingConfigs;
     private Action<FarmingPlantConfig> _onPlant;
     private Action _onCut;
-
-    private void Start() {
-        SetData(_farmingConfigsMock, _ => Debug.Log($"OnPlant {_.MainData.Name}"), () => Debug.Log("OnCut"));
-    }
 
     public void SetData(List<FarmingPlantConfig> farmingConfigs, Action<FarmingPlantConfig> onPlant, Action onCut) {
         _onPlant = onPlant;

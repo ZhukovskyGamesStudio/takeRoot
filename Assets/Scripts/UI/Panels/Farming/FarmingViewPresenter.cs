@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class FarmingViewPresenter {
 
     private FarmingPanelView _view;
@@ -6,5 +8,6 @@ public class FarmingViewPresenter {
     public FarmingViewPresenter(FarmingPanelView view, IFarmingService service) {
         _view = view;
         _service = service;
+        _view.SetData(_service.AvailableFarmingPlantConfigs,_ => Debug.Log($"OnPlant {_.MainData.Name}"), () => Debug.Log("OnCut") );
     }
 }

@@ -12,7 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba062654bd04376998121b10d7ff44a, type: 3}
   m_Name: SunflowerFarmingPlantConfig
   m_EditorClassIdentifier: 
+  <PlantType>k__BackingField: 3
   <MainData>k__BackingField: {fileID: 11400000, guid: 71fb69532defa6d4ea52ee7ac79e40cb, type: 2}
   <Sprites>k__BackingField:
   - {fileID: 21300000, guid: b2088c4e39cdbba49ab63ad812463190, type: 3}
   - {fileID: 21300000, guid: f4362c00a43b51447be5cc4ffd070c85, type: 3}
+  <GrowthStages>k__BackingField:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 21300000, guid: 70edf2d4aea023b428adc4f4ebb6121d, type: 3}
+    - Key: 0.3
+      Value: {fileID: 21300000, guid: 3f22b772c2f9d044daec20c49444eaf8, type: 3}
+    - Key: 0.7
+      Value: {fileID: 21300000, guid: 16f1db2ed597ca243bfc74751a59ba37, type: 3}
+    - Key: 1
+      Value: {fileID: 21300000, guid: eb693905c85e357448fad0ea31dd0c65, type: 3}

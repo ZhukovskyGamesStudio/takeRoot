@@ -12,8 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba062654bd04376998121b10d7ff44a, type: 3}
   m_Name: RedbeansFarmingPlantConfig
   m_EditorClassIdentifier: 
+  <PlantType>k__BackingField: 2
   <MainData>k__BackingField: {fileID: 11400000, guid: 7778c340ef7757745b98e1bc5a8db33c, type: 2}
   <Sprites>k__BackingField:
   - {fileID: 21300000, guid: 168feddcfa74fc549bb04fdcc472910e, type: 3}
   - {fileID: 21300000, guid: 7169bcb1b11c56649bb3e3acabe9517b, type: 3}
   - {fileID: 21300000, guid: f4362c00a43b51447be5cc4ffd070c85, type: 3}
+  <GrowthStages>k__BackingField:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 21300000, guid: c5fc905d29c71564693b9f928386b7f1, type: 3}
+    - Key: 0.3
+      Value: {fileID: 21300000, guid: 916f5e11034c36247987ff3ed3828bff, type: 3}
+    - Key: 0.6
+      Value: {fileID: 21300000, guid: 8988f88a949e3ae49bbab65603d6310b, type: 3}
+    - Key: 1
+      Value: {fileID: 21300000, guid: 1cc2d921a60cc1d488f965ff13894616, type: 3}
