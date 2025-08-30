@@ -9,14 +9,18 @@ namespace AI.Node.Jobs {
 		}
 
 		public override BTNodeState Evaluate() {
-			Resource resource = _settler.Data.buildingTransport.resourceToHaul;
-			resource.PickUp(_settler.Data.buildingTransport.amountToPick);
-			_settler.Data.buildingTransport.resourceInHands = new ResourceData {
+			var dataBuildingTransport = _settler.Data.buildingTransport;
+			if (dataBuildingTransport.resourceInHands.ResourceType != ResourceType.None) {
+				return BTNodeState.Success;
+			}
+			Resource resource = dataBuildingTransport.resourceToHaul;
+			resource.PickUp(dataBuildingTransport.amountToPick);
+			dataBuildingTransport.resourceInHands = new ResourceData {
 				ResourceType = resource.Type,
-				Amount = _settler.Data.buildingTransport.amountToPick
+				Amount = dataBuildingTransport.amountToPick
 			};
 			_settler.ResourceCarrier.CarryResource(resource.Type);
-			_settler.Data.curMovePos = _settler.Data.buildingTransport.buildingBlueprint.InteractionPos.position;
+			_settler.Data.curMovePos = dataBuildingTransport.buildingBlueprint.InteractionPos.position;
 			return BTNodeState.Success;
 		}
 	}

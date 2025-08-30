@@ -8,6 +8,5 @@ namespace AI {
 		public Resource resourceToHaul;
 		public int amountToPick;
 		public ResourceData resourceInHands;
-		public bool HasResourceInHands => resourceInHands.ResourceType != ResourceType.None;
 	}
 }
