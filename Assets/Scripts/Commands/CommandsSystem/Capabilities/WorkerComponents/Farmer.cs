@@ -6,8 +6,8 @@ using UnityEngine;
 public class Farmer : MonoBehaviour, IPlanter {
     [Header("Farmer Settings")]
     public float PlantTime = 1.5f;
-    private float _lastPlantTime;
-    private bool _isPlanting;
+    public float HarvestTime = 1.5f;
+    private bool _isPerforming;
 
     private WorkerAnimator _animator;
     private IAsyncRunner _asyncRunner;
@@ -19,7 +19,7 @@ public class Farmer : MonoBehaviour, IPlanter {
     }
     
     public void Plant(FarmingPlot target) {
-        if (_isPlanting) {
+        if (_isPerforming) {
             return;
         }
 
@@ -27,9 +27,17 @@ public class Farmer : MonoBehaviour, IPlanter {
         DoPlant(target, _taskCts.Token).Forget();
     }
 
+    public void Harvest(FarmingPlot target) {
+        if (_isPerforming) {
+            return;
+        }
+        _taskCts = new CancellationTokenSource();
+        DoHarvest(target, _taskCts.Token).Forget();
+    }
+
     private async UniTaskVoid DoPlant(FarmingPlot target, CancellationToken token) {
-        _isPlanting = true;
-        _animator.PlaySleep();
+        _isPerforming = true;
+        _animator.PlayCraft();
         while (!token.IsCancellationRequested) {
             await _asyncRunner.Wait(PlantTime, token);
             if (token.IsCancellationRequested) {
@@ -39,6 +47,19 @@ public class Farmer : MonoBehaviour, IPlanter {
             target.PlantFinished();
         }
     }
+    
+    private async UniTaskVoid DoHarvest(FarmingPlot target, CancellationToken token) {
+        _isPerforming = true;
+        _animator.PlayCraft();
+        while (!token.IsCancellationRequested) {
+            await _asyncRunner.Wait(HarvestTime, token);
+            if (token.IsCancellationRequested) {
+                break;
+            }
+
+            target.Harvest();
+        }
+    }
 
     public void Cancel() {
         if (_taskCts != null && !_taskCts.Token.IsCancellationRequested) {
@@ -46,7 +67,7 @@ public class Farmer : MonoBehaviour, IPlanter {
             _taskCts.Dispose();
             _taskCts = null;
             _animator.ResetToIdle();
-            _isPlanting = false;
+            _isPerforming = false;
         }
     }
 

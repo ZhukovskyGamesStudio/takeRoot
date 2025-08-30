@@ -1,4 +1,5 @@
 using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -7,16 +8,16 @@ public class WaterLevel : MonoBehaviour {
     public float maxWater = 1;
 
     [FormerlySerializedAs("currentMoisture")]
-    public float currentWater;
+    public ReactiveProperty<float> currentWater = new ReactiveProperty<float>();
 
-    public bool EnoughWater => Mathf.Approximately(currentWater, maxWater);
+    public bool EnoughWater => Mathf.Approximately(currentWater.Value, maxWater);
 
     public void Dry(float amount) {
-        currentWater -= amount;
+        currentWater.Value -= amount;
     }
 
     public void ChangeWater(float amount) {
-        currentWater += amount;
-        currentWater = Math.Clamp(currentWater, 0, maxWater);
+        currentWater.Value += amount;
+        currentWater.Value = Math.Clamp(currentWater.Value, 0, maxWater);
     }
 }
