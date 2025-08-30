@@ -24,6 +24,8 @@ namespace AI {
 
         [Header("Needs")]
         public Settler_Needs needs;
+        public float needsUpdateCooldown;
+        public float needsUpdateTimer;
 
         [Header("Names")]
         public Settler_Names names;

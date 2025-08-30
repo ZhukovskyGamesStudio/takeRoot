@@ -48,16 +48,16 @@ public class SettlerInfoPanel : MonoBehaviour {
         _nameText.text = _settlerData.names.Name;
 
         float hp = (float)_settlerData.needs.Hp / _settlerData.needs.MaxHp;
-        float stress = 1 - (float)_settlerData.needs.Stress / _settlerData.needs.MaxStress;
-        float hunger = 1 - (float)_settlerData.needs.Hunger / _settlerData.needs.MaxHunger;
-        float energy = (float)_settlerData.energy.currentEnergy / _settlerData.energy.maxEnergy;
-        float condition = (float)_settlerData.needs.Care / _settlerData.needs.MaxCare;
+        float stress = 1 - _settlerData.needs.StressData.Percentage;
+        float satiety = _settlerData.needs.SatietyData.Percentage;
+        float energy = _settlerData.energy.Percentage;
+        float care = _settlerData.needs.CareData.Percentage;
 
         _hpSlider.value = hp;
         _stressSlider.value = stress;
-        _hungerSlider.value = hunger;
+        _hungerSlider.value = satiety;
         _energySlider.value = energy;
-        _conditionSlider.value = condition;
+        _conditionSlider.value = care;
 
         _hpFill.color = _hpGradient.Evaluate(hp);
         _stressFill.color = _stressGradient.Evaluate(stress);

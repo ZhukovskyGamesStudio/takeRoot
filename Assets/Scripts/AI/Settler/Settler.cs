@@ -33,8 +33,8 @@ namespace AI {
             Waterer.Init(WorkerAnimator);
             Crafter.Init(WorkerAnimator);
             Builder.Init(WorkerAnimator);
-            _root = CreateBT();
-            _stateBt = new Sequence().AddChild(new Action_HandleEnergy(this));
+            _root = CreateRootBt();
+            _stateBt = CreateStateBt();
         }
 
         private void Update() {
@@ -44,6 +44,20 @@ namespace AI {
             Profiler.BeginSample("Evaluate Settler State change BT");
             _stateBt?.Evaluate();
             Profiler.EndSample();
+        }
+
+        public void StartBreakdown() {
+            Data.needs.StressData.breakdownTimer = 0;
+            Data.Condition = SettlerCondition.Breakdown;
+        }
+
+        public void EndBreakdown() {
+            Data.Condition = SettlerCondition.Neutral;
+            Data.needs.StressData.currentStress = Data.needs.StressData.stressAfterBreakdown;
+        }
+
+        public void Die() {
+            gameObject.SetActive(false);
         }
 
         public void Sleep() {
@@ -56,7 +70,15 @@ namespace AI {
             WorkerAnimator.ResetToIdle();
         }
 
-        private BTNode CreateBT() {
+        private BTNode CreateStateBt() {
+            BTNode stateBt = new Sequence()
+                .AddChild(new Action_HandleNeedsChange(this));
+            
+            
+            return stateBt;
+        }
+
+        private BTNode CreateRootBt() {
             ICommandService commands = ServiceLocator.Container.Single<ICommandService>();
             ICraftingService crafting = ServiceLocator.Container.Single<ICraftingService>();
             IBuildingService building = ServiceLocator.Container.Single<IBuildingService>();

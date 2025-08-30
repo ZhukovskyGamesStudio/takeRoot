@@ -6,6 +6,8 @@ namespace AI {
     public class BTRoot_Settler : Selector {
         public BTRoot_Settler(Settler settler, ICommandService commands, ICraftingService crafting,
             IResourceManager resources, IBuildingService building) {
+            AddChild(new Behavior_Death(settler));
+            
             AddChild(new Behavior_CriticalTired(settler));
             
             //находится в тактическом режиме

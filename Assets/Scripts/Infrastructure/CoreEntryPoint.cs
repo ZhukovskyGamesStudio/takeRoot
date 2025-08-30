@@ -68,7 +68,7 @@ public class CoreEntryPoint : EntryPointBase {
         OverlaysPresenter overlaysPresenter = new OverlaysPresenter(_coreCanvasUi.OverlaysView, Single<IOverlayService>());
 
         SelectionServicePresenter selectionPresenter = new(_infoPanelView, _settlerPanel, Single<IJobCommandsInputHandlerService>(),
-            Single<ISelectionService>());
+            Single<ISelectionService>(), Single<IUpdateService>());
         AvatarsViewPresenter avatarsPresenter = new(_coreCanvasUi.AvatarsView, Single<ISettlersService>(), Single<IRaceService>(),
             Single<IUpdateService>());
 
