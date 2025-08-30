@@ -10,9 +10,11 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 	public Dictionary<ResourceType, int> ReservedRequiredResources = new();
 	public Dictionary<ResourceType, int> ResourceStorage = new();
 	public AI.Settler Builder;
+	public Transform InteractionPos;
 	private GameObject _buildingPrefab;
 
 	[FormerlySerializedAs("Builded")] public bool WasBuilded;
+
 	public bool IsPlaced;
 	private bool _canPlace;
 
@@ -137,7 +139,7 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 
 	public void Build() {
 		_buildingService.Build(this);
-		Instantiate(_buildingPrefab, transform.position, Quaternion.identity);
+		Instantiate(_buildingPrefab, transform.position, Quaternion.identity); //TODO: move instantiate to service
 		_gridObject.OccupyTiles();
 		Destroy(gameObject);
 	}
