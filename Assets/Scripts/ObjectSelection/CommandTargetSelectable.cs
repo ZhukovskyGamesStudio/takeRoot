@@ -9,11 +9,14 @@ public class CommandTargetSelectable : Selectable {
 
     [SerializeField]
     private CraftingStation _craftingStation;
+
+    [SerializeField]
+    private Progress _progress;
     
-    //todo cache all components in awake
+    //TODO: cache all components in awake
 
     public override object GetData() {
-        var res = new InfoDataCombined() {
+        var res = new InfoDataCombined {
             MainInfoData = _commandTarget.Data.MainInfoData
         };
 
@@ -23,6 +26,10 @@ public class CommandTargetSelectable : Selectable {
 
         if (_craftingStation != null) {
             res.CraftingStation = _craftingStation.StationData;
+        }
+        
+        if(_progress != null) {
+            res.ProgressData = _progress.ProgressData;
         }
 
         return res;
