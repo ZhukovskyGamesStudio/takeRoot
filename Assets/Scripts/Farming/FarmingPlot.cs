@@ -1,4 +1,6 @@
 using System;
+using CodeBase.Services;
+using GameResources;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -74,10 +76,22 @@ public class FarmingPlot : MonoBehaviour {
 
         if (GrowingLevel >= GrowThreshold) {
             PlantState = FarmingPlantState.ReadyToHarvest;
+            Harvest();
         }
 
         _plantView.sprite = _plantConfig != null ? _plantConfig.GetGrowthSpriteByLevel(GrowingLevel) : null;
     }
 
+    public void Harvest() {
+        var resourceManager = ServiceLocator.Container.Single<IResourceManager>();
+        foreach (var drop in _plantConfig.DropOnHarvest) {
+            resourceManager.SpawnResource(transform.position, drop.type, drop.amount);
+        }
+        PlantState = FarmingPlantState.Growing;
+        ChangeGrow(-1);
+    }
+
     public bool NeedsWatering() => PlantType != FarmingPlantType.None && PlantState != FarmingPlantState.WaitingForWater;
+    
+    public bool CanBeHarvested() => PlantState == FarmingPlantState.ReadyToHarvest;
 }
