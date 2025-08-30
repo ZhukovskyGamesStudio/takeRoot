@@ -104,8 +104,7 @@ public class SettlerData : ECSComponent {
     private MainInfoData GetInfoData() {
         MainInfoData data = new() {
             Icon = InfoBookIcon,
-            Name = Name,
-            Resources = new List<ResourceData>()
+            Name = Name
         };
         return data;
     }

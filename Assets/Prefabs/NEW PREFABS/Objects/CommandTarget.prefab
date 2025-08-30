@@ -87,11 +87,7 @@ MonoBehaviour:
     JobCapabilities: 0
     CurrentJob: 0
     AssignedSettler: {fileID: 0}
-    MainInfoData:
-      Icon: {fileID: 0}
-      Name: 
-      Description: 
-      Resources: []
+    MainInfoData: {fileID: 0}
   PlannedJob: {fileID: 8488974201712262369}
   UseAnimatorWhenPerform: 1
   PerformingAnimator: {fileID: 0}
@@ -278,7 +274,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!1001 &309764496163754493
 PrefabInstance:
   m_ObjectHideFlags: 0

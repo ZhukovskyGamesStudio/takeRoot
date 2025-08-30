@@ -32,13 +32,8 @@ public abstract class Furniture : ECSEntity, IInteractable, IDamageable {
     protected virtual MainInfoData GetInfoData() {
         MainInfoData d = new() {
             Icon = _icon.sprite,
-            Name = gameObject.name,
-            Resources = new List<ResourceData>()
+            Name = gameObject.name
         };
-        Storagable storagable = GetEcsComponent<Storagable>();
-        if (storagable != null) {
-            d.Resources.Add(storagable.Resource);
-        }
 
         return d;
     }

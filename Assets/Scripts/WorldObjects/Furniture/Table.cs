@@ -23,7 +23,6 @@ public class Table : Furniture, ISearchable {
         MainInfoData d = new() {
             Icon = _icon.sprite,
             Name = gameObject.name,
-            Resources = ResorceStorage.ResorceDatas.ToList()
         };
         return d;
     }

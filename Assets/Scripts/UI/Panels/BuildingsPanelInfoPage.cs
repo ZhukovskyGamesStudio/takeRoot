@@ -28,8 +28,8 @@ public class BuildingsPanelInfoPage : MonoBehaviour {
     public void SetData(BuildingRecipeConfig recipeConfig) {
         _notSelectedState.gameObject.SetActive(false);
         _selectedState.gameObject.SetActive(true);
-        _header.text = recipeConfig.HeaderName;
-        _description.text = recipeConfig.Description;
+        _header.text = recipeConfig.mainInfo.Name;
+        _description.text = recipeConfig.mainInfo.Description;
         _footprint.text = $"{recipeConfig.Footprint.x}x{recipeConfig.Footprint.y}";
         _hp.text = $"{recipeConfig.Hp}";
 

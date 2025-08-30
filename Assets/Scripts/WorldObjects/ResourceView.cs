@@ -65,7 +65,6 @@ public class ResourceView : ECSEntity {
         MainInfoData d = new() {
             Icon = _icon.sprite,
             Name = gameObject.name,
-            Resources = new List<ResourceData>()
         };
         return d;
     }

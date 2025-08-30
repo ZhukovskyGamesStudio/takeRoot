@@ -25,9 +25,9 @@ public class BuildingPanelGridView : MonoBehaviour {
 
     public void SetData(BuildingRecipeConfig config) {
         _config = config;
-        _name.text = config.HeaderName;
-        _selectedNameText.text = config.HeaderName;
-        _icon.sprite = _config.Icon;
+        _name.text = config.mainInfo.Name;
+        _selectedNameText.text = config.mainInfo.Name;
+        _icon.sprite = _config.mainInfo.Icon;
         _toggle.isOn = false;
     }
 

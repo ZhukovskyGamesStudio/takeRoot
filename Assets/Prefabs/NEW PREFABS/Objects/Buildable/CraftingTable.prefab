@@ -17,6 +17,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1266403541157989836, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: Data.MainInfoData
+      value: 
+      objectReference: {fileID: 11400000, guid: b420e50162f8fa04e91101ba76e5edaa, type: 2}
+    - target: {fileID: 1266403541157989836, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: PerformingAnimator
       value: 
       objectReference: {fileID: 0}
@@ -205,7 +209,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <StationData>k__BackingField:
-    AvailableCraftingRecipes: []
+    AvailableCraftingRecipes:
+    - {fileID: 11400000, guid: d18dbe62a76c7254fb5c278fce8e7155, type: 2}
+    - {fileID: 11400000, guid: f3c6514d794556345937323582dd2fca, type: 2}
+    - {fileID: 11400000, guid: 62076421a4cadcc40a7e7fd46be232cc, type: 2}
+    - {fileID: 11400000, guid: 700fc6bf48b0b954aa06fe12683b835f, type: 2}
+    - {fileID: 11400000, guid: 03aa22ab7ff4a1c48a1dac084e689b69, type: 2}
     ResourceStorage:
       _serializedList: []
     CurrentRecipe: {fileID: 0}

@@ -3,12 +3,11 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "BuildingRecipeConfig", menuName = "Scriptable Objects/BuildingRecipeConfig", order = 0)]
 public class BuildingRecipeConfig : ScriptableObject {
-    [Header("Shouldn't be here!!!")]
-    public string HeaderName;
-
-    public Sprite Icon;
+    
+    public MainInfoData mainInfo;
+    
     public Sprite ObjectSprite;
-    public string Description;
+   
     public Vector2Int Footprint;
     public int Hp;
 

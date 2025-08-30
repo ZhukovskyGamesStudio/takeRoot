@@ -66,6 +66,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<ILevelGenerationService>(new LevelGenerationService());
         _services.RegisterSingle<IFarmingService>(new FarmingService());
         _services.RegisterSingle<IOverlayService>(new OverlayService());
+      
         
         _mapFromSceneObjects.CreateMap();
         SimpleGraph graph = _mapFromSceneObjects.CreateSimpleGraph();
@@ -87,5 +88,6 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<ISettlersService>(new SettlersService());
         
         _services.RegisterSingle<IBuildingService>(new BuildingService(_buildingsConfig, _buildingsPanelView));
+        _services.RegisterSingle<INotificationsService>(new NotificationsService(_services.Single<IUpdateService>()));
     }
 }

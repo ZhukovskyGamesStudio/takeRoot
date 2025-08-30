@@ -25,6 +25,8 @@ public class ResourcesView : MonoBehaviour {
             _resourceLines.Add(line);
             line.gameObject.SetActive(false);
         }
+        _upButton.gameObject.SetActive(false);
+        _downButton.gameObject.SetActive(false);
     }
 
     public void SetData(Dictionary<ResourceType, int> dictionary) {

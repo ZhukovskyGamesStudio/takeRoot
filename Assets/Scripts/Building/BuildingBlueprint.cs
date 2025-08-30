@@ -41,7 +41,7 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 		}
 		_gridObject.MultiplyGridOffset.x = config.Footprint.x - 1;
 		_gridObject.MultiplyGridOffset.y = config.Footprint.y - 1;
-		_sprite.sprite = config.Icon;
+		_sprite.sprite = config.mainInfo.Icon;
 		_update.Register(this);
 	}
 
