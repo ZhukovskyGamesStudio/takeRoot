@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CodeBase.Services;
 using UnityEngine;
@@ -22,6 +23,9 @@ public class GridObject : MonoBehaviour {
     }
 
     public void Init() {
+        var pos = transform.position;
+        var newPos = new Vector3(Mathf.Floor(pos.x), Mathf.Floor(pos.y), pos.z);
+        transform.position = newPos;
         X = (int)transform.position.x;
         Y = (int)transform.position.y;
     }
