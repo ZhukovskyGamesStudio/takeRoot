@@ -22,6 +22,7 @@ public class ResourcesManager : IResourceManager {
 
         Vector3? spawnPos = PickSpawnPos(at);
         if (spawnPos == null) {
+            Debug.LogError($"No pos found found for {type}");
             return;
         }
 

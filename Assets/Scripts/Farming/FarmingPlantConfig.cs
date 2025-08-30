@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using GameResources;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "FarmingPlantConfig", menuName = "Scriptable Objects/FarmingPlantConfig", order = 0)]
@@ -15,6 +16,9 @@ public class FarmingPlantConfig : ScriptableObject {
 
     [field: SerializeField]
     public AYellowpaper.SerializedCollections.SerializedDictionary<float, Sprite> GrowthStages { get; set; }
+    
+    [field: SerializeField]
+    public List<ResourcesData> DropOnHarvest { get; set; }
 
     public Sprite GetGrowthSpriteByLevel(float growthLevel) {
         int i = 0;

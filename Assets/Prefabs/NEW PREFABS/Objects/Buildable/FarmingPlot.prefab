@@ -96,6 +96,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 933429075467480961, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: Obstacle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 933429075467480961, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: MultiplyGridOffset.x
       value: 0
       objectReference: {fileID: 0}
@@ -143,6 +147,10 @@ PrefabInstance:
     - target: {fileID: 1323424012592844595, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1323424012592844595, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: m_SortingOrder
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 1323424012592844595, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_WasSpriteAssigned
