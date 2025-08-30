@@ -13,7 +13,8 @@ namespace AI.Behaviors {
 					.AddChild(new Conditional(() => settler.Data.tactical.IsTactical))
 					.AddChild(new Inverter(new ResetJobOnSettler(settler)))
 					.AddChild(new Inverter(new Action_ClearHaulBuilding(settler, resourceManager)))
-					.AddChild(new Inverter(new Action_ClearBuilding(settler)));
+					.AddChild(new Inverter(new Action_ClearBuilding(settler)))
+					.AddChild(new Inverter(new Action_ClearHaulCrafting(settler, resourceManager)));
 
 				var mode = new Selector()
 					.AddChild(tactical)
