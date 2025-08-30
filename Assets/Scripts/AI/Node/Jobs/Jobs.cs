@@ -25,5 +25,6 @@ public enum JobType {
     Destroy = 1 << 2,
     Water = 1 << 3,
     Transport = 1 << 4,
-    Cancel = 1 << 5
+    Cancel = 1 << 5,
+    Plant = 1 << 6,
 }

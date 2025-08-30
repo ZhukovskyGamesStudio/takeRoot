@@ -45,6 +45,9 @@ namespace AI {
         [Header("Building")]
         public Settler_Building building;
         
+        [Header("Crafting")]
+        public Settler_Farming farming;
+        
         [Header("Idle move")]
         public float IdleMoveCooldown;
 

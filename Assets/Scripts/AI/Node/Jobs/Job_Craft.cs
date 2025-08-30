@@ -8,7 +8,7 @@ namespace AI.Node.Jobs {
 				.While(() => settler.Data.crafting.craftingStation &&
 				             settler.Data.crafting.craftingStation.CanCraft());
 
-			var crafting = new Action_Craft(settler);
+			Action_Craft crafting = new Action_Craft(settler);
 			
 			AddChild(moveToCraftingStation);
 			AddChild(crafting);
