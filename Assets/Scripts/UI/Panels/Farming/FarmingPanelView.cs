@@ -19,7 +19,6 @@ public class FarmingPanelView : MonoBehaviour {
         _onCut = onCut;
         _onClose = onClose;
         _farmingConfigs = farmingConfigs;
-        gameObject.SetActive(true);
 
         foreach (Transform child in _linesContainer) {
             Destroy(child.gameObject);
