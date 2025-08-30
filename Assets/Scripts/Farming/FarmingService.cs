@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 using Object = UnityEngine.Object;
@@ -7,7 +8,6 @@ using Object = UnityEngine.Object;
 public class FarmingService : IFarmingService, IUpdatable, IDisposable {
     private IUpdateService _updateService;
     private readonly IInputService _inputService;
-    public List<FarmingPlot> FarmingPlots = new List<FarmingPlot>();
 
     //список farming plant грядок
 
@@ -20,6 +20,7 @@ public class FarmingService : IFarmingService, IUpdatable, IDisposable {
 
     private List<FarmingPlantConfig> _farmingPlantConfigs;
     public List<FarmingPlantConfig> AvailableFarmingPlantConfigs => _farmingPlantConfigs;
+    public List<FarmingPlot> FarmingPlots { get; set; }= new List<FarmingPlot>();
 
     private bool _isCutting;
     private FarmingPlantConfig _selectedPlantToPlant;
@@ -30,16 +31,15 @@ public class FarmingService : IFarmingService, IUpdatable, IDisposable {
         _updateService.Register(this);
         _farmingPlantConfigs = configsProvider.FarmingConfigs;
         inputService.OnSelectionEnd += OnSelectionEnd;
-        var plots = GetAllPlots();
-        foreach (var plot in plots) {
+        FarmingPlots = GetAllPlots();
+        foreach (var plot in FarmingPlots) {
             plot.Init();
         }
     }
 
     private void OnSelectionEnd(Rect selectedArea) {
         if (_selectedPlantToPlant) {
-            var plots = GetAllPlots();
-            foreach (var plot in plots) {
+            foreach (var plot in FarmingPlots) {
                 if (selectedArea.Contains(plot.transform.position) && plot.PlantType == FarmingPlantType.None) {
                     plot.ChangePlant(_selectedPlantToPlant);
                 }
@@ -47,8 +47,7 @@ public class FarmingService : IFarmingService, IUpdatable, IDisposable {
         }
 
         if (_isCutting) {
-            var plots = GetAllPlots();
-            foreach (var plot in plots) {
+            foreach (var plot in FarmingPlots) {
                 if (selectedArea.Contains(plot.transform.position) && plot.PlantType != FarmingPlantType.None) {
                     plot.CutPlant();
                 }
@@ -58,9 +57,9 @@ public class FarmingService : IFarmingService, IUpdatable, IDisposable {
 
     public void Update() {
         //todo optimize
-        var plots = GetAllPlots();
+        FarmingPlots = GetAllPlots();
 
-        foreach (var plot in plots) {
+        foreach (var plot in FarmingPlots) {
             plot.ChangeWaterLevel(-DryRate * Time.deltaTime);
             if (plot.PlantState == FarmingPlantState.Growing) {
                 plot.ChangeGrow(GrowRate * Time.deltaTime);
@@ -89,7 +88,7 @@ public class FarmingService : IFarmingService, IUpdatable, IDisposable {
         _selectedPlantToPlant = null;
     }
 
-    private static FarmingPlot[] GetAllPlots() => Object.FindObjectsByType<FarmingPlot>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+    private static List<FarmingPlot> GetAllPlots() => Object.FindObjectsByType<FarmingPlot>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).ToList();
 
     public void Dispose() {
         _updateService.Unregister(this);

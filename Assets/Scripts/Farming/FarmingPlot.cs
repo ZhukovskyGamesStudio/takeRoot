@@ -17,6 +17,9 @@ public class FarmingPlot : MonoBehaviour {
 
     [SerializeField]
     private Sprite _wateredSprite, _drySprite;
+    
+    [SerializeField]
+    private Color _blueprintColor = Color.blue;
 
     [HideInInspector]
     public FarmingPlantType PlantType;
@@ -29,6 +32,8 @@ public class FarmingPlot : MonoBehaviour {
     public float GrowingLevel;
 
     private FarmingPlantConfig _plantConfig;
+
+    public AI.Settler Farmer;
 
     public void Init() {
         _waterLevel = GetComponent<WaterLevel>();
@@ -43,9 +48,15 @@ public class FarmingPlot : MonoBehaviour {
         PlantType = plantConfig.PlantType;
         PlantState = FarmingPlantState.WaitingForPlanting;
 
-        PlantState = FarmingPlantState.Growing;
+       
         GrowingLevel = 0;
         ChangeGrow(0);
+        _plantView.color = _blueprintColor;
+    }
+
+    public void PlantFinished() {
+        PlantState = FarmingPlantState.Growing;
+        _plantView.color = Color.white;
     }
 
     public void CutPlant() {
@@ -93,5 +104,6 @@ public class FarmingPlot : MonoBehaviour {
 
     public bool NeedsWatering() => PlantType != FarmingPlantType.None && PlantState != FarmingPlantState.WaitingForWater;
     
+    public bool NeedsPlanting() => PlantState == FarmingPlantState.WaitingForPlanting;
     public bool CanBeHarvested() => PlantState == FarmingPlantState.ReadyToHarvest;
 }

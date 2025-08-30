@@ -12,6 +12,7 @@ namespace AI {
 
         public IMovable Mover;
         public ISearcher Searcher;
+        public IPlanter Planter;
         public IDestroyer Destroyer;
         public IWaterer Waterer;
         public IResourceCarrier ResourceCarrier;
@@ -23,6 +24,7 @@ namespace AI {
             WorkerAnimator = GetComponentInChildren<WorkerAnimator>();
             Mover = GetComponent<IMovable>();
             Searcher = GetComponent<ISearcher>();
+            Planter = GetComponent<IPlanter>();
             Destroyer = GetComponent<IDestroyer>();
             Waterer = GetComponent<IWaterer>();
             ResourceCarrier = GetComponent<IResourceCarrier>();
@@ -84,7 +86,8 @@ namespace AI {
             ICraftingService crafting = ServiceLocator.Container.Single<ICraftingService>();
             IBuildingService building = ServiceLocator.Container.Single<IBuildingService>();
             IResourceManager resources = ServiceLocator.Container.Single<IResourceManager>();
-            BTRoot_Settler root = new(this, commands, crafting, resources, building);
+            IFarmingService farming = ServiceLocator.Container.Single<IFarmingService>();
+            BTRoot_Settler root = new(this, commands, crafting, resources, building,farming);
             return root;
         }
     }
