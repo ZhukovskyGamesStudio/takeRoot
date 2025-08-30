@@ -996,7 +996,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 0.5320754, g: 0.5320754, b: 0.5320754, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 0
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -1250,7 +1250,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 0.5320754, g: 0.5320754, b: 0.5320754, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 0
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -1450,7 +1450,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 0.5320754, g: 0.5320754, b: 0.5320754, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 0
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
@@ -1563,9 +1563,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71cc867659b093848a1081d3644ea164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <GameSpeedView>k__BackingField: {fileID: 6763776976276094075}
-  <DayStatusView>k__BackingField: {fileID: 293322219584646303}
-  <ColonyStatusView>k__BackingField: {fileID: 5190653246976114568}
+  _gameSpeedView: {fileID: 6763776976276094075}
+  _dayStatusView: {fileID: 293322219584646303}
+  _colonyStatusView: {fileID: 5190653246976114568}
 --- !u!1 &8561300721439689942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,7 +1745,7 @@ MonoBehaviour:
     m_SelectedColor: {r: 0.5320754, g: 0.5320754, b: 0.5320754, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
+    m_FadeDuration: 0
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
     m_PressedSprite: {fileID: 0}
