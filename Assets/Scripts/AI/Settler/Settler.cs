@@ -6,6 +6,8 @@ using UnityEngine.Profiling;
 
 namespace AI {
     public class Settler : MonoBehaviour {
+        public static bool GlobalGodmode;
+        
         private BTNode _root;
         private BTNode _stateBt;
         public SettlerData Data;
@@ -60,8 +62,10 @@ namespace AI {
         }
 
         public void Die() {
+            if (GlobalGodmode) return;
+            
             gameObject.SetActive(false);
-            Data.Dead = true;;
+            Data.Dead = true;
         }
 
         public void Sleep() {
