@@ -47,6 +47,7 @@ namespace AI {
         public float IdleMoveCooldown;
 
         public float IdleMoveTimer;
+        public bool IsIdle;
 
         [Header("Hit")]
         public float HitTime = 1.3f;
