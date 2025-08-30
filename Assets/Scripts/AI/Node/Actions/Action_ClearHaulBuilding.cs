@@ -15,6 +15,11 @@ namespace AI.Node.Jobs {
 			if (transportData.resourceToHaul != null && transportData.resourceInHands.ResourceType == ResourceType.None) {
 				transportData.resourceToHaul.Reserved -= transportData.amountToPick;
 			}
+
+			if (transportData.buildingBlueprint != null &&
+			    transportData.resourceInHands.ResourceType != ResourceType.None) {
+				transportData.buildingBlueprint.ReservedRequiredResources[transportData.resourceInHands.ResourceType] -= transportData.resourceInHands.Amount;
+			}
 			if (transportData.resourceInHands.ResourceType != ResourceType.None) {
 				_resourceManager.SpawnResource(
 					_settler.transform.position, 
@@ -25,6 +30,7 @@ namespace AI.Node.Jobs {
 			transportData.buildingBlueprint = null;
 			transportData.resourceToHaul = null;
 			transportData.resourceInHands = ResourceData.Empty;
+			transportData.amountToPick = 0;
 			return BTNodeState.Failure;
 		}
 	}

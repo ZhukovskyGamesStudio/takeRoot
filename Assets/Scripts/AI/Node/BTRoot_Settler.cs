@@ -11,7 +11,7 @@ namespace AI {
             AddChild(new Behavior_CriticalTired(settler));
             
             //находится в тактическом режиме
-            AddChild(new Behavior_Tactical(settler));
+            AddChild(new Behavior_Tactical(settler, resources));
             
             //идёт в кровать
             AddChild(new Behavior_Energy(settler));
