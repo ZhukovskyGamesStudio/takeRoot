@@ -19,31 +19,27 @@ namespace AI.Node.Jobs {
 
 			ResourceType type = blueprint.GetRequiredResource();
 			if (type == ResourceType.None) {
-				data.buildingBlueprint = null;
 				return BTNodeState.Failure;
 			}
 			
 			int amount = blueprint.RequiredResources[type] - blueprint.ReservedRequiredResources[type] - blueprint.ResourceStorage[type];
 			if (amount <= 0) {
-				data.buildingBlueprint = null;
 				return BTNodeState.Failure;
 			}
 
 			Resource resourceOnGround = _resourceManager.FindResourceOnGround(type);
 			if (resourceOnGround == null) {
-				data.buildingBlueprint = null;
 				return BTNodeState.Failure;
 			}
 			int amountToReserve = Mathf.Min(amount, resourceOnGround.Amount - resourceOnGround.Reserved);
 			if (amountToReserve == 0) {
-				data.buildingBlueprint = null;
 				return BTNodeState.Failure;
 			}
 			blueprint.ReservedRequiredResources[type] += amountToReserve;
 			data.amountToPick = amountToReserve;
 			data.resourceToHaul = resourceOnGround;
 			resourceOnGround.Reserved += amountToReserve;
-			_settler.Data.curMovePos = resourceOnGround.transform.position;
+			_settler.Data.curMovePos = data.resourceToHaul.transform.position;
 			return BTNodeState.Success;
 		}
 	}

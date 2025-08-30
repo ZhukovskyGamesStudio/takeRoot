@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameResources;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 public class ResourcesManager : IResourceManager {
     private readonly IGridService _grid;
@@ -25,7 +27,7 @@ public class ResourcesManager : IResourceManager {
             Debug.LogError($"No pos found found for {type}");
             return;
         }
-
+        spawnPos = new Vector3(Mathf.Ceil(spawnPos.Value.x), Mathf.Ceil(spawnPos.Value.y), spawnPos.Value.z);
         Resource r = Object.Instantiate(prefab, spawnPos.Value, Quaternion.identity);
         ExistingResourcesOnGround.Add(spawnPos.Value, r);
         r.Init(amount);
@@ -62,7 +64,8 @@ public class ResourcesManager : IResourceManager {
     private Vector3? PickSpawnPos(Vector3 at) {
         List<Vector3> positions = GetAroundPos(at);
         for (int i = 0; i < positions.Count; i++) {
-            if (!ExistingResourcesOnGround.ContainsKey(positions[i]) && !_grid.IsOccupiedPos(at)) {
+            var pos = new Vector3(Mathf.Ceil(positions[i].x), Mathf.Ceil(positions[i].y), positions[i].z);
+            if (!ExistingResourcesOnGround.ContainsKey(pos) && !_grid.IsOccupiedPos(pos)) {
                 return positions[i];
             }
         }

@@ -44,6 +44,9 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 		}
 		_gridObject.MultiplyGridOffset.x = config.Footprint.x - 1;
 		_gridObject.MultiplyGridOffset.y = config.Footprint.y - 1;
+		var boxCollider2D = GetComponent<BoxCollider2D>();
+		boxCollider2D.size = new Vector2(config.Footprint.x, config.Footprint.y + 1);
+		boxCollider2D.offset = new Vector2(0.5f, 0.5f);
 		_sprite.sprite = config.mainInfo.Icon;
 		_buildingPrefab = config.BuildingPrefab;
 		_update.Register(this);
@@ -126,7 +129,7 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 		IsPlaced = true;
 	}
 
-	private void CancelPlacement() {
+	public void CancelPlacement() {
 		_update.Unregister(this);
 		_buildingService.CancelBlueprint(this);
 		Destroy(gameObject);

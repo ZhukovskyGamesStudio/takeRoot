@@ -1,19 +1,31 @@
 using System;
 using System.Collections.Generic;
+using CodeBase.Services;
 using Settlers.Building;
+using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using Object = UnityEngine.Object;
 
-public class BuildingService : IBuildingService {
+public class BuildingService : IBuildingService, IUpdatable {
 	private List<BuildingRecipeConfig> _buildingRecipeConfigs;
 	private BuildingBlueprint _prefab;
- 	private List<BuildingBlueprint> _blueprints = new List<BuildingBlueprint>();
+	private List<BuildingBlueprint> _blueprints = new List<BuildingBlueprint>();
+	private readonly IGridService _map;
+	private readonly IPhysicsService _physics;
+	private readonly IUpdateService _update;
+	private readonly IInputService _input;
 
-    public bool IsEnabled { get; set; } = true;
+	public bool IsEnabled { get; set; } = true;
 
 	public BuildingService(BuildingsConfig buildingConfigs,BuildingsPanelView buildingsPanelView) {
+		_map = ServiceLocator.Container.Single<IGridService>();
+		_physics = ServiceLocator.Container.Single<IPhysicsService>();
+		_update = ServiceLocator.Container.Single<IUpdateService>();
+		_input = ServiceLocator.Container.Single<IInputService>();
 		_buildingRecipeConfigs = buildingConfigs.recipeConfigs;
 		_prefab = buildingConfigs.buildingBlueprintPrefab;
 		buildingsPanelView.SetData(_buildingRecipeConfigs, CreateBuildingBlueprint);
+		_update.Register(this);
 	}
 	
 	public BuildingBlueprint GetBuildingBlueprintWithTransportJob() {
@@ -21,6 +33,7 @@ public class BuildingService : IBuildingService {
 			if (blueprint.WasBuilded) continue;
 			if (!blueprint.IsPlaced) continue;
 			if (blueprint.CanBuild()) continue;
+			if (_map.IsOccupiedPos(blueprint.InteractionPos.position)) continue; //TODO: make multiply interact pos around blueprint
 			return blueprint;
 		}
 
@@ -48,9 +61,19 @@ public class BuildingService : IBuildingService {
 	}
 
 	public void CancelBlueprint(BuildingBlueprint blueprint) {
+		_blueprints.Remove(blueprint);
 		IsEnabled = true;
 	}
 	public void Build(BuildingBlueprint blueprint) {
 		_blueprints.Remove(blueprint);
+	}
+
+	public void Update() {
+		if (_input.GetMouseButtonDown(MouseButton.Right)) {
+			var blueprint = _physics.Raycast<BuildingBlueprint>(_input.GetWorldMousePosition(), Vector2.zero);
+			if (blueprint != null) {
+				blueprint.CancelPlacement();
+			}
+		}
 	}
 }
