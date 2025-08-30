@@ -13,11 +13,8 @@ MonoBehaviour:
   m_Name: RobotsBedRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: 7d7a815b695582d46b9a43d7c96a37fb, type: 2}
-  HeaderName: "\u041A\u0440\u043E\u0432\u0430\u0442\u044C \u0434\u043B\u044F \u0440\u043E\u0431\u043E\u0442\u043E\u0432"
-  Icon: {fileID: 21300000, guid: 1483e44a7e3aba4419707602c32fd6f4, type: 3}
   ObjectSprite: {fileID: 0}
-  Description: "\u042D\u0442\u0438 \u0434\u043E\u0449\u0435\u0447\u043A\u0438 \u043E\u0447\u0435\u043D\u044C
-    \u043C\u044F\u0433\u043A\u0438\u0435"
+  BuildingPrefab: {fileID: 7626318561151303953, guid: d111e4aabc15df2469a67cc71504cdf1, type: 3}
   Footprint: {x: 1, y: 2}
   Hp: 75
   BuildingCategory: 2

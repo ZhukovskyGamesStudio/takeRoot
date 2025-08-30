@@ -25,7 +25,7 @@ namespace AI {
             AddChild(new Job_Build(settler, building));
             AddChild(new Job_HaulResourceForCrafting(settler, crafting, resources));
             AddChild(new Job_HaulResourceForBuilding(settler, building, resources));
-            //AddChild(new Behavior_Idle(settler));
+            AddChild(new Behavior_Idle(settler));
         }
     }
 }

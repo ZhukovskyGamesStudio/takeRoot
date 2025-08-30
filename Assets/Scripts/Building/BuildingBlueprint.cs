@@ -10,8 +10,11 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 	public Dictionary<ResourceType, int> ReservedRequiredResources = new();
 	public Dictionary<ResourceType, int> ResourceStorage = new();
 	public AI.Settler Builder;
+	public Transform InteractionPos;
+	private GameObject _buildingPrefab;
 
 	[FormerlySerializedAs("Builded")] public bool WasBuilded;
+
 	public bool IsPlaced;
 	private bool _canPlace;
 
@@ -42,6 +45,7 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 		_gridObject.MultiplyGridOffset.x = config.Footprint.x - 1;
 		_gridObject.MultiplyGridOffset.y = config.Footprint.y - 1;
 		_sprite.sprite = config.mainInfo.Icon;
+		_buildingPrefab = config.BuildingPrefab;
 		_update.Register(this);
 	}
 
@@ -135,6 +139,8 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 
 	public void Build() {
 		_buildingService.Build(this);
+		Instantiate(_buildingPrefab, transform.position, Quaternion.identity); //TODO: move instantiate to service
+		_gridObject.OccupyTiles();
 		Destroy(gameObject);
 	}
 }

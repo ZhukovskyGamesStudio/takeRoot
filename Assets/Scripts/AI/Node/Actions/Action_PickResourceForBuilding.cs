@@ -16,7 +16,7 @@ namespace AI.Node.Jobs {
 				Amount = _settler.Data.buildingTransport.amountToPick
 			};
 			_settler.ResourceCarrier.CarryResource(resource.Type);
-			_settler.Data.curMovePos = _settler.Data.buildingTransport.buildingBlueprint.transform.position;
+			_settler.Data.curMovePos = _settler.Data.buildingTransport.buildingBlueprint.InteractionPos.position;
 			return BTNodeState.Success;
 		}
 	}
