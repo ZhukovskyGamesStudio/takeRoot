@@ -23,6 +23,9 @@ public class CoreEntryPoint : EntryPointBase {
     [SerializeField]
     private CameraMovementConfig _cameraMovementConfig;
 
+    [SerializeField]
+    private TimeScaleConfig _timeScaleConfig;
+    
     [Header("Views"), SerializeField]
     private CommandView _commandView;
 
@@ -31,6 +34,9 @@ public class CoreEntryPoint : EntryPointBase {
 
     [SerializeField]
     private SettlerInfoPanel _settlerPanel;
+
+    [SerializeField]
+    private TimeStatusUI _timeStatusView;
 
     [Space, SerializeField]
     private CoreCanvasUi _coreCanvasUi;
@@ -46,7 +52,7 @@ public class CoreEntryPoint : EntryPointBase {
         ICoroutineRunner coroutineRunner = GetComponent<ICoroutineRunner>();
         MapFromSceneObjects map = GetComponent<MapFromSceneObjects>();
         ServiceLocatorLoader_Main loader = new(updateService, coroutineRunner, _resourceConfig, _coreCanvasUi, map, _worldConfig,
-            _researchConfig, _cameraMovementConfig, _buildingsConfig, _buildingsPanelView);
+            _researchConfig, _cameraMovementConfig, _buildingsConfig, _buildingsPanelView, _timeScaleConfig);
 
         loader.RegisterServices();
         _services = ServiceLocator.Container;
@@ -81,6 +87,8 @@ public class CoreEntryPoint : EntryPointBase {
         FarmingViewPresenter farmingPresenter = new(_coreCanvasUi.FarmingPanelView, Single<IFarmingService>());
         
         NotificationsPresenter notificationsPresenter = new(_coreCanvasUi.NotificationsView, Single<INotificationsService>());
+
+        TimeStatusPresenter timeStatusPresenter = new(_timeStatusView, Single<ITimeScaleService>());
     }
 
     private TService Single<TService>() where TService : IService {

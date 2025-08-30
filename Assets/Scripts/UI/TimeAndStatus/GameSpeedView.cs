@@ -11,7 +11,7 @@ public class GameSpeedView : MonoBehaviour {
 
     private Action<GameSpeedType> _onSpeedSelect;
 
-    private void Init(Action<GameSpeedType> onSpeedSelect) {
+    public void Init(Action<GameSpeedType> onSpeedSelect) {
         _onSpeedSelect = onSpeedSelect;
         InitToggles();
     }
@@ -26,8 +26,7 @@ public class GameSpeedView : MonoBehaviour {
         }
     }
 
-    public void SelectSpeed(GameSpeedType type) {
-        Debug.Log("SelectedSpeed");
+    private void SelectSpeed(GameSpeedType type) {
         _onSpeedSelect?.Invoke(type);
     }
 

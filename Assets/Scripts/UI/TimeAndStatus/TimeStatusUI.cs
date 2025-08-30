@@ -1,19 +1,32 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class TimeStatusUI : MonoBehaviour {
-    [field: SerializeField]
-    public GameSpeedView GameSpeedView { get; private set; }
+    [SerializeField]
+    private GameSpeedView _gameSpeedView;
 
-    [field: SerializeField]
-    public DayStatusView DayStatusView { get; private set; }
+    [SerializeField]
+    private DayStatusView _dayStatusView;
 
-    [field: SerializeField]
-    public ColonyStatusView ColonyStatusView { get; private set; }
+    [SerializeField]
+    private ColonyStatusView _colonyStatusView;
 
+    private Action<GameSpeedType> _onChangeSpeed;
+    
+    public void SetData(Action<GameSpeedType> onChangeSpeed) {
+        _onChangeSpeed = onChangeSpeed;
+        _gameSpeedView.Init(ChangeSpeed);
+    }
+    
     public void Start() {
-        GameSpeedView.SetFriendSelection(Random.Range(0, 2) == 1 ? GameSpeedType.High : GameSpeedType.Normal);
-        DayStatusView.SetData(Random.Range(0, 99), Random.Range(0, 2) == 1);
-        ColonyStatusView.SetData(Random.Range(0, 12), Random.Range(0, 101));
+        _gameSpeedView.SetFriendSelection(Random.Range(0, 2) == 1 ? GameSpeedType.High : GameSpeedType.Normal);
+        _dayStatusView.SetData(Random.Range(0, 99), Random.Range(0, 2) == 1);
+        _colonyStatusView.SetData(Random.Range(0, 12), Random.Range(0, 101));
+    }
+    
+    private void ChangeSpeed(GameSpeedType speed) {
+        _onChangeSpeed.Invoke(speed);
     }
 
     public void JumpToFriend() {

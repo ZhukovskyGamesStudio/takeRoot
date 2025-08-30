@@ -13,6 +13,7 @@ public class ServiceLocatorLoader_Main {
 
     private ResourcesConfig _resourceConfig;
     private ResearchConfig _researchConfig;
+    private TimeScaleConfig _timeScaleConfig;
 
     private CoreCanvasUi _coreCanvasUi;
 
@@ -24,7 +25,7 @@ public class ServiceLocatorLoader_Main {
 
     public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner, ResourcesConfig resourceConfig,
         CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects, WorldConfig worldConfig, ResearchConfig researchConfig,
-        CameraMovementConfig cameraMovementConfig, BuildingsConfig buildingsConfig, BuildingsPanelView buildingsPanelView) {
+        CameraMovementConfig cameraMovementConfig, BuildingsConfig buildingsConfig, BuildingsPanelView buildingsPanelView, TimeScaleConfig timeScaleConfig) {
         _coreCanvasUi = coreUI;
         _worldConfig = worldConfig;
         _researchConfig = researchConfig;
@@ -33,6 +34,7 @@ public class ServiceLocatorLoader_Main {
         _buildingsPanelView = buildingsPanelView;
         _resourceConfig = resourceConfig;
         _mapFromSceneObjects = mapFromSceneObjects;
+        _timeScaleConfig = timeScaleConfig;
         _services = ServiceLocator.Container;
         if (coroutineRunner == null) {
             Debug.LogError($"The coroutine runner cannot be null.");
@@ -69,7 +71,8 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IFarmingService>(new FarmingService(_services.Single<IUpdateService>(), _services.Single<IConfigsProvider>(),
             _services.Single<IInputService>()));
         _services.RegisterSingle<IOverlayService>(new OverlayService());
-
+        _services.RegisterSingle<ITimeScaleService>(new TimeScaleService(_timeScaleConfig));
+        
         _mapFromSceneObjects.CreateMap();
         SimpleGraph graph = _mapFromSceneObjects.CreateSimpleGraph();
         _services.RegisterSingle<IPathfindService>(new AStar(_mapFromSceneObjects));
