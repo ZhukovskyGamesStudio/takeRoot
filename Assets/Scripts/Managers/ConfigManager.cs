@@ -1,5 +1,6 @@
+using System;
 using UnityEngine;
-
+[Obsolete]
 public class ConfigManager : MonoBehaviour, IInitableInstance {
     [field: SerializeField]
     public CreaturesParametersConfig CreaturesParametersConfig { get; private set; }
