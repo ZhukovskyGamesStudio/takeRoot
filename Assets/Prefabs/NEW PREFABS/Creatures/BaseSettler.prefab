@@ -337,8 +337,12 @@ MonoBehaviour:
         lowSatietyThreshold: 50
         highSatietyThreshold: 80
         satietyChange: -2
-      Care: 100
-      MaxCare: 100
+      CareData:
+        maxCare: 100
+        currentCare: 100
+        lowCareThreshold: 50
+        highCareThreshold: 80
+        careChange: -2
     needsUpdateCooldown: 5
     needsUpdateTimer: 0
     names:

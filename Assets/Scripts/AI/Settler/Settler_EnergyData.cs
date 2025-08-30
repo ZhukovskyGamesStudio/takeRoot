@@ -20,5 +20,6 @@ namespace AI {
         public bool HasOwnBed => bed != null;
         public bool IsTired => currentEnergy < tiredThreshold;
         public bool IsCriticalTired => currentEnergy < criticalTiredThreshold;
+        public float Percentage => (float)currentEnergy / maxEnergy;
     }
 }

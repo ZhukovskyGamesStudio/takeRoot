@@ -5,6 +5,7 @@ namespace AI.Node.Jobs {
         private readonly Settler_EnergyData _energyData;
         private readonly Settler_StressData _stressData;
         private readonly Settler_SatietyData _satietyData;
+        private readonly Settler_CareData _careData;
 
         private readonly Settler _settler;
 
@@ -12,6 +13,7 @@ namespace AI.Node.Jobs {
             _energyData = settler.Data.energy;
             _stressData = settler.Data.needs.StressData;
             _satietyData = settler.Data.needs.SatietyData;
+            _careData = settler.Data.needs.CareData;
             
             _settler = settler;
         }
@@ -43,6 +45,10 @@ namespace AI.Node.Jobs {
         private void HandleSatiety() {
             _satietyData.currentSatiety += _satietyData.satietyChange;
         }
+        
+        private void HandleCare() {
+            _careData.currentCare += _careData.careChange;
+        }
 
         public override BTNodeState Evaluate() {
             _settler.Data.needsUpdateTimer += Time.deltaTime;
@@ -54,10 +60,12 @@ namespace AI.Node.Jobs {
                 HandleEnergy();
                 HandleStress();
                 HandleSatiety();
+                HandleCare();
                 
                 _energyData.currentEnergy = Mathf.Clamp(_energyData.currentEnergy, 0, _energyData.maxEnergy);
                 _stressData.currentStress = Mathf.Clamp(_stressData.currentStress, 0, _stressData.maxStress);
                 _satietyData.currentSatiety = Mathf.Clamp(_satietyData.currentSatiety, 0, _satietyData.maxSatiety);
+                _careData.currentCare = Mathf.Clamp(_careData.currentCare, 0, _careData.maxCare);
             }
             if (_stressData.breakdownTimer >= _stressData.breakdownDuration) {
                 _settler.EndBreakdown();
