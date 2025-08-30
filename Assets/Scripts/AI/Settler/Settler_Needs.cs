@@ -1,12 +1,13 @@
 using System;
+using AI;
+using UnityEngine;
 
 [Serializable]
 public class Settler_Needs {
     public int Hp;
     public int MaxHp;
 
-    public int Stress;
-    public int MaxStress;
+    public Settler_StressData StressData;
 
     public int Hunger;
     public int MaxHunger;

@@ -320,8 +320,17 @@ MonoBehaviour:
     needs:
       Hp: 100
       MaxHp: 100
-      Stress: 0
-      MaxStress: 100
+      StressData:
+        maxStress: 100
+        currentStress: 0
+        breakdownStressThreshold: 90
+        breakdownChance: 0.1
+        breakdownDuration: 20
+        breakdownTimer: 0
+        stressAfterBreakdown: 40
+        stressChange: 0
+        stressCooldown: 5
+        stressTimer: 0
       Hunger: 0
       MaxHunger: 100
       Care: 100
@@ -338,6 +347,7 @@ MonoBehaviour:
       energyChange: -2
       defaultEnergyChange: -2
       onGroundEnergyChange: 2
+      onBedEnergyChange: 0
       energyCooldown: 5
       energyTimer: 0
       isSleeping: 0

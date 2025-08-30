@@ -29,7 +29,7 @@ public class AvatarView : MonoBehaviour {
         };
 
         Settler_Needs needs = _settlerData.needs;
-        float stressPercent = (float)needs.Stress / needs.MaxStress;
+        float stressPercent = (float)needs.StressData.currentStress / needs.StressData.maxStress;
         float hpPercent = (float)needs.Hp / needs.MaxHp;
 
         _bgImage.color = _stressGradient.Evaluate(stressPercent);
