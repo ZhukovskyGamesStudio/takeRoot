@@ -15,7 +15,7 @@ namespace AI.Node.Jobs {
 			}
 			_settler.Data.building.buildingBlueprint = buildingBlueprint;
 			buildingBlueprint.Builder = _settler;
-			_settler.Data.curMovePos = buildingBlueprint.transform.position; //TODO: make interactable pos
+			_settler.Data.curMovePos = buildingBlueprint.InteractionPos.position;
 			return _state = BTNodeState.Success;
 		}
 	}

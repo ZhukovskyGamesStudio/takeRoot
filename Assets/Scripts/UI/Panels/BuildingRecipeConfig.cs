@@ -7,6 +7,8 @@ public class BuildingRecipeConfig : ScriptableObject {
     public MainInfoData mainInfo;
     
     public Sprite ObjectSprite;
+
+    public GameObject BuildingPrefab;
    
     public Vector2Int Footprint;
     public int Hp;

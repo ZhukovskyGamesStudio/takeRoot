@@ -13,12 +13,8 @@ MonoBehaviour:
   m_Name: SmallBoxRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: a3a32223648e8504399ab62cc350f9a7, type: 2}
-  HeaderName: "\u041D\u0435\u0431\u043E\u043B\u044C\u0448\u043E\u0439 \u044F\u0449\u0438\u043A"
-  Icon: {fileID: 21300000, guid: 80a4d2536f8153343be257cc71736c5e, type: 3}
   ObjectSprite: {fileID: 0}
-  Description: "\u0414\u043B\u044F \u0445\u0440\u0430\u043D\u0435\u043D\u0438\u044F
-    \u043D\u0435\u0431\u043E\u043B\u044C\u0448\u043E\u0433\u043E \u043A\u043E\u043B-\u0432\u0430
-    \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u043E\u0432"
+  BuildingPrefab: {fileID: 3317381679181958196, guid: 5bfd480eb92e02048b920c53b59fb94c, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 50
   BuildingCategory: 0

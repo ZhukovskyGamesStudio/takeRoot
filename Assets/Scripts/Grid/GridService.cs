@@ -24,6 +24,14 @@ public class GridService : IGridService {
         _map.Map[new int3((int)pos.x, (int)pos.y, (int)pos.z)] = false;
         _map.CreateSimpleGraph();
     }
+    public void OccupyTile(int x, int y) {
+        _map.Map[new int3(x, y, 0)] = true;
+        _map.CreateSimpleGraph();
+    }
+    public void OccupyTile(Vector3 pos) {
+        _map.Map[new int3((int)pos.x, (int)pos.y, (int)pos.z)] = true;
+        _map.CreateSimpleGraph();
+    }
 
     public bool OnMap(Vector3 pos) {
         return _map.Map.ContainsKey(new int3((int)pos.x, (int)pos.y, (int)pos.z));

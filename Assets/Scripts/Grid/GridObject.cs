@@ -62,6 +62,12 @@ public class GridObject : MonoBehaviour {
         return corners;
     }
 
+    public void OccupyTiles() {
+        for (int y = Y; y < Y + SizeY; y++)
+        for (int x = X; x < X + SizeX; x++) {
+            _grid.OccupyTile(x, y);
+        }
+    }
     public void Destroy() {
         for (int y = Y; y < Y + SizeY; y++)
         for (int x = X; x < X + SizeX; x++) {
