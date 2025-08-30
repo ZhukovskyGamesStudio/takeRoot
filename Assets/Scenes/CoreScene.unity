@@ -48358,6 +48358,17 @@ Sprite:
   m_Bones: []
   m_ScriptableObjects: []
   m_SpriteID: 
+--- !u!114 &734458854 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1647498955944827755, guid: 71d5477656095674191ccd469ca0cae6, type: 3}
+  m_PrefabInstance: {fileID: 1804048064}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71cc867659b093848a1081d3644ea164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &794020127 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4986539567701236822, guid: 71d5477656095674191ccd469ca0cae6, type: 3}
@@ -164331,9 +164342,11 @@ MonoBehaviour:
   _researchConfig: {fileID: 11400000, guid: 047c0f71a26cfaa4f9df90d6c8308363, type: 2}
   _resourceConfig: {fileID: 11400000, guid: 82b7b31d83d741842b1960f8e1e568ee, type: 2}
   _cameraMovementConfig: {fileID: 11400000, guid: 3ca61f3c1b26d05458fc1f2d4d0dcc18, type: 2}
+  _timeScaleConfig: {fileID: 11400000, guid: e74e1cf249fe5a14aaeb4a50ffe197b5, type: 2}
   _commandView: {fileID: 995292499}
   _infoPanelView: {fileID: 1761549642}
   _settlerPanel: {fileID: 730839102}
+  _timeStatusView: {fileID: 734458854}
   _coreCanvasUi: {fileID: 1970964712}
 --- !u!4 &1484566829
 Transform:
