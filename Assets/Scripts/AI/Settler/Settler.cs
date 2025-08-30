@@ -12,6 +12,7 @@ namespace AI {
 
         public IMovable Mover;
         public ISearcher Searcher;
+        public IPlanter Farmer;
         public IDestroyer Destroyer;
         public IWaterer Waterer;
         public IResourceCarrier ResourceCarrier;
@@ -23,6 +24,7 @@ namespace AI {
             WorkerAnimator = GetComponentInChildren<WorkerAnimator>();
             Mover = GetComponent<IMovable>();
             Searcher = GetComponent<ISearcher>();
+            Farmer = GetComponent<IPlanter>();
             Destroyer = GetComponent<IDestroyer>();
             Waterer = GetComponent<IWaterer>();
             ResourceCarrier = GetComponent<IResourceCarrier>();
@@ -33,8 +35,9 @@ namespace AI {
             Waterer.Init(WorkerAnimator);
             Crafter.Init(WorkerAnimator);
             Builder.Init(WorkerAnimator);
-            _root = CreateBT();
-            _stateBt = new Sequence().AddChild(new Action_HandleEnergy(this));
+            Farmer.Init(WorkerAnimator);
+            _root = CreateRootBt();
+            _stateBt = CreateStateBt();
         }
 
         private void Update() {
@@ -44,6 +47,21 @@ namespace AI {
             Profiler.BeginSample("Evaluate Settler State change BT");
             _stateBt?.Evaluate();
             Profiler.EndSample();
+        }
+
+        public void StartBreakdown() {
+            Data.needs.StressData.breakdownTimer = 0;
+            Data.Condition = SettlerCondition.Breakdown;
+        }
+
+        public void EndBreakdown() {
+            Data.Condition = SettlerCondition.Neutral;
+            Data.needs.StressData.currentStress = Data.needs.StressData.stressAfterBreakdown;
+        }
+
+        public void Die() {
+            gameObject.SetActive(false);
+            Data.Dead = true;;
         }
 
         public void Sleep() {
@@ -56,12 +74,21 @@ namespace AI {
             WorkerAnimator.ResetToIdle();
         }
 
-        private BTNode CreateBT() {
+        private BTNode CreateStateBt() {
+            BTNode stateBt = new Sequence()
+                .AddChild(new Action_HandleNeedsChange(this));
+            
+            
+            return stateBt;
+        }
+
+        private BTNode CreateRootBt() {
             ICommandService commands = ServiceLocator.Container.Single<ICommandService>();
             ICraftingService crafting = ServiceLocator.Container.Single<ICraftingService>();
             IBuildingService building = ServiceLocator.Container.Single<IBuildingService>();
             IResourceManager resources = ServiceLocator.Container.Single<IResourceManager>();
-            BTRoot_Settler root = new(this, commands, crafting, resources, building);
+            IFarmingService farming = ServiceLocator.Container.Single<IFarmingService>();
+            BTRoot_Settler root = new(this, commands, crafting, resources, building,farming);
             return root;
         }
     }

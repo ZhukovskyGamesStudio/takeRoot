@@ -20,6 +20,11 @@ public class AvatarView : MonoBehaviour {
     }
 
     public void UpdateData() {
+        if (_settlerData.Dead) {
+            Destroy(gameObject);
+            return;
+        }
+        
         _iconImage.sprite = _settlerData.names.Subrace switch {
             Subrace.Chamomile => _chamomile,
             Subrace.Succulent => _succulent,
@@ -29,7 +34,7 @@ public class AvatarView : MonoBehaviour {
         };
 
         Settler_Needs needs = _settlerData.needs;
-        float stressPercent = (float)needs.Stress / needs.MaxStress;
+        float stressPercent = (float)needs.StressData.currentStress / needs.StressData.maxStress;
         float hpPercent = (float)needs.Hp / needs.MaxHp;
 
         _bgImage.color = _stressGradient.Evaluate(stressPercent);

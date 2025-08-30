@@ -44,6 +44,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1378913489894693337, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: _progress
+      value: 
+      objectReference: {fileID: 7946383905899612602}
     - target: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Name
       value: TimeMachine
@@ -154,6 +158,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3814121420388037337}
+    - targetCorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7946383905899612602}
   m_SourcePrefab: {fileID: 100100000, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
 --- !u!1 &7626318561151303953 stripped
 GameObject:
@@ -237,3 +244,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7946383905899612602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626318561151303953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9106c00d0ac4ae74ebc133238da08199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ProgressData>k__BackingField:
+    Progress: 0
+    Needed: 100
+    Title: "\u0437\u0430\u0440\u044F\u0434"

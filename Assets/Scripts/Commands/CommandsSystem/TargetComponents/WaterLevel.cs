@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 
 public class WaterLevel : MonoBehaviour {
     [FormerlySerializedAs("maxMoisture"), Header("Water Settings")] 
-    public float maxWater;
+    public float maxWater = 1;
 
     [FormerlySerializedAs("currentMoisture")]
     public float currentWater;
@@ -15,7 +15,7 @@ public class WaterLevel : MonoBehaviour {
         currentWater -= amount;
     }
 
-    public void Water(float amount) {
+    public void ChangeWater(float amount) {
         currentWater += amount;
         currentWater = Math.Clamp(currentWater, 0, maxWater);
     }

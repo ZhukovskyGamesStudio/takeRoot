@@ -5,6 +5,7 @@ namespace AI {
     [Serializable]
     public class SettlerData {
         public bool IsTactical;
+        public bool Dead;
 
         [Header("Jobs")]
         public JobType currJob;
@@ -24,6 +25,8 @@ namespace AI {
 
         [Header("Needs")]
         public Settler_Needs needs;
+        public float needsUpdateCooldown;
+        public float needsUpdateTimer;
 
         [Header("Names")]
         public Settler_Names names;
@@ -42,6 +45,9 @@ namespace AI {
 
         [Header("Building")]
         public Settler_Building building;
+        
+        [Header("Crafting")]
+        public Settler_Farming farming;
         
         [Header("Idle move")]
         public float IdleMoveCooldown;

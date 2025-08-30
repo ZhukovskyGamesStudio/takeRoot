@@ -272,6 +272,7 @@ GameObject:
   - component: {fileID: 3541096221142128083}
   - component: {fileID: 4227291482212248234}
   - component: {fileID: 5787097791337872524}
+  - component: {fileID: 87286551851091647}
   m_Layer: 0
   m_Name: BaseSettler
   m_TagString: Untagged
@@ -310,6 +311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data:
     IsTactical: 0
+    Dead: 0
     currJob: 0
     currTarget: {fileID: 0}
     subsequentTarget: {fileID: 0}
@@ -320,12 +322,31 @@ MonoBehaviour:
     needs:
       Hp: 100
       MaxHp: 100
-      Stress: 0
-      MaxStress: 100
-      Hunger: 0
-      MaxHunger: 100
-      Care: 100
-      MaxCare: 100
+      StressData:
+        maxStress: 100
+        currentStress: 0
+        breakdownStressThreshold: 90
+        breakdownChance: 0.1
+        breakdownDuration: 20
+        breakdownTimer: 0
+        stressAfterBreakdown: 40
+        stressChange: 0
+        lowSatietyStressChange: 2
+        highSatietyStressChange: -1
+      SatietyData:
+        maxSatiety: 100
+        currentSatiety: 100
+        lowSatietyThreshold: 50
+        highSatietyThreshold: 80
+        satietyChange: -2
+      CareData:
+        maxCare: 100
+        currentCare: 100
+        lowCareThreshold: 50
+        highCareThreshold: 80
+        careChange: -2
+    needsUpdateCooldown: 5
+    needsUpdateTimer: 0
     names:
       Name: 
       Race: 0
@@ -338,8 +359,7 @@ MonoBehaviour:
       energyChange: -2
       defaultEnergyChange: -2
       onGroundEnergyChange: 2
-      energyCooldown: 5
-      energyTimer: 0
+      onBedEnergyChange: 0
       isSleeping: 0
       bed: {fileID: 0}
     craftingTransport:
@@ -360,8 +380,11 @@ MonoBehaviour:
         Amount: 1
     building:
       buildingBlueprint: {fileID: 0}
+    farming:
+      FarmingPlot: {fileID: 0}
     IdleMoveCooldown: 4
     IdleMoveTimer: 0
+    IsIdle: 0
     HitTime: 1.3
 --- !u!114 &4083847707166725687
 MonoBehaviour:
@@ -522,3 +545,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildTime: 2
+--- !u!114 &87286551851091647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6094444002186240976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a59e41a303484a983456223156ff4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlantTime: 1.5

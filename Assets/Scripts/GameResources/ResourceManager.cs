@@ -24,6 +24,7 @@ public class ResourcesManager : IResourceManager {
 
         Vector3? spawnPos = PickSpawnPos(at);
         if (spawnPos == null) {
+            Debug.LogError($"No pos found found for {type}");
             return;
         }
         spawnPos = new Vector3(Mathf.Ceil(spawnPos.Value.x), Mathf.Ceil(spawnPos.Value.y), spawnPos.Value.z);

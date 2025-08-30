@@ -53,10 +53,12 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IWorldWriter>(worldState);
 
         _services.RegisterSingle<IAssetProvider>(new AssetProvider());
+        _services.RegisterSingle<IConfigsProvider>(new ConfigsProvider());
         _services.RegisterSingle<IDataProvider>(new DataProvider());
         _services.RegisterSingle<IPhysicsService>(new PhysicsService());
-        _services.RegisterSingle<IInputService>(new InputService());
+
         _services.RegisterSingle<IUpdateService>(_updateService);
+        _services.RegisterSingle<IInputService>(new InputService(_services.Single<IUpdateService>()));
         _services.RegisterSingle<ICoroutineRunner>(_coroutineRunner);
         _services.RegisterSingle<IPathfindService>(new MockPathfindService());
         _services.RegisterSingle<IIdentifierService>(new IdentifierService());
@@ -64,10 +66,10 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IResearchService>(new ResearchService(_researchConfig));
         _services.RegisterSingle<ICameraMovementService>(new CameraMovementService(_cameraMovementConfig, _services.Single<IUpdateService>()));
         _services.RegisterSingle<ILevelGenerationService>(new LevelGenerationService());
-        _services.RegisterSingle<IFarmingService>(new FarmingService());
+        _services.RegisterSingle<IFarmingService>(new FarmingService(_services.Single<IUpdateService>(), _services.Single<IConfigsProvider>(),
+            _services.Single<IInputService>()));
         _services.RegisterSingle<IOverlayService>(new OverlayService());
-      
-        
+
         _mapFromSceneObjects.CreateMap();
         SimpleGraph graph = _mapFromSceneObjects.CreateSimpleGraph();
         _services.RegisterSingle<IPathfindService>(new AStar(_mapFromSceneObjects));
@@ -86,7 +88,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<ISelectionService>(new SelectionService(_services.Single<IInputService>(), _services.Single<IPhysicsService>(),
             _services.Single<IUpdateService>(), _services.Single<ICommandService>()));
         _services.RegisterSingle<ISettlersService>(new SettlersService());
-        
+
         _services.RegisterSingle<IBuildingService>(new BuildingService(_buildingsConfig, _buildingsPanelView));
         _services.RegisterSingle<INotificationsService>(new NotificationsService(_services.Single<IUpdateService>()));
     }

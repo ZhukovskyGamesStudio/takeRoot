@@ -12,8 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ba062654bd04376998121b10d7ff44a, type: 3}
   m_Name: PotatoFarmingPlantConfig
   m_EditorClassIdentifier: 
+  <PlantType>k__BackingField: 1
   <MainData>k__BackingField: {fileID: 11400000, guid: 78d94ef32bee68d4e9c283e7651e00bd, type: 2}
   <Sprites>k__BackingField:
   - {fileID: 21300000, guid: b4c2fa101c77095408277a2fa937b3b2, type: 3}
   - {fileID: 21300000, guid: bfb62e6d2064a964d9ebe60eff1e4294, type: 3}
   - {fileID: 21300000, guid: f4362c00a43b51447be5cc4ffd070c85, type: 3}
+  <GrowthStages>k__BackingField:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 21300000, guid: 597e00a8981cc2d439fac7b65faef2fb, type: 3}
+    - Key: 0.3
+      Value: {fileID: 21300000, guid: 8c901a2ae300b8446afe0d78c38b8a85, type: 3}
+    - Key: 0.7
+      Value: {fileID: 21300000, guid: 67d29fe873d0fa143a5f5e8deac8f949, type: 3}
+    - Key: 1
+      Value: {fileID: 21300000, guid: 3fdfd6938e737244684ce44b0e12f55e, type: 3}
+  <DropOnHarvest>k__BackingField:
+  - type: 7
+    amount: 2

@@ -116,7 +116,7 @@ public class CommandTarget : MonoBehaviour {
     }
 
     public void Water(float amount) {
-        _waterLevel.Water(amount);
+        _waterLevel.ChangeWater(amount);
     }
 
     public bool EnoughWater => _waterLevel.EnoughWater;

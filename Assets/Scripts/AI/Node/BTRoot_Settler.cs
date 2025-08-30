@@ -5,7 +5,9 @@ using AI.Node.Jobs;
 namespace AI {
     public class BTRoot_Settler : Selector {
         public BTRoot_Settler(Settler settler, ICommandService commands, ICraftingService crafting,
-            IResourceManager resources, IBuildingService building) {
+            IResourceManager resources, IBuildingService building, IFarmingService farming) {
+            AddChild(new Behavior_Death(settler));
+            
             AddChild(new Behavior_CriticalTired(settler));
             
             //находится в тактическом режиме
@@ -19,6 +21,7 @@ namespace AI {
             
             
             AddChild(new Job_Craft(settler, crafting));
+            AddChild(new Job_Plant(settler,farming));
             AddChild(new Job_Build(settler, building));
             AddChild(new Job_HaulResourceForCrafting(settler, crafting, resources));
             AddChild(new Job_HaulResourceForBuilding(settler, building, resources));

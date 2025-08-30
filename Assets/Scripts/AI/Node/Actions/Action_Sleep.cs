@@ -10,11 +10,11 @@ namespace AI.Node.Jobs {
             if (!_settler.Data.energy.isSleeping) {
                 _settler.transform.position = _settler.Data.energy.bed.SleepPos.position;
                 _settler.Data.energy.isSleeping = true;
-                _settler.Data.energy.energyChange = 5; //TODO: add bed multiplier
+                _settler.Data.energy.energyChange = _settler.Data.energy.onBedEnergyChange;
                 _settler.Sleep();
             }
 
-            if (_settler.Data.energy.currentEnergy >= 100) {
+            if (!_settler.Data.energy.IsTired) {
                 _settler.Data.energy.energyChange = _settler.Data.energy.defaultEnergyChange;
                 _settler.transform.position = _settler.Data.energy.bed.NearPos.position;
                 _settler.WakeUp();
