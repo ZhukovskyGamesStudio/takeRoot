@@ -11,6 +11,9 @@ public class TimeScaleService : ITimeScaleService {
 
     private void TryPause() {
         if (!_canPause) return;
+        
+        _canPause = false;
+        Time.timeScale = 0;
     }
     
     public void SetTimeScale(GameSpeedType type) {

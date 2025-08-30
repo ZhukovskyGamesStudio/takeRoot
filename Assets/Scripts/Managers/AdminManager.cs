@@ -11,6 +11,14 @@ public class AdminManager : MonoBehaviour {
         _adminPanel.SetActive(false);
     }
 
+    public void SwitchGodmode(bool isOn) {
+        AI.Settler.GlobalGodmode = isOn;
+    }
+    
+    public void UnlockPause() {
+        ServiceLocator.Container.Single<ITimeScaleService>().SetReadyToPause();
+    }
+
     public void StartFakeOnlineGame() {
         SceneManager.LoadScene("CoreScene");
     }
