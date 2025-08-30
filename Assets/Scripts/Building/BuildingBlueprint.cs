@@ -49,6 +49,7 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 		boxCollider2D.offset = new Vector2(0.5f, 0.5f);
 		_sprite.sprite = config.mainInfo.Icon;
 		_buildingPrefab = config.BuildingPrefab;
+		_gridObject.Obstacle = _buildingPrefab.GetComponent<GridObject>().Obstacle;
 		_update.Register(this);
 	}
 
@@ -143,7 +144,9 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 	public void Build() {
 		_buildingService.Build(this);
 		Instantiate(_buildingPrefab, transform.position, Quaternion.identity); //TODO: move instantiate to service
-		_gridObject.OccupyTiles();
+		if (_gridObject.Obstacle) {
+			_gridObject.OccupyTiles();
+		}
 		Destroy(gameObject);
 	}
 }
