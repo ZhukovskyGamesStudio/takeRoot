@@ -45,9 +45,11 @@ namespace AI {
         
         [Header("Idle move")]
         public float IdleMoveCooldown;
-
         public float IdleMoveTimer;
         public bool IsIdle;
+        
+        [Header("Tactical")]
+        public Settler_Tactical tactical;
 
         [Header("Hit")]
         public float HitTime = 1.3f;
