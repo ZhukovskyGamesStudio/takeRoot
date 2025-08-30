@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CodeBase.Services;
 using Settlers.Building;
 using Object = UnityEngine.Object;
 
@@ -7,10 +8,12 @@ public class BuildingService : IBuildingService {
 	private List<BuildingRecipeConfig> _buildingRecipeConfigs;
 	private BuildingBlueprint _prefab;
  	private List<BuildingBlueprint> _blueprints = new List<BuildingBlueprint>();
+    private readonly IGridService _map;
 
     public bool IsEnabled { get; set; } = true;
 
 	public BuildingService(BuildingsConfig buildingConfigs,BuildingsPanelView buildingsPanelView) {
+		_map = ServiceLocator.Container.Single<IGridService>();
 		_buildingRecipeConfigs = buildingConfigs.recipeConfigs;
 		_prefab = buildingConfigs.buildingBlueprintPrefab;
 		buildingsPanelView.SetData(_buildingRecipeConfigs, CreateBuildingBlueprint);
@@ -21,6 +24,7 @@ public class BuildingService : IBuildingService {
 			if (blueprint.WasBuilded) continue;
 			if (!blueprint.IsPlaced) continue;
 			if (blueprint.CanBuild()) continue;
+			if (_map.IsOccupiedPos(blueprint.InteractionPos.position)) continue; //TODO: make multiply interact pos around blueprint
 			return blueprint;
 		}
 

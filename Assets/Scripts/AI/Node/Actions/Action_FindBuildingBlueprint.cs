@@ -13,7 +13,7 @@ namespace AI.Node.Jobs {
 				return BTNodeState.Success;
 			}
 			BuildingBlueprint buildingBlueprint = _buildingService.GetBuildingBlueprintWithTransportJob();
-			if (buildingBlueprint == null) {
+			if (buildingBlueprint == null || !_settler.Mover.HasPath(buildingBlueprint.InteractionPos.position)) {
 				return BTNodeState.Failure;
 			}
 			
