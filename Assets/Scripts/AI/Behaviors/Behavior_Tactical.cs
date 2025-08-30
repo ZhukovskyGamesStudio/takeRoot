@@ -8,15 +8,18 @@ namespace AI.Behaviors {
 			var tacticalMove = new Sequence()
 				.AddChild(new Conditional(() => tData.HasTacticalMovePos));
 				//.AddChild(TacticalMove)
-			
-			var tactical = new Sequence()
-				.AddChild(new Conditional(() => settler.Data.tactical.IsTactical))
-				.AddChild(new Inverter(new Action_ClearHaulBuilding(settler, resourceManager)))
-				.AddChild(new Inverter(new ResetJobOnSettler(settler)));
-			
-			var mode = new Selector()
-				.AddChild(tactical)
-				.AddChild(new Action_ClearTacticalData(settler));
+
+				var tactical = new Sequence()
+					.AddChild(new Conditional(() => settler.Data.tactical.IsTactical))
+					.AddChild(new Inverter(new ResetJobOnSettler(settler)))
+					.AddChild(new Inverter(new Action_ClearHaulBuilding(settler, resourceManager)))
+					.AddChild(new Inverter(new Action_ClearBuilding(settler)));
+
+				var mode = new Selector()
+					.AddChild(tactical)
+					.AddChild(new Action_ClearTacticalData(settler));
+
+			AddChild(mode);
 		}
 	}
 }

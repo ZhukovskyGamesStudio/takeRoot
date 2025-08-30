@@ -148,6 +148,11 @@ public class SettlerEditor : Editor {
             if (field != null) {
                 children = (List<BTNode>)field.GetValue(sequence) ?? new List<BTNode>();
             }
+        } else if (node is ParallelSelector parallelSelector) {
+            FieldInfo field = typeof(Selector).GetField("_children", BindingFlags.NonPublic | BindingFlags.Instance);
+            if (field != null) {
+                children = (List<BTNode>)field.GetValue(parallelSelector) ?? new List<BTNode>();
+            }
         }
 
         return children;

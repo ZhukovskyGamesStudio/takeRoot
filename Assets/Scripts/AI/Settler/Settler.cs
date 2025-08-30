@@ -51,7 +51,6 @@ namespace AI {
 
         public void SetTactical(bool isTactical) {
             Data.tactical.IsTactical = isTactical;
-            _root.Reset();
         }
         public void StartBreakdown() {
             Data.needs.StressData.breakdownTimer = 0;
