@@ -56,6 +56,10 @@ namespace AI {
             Data.needs.StressData.currentStress = Data.needs.StressData.stressAfterBreakdown;
         }
 
+        public void Die() {
+            gameObject.SetActive(false);
+        }
+
         public void Sleep() {
             Data.energy.isSleeping = true;
             WorkerAnimator.PlaySleep();

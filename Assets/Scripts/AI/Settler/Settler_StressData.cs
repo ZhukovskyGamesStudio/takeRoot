@@ -14,10 +14,10 @@ namespace AI {
         public int stressAfterBreakdown;
         [Space]
         public int stressChange;
-        [Space]
-        public float stressCooldown;
-        public float stressTimer;
+        public int lowSatietyStressChange;
+        public int highSatietyStressChange;
 
         public bool CanBreakdown => currentStress >= breakdownStressThreshold;
+        public float Percentage => (float)currentStress / maxStress;
     }
 }

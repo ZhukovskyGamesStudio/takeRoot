@@ -8,9 +8,7 @@ public class Settler_Needs {
     public int MaxHp;
 
     public Settler_StressData StressData;
-
-    public int Hunger;
-    public int MaxHunger;
+    public Settler_SatietyData SatietyData;
 
     public int Care;
     public int MaxCare;

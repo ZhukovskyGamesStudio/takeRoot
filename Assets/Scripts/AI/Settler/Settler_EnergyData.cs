@@ -15,8 +15,6 @@ namespace AI {
         public int onGroundEnergyChange;
         public int onBedEnergyChange;
         [Space]
-        public float energyCooldown;
-        public float energyTimer;
         public bool isSleeping;
         public Bed bed;
         public bool HasOwnBed => bed != null;

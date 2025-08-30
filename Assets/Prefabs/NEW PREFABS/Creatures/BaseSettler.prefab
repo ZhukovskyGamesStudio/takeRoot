@@ -329,12 +329,18 @@ MonoBehaviour:
         breakdownTimer: 0
         stressAfterBreakdown: 40
         stressChange: 0
-        stressCooldown: 5
-        stressTimer: 0
-      Hunger: 0
-      MaxHunger: 100
+        lowSatietyStressChange: 2
+        highSatietyStressChange: -1
+      SatietyData:
+        maxSatiety: 100
+        currentSatiety: 100
+        lowSatietyThreshold: 50
+        highSatietyThreshold: 80
+        satietyChange: -2
       Care: 100
       MaxCare: 100
+    needsUpdateCooldown: 5
+    needsUpdateTimer: 0
     names:
       Name: 
       Race: 0
@@ -348,8 +354,6 @@ MonoBehaviour:
       defaultEnergyChange: -2
       onGroundEnergyChange: 2
       onBedEnergyChange: 0
-      energyCooldown: 5
-      energyTimer: 0
       isSleeping: 0
       bed: {fileID: 0}
     craftingTransport:

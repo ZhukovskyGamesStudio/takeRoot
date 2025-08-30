@@ -1,0 +1,19 @@
+using System;
+using UnityEngine;
+
+namespace AI {
+    [Serializable]
+    public class Settler_SatietyData {
+        public int maxSatiety;
+        public int currentSatiety;
+        [Space]
+        public int lowSatietyThreshold;
+        public int highSatietyThreshold;
+        [Space]
+        public int satietyChange;
+        
+        public bool LowSatiety => currentSatiety < lowSatietyThreshold;
+        public bool HighSatiety => currentSatiety >= highSatietyThreshold;
+        public float Percentage => (float)currentSatiety / maxSatiety;
+    }
+}

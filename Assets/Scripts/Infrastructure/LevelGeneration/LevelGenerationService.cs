@@ -17,7 +17,7 @@ public class LevelGenerationService : ILevelGenerationService {
             data.names.Name = NamesList[Random.Range(0, NamesList.Count)];
             data.needs.Hp = Random.Range(data.needs.MaxHp / 4, data.needs.MaxHp);
             data.needs.Care = Random.Range(data.needs.MaxCare / 4, data.needs.MaxCare);
-            data.needs.Hunger = Random.Range(0, data.needs.MaxHunger * 3 / 4);
+            data.needs.SatietyData.currentSatiety = Random.Range(data.needs.SatietyData.maxSatiety / 2, data.needs.SatietyData.maxSatiety);
             data.needs.StressData.currentStress = Random.Range(0, data.needs.StressData.maxStress * 3 / 4);
         }
     }
