@@ -7,4 +7,6 @@ public interface IResourceManager : IService {
     public void DestroyResource(Vector3 at);
     public Resource FindResourceOnGround(ResourceType type);
     public Dictionary<ResourceType, int> TotalResources();
+
+    public Sprite GetResourceSpriteNoShadow(ResourceType type);
 }

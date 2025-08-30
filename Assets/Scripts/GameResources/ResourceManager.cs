@@ -6,13 +6,17 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 public class ResourcesManager : IResourceManager {
+    private readonly ResourcesConfig _config;
+    private readonly ResourcesTable _config2;
     private readonly IGridService _grid;
-    private List<Resource> ResourcesPrefabs;
+    private List<Resource> ResourcesPrefabs ;
     private Dictionary<Vector3, Resource> ExistingResourcesOnGround = new();
 
-    public ResourcesManager(ResourcesConfig config, IGridService grid) {
+    public ResourcesManager(IConfigsProvider configService, IGridService grid) {
+        _config = configService.ResourcesConfig;
+        _config2 = configService.ResourcesTable;
         _grid = grid;
-        ResourcesPrefabs = config.ResourcesPrefabs;
+        ResourcesPrefabs = _config.ResourcesPrefabs;
     }
 
     public void SpawnResource(Vector3 at, ResourceType type, int amount) {
@@ -60,6 +64,8 @@ public class ResourcesManager : IResourceManager {
 
         return totalResources;
     }
+
+    public Sprite GetResourceSpriteNoShadow(ResourceType type) => _config2.ResourceIconsDictionary[type];
 
     private Vector3? PickSpawnPos(Vector3 at) {
         List<Vector3> positions = GetAroundPos(at);

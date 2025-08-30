@@ -1,3 +1,4 @@
+using System;
 using CodeBase.Services;
 using UniRx;
 using UnityEngine;
@@ -33,6 +34,10 @@ public class FarmingPlot : MonoBehaviour {
     private FarmingPlantConfig _plantConfig;
 
     public AI.Settler Farmer;
+
+    private void Start() {
+        Init();
+    }
 
     public void Init() {
         _waterLevel = GetComponent<WaterLevel>();

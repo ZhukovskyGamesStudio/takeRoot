@@ -32,9 +32,9 @@ public class FarmingService : IFarmingService, IUpdatable, IDisposable {
         _farmingPlantConfigs = configsProvider.FarmingConfigs;
         inputService.OnSelectionEnd += OnSelectionEnd;
         FarmingPlots = GetAllPlots();
-        foreach (var plot in FarmingPlots) {
+        /*foreach (var plot in FarmingPlots) {
             plot.Init();
-        }
+        }*/
     }
 
     private void OnSelectionEnd(Rect selectedArea) {

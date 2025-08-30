@@ -23,7 +23,7 @@ public class ServiceLocatorLoader_Main {
     private ICoroutineRunner _coroutineRunner;
     private readonly ServiceLocator _services;
 
-    public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner, ResourcesConfig resourceConfig,
+    public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner, 
         CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects, WorldConfig worldConfig, ResearchConfig researchConfig,
         CameraMovementConfig cameraMovementConfig, BuildingsConfig buildingsConfig, BuildingsPanelView buildingsPanelView, TimeScaleConfig timeScaleConfig) {
         _coreCanvasUi = coreUI;
@@ -32,7 +32,7 @@ public class ServiceLocatorLoader_Main {
         _cameraMovementConfig = cameraMovementConfig;
         _buildingsConfig = buildingsConfig;
         _buildingsPanelView = buildingsPanelView;
-        _resourceConfig = resourceConfig;
+       
         _mapFromSceneObjects = mapFromSceneObjects;
         _timeScaleConfig = timeScaleConfig;
         _services = ServiceLocator.Container;
@@ -81,7 +81,7 @@ public class ServiceLocatorLoader_Main {
         //TODO setup race from online service
         _services.RegisterSingle<IRaceService>(new RaceService(Race.Plants));
 
-        _services.RegisterSingle<IResourceManager>(new ResourcesManager(_resourceConfig, _services.Single<IGridService>()));
+        _services.RegisterSingle<IResourceManager>(new ResourcesManager(_services.Single<IConfigsProvider>(), _services.Single<IGridService>()));
         _services.RegisterSingle<ICraftingService>(new CraftingService());
         _services.RegisterSingle<ICommandService>(new CommandService());
         _services.RegisterSingle<IJobCommandsInputHandlerService>(new JobCommandsInputHandlerService(_services.Single<IInputService>(),

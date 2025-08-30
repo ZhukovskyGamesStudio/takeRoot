@@ -18,9 +18,6 @@ public class CoreEntryPoint : EntryPointBase {
     private ResearchConfig _researchConfig;
 
     [SerializeField]
-    private ResourcesConfig _resourceConfig;
-
-    [SerializeField]
     private CameraMovementConfig _cameraMovementConfig;
 
     [SerializeField]
@@ -51,7 +48,7 @@ public class CoreEntryPoint : EntryPointBase {
         IUpdateService updateService = GetComponent<IUpdateService>();
         ICoroutineRunner coroutineRunner = GetComponent<ICoroutineRunner>();
         MapFromSceneObjects map = GetComponent<MapFromSceneObjects>();
-        ServiceLocatorLoader_Main loader = new(updateService, coroutineRunner, _resourceConfig, _coreCanvasUi, map, _worldConfig,
+        ServiceLocatorLoader_Main loader = new(updateService, coroutineRunner, _coreCanvasUi, map, _worldConfig,
             _researchConfig, _cameraMovementConfig, _buildingsConfig, _buildingsPanelView, _timeScaleConfig);
 
         loader.RegisterServices();
