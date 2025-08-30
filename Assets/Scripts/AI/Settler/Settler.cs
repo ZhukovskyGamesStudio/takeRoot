@@ -61,6 +61,7 @@ namespace AI {
 
         public void Die() {
             gameObject.SetActive(false);
+            Data.Dead = true;;
         }
 
         public void Sleep() {
