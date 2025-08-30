@@ -29,7 +29,7 @@ public class Farmer : MonoBehaviour, IPlanter {
 
     private async UniTaskVoid DoPlant(FarmingPlot target, CancellationToken token) {
         _isPlanting = true;
-        _animator.PlaySearch();
+        _animator.PlaySleep();
         while (!token.IsCancellationRequested) {
             await _asyncRunner.Wait(PlantTime, token);
             if (token.IsCancellationRequested) {

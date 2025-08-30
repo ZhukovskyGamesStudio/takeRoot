@@ -7,15 +7,14 @@ namespace AI.Node.Jobs {
         }
 
         public override BTNodeState Evaluate() {
-            CommandTarget target = _settler.Data.currTarget;
-            var plot = target.GetComponent<FarmingPlot>();
+            var plot = _settler.Data.farming.FarmingPlot;
             if (plot.PlantState != FarmingPlantState.WaitingForPlanting) {
-                _settler.Planter.Cancel();
+                _settler.Farmer.Cancel();
                 plot.Farmer = null;
                 return _state = BTNodeState.Success;
             }
 
-            _settler.Planter.Plant(plot);
+            _settler.Farmer.Plant(plot);
             return _state = BTNodeState.Running;
         }
     }

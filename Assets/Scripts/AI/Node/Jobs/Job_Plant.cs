@@ -9,10 +9,13 @@ namespace AI.Node.Jobs {
             SettlerData data = settler.Data;
             Func<bool> condition = () => data.farming.FarmingPlot && data.farming.FarmingPlot.NeedsPlanting();
             ConditionalAction move = new ConditionalAction().Do(new Action_MoveToPos(settler)).While(condition);
-            Action_Plant plant = new Action_Plant(settler);
 
-            AddChild(move);
-            AddChild(plant);
+            Selector moveOrCancel = new Selector()
+                .AddChild(move)
+                .AddChild(new Action_ClearFarmingPlotFromFarmer(settler));
+
+            AddChild(moveOrCancel);
+            AddChild(new Action_Plant(settler));
         }
     }
 }

@@ -12,7 +12,7 @@ namespace AI {
 
         public IMovable Mover;
         public ISearcher Searcher;
-        public IPlanter Planter;
+        public IPlanter Farmer;
         public IDestroyer Destroyer;
         public IWaterer Waterer;
         public IResourceCarrier ResourceCarrier;
@@ -24,7 +24,7 @@ namespace AI {
             WorkerAnimator = GetComponentInChildren<WorkerAnimator>();
             Mover = GetComponent<IMovable>();
             Searcher = GetComponent<ISearcher>();
-            Planter = GetComponent<IPlanter>();
+            Farmer = GetComponent<IPlanter>();
             Destroyer = GetComponent<IDestroyer>();
             Waterer = GetComponent<IWaterer>();
             ResourceCarrier = GetComponent<IResourceCarrier>();
@@ -35,6 +35,7 @@ namespace AI {
             Waterer.Init(WorkerAnimator);
             Crafter.Init(WorkerAnimator);
             Builder.Init(WorkerAnimator);
+            Farmer.Init(WorkerAnimator);
             _root = CreateRootBt();
             _stateBt = CreateStateBt();
         }

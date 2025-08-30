@@ -20,7 +20,7 @@ namespace AI.Node.Jobs {
 
             _settler.Data.farming.FarmingPlot = farmingPlot;
             farmingPlot.Farmer = _settler;
-            _settler.Data.curMovePos = farmingPlot.transform.position + Vector3.down;
+            _settler.Data.curMovePos = farmingPlot.transform.position;
             return _state = BTNodeState.Success;
         }
     }
