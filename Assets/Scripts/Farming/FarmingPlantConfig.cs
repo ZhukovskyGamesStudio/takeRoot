@@ -16,5 +16,15 @@ public class FarmingPlantConfig : ScriptableObject {
     [field: SerializeField]
     public AYellowpaper.SerializedCollections.SerializedDictionary<float, Sprite> GrowthStages { get; set; }
 
-    public Sprite GetGrowthSpriteByLevel(float growthLevel) => (from key in GrowthStages.Keys where key <= growthLevel select GrowthStages[key]).FirstOrDefault();
+    public Sprite GetGrowthSpriteByLevel(float growthLevel) {
+        int i = 0;
+        foreach (var kvp in GrowthStages) {
+            if(kvp.Key > growthLevel) {
+                return GrowthStages.ElementAt(i - 1).Value;
+            }
+
+            i++;
+        }
+        return GrowthStages.ElementAt(GrowthStages.Count - 1).Value;
+    }
 }

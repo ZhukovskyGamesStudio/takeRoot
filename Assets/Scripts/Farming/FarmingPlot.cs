@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(WaterLevel))]
 public class FarmingPlot : MonoBehaviour {
@@ -25,26 +26,47 @@ public class FarmingPlot : MonoBehaviour {
 
     public float GrowingLevel;
 
+    private FarmingPlantConfig _plantConfig;
+
     public void Init() {
         _waterLevel = GetComponent<WaterLevel>();
         PlantType = FarmingPlantType.None;
         PlantState = FarmingPlantState.None;
-        _waterLevel.ChangeWater(1);
+        _waterLevel.ChangeWater(Random.Range(0,1f));
         GrowingLevel = 0;
+    }
+
+    public void ChangePlant(FarmingPlantConfig plantConfig) {
+        _plantConfig = plantConfig;
+        PlantType = plantConfig.PlantType;
+        PlantState = FarmingPlantState.WaitingForPlanting;
+
+        PlantState = FarmingPlantState.Growing;
+        GrowingLevel = 0;
+        ChangeGrow(0);
+    }
+
+    public void CutPlant() {
+        _plantConfig = null;
+        PlantType = FarmingPlantType.None;
+        PlantState = FarmingPlantState.None;
+        GrowingLevel = 0;
+        ChangeGrow(0);
     }
 
     public void ChangeWaterLevel(float amount) {
         _waterLevel.ChangeWater(amount);
 
-        if (_waterLevel.currentWater <= DryThreshold) {
-            _plotView.sprite = _drySprite;
-        } else {
-            _plotView.sprite = _wateredSprite;
+        _plotView.sprite = _waterLevel.currentWater <= DryThreshold ? _drySprite : _wateredSprite;
+
+        if (PlantState == FarmingPlantState.Growing && _waterLevel.currentWater <= DryThreshold) {
+            PlantState = FarmingPlantState.WaitingForWater;
+        } else if (PlantState == FarmingPlantState.WaitingForWater && _waterLevel.currentWater > DryThreshold) {
+            PlantState = FarmingPlantState.Growing;
         }
     }
 
     public void ChangeGrow(float amount) {
-        
         if (PlantState == FarmingPlantState.Growing) {
             GrowingLevel += amount;
             GrowingLevel = Mathf.Clamp01(GrowingLevel);
@@ -53,6 +75,8 @@ public class FarmingPlot : MonoBehaviour {
         if (GrowingLevel >= GrowThreshold) {
             PlantState = FarmingPlantState.ReadyToHarvest;
         }
+
+        _plantView.sprite = _plantConfig != null ? _plantConfig.GetGrowthSpriteByLevel(GrowingLevel) : null;
     }
 
     public bool NeedsWatering() => PlantType != FarmingPlantType.None && PlantState != FarmingPlantState.WaitingForWater;

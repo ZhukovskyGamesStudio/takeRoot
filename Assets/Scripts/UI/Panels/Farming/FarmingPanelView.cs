@@ -12,10 +12,12 @@ public class FarmingPanelView : MonoBehaviour {
     private List<FarmingPlantConfig> _farmingConfigs;
     private Action<FarmingPlantConfig> _onPlant;
     private Action _onCut;
+    private Action _onClose;
 
-    public void SetData(List<FarmingPlantConfig> farmingConfigs, Action<FarmingPlantConfig> onPlant, Action onCut) {
+    public void SetData(List<FarmingPlantConfig> farmingConfigs, Action<FarmingPlantConfig> onPlant, Action onCut, Action onClose) {
         _onPlant = onPlant;
         _onCut = onCut;
+        _onClose = onClose;
         _farmingConfigs = farmingConfigs;
         gameObject.SetActive(true);
 
@@ -31,5 +33,9 @@ public class FarmingPanelView : MonoBehaviour {
 
     public void Cut() {
         _onCut?.Invoke();
+    }
+
+    private void OnDisable() {
+        _onClose?.Invoke();
     }
 }
