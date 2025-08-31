@@ -7,13 +7,13 @@ namespace AI.Node.Jobs {
 		}
 
 		public override BTNodeState Evaluate() {
-			var blueprint = _settler.Data.building.buildingBlueprint;
+			var blueprint = _settler.Data.targets.BuildingBlueprint;
 			if (blueprint.WasBuilded) {
 				blueprint.Build();
-				_settler.Data.building.buildingBlueprint = null;
+				_settler.Data.targets.BuildingBlueprint = null;
 				return _state = BTNodeState.Success;
 			}
-			_settler.Builder.Build(_settler.Data.building.buildingBlueprint);
+			_settler.Builder.Build(_settler.Data.targets.BuildingBlueprint);
 			return _state = BTNodeState.Running;
 		}
 	}

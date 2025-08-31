@@ -7,8 +7,8 @@ namespace AI.Node.Jobs {
         }
 
         public override BTNodeState Evaluate() {
-            _settler.Data.farming.FarmingPlot.Farmer = null;
-            _settler.Data.farming.FarmingPlot = null;
+            _settler.Data.targets.FarmingPlot.Farmer = null;
+            _settler.Data.targets.FarmingPlot = null;
             return _state = BTNodeState.Failure;
         }
     }

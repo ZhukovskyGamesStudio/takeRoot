@@ -35,18 +35,11 @@ namespace AI {
 
         [Header("Transport for crafting")]
         public Settler_TransportForCrafting craftingTransport;
-        
-        [Header("Crafting")]
-        public Settler_Crafting crafting;
+
+        public Settler_Targets targets;
         
         [Header("Transport for Building")]
         public Settler_TransportForBuilding buildingTransport;
-
-        [Header("Building")]
-        public Settler_Building building;
-        
-        [Header("Crafting")]
-        public Settler_Farming farming;
         
         [Header("Idle move")]
         public float IdleMoveCooldown;

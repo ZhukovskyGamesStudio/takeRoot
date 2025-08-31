@@ -54,6 +54,8 @@ namespace AI.Node.Jobs {
             _settler.Data.needsUpdateTimer += Time.deltaTime;
             if(_settler.Data.Condition == SettlerCondition.Breakdown) _stressData.breakdownTimer += Time.deltaTime;
 
+            if (Settler.GlobalGodmode) return BTNodeState.Success;
+            
             if (_settler.Data.needsUpdateTimer >= _settler.Data.needsUpdateCooldown) {
                 _settler.Data.needsUpdateTimer = 0;
                 
