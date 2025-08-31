@@ -132,7 +132,6 @@ public class EntryPoint_Video1 : MonoBehaviour, ICoroutineRunner {
 
         yield return StartCoroutine(PlayEmotionAndWait(0f, 0f,
             () => mainWorkerEmotionPlayer.PlayEmotion(BubbleType.Exclamation, EmotionType.Attention)));
-        mainView.GetComponentInChildren<ChangeMoodAnimator>().currentMood = Mood.Angry;
         mainWorker.WorkerAnimator.DoJump();
     }
 
