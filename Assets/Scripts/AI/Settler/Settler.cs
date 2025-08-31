@@ -7,8 +7,7 @@ using UnityEngine.Profiling;
 namespace AI {
     public class Settler : MonoBehaviour {
         public static bool GlobalGodmode;
-        
-        private BTNode _root;
+        private BTRoot_Settler _root;
         private BTNode _stateBt;
         public SettlerData Data;
 
@@ -51,6 +50,9 @@ namespace AI {
             Profiler.EndSample();
         }
 
+        public void SetTactical(bool isTactical) {
+            Data.tactical.IsTactical = isTactical;
+        }
         public void StartBreakdown() {
             Data.needs.StressData.breakdownTimer = 0;
             Data.Condition = SettlerCondition.Breakdown;
@@ -86,7 +88,7 @@ namespace AI {
             return stateBt;
         }
 
-        private BTNode CreateRootBt() {
+        private BTRoot_Settler CreateRootBt() {
             ICommandService commands = ServiceLocator.Container.Single<ICommandService>();
             ICraftingService crafting = ServiceLocator.Container.Single<ICraftingService>();
             IBuildingService building = ServiceLocator.Container.Single<IBuildingService>();
