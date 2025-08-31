@@ -29,5 +29,9 @@ namespace AI.Node {
             _children.Add(child);
             return this;
         }
+
+        public void Reset() {
+            _currentChild = 0;
+        }
     }
 }

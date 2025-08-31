@@ -1,24 +1,22 @@
 namespace AI.Node.Jobs {
-	public class Action_ClearHaulBuilding : BTNode {
+	public class Action_ClearHaulCrafting : BTNode {
 		private readonly Settler _settler;
 		private readonly IResourceManager _resourceManager;
 
-		public Action_ClearHaulBuilding(Settler settler, IResourceManager resourceManager) {
+		public Action_ClearHaulCrafting(Settler settler, IResourceManager resourceManager) {
 			_settler = settler;
 			_resourceManager = resourceManager;
 		}
 		public override BTNodeState Evaluate() {
-			var transportData = _settler.Data.buildingTransport;
-			if (transportData.buildingBlueprint != null) {
-				transportData.buildingBlueprint.Builder = null;
+			var transportData = _settler.Data.craftingTransport;
+			if (transportData.craftingStation != null) {
+				var race = _settler.Data.names.Race;
+				if (transportData.craftingStation.Crafters[race] == _settler) {
+					transportData.craftingStation.Crafters.Remove(race);
+				}
 			}
 			if (transportData.resourceToHaul != null && transportData.resourceInHands.ResourceType == ResourceType.None) {
 				transportData.resourceToHaul.Reserved -= transportData.amountToPick;
-			}
-
-			if (transportData.buildingBlueprint != null &&
-			    transportData.resourceInHands.ResourceType != ResourceType.None) {
-				transportData.buildingBlueprint.ReservedRequiredResources[transportData.resourceInHands.ResourceType] -= transportData.resourceInHands.Amount;
 			}
 			if (transportData.resourceInHands.ResourceType != ResourceType.None) {
 				_resourceManager.SpawnResource(
@@ -27,12 +25,12 @@ namespace AI.Node.Jobs {
 					transportData.resourceInHands.Amount);
 				_settler.ResourceCarrier.DropResource();
 			}
-
-			transportData.buildingBlueprint = null;
+			transportData.craftingStation = null;
 			transportData.resourceToHaul = null;
 			transportData.resourceInHands = ResourceData.Empty;
 			transportData.amountToPick = 0;
 			return BTNodeState.Failure;
+			
 		}
 	}
 }

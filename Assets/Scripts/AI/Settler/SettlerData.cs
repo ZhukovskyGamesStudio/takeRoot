@@ -4,7 +4,6 @@ using UnityEngine;
 namespace AI {
     [Serializable]
     public class SettlerData {
-        public bool IsTactical;
         public bool Dead;
 
         [Header("Jobs")]
