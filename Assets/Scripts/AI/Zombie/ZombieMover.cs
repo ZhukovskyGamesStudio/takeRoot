@@ -1,7 +1,7 @@
 using UnityEngine;
 
-namespace Settlers.AI.Zombie {
-	public class ZombieMover : IZombieMover {
+namespace AI {
+	public class ZombieMover : MonoBehaviour, IZombieMover {
 		public float moveTime = 1f;
 		public float gridSize = 1f;
 		
@@ -11,15 +11,15 @@ namespace Settlers.AI.Zombie {
 		public bool IsMoving { get; private set; }
 
 		public bool IsAtPosition(Vector2 target) {
-			throw new System.NotImplementedException();
+			return false;
 		}
 
 		public bool HasPath(Vector2 target) {
-			throw new System.NotImplementedException();
+			return true;
 		}
 
 		public void MoveTo(Vector2 target) {
-			throw new System.NotImplementedException();
+			Debug.Log("Moving");
 		}
 	}
 }

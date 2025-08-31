@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Settlers.AI.Zombie {
+namespace AI {
 	public interface IZombieMover {
 		public bool IsMoving { get; }
 		public bool IsAtPosition(Vector2 target);
