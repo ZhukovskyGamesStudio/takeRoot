@@ -29,6 +29,7 @@ public class PrepareGamePanel : MonoBehaviour {
     private string _serverCode;
 
     public void Show() {
+        BackgroundParallax.IsParallaxDisabled = true;
         gameObject.SetActive(true);
         _animation.Play(_show.name);
     }
@@ -37,6 +38,7 @@ public class PrepareGamePanel : MonoBehaviour {
         switch (_state) {
             case State.Choosing:
                 Close();
+                BackgroundParallax.IsParallaxDisabled = false;
                 break;
             case State.Hosting:
                 StopHosting();
