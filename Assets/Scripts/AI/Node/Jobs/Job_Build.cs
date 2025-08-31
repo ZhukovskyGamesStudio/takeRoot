@@ -3,8 +3,8 @@ namespace AI.Node.Jobs {
 		public Job_Build(Settler settler, IBuildingService buildingService) {
 			var moveToBuilding = new ConditionalAction()
 				.Do(new Action_MoveToPos(settler))
-				.While(() => settler.Data.building.buildingBlueprint &&
-				             settler.Data.building.buildingBlueprint.CanBuild());
+				.While(() => settler.Data.targets.BuildingBlueprint &&
+				             settler.Data.targets.BuildingBlueprint.CanBuild());
 
 			var build = new Sequence()
 				.AddChild(new Action_FindBlueprintToBuild(settler, buildingService))

@@ -7,7 +7,7 @@ namespace AI.Node.Jobs {
         }
 
         public override BTNodeState Evaluate() {
-            var plot = _settler.Data.farming.FarmingPlot;
+            var plot = _settler.Data.targets.FarmingPlot;
             if (plot.PlantState != FarmingPlantState.WaitingForWater) {
                 _settler.Farmer.Cancel();
                 plot.Farmer = null;

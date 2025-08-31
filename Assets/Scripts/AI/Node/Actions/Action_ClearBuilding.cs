@@ -6,11 +6,11 @@ namespace AI.Node.Jobs {
 			_settler = settler;
 		}
 		public override BTNodeState Evaluate() {
-			var buildingData = _settler.Data.building;
-			if (buildingData.buildingBlueprint != null) {
-				buildingData.buildingBlueprint.Builder = null;
+			var targetsData = _settler.Data.targets;
+			if (targetsData.BuildingBlueprint != null) {
+				targetsData.BuildingBlueprint.Builder = null;
 			}
-			buildingData.buildingBlueprint = null;
+			targetsData.BuildingBlueprint = null;
 			return BTNodeState.Failure;
 		}
 	}

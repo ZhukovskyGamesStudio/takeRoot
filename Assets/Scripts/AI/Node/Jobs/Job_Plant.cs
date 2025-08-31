@@ -7,7 +7,7 @@ namespace AI.Node.Jobs {
             AddChild(new Action_FindFarmingPlotWithCondition(settler, farmingService, CanBePlanted));
 
             SettlerData data = settler.Data;
-            Func<bool> condition = () => data.farming.FarmingPlot && data.farming.FarmingPlot.NeedsPlanting();
+            Func<bool> condition = () => data.targets.FarmingPlot && data.targets.FarmingPlot.NeedsPlanting();
             ConditionalAction move = new ConditionalAction().Do(new Action_MoveToPos(settler)).While(condition);
 
             Selector moveOrCancel = new Selector().AddChild(move).AddChild(new Action_ClearFarmingPlotFromFarmer(settler));

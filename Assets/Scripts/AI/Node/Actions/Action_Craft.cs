@@ -6,11 +6,11 @@ namespace AI.Node.Jobs {
 			_settler = settler;
 		}
 		public override BTNodeState Evaluate() {
-			var craftingStation = _settler.Data.crafting.craftingStation;
+			var craftingStation = _settler.Data.targets.CraftingStation;
 			if (craftingStation.StationData.CurrentRecipe == null) {
 				_settler.Crafter.Cancel();
 				craftingStation.Crafters[_settler.Data.names.Race] = null;
-				_settler.Data.crafting.craftingStation = null;
+				_settler.Data.targets.CraftingStation = null;
 				return _state = BTNodeState.Success;
 			}
 			_settler.Crafter.Craft(craftingStation);
