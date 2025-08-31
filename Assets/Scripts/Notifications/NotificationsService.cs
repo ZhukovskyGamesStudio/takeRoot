@@ -1,6 +1,6 @@
 using System;
 
-public class NotificationsService : INotificationsService, IUpdatable, IDisposable {
+public class NotificationsService : INotificationsService, IUpdatable {
     private readonly IUpdateService _updateService;
 
     private DateTime _lastNotificationTime;
