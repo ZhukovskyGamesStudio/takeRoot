@@ -4,9 +4,7 @@ using UnityEngine;
 namespace Settlers.Crafting {
     [CreateAssetMenu(fileName = "CraftingRecipeConfig", menuName = "Scriptable Objects/CraftingRecipeConfig", order = 0)]
     public class CraftingRecipeConfig : ScriptableObject {
-        [field: SerializeField]
-        public string RecipeUid;
-        
+      
         [field:SerializeField]
         public MainInfoData MainInfo;
 

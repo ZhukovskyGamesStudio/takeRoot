@@ -62,42 +62,11 @@ public class CraftingStation : MonoBehaviour {
         ReservedRequiredResources[type] -= amount;
     }
 
-    public void AddRecipe(string recipeUid) {
-        var recipe = StationData.AvailableCraftingRecipes.FirstOrDefault(r => r.RecipeUid == recipeUid);
-        if (recipe == null) {
-            Debug.LogError("Recipe UID: " + recipeUid + " not found!");
-            return;
-        }
-
-        StationData.RecipesToCraft[recipeUid]++;
-        foreach (ResourceData resource in recipe.RequiredResources) {
-            StationData.RequiredResources[resource.ResourceType] += resource.Amount;
-        }
-    }
-
-    public void RemoveRecipe(string recipeUid) {
-        if (StationData.RecipesToCraft[recipeUid] == 0) return;
-        var recipe = StationData.AvailableCraftingRecipes.FirstOrDefault(r => r.RecipeUid == recipeUid);
-        if (recipe == null) {
-            Debug.LogError("Recipe UID: " + recipeUid + " not found!");
-            return;
-        }
-
-        StationData.RecipesToCraft[recipeUid]--;
-        if (StationData.CurrentRecipe.RecipeUid == recipeUid && StationData.RecipesToCraft[recipeUid] == 0) {
-            StationData.CurrentRecipe = null;
-        }
-
-        foreach (ResourceData resource in recipe.RequiredResources) {
-            StationData.RequiredResources[resource.ResourceType] -= resource.Amount;
-        }
-    }
-
     public bool CanCraft() {
         PickNewRecipe();
         var canCraft = false;
         foreach (CraftingRecipeConfig config in StationData.AvailableCraftingRecipes) {
-            if (StationData.RecipesToCraft[config.RecipeUid] == 0) continue;
+            if (StationData.RecipesToCraft[config.ResultingResource.ResourceType] == 0) continue;
             foreach (ResourceData resource in config.RequiredResources) {
                 if (StationData.ResourceStorage[resource.ResourceType] < resource.Amount) {
                     canCraft = false;
@@ -135,13 +104,13 @@ public class CraftingStation : MonoBehaviour {
     private void PickNewRecipe() {
         CraftingRecipeConfig recipe = null;
         foreach (CraftingRecipeConfig config in StationData.AvailableCraftingRecipes) {
-            if (StationData.RecipesToCraft[config.RecipeUid] == 0) continue;
+            if (StationData.RecipesToCraft[config.ResultingResource.ResourceType] == 0) continue;
             foreach (ResourceData resource in config.RequiredResources) {
                 if (StationData.ResourceStorage[resource.ResourceType] < resource.Amount) {
                     break;
                 }
 
-                StationData.CurrentRecipe = StationData.AvailableCraftingRecipes.FirstOrDefault(r => r.RecipeUid == config.RecipeUid);
+                StationData.CurrentRecipe = StationData.AvailableCraftingRecipes.FirstOrDefault(r => r.ResultingResource.ResourceType == config.ResultingResource.ResourceType);
                 return;
             }
         }
