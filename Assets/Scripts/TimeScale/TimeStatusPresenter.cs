@@ -1,10 +1,12 @@
 public class TimeStatusPresenter {
     private ITimeScaleService _service;
-    
-    public TimeStatusPresenter(TimeStatusUI view, ITimeScaleService service) {
-        _service = service;
+    private readonly IIngameTimeService _ingameTimeService;
 
-        view.SetData(SetGameSpeed);
+    public TimeStatusPresenter(TimeStatusUI view, ITimeScaleService service, IIngameTimeService ingameTimeService) {
+        _service = service;
+        _ingameTimeService = ingameTimeService;
+
+        view.SetData(_ingameTimeService.IngameTimeData, SetGameSpeed );
     }
 
     private void SetGameSpeed(GameSpeedType speed) {

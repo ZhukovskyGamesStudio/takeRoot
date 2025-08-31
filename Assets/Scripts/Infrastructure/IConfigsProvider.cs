@@ -12,4 +12,5 @@ public interface IConfigsProvider : IService {
     public TimeScaleConfig TimeScaleConfig { get; set; }
     public CameraMovementConfig CameraMovementConfig { get; set; }
     public WorldConfig WorldConfig { get; set; }
+    public IngameTimeConfig IngameTimeConfig { get; set; }
 }

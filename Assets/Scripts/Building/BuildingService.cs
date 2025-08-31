@@ -75,4 +75,8 @@ public class BuildingService : IBuildingService, IUpdatable {
 			}
 		}
 	}
+
+	public void Dispose() {
+		_update.Unregister(this);
+	}
 }

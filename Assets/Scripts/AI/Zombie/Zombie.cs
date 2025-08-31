@@ -21,5 +21,9 @@ namespace AI {
 		public void Update() {
 			_root.Evaluate();
 		}
+
+		public void Dispose() {
+			_update.Unregister(this);
+		}
 	}
 }

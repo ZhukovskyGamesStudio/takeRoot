@@ -38,4 +38,8 @@ public class WorkerAssigner : IUpdatable, IWorkerAssigner {
     public void UnregisterWorker(Worker worker) {
         Workers.Remove(worker);
     }
+
+    public void Dispose() {
+        _update.Unregister(this);
+    }
 }

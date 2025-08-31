@@ -20,6 +20,9 @@ public class CoreEntryPoint : EntryPointBase {
 
     [Space, SerializeField]
     private CoreCanvasUi _coreCanvasUi;
+    
+    [SerializeField]
+    private InGameDaynightLightView _globalDaynightLight;
 
     private ServiceLocator _services;
 
@@ -31,7 +34,7 @@ public class CoreEntryPoint : EntryPointBase {
         IUpdateService updateService = GetComponent<IUpdateService>();
         ICoroutineRunner coroutineRunner = GetComponent<ICoroutineRunner>();
         MapFromSceneObjects map = GetComponent<MapFromSceneObjects>();
-        ServiceLocatorLoader_Main loader = new(updateService, coroutineRunner, _coreCanvasUi, map, _buildingsPanelView);
+        ServiceLocatorLoader_Main loader = new(updateService, coroutineRunner, _coreCanvasUi, map, _buildingsPanelView,_globalDaynightLight);
 
         loader.RegisterServices();
         _services = ServiceLocator.Container;
@@ -67,7 +70,7 @@ public class CoreEntryPoint : EntryPointBase {
         
         NotificationsPresenter notificationsPresenter = new(_coreCanvasUi.NotificationsView, Single<INotificationsService>());
 
-        TimeStatusPresenter timeStatusPresenter = new(_timeStatusView, Single<ITimeScaleService>());
+        TimeStatusPresenter timeStatusPresenter = new(_timeStatusView, Single<ITimeScaleService>(), Single<IIngameTimeService>());
     }
 
     private TService Single<TService>() where TService : IService {

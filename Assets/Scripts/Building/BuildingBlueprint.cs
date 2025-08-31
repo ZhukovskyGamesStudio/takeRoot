@@ -149,4 +149,8 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 		}
 		Destroy(gameObject);
 	}
+
+	public void Dispose() {
+		_update.Unregister(this);
+	}
 }
