@@ -192,6 +192,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6553336415367732623}
   m_SourcePrefab: {fileID: 100100000, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+--- !u!4 &1940747106609110402 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7625625603824231622, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+  m_PrefabInstance: {fileID: 8303864909110491460}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7626318561151303953 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
@@ -220,7 +225,8 @@ MonoBehaviour:
     CurrentRecipeCraftingPoints: 0
   Crafters:
     _serializedList: []
-  InteractPos: []
+  InteractPos:
+  - {fileID: 1940747106609110402}
 --- !u!114 &6553336415367732623
 MonoBehaviour:
   m_ObjectHideFlags: 0

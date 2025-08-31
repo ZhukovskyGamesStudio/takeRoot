@@ -10,13 +10,13 @@ public class CraftingStationable : ECSComponent {
 
     private CraftingCombinedCommand _craftingCombinedCommand;
 
-    private List<string> _recipesToCraftList = new();
+    private List<ResourceType> _recipesToCraftList = new();
     private Dictionary<ResourceType, int> _resourceStorage = new();
     private Dictionary<ResourceType, int> _requiredResourcesForAllCurrentCrafts = new();
 
     public Interactable Interactable { get; private set; }
     public CraftingRecipeConfig CurrentRecipeToCraft { get; private set; }
-    public IReadOnlyList<string> RecipesToCraftList => _recipesToCraftList;
+    public IReadOnlyList<ResourceType> RecipesToCraftList => _recipesToCraftList;
     public ReadOnlyDictionary<ResourceType, int> ResourceStorage => new(_resourceStorage);
     public ReadOnlyDictionary<ResourceType, int> RequiredResourcesForAllCurrentCrafts => new(_requiredResourcesForAllCurrentCrafts);
     public CraftingStationableData CraftingStationableData { get; private set; }
@@ -68,13 +68,13 @@ public class CraftingStationable : ECSComponent {
     }
 
     public void AddRecipeToCraft(string uid) {
-        CraftingRecipeConfig recipe = ObsoleteCoreEntryPoint.CraftingManager.GetRecipe(uid);
+       /* CraftingRecipeConfig recipe = ObsoleteCoreEntryPoint.CraftingManager.GetRecipe(uid);
         _recipesToCraftList.Add(uid);
         foreach (ResourceData resource in recipe.RequiredResources) {
             _requiredResourcesForAllCurrentCrafts[resource.ResourceType] += resource.Amount;
         }
 
-        OnRecipeDataChanged?.Invoke(uid);
+        OnRecipeDataChanged?.Invoke(uid);*/
     }
 
     public void RemoveRecipeToCraft(string uid) {
@@ -88,7 +88,7 @@ public class CraftingStationable : ECSComponent {
     }
 
     private void RemoveLastAddedRecipeToCraft(string uidToRemove) {
-        List<string> reversedList = _recipesToCraftList.ToList();
+       /*List<string> reversedList = _recipesToCraftList.ToList();
         reversedList.Reverse();
         int index = reversedList.Count;
         foreach (string uid in reversedList) {
@@ -97,17 +97,17 @@ public class CraftingStationable : ECSComponent {
                 _recipesToCraftList.RemoveAt(index);
                 return;
             }
-        }
+        }*/
     }
 
     public void SetCurrentCraft(CraftingRecipeConfig recipe) {
-        _recipesToCraftList.Remove(recipe.RecipeUid);
+        /*_recipesToCraftList.Remove(recipe);
         CurrentRecipeToCraft = recipe;
         foreach (ResourceData resource in recipe.RequiredResources) {
             _requiredResourcesForAllCurrentCrafts[resource.ResourceType] -= resource.Amount;
         }
 
-        OnRecipeDataChanged?.Invoke(recipe.RecipeUid);
+        OnRecipeDataChanged?.Invoke(recipe.RecipeUid);*/
     }
 
     public void CancelCurrentCraft() {

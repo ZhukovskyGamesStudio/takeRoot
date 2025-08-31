@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Settlers.Crafting;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ public class CraftingStationData {
     public Dictionary<ResourceType, int> RequiredResources;
 
     [HideInInspector]
-    public Dictionary<string, int> RecipesToCraft;
+    public Dictionary<ResourceType, int> RecipesToCraft;
 
     [HideInInspector]
     public CraftingRecipeConfig CurrentRecipe;
@@ -25,7 +26,7 @@ public class CraftingStationData {
     public void Init() {
         ResourceStorage = new AYellowpaper.SerializedCollections.SerializedDictionary<ResourceType, int>();
         RequiredResources = new Dictionary<ResourceType, int>();
-        RecipesToCraft = new Dictionary<string, int>();
+        RecipesToCraft = new Dictionary<ResourceType, int>();
         foreach (ResourceType type in (ResourceType[])Enum.GetValues(typeof(ResourceType))) {
             if (type == ResourceType.None) {
                 continue;
@@ -36,7 +37,38 @@ public class CraftingStationData {
         }
 
         foreach (CraftingRecipeConfig config in AvailableCraftingRecipes) {
-            RecipesToCraft[config.RecipeUid] = 0;
+            RecipesToCraft[config.ResultingResource.ResourceType] = 0;
+        }
+    }
+    
+    public void AddRecipe(ResourceType recipeRes) {
+        var recipe = AvailableCraftingRecipes.FirstOrDefault(r => r.ResultingResource.ResourceType == recipeRes);
+        if (recipe == null) {
+            Debug.LogError("Recipe UID: " + recipeRes + " not found!");
+            return;
+        }
+
+        RecipesToCraft[recipeRes]++;
+        foreach (ResourceData resource in recipe.RequiredResources) {
+            RequiredResources[resource.ResourceType] += resource.Amount;
+        }
+    }
+    
+    public void RemoveRecipe(ResourceType recipeRes) {
+        if (RecipesToCraft[recipeRes] == 0) return;
+        var recipe = AvailableCraftingRecipes.FirstOrDefault(r => r.ResultingResource.ResourceType == recipeRes);
+        if (recipe == null) {
+            Debug.LogError("Recipe UID: " + recipeRes + " not found!");
+            return;
+        }
+
+        RecipesToCraft[recipeRes]--;
+        if (CurrentRecipe.ResultingResource.ResourceType == recipeRes && RecipesToCraft[recipeRes] == 0) {
+            CurrentRecipe = null;
+        }
+
+        foreach (ResourceData resource in recipe.RequiredResources) {
+            RequiredResources[resource.ResourceType] -= resource.Amount;
         }
     }
 }
