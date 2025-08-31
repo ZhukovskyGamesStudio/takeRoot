@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Settlers.Crafting;
 using TMPro;
@@ -5,9 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class CraftingLineView : MonoBehaviour {
-    private string _uid;
-
-    [SerializeField]
+   [SerializeField]
     private ImageTextPair _result;
 
     [SerializeField]
@@ -29,14 +28,22 @@ public class CraftingLineView : MonoBehaviour {
     private ResourcesTable _resourcesTable;
 
     private CraftingRecipeConfig _config;
+    private Action<CraftingRecipeConfig> _addRecipe, _removeRecipe;
+    private CraftingStationData _data;
 
-    public void Set(CraftingRecipeConfig config) {
+    public void Set(CraftingRecipeConfig config, CraftingStationData data, Action<CraftingRecipeConfig> addRecipe,
+        Action<CraftingRecipeConfig> removeRecipe) {
         _config = config;
-        _uid = config.RecipeUid;
+        _data = data;
+        _addRecipe = addRecipe;
+        _removeRecipe = removeRecipe;
         _explainText.text = config.MainInfo.Description;
         _result.SetData(config.MainInfo.Icon, config.MainInfo.Name);
 
         UpdateIngridients(config);
+        
+        UpdateRecipesAmount(GetQueuedAmount);
+        UpdateRecipesAmountButtons(GetQueuedAmount);
     }
 
     private void UpdateIngridients(CraftingRecipeConfig config) {
@@ -51,13 +58,19 @@ public class CraftingLineView : MonoBehaviour {
         }
     }
 
-    public void ChangeRecipeToCraftAmount(int amount) {
-        //_craftingGridUiView.ChangeRecipeToCraftAmount(_uid, amount);
+    public void Add() {
+        _addRecipe?.Invoke(_config);
+        UpdateRecipesAmount(GetQueuedAmount);
+        UpdateRecipesAmountButtons(GetQueuedAmount);
     }
 
-    public void UpdateAmount(ResourceType type, int queueAmount, int stockAmount) {
-        //_requiredResourcesGridView.GetResourceView(type).SetAmount(queueAmount, $"{queueAmount} / {stockAmount}");
+    public void Remove() {
+        _removeRecipe?.Invoke(_config);
+        UpdateRecipesAmount(GetQueuedAmount);
+        UpdateRecipesAmountButtons(GetQueuedAmount);
     }
+
+    private int GetQueuedAmount => _data.RecipesToCraft[_config.ResultingResource.ResourceType];
 
     public void UpdateRecipesAmount(int recipesAmount) {
         _recipesToCraftAmount.text = $"{recipesAmount}";

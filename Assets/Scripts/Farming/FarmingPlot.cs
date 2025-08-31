@@ -28,11 +28,12 @@ public class FarmingPlot : MonoBehaviour {
     public FarmingPlantState PlantState;
 
     private WaterLevel _waterLevel;
-
+    [HideInInspector]
     public float GrowingLevel;
 
     private FarmingPlantConfig _plantConfig;
 
+    [HideInInspector]
     public AI.Settler Farmer;
 
     private void Start() {

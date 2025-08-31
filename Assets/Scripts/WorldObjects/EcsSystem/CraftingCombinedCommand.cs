@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Settlers.Crafting;
 using UnityEngine;
-
+[Obsolete]
 public class CraftingCombinedCommand : CombinedCommandData {
     private List<CommandData> _activeCraftingCommands = new(2);
 
@@ -122,7 +122,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
             return;
         }
 
-        foreach (string recipe in _craftingStation.RecipesToCraftList) {
+        /*foreach (string recipe in _craftingStation.RecipesToCraftList) {
             bool canCraft = true;
             CraftingRecipeConfig config = ObsoleteCoreEntryPoint.CraftingManager.GetRecipe(recipe);
             foreach (ResourceData resource in config.RequiredResources) {
@@ -136,7 +136,7 @@ public class CraftingCombinedCommand : CombinedCommandData {
                 PrepareToCraftCommand(config);
                 break;
             }
-        }
+        }*/
     }
 
     private void PrepareToCraftCommand(CraftingRecipeConfig recipe) {

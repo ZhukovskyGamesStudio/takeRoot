@@ -29,10 +29,10 @@ public class CraftingGridUiView : MonoBehaviour {
         foreach (CraftingRecipeConfig recipe in craftingStationable.CraftingStationableData.AvailableRecipes) {
             CraftingLineView craftingLineView = Instantiate(_craftingLineViewPrefab, transform.position, Quaternion.identity, transform);
 
-            _craftingLineUiViews.Add(recipe.RecipeUid, craftingLineView);
+           // _craftingLineUiViews.Add(recipe.RecipeUid, craftingLineView);
 
-            craftingLineView.Set(recipe);
-            UpdateCraftingLineUiView(recipe.RecipeUid);
+            //craftingLineView.Set(recipe);
+           // UpdateCraftingLineUiView(recipe.RecipeUid);
         }
     }
 
@@ -41,7 +41,7 @@ public class CraftingGridUiView : MonoBehaviour {
     }
 
     private void UpdateCraftingLineUiView(string recipeUid) {
-        CraftingLineView craftingLineView = _craftingLineUiViews[recipeUid];
+        /*CraftingLineView craftingLineView = _craftingLineUiViews[recipeUid];
         int recipesToCraftCount = _craftingStationable.RecipesToCraftList.Count(r => r == recipeUid);
         craftingLineView.UpdateRecipesAmount(recipesToCraftCount);
         craftingLineView.UpdateRecipesAmountButtons(recipesToCraftCount);
@@ -51,8 +51,8 @@ public class CraftingGridUiView : MonoBehaviour {
             ResourceData allAvailableResources = ResourceManager.FindAllAvailableResources(resource.ResourceType);
             int requiredResources = resource.Amount * recipesToCraftCount;
 
-            craftingLineView.UpdateAmount(resource.ResourceType, requiredResources, allAvailableResources.Amount);
-        }
+            //craftingLineView.UpdateAmount(resource.ResourceType, requiredResources, allAvailableResources.Amount);
+        }*/
     }
 
     public void ChangeRecipeToCraftAmount(string uid, int amount) {
