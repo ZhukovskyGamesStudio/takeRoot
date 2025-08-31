@@ -585,7 +585,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 9014784417579039965}
+  m_Father: {fileID: 5271300536047803170}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6712150064751301504
 SpriteRenderer:
@@ -1155,6 +1155,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4689852369697983819, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6094444002186240976, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: m_Name
       value: Succulent
@@ -1181,6 +1185,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2547933147045263817, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 503946874876921849}
+    - targetCorrespondingSourceObject: {fileID: 2547933147045263817, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1347303755053077760}
     - targetCorrespondingSourceObject: {fileID: 7040036758771370869, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4784002288447135470}
@@ -1190,9 +1197,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7040036758771370869, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 818200890622131020}
-    - targetCorrespondingSourceObject: {fileID: 1684780501004557878, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1347303755053077760}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
 --- !u!4 &849003828222454174 stripped
@@ -1203,10 +1207,5 @@ Transform:
 --- !u!4 &5271300536047803170 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2547933147045263817, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
-  m_PrefabInstance: {fileID: 7672858718876721899}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &9014784417579039965 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1684780501004557878, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
   m_PrefabInstance: {fileID: 7672858718876721899}
   m_PrefabAsset: {fileID: 0}

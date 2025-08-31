@@ -6,6 +6,7 @@ using UnityEngine.Profiling;
 
 namespace AI {
     public class Settler : MonoBehaviour {
+        
         public static bool GlobalGodmode;
         private BTRoot_Settler _root;
         private BTNode _stateBt;
@@ -56,6 +57,8 @@ namespace AI {
             _stateBt?.Evaluate();
             Profiler.EndSample();
         }
+        
+        public void SetMood(Mood mood) => WorkerAnimator.SetMood(mood);
 
         public void SetTactical(bool isTactical) {
             Data.tactical.IsTactical = isTactical;

@@ -1,21 +1,18 @@
 using UnityEngine;
 
 public class ChangeMoodAnimator : MonoBehaviour {
-    private static readonly int mood = Animator.StringToHash("Mood");
+    [SerializeField]
+    private SpriteRenderer _faceRend;
 
-    public Mood currentMood;
-    public Animator animator;
+    [SerializeField]
+    private AYellowpaper.SerializedCollections.SerializedDictionary<Mood, Sprite> _moodSprites;
+    
+    private Mood _currentMood;
 
-    private void Start() {
-        animator.enabled = false; //TODO: fix mood animation not working when trigger changed
-        animator.enabled = true;
-    }
-
-    public void Update() {
-        if (currentMood == Mood.Angry && animator.GetInteger(mood) != 2) {
-            animator.SetInteger(mood, 2);
-        } else if (currentMood == Mood.Happy && animator.GetInteger(mood) != 3) {
-            animator.SetInteger(mood, 3);
-        }
+    public void SetMood(Mood mood) {
+        if (_currentMood == mood) return;
+        
+        _currentMood = mood;
+        _faceRend.sprite = _moodSprites[_currentMood];
     }
 }
