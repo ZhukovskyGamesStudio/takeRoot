@@ -103,6 +103,9 @@ public abstract class BaseCommand : IUpdatable {
         Update();
     }
     //public abstract void Undo();
+    public void Dispose() {
+        _updateService.Unregister(this);
+    }
 }
 
 [Flags, Serializable]

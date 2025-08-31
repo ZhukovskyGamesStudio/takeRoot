@@ -5,6 +5,7 @@ using UnityEngine.InputSystem.LowLevel;
 public class SelectionService : ISelectionService, IUpdatable {
     private readonly IInputService _input;
     private readonly IPhysicsService _physics;
+    private readonly IUpdateService _updateService;
     private readonly ICommandService _commandService;
     public ReactiveProperty<Selectable> SelectedReactive { get; set; } = new(null);
     public ReactiveProperty<bool> IsEnabled { get; set; } = new(true);
@@ -12,6 +13,7 @@ public class SelectionService : ISelectionService, IUpdatable {
     public SelectionService(IInputService inputService, IPhysicsService physics, IUpdateService updateService, ICommandService commandService) {
         _input = inputService;
         _physics = physics;
+        _updateService = updateService;
         _commandService = commandService;
         updateService.Register(this);
     }
@@ -44,5 +46,9 @@ public class SelectionService : ISelectionService, IUpdatable {
     private void SetSelected(Selectable selectable, bool selected) {
         SelectedReactive.Value = selectable;
         selectable.Selected = true;
+    }
+
+    public void Dispose() {
+        _updateService.Unregister(this);
     }
 }
