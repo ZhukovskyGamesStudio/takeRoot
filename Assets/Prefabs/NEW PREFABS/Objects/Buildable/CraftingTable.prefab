@@ -210,11 +210,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <StationData>k__BackingField:
     AvailableCraftingRecipes:
-    - {fileID: 11400000, guid: d18dbe62a76c7254fb5c278fce8e7155, type: 2}
-    - {fileID: 11400000, guid: f3c6514d794556345937323582dd2fca, type: 2}
-    - {fileID: 11400000, guid: 62076421a4cadcc40a7e7fd46be232cc, type: 2}
     - {fileID: 11400000, guid: 700fc6bf48b0b954aa06fe12683b835f, type: 2}
+    - {fileID: 11400000, guid: 62076421a4cadcc40a7e7fd46be232cc, type: 2}
     - {fileID: 11400000, guid: 03aa22ab7ff4a1c48a1dac084e689b69, type: 2}
+    - {fileID: 11400000, guid: f3c6514d794556345937323582dd2fca, type: 2}
+    - {fileID: 11400000, guid: d18dbe62a76c7254fb5c278fce8e7155, type: 2}
     ResourceStorage:
       _serializedList: []
     CurrentRecipe: {fileID: 0}
@@ -236,8 +236,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <StorageData>k__BackingField:
     Resources:
-    - ResourceType: 1
-      Amount: 5
+    - ResourceType: 0
+      Amount: 0
     - ResourceType: 0
       Amount: 0
     - ResourceType: 0

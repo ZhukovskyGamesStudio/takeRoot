@@ -7,8 +7,8 @@ public class ResearchService : IResearchService {
 
     private Dictionary<Research, ResearchData> _researchData;
 
-    public ResearchService(ResearchConfig researchConfig) {
-        _researchConfig = researchConfig;
+    public ResearchService(IConfigsProvider configsProvider) {
+        _researchConfig = configsProvider.ResearchConfig;
 
         CreateMockResearchData();
         LoadResearchData();

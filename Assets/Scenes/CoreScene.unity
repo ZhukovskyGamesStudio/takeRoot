@@ -164336,15 +164336,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdec4f3ed8b84d3f953f6e04b8e6ce2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _worldConfig: {fileID: 11400000, guid: 858835da3294fc64bbb7d57ec0cbca86, type: 2}
-  _buildingsPanelView: {fileID: 794020127}
-  _buildingsConfig: {fileID: 11400000, guid: 78a86a5abcbfa334ba02e9c158a0f611, type: 2}
-  _researchConfig: {fileID: 11400000, guid: 047c0f71a26cfaa4f9df90d6c8308363, type: 2}
-  _resourceConfig: {fileID: 11400000, guid: 82b7b31d83d741842b1960f8e1e568ee, type: 2}
-  _cameraMovementConfig: {fileID: 11400000, guid: 3ca61f3c1b26d05458fc1f2d4d0dcc18, type: 2}
-  _timeScaleConfig: {fileID: 11400000, guid: e74e1cf249fe5a14aaeb4a50ffe197b5, type: 2}
   _commandView: {fileID: 995292499}
   _infoPanelView: {fileID: 1761549642}
+  _buildingsPanelView: {fileID: 794020127}
   _settlerPanel: {fileID: 730839102}
   _timeStatusView: {fileID: 734458854}
   _coreCanvasUi: {fileID: 1970964712}

@@ -15,8 +15,8 @@ public class CameraMovementService : ICameraMovementService, IUpdatable, IDispos
     private Vector2 _startPosition;
     private readonly IUpdateService _updateService;
 
-    public CameraMovementService(CameraMovementConfig config, IUpdateService updateService) {
-        _config = config;
+    public CameraMovementService(IConfigsProvider configProvider, IUpdateService updateService) {
+        _config = configProvider.CameraMovementConfig;
         _updateService = updateService;
         _updateService.Register(this);
     }

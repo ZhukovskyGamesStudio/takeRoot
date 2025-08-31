@@ -33,8 +33,8 @@ public class CraftingLineView : MonoBehaviour {
     public void Set(CraftingRecipeConfig config) {
         _config = config;
         _uid = config.RecipeUid;
-        _explainText.text = config.ExplainText;
-        _result.SetData(config.RecipeIcon, config.ResultingResource.ResourceType.ToString());
+        _explainText.text = config.MainInfo.Description;
+        _result.SetData(config.MainInfo.Icon, config.MainInfo.Name);
 
         UpdateIngridients(config);
     }
@@ -47,6 +47,7 @@ public class CraftingLineView : MonoBehaviour {
         for (int index = 0; index < config.RequiredResources.Count; index++) {
             ResourceData res = config.RequiredResources[index];
             _ingridients[index].SetData(_resourcesTable.ResourceIconsDictionary[res.ResourceType], $"{0}/{res.Amount}");
+            _ingridients[index].gameObject.SetActive(true);
         }
     }
 

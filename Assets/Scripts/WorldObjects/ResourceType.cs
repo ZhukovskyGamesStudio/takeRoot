@@ -19,4 +19,6 @@ public enum ResourceType {
     SunflowerHead = 14,
     Artifact = 15,
     Dirt = 16,
+    Oil = 17,
+    Fertilizer = 18,
 }

@@ -16,7 +16,7 @@ namespace AI {
                 .AddChild(new Jobs(settler, commands))
                 .AddChild(new Job_Craft(settler, crafting))
                
-            //фермерство
+                //фермерство
                 .AddChild(new Job_Harvest(settler,farming))
                 .AddChild(new Job_Plant(settler,farming))
                 .AddChild(new Job_WaterPlant(settler,farming))
@@ -32,10 +32,3 @@ namespace AI {
         }
     }
 }
-
-//FarmingJob
-//Node - FindPlantsToWater
-//Если их нет - fail, иначе sucess
-//Зарезервировали цветок для полива
-//идём к нему
-//

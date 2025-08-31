@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using CodeBase.Services;
-using Settlers.Building;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
 using Object = UnityEngine.Object;
@@ -17,13 +16,13 @@ public class BuildingService : IBuildingService, IUpdatable {
 
 	public bool IsEnabled { get; set; } = true;
 
-	public BuildingService(BuildingsConfig buildingConfigs,BuildingsPanelView buildingsPanelView) {
+	public BuildingService(IConfigsProvider configsProvider,BuildingsPanelView buildingsPanelView) {
 		_map = ServiceLocator.Container.Single<IGridService>();
 		_physics = ServiceLocator.Container.Single<IPhysicsService>();
 		_update = ServiceLocator.Container.Single<IUpdateService>();
 		_input = ServiceLocator.Container.Single<IInputService>();
-		_buildingRecipeConfigs = buildingConfigs.recipeConfigs;
-		_prefab = buildingConfigs.buildingBlueprintPrefab;
+		_buildingRecipeConfigs = configsProvider.BuildingsConfig.recipeConfigs;
+		_prefab = configsProvider.BuildingsConfig.buildingBlueprintPrefab;
 		buildingsPanelView.SetData(_buildingRecipeConfigs, CreateBuildingBlueprint);
 		_update.Register(this);
 	}

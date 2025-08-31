@@ -1,19 +1,13 @@
 using System;
 using CodeBase.Services;
 using GameResources;
-using Settlers.Building;
 using UnityEngine;
 
 [Serializable]
 public class ServiceLocatorLoader_Main {
-    private WorldConfig _worldConfig;
     private BuildingsPanelView _buildingsPanelView;
-    private BuildingsConfig _buildingsConfig;
-    private readonly CameraMovementConfig _cameraMovementConfig;
 
     private ResourcesConfig _resourceConfig;
-    private ResearchConfig _researchConfig;
-    private TimeScaleConfig _timeScaleConfig;
 
     private CoreCanvasUi _coreCanvasUi;
 
@@ -24,17 +18,11 @@ public class ServiceLocatorLoader_Main {
     private readonly ServiceLocator _services;
 
     public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner, 
-        CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects, WorldConfig worldConfig, ResearchConfig researchConfig,
-        CameraMovementConfig cameraMovementConfig, BuildingsConfig buildingsConfig, BuildingsPanelView buildingsPanelView, TimeScaleConfig timeScaleConfig) {
+        CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects,  BuildingsPanelView buildingsPanelView) {
         _coreCanvasUi = coreUI;
-        _worldConfig = worldConfig;
-        _researchConfig = researchConfig;
-        _cameraMovementConfig = cameraMovementConfig;
-        _buildingsConfig = buildingsConfig;
         _buildingsPanelView = buildingsPanelView;
        
         _mapFromSceneObjects = mapFromSceneObjects;
-        _timeScaleConfig = timeScaleConfig;
         _services = ServiceLocator.Container;
         if (coroutineRunner == null) {
             Debug.LogError($"The coroutine runner cannot be null.");
@@ -50,12 +38,14 @@ public class ServiceLocatorLoader_Main {
     }
 
     public void RegisterServices() {
-        WorldState worldState = new(_worldConfig);
+        _services.RegisterSingle<IConfigsProvider>(new ConfigsProvider());
+        
+        WorldState worldState = new(_services.Single<IConfigsProvider>());
         _services.RegisterSingle<IWorldReader>(worldState);
         _services.RegisterSingle<IWorldWriter>(worldState);
 
         _services.RegisterSingle<IAssetProvider>(new AssetProvider());
-        _services.RegisterSingle<IConfigsProvider>(new ConfigsProvider());
+       
         _services.RegisterSingle<IDataProvider>(new DataProvider());
         _services.RegisterSingle<IPhysicsService>(new PhysicsService());
 
@@ -65,13 +55,13 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IPathfindService>(new MockPathfindService());
         _services.RegisterSingle<IIdentifierService>(new IdentifierService());
         _services.RegisterSingle<IAsyncRunner>(new UniTaskAsyncRunner());
-        _services.RegisterSingle<IResearchService>(new ResearchService(_researchConfig));
-        _services.RegisterSingle<ICameraMovementService>(new CameraMovementService(_cameraMovementConfig, _services.Single<IUpdateService>()));
+        _services.RegisterSingle<IResearchService>(new ResearchService(_services.Single<IConfigsProvider>()));
+        _services.RegisterSingle<ICameraMovementService>(new CameraMovementService(_services.Single<IConfigsProvider>(), _services.Single<IUpdateService>()));
         _services.RegisterSingle<ILevelGenerationService>(new LevelGenerationService());
         _services.RegisterSingle<IFarmingService>(new FarmingService(_services.Single<IUpdateService>(), _services.Single<IConfigsProvider>(),
             _services.Single<IInputService>()));
         _services.RegisterSingle<IOverlayService>(new OverlayService());
-        _services.RegisterSingle<ITimeScaleService>(new TimeScaleService(_timeScaleConfig));
+        _services.RegisterSingle<ITimeScaleService>(new TimeScaleService(_services.Single<IConfigsProvider>()));
         
         _mapFromSceneObjects.CreateMap();
         SimpleGraph graph = _mapFromSceneObjects.CreateSimpleGraph();
@@ -92,7 +82,7 @@ public class ServiceLocatorLoader_Main {
             _services.Single<IUpdateService>(), _services.Single<ICommandService>()));
         _services.RegisterSingle<ISettlersService>(new SettlersService());
 
-        _services.RegisterSingle<IBuildingService>(new BuildingService(_buildingsConfig, _buildingsPanelView));
+        _services.RegisterSingle<IBuildingService>(new BuildingService(_services.Single<IConfigsProvider>(), _buildingsPanelView));
         _services.RegisterSingle<INotificationsService>(new NotificationsService(_services.Single<IUpdateService>()));
     }
 }

@@ -5,8 +5,8 @@ public class TimeScaleService : ITimeScaleService {
 
     private bool _canPause;
     
-    public TimeScaleService(TimeScaleConfig config) {
-        _config = config;
+    public TimeScaleService(IConfigsProvider configProvider) {
+        _config = configProvider.TimeScaleConfig;
     }
 
     private void TryPause() {

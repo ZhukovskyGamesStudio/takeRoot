@@ -1,33 +1,16 @@
 using CodeBase.Services;
 using Cysharp.Threading.Tasks;
-using GameResources;
-using Settlers.Building;
 using UnityEngine;
 
 public class CoreEntryPoint : EntryPointBase {
-    [Header("Configs"), SerializeField]
-    private WorldConfig _worldConfig;
-
-    [SerializeField]
-    private BuildingsPanelView _buildingsPanelView;
-
-    [SerializeField]
-    private BuildingsConfig _buildingsConfig;
-
-    [SerializeField]
-    private ResearchConfig _researchConfig;
-
-    [SerializeField]
-    private CameraMovementConfig _cameraMovementConfig;
-
-    [SerializeField]
-    private TimeScaleConfig _timeScaleConfig;
-    
     [Header("Views"), SerializeField]
     private CommandView _commandView;
 
     [SerializeField]
     private InfoPanelView _infoPanelView;
+    
+    [SerializeField]
+    private BuildingsPanelView _buildingsPanelView;
 
     [SerializeField]
     private SettlerInfoPanel _settlerPanel;
@@ -48,8 +31,7 @@ public class CoreEntryPoint : EntryPointBase {
         IUpdateService updateService = GetComponent<IUpdateService>();
         ICoroutineRunner coroutineRunner = GetComponent<ICoroutineRunner>();
         MapFromSceneObjects map = GetComponent<MapFromSceneObjects>();
-        ServiceLocatorLoader_Main loader = new(updateService, coroutineRunner, _coreCanvasUi, map, _worldConfig,
-            _researchConfig, _cameraMovementConfig, _buildingsConfig, _buildingsPanelView, _timeScaleConfig);
+        ServiceLocatorLoader_Main loader = new(updateService, coroutineRunner, _coreCanvasUi, map, _buildingsPanelView);
 
         loader.RegisterServices();
         _services = ServiceLocator.Container;
