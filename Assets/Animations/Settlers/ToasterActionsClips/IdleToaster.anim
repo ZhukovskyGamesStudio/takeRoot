@@ -20,7 +20,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.0156, y: 0.203, z: 0}
+        value: {x: -15, y: 3, z: 0}
         inSlope: {x: Infinity, y: Infinity, z: Infinity}
         outSlope: {x: Infinity, y: Infinity, z: Infinity}
         tangentMode: 0
@@ -29,7 +29,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 1
-        value: {x: -0.0156, y: 0.172, z: 0}
+        value: {x: -15, y: 2, z: 0}
         inSlope: {x: Infinity, y: Infinity, z: Infinity}
         outSlope: {x: Infinity, y: Infinity, z: Infinity}
         tangentMode: 0
@@ -50,7 +50,7 @@ AnimationClip:
     - time: 1
       value: {fileID: 43291980, guid: 1f99466ac3bac2044ab15817db5076cd, type: 3}
     attribute: m_Sprite
-    path: Body
+    path: BodyView/Sprite
     classID: 212
     script: {fileID: 0}
     flags: 2
@@ -71,7 +71,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2073732236
+      path: 2941321144
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -109,7 +109,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.0156
+        value: -15
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -118,7 +118,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: -0.0156
+        value: -15
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -139,7 +139,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.203
+        value: 3
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103
@@ -148,7 +148,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
-        value: 0.172
+        value: 2
         inSlope: Infinity
         outSlope: Infinity
         tangentMode: 103

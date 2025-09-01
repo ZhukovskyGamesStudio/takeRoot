@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1f99466ac3bac2044ab15817db5076cd
+guid: 3fb9327cf9dd5fd47b364a4dd31f70c1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: toaster_idle_0
+      name: chamomile_idle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 49
-        height: 50
+        width: 30
+        height: 54
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,20 +151,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22d1f14d85478a240830fbc24f4ef072
-      internalID: 1469941574
+      spriteID: ec3b8092994e3e94bb40dbbd57a83317
+      internalID: -763283635
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toaster_idle_1
+      name: chamomile_idle_1
       rect:
         serializedVersion: 2
-        x: 49
+        x: 30
         y: 0
-        width: 49
-        height: 50
+        width: 30
+        height: 54
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,8 +173,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1c1034f605d55a4e98a11975ce879c2
-      internalID: 43291980
+      spriteID: 8e1e737e1caa34644b9fe6044c426bf8
+      internalID: -1117339127
       vertices: []
       indices: 
       edges: []
@@ -193,8 +193,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      toaster_idle_0: 1469941574
-      toaster_idle_1: 43291980
+      chamomile_idle_0: -763283635
+      chamomile_idle_1: -1117339127
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

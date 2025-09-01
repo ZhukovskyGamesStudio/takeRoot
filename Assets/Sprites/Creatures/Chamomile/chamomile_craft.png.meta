@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1f99466ac3bac2044ab15817db5076cd
+guid: 76083c8c4f375014b87a06cecfafb0e8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,12 +136,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: toaster_idle_0
+      name: chamomile_craft_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 49
+        width: 42
         height: 50
       alignment: 6
       pivot: {x: 0, y: 0}
@@ -151,19 +151,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22d1f14d85478a240830fbc24f4ef072
-      internalID: 1469941574
+      spriteID: b1ae9e94f9124824888b56d4b619ecb0
+      internalID: 1847680579
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toaster_idle_1
+      name: chamomile_craft_1
       rect:
         serializedVersion: 2
-        x: 49
+        x: 42
         y: 0
-        width: 49
+        width: 42
         height: 50
       alignment: 6
       pivot: {x: 0, y: 0}
@@ -173,8 +173,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1c1034f605d55a4e98a11975ce879c2
-      internalID: 43291980
+      spriteID: cb79db7a2e69afe4a83c0f8bd43de450
+      internalID: 1431915297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chamomile_craft_2
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 0
+        width: 42
+        height: 50
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fcddb52c3645fc4db4c401e6ee9568b
+      internalID: -1991290472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chamomile_craft_3
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 0
+        width: 42
+        height: 50
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac105f18a586de443895a19383f53486
+      internalID: -1221458745
       vertices: []
       indices: 
       edges: []
@@ -193,8 +237,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      toaster_idle_0: 1469941574
-      toaster_idle_1: 43291980
+      chamomile_craft_0: 1847680579
+      chamomile_craft_1: 1431915297
+      chamomile_craft_2: -1991290472
+      chamomile_craft_3: -1221458745
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
