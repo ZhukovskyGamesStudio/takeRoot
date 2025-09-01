@@ -436,14 +436,14 @@ MonoBehaviour:
       Hp: 100
       MaxHp: 100
       Energy:
-        maxEnergy: 0
+        maxEnergy: 100
         currentEnergy: 0
-        tiredThreshold: 0
-        criticalTiredThreshold: 0
+        tiredThreshold: 30
+        criticalTiredThreshold: 5
         energyChange: 0
-        defaultEnergyChange: 0
-        onGroundEnergyChange: 0
-        onBedEnergyChange: 0
+        defaultEnergyChange: -0.75
+        onGroundEnergyChange: 3
+        onBedEnergyChange: 5
         isSleeping: 0
         bed: {fileID: 0}
       StressData:
@@ -463,6 +463,8 @@ MonoBehaviour:
         lowSatietyThreshold: 50
         highSatietyThreshold: 80
         satietyChange: -2
+        Cooler: {fileID: 0}
+        isDrinking: 0
       CareData:
         maxCare: 100
         currentCare: 100
