@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using CodeBase.Services;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -8,12 +9,15 @@ namespace AI {
 	public class ZombieMover : MonoBehaviour, IZombieMover {
 		public float moveTime = 1f;
 		public float gridSize = 1f;
-		
+
+		private List<Vector2> _path;
+
 		[SerializeField]
 		private bool RotateWhileMove = true;
 
 		private IPathfindService _pathfinder;
-		private List<Vector2> _path;
+		private CancellationTokenSource _taskCts;
+
 		private Vector2 position => new(transform.position.x, transform.position.y);
 		public bool IsMoving { get; private set; }
 
@@ -22,11 +26,11 @@ namespace AI {
 		}
 
 		public bool IsAtPosition(Vector2 target) {
-			return false;
+			return position == target;
 		}
 
 		public bool HasPath(Vector2 target) {
-			return true;
+			return _pathfinder.FindPath(position, target).Count > 0;
 		}
 
 		public void MoveTo(Vector2 target) {
@@ -42,13 +46,33 @@ namespace AI {
 
 			Vector2 next = _path[indexOfNextStep];
 			
-			
+			_taskCts = new CancellationTokenSource();
+			DoMove(next, _taskCts.Token).Forget();
 		}
 
-		private async UniTaskVoid DoMove(Vector2 next) {
+		private async UniTaskVoid DoMove(Vector2 next, CancellationToken token) {
 			IsMoving = true;
-			
-			
+			var elapsedTime = 0f;
+			while (!token.IsCancellationRequested && elapsedTime < moveTime) {
+				float t = elapsedTime / moveTime;
+				t = Mathf.SmoothStep(0f, 1f, t);
+				transform.position = Vector3.Lerp(position, next, t);
+				elapsedTime += Time.deltaTime;
+				await UniTask.Yield();
+			}
+			transform.position = next;
+			IsMoving = false;
+		}
+		
+		private void OnDrawGizmos() {
+			if (_path == null) {
+				return;
+			}
+
+			foreach (Vector2 pos in _path) {
+				Gizmos.color = Color.red;
+				Gizmos.DrawWireCube(pos, new Vector3(gridSize, gridSize));
+			}
 		}
 	}
 }
