@@ -9,7 +9,7 @@ namespace AI {
 
 			AddChild(new Conditional(() => !zombie.Data.Target));
 			AddChild(new Action_PickPatrolPos(zombie));
-			//AddChild(move);
+			AddChild(move);
 		}
 	}
 }
