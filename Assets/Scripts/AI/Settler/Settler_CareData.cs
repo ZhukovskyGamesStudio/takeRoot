@@ -5,13 +5,24 @@ namespace AI {
     [Serializable]
     public class Settler_CareData {
         public int maxCare;
-        public int currentCare;
+        public float currentCare;
+
         [Space]
         public int lowCareThreshold;
+
         public int highCareThreshold;
+
         [Space]
-        public int careChange;
+        public float defaultCareChange;
+        public float onStationCareChange;
         
+        [HideInInspector]
+        public float careChange;
+        [Space]
+        public bool isTakingCareOf;
+
+        public CareStation careStation;
+        public bool HasOwnCareStation => careStation != null;
         public bool LowCare => currentCare < lowCareThreshold;
         public bool HighCare => currentCare >= highCareThreshold;
         public float Percentage => (float)currentCare / maxCare;

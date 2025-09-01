@@ -21,18 +21,15 @@ namespace AI {
         public bool HasItem => ItemInHands != null;
 
         public SettlerCondition Condition;
+        
+        [Header("Names")]
+        public Settler_Names names;
 
         [Header("Needs")]
         public Settler_Needs needs;
         public float needsUpdateCooldown;
         public float needsUpdateTimer;
-
-        [Header("Names")]
-        public Settler_Names names;
-
-        [Header("Energy")]
-        public Settler_EnergyData energy;
-
+        
         [Header("Transport for crafting")]
         public Settler_TransportForCrafting craftingTransport;
 
@@ -51,6 +48,12 @@ namespace AI {
 
         [Header("Hit")]
         public float HitTime = 1.3f;
+
+
+        public void Init() {
+            needs.CareData.careChange = needs.CareData.defaultCareChange;
+            needs.Energy.energyChange = needs.Energy.defaultEnergyChange;
+        }
     }
 
     public enum SettlerCondition {

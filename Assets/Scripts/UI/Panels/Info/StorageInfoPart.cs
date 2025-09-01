@@ -22,7 +22,8 @@ public class StorageInfoPart : MonoBehaviour {
 
         foreach (var resourceData in data.Resources) {
             var line = Instantiate(_storageSpacePrefab, _storageSpacesContainer);
-            line.SetData(_resourcesTable.ResourceIconsDictionary[resourceData.ResourceType], resourceData.Amount.ToString());
+            string amountText =resourceData.Amount > 0 ? resourceData.Amount.ToString() : "";
+            line.SetData(_resourcesTable.ResourceIconsDictionary[resourceData.ResourceType], amountText);
         }
     }
 

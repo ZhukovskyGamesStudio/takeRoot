@@ -9,8 +9,10 @@ namespace AI {
         [Space]
         public int tiredThreshold;
         public int criticalTiredThreshold;
-        [Space]
+      
+        [HideInInspector]
         public int energyChange;
+        [Space]
         public int defaultEnergyChange;
         public int onGroundEnergyChange;
         public int onBedEnergyChange;

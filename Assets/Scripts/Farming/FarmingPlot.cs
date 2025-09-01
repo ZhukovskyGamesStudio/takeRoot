@@ -74,6 +74,9 @@ public class FarmingPlot : MonoBehaviour {
     }
 
     public void ChangeWaterLevel(float amount) {
+        if (_waterLevel == null) {
+            _waterLevel = GetComponent<WaterLevel>();
+        }
         _waterLevel.ChangeWater(amount);
     }
 

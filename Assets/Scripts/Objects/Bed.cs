@@ -10,7 +10,7 @@ public class Bed : MonoBehaviour {
 
     public void SetSettler(AI.Settler settler) {
         _settler = settler;
-        settler.Data.energy.bed = this;
+        settler.Data.needs.Energy.bed = this;
     }
 
     public void ReleaseBed() {
@@ -18,7 +18,7 @@ public class Bed : MonoBehaviour {
             return;
         }
 
-        _settler.Data.energy.bed = null;
+        _settler.Data.needs.Energy.bed = null;
         _settler = null;
     }
 }

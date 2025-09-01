@@ -15,6 +15,7 @@ namespace AI {
         public IMovable Mover;
         public ISearcher Searcher;
         public IPlanter Farmer;
+        public ICareGiver CareGiver;
         public IDestroyer Destroyer;
         public IWaterer Waterer;
         public IResourceCarrier ResourceCarrier;
@@ -34,6 +35,7 @@ namespace AI {
             Waterer = GetComponent<IWaterer>();
             ResourceCarrier = GetComponent<IResourceCarrier>();
             Crafter = GetComponent<ICrafter>();
+            CareGiver = GetComponent<ICareGiver>();
             Builder = GetComponent<IBuilder>();
             TimeMachineCharger = GetComponent<ITimeMachineCharger>();
             
@@ -43,10 +45,12 @@ namespace AI {
             Crafter.Init(WorkerAnimator);
             Builder.Init(WorkerAnimator);
             Farmer.Init(WorkerAnimator);
+            CareGiver.Init(WorkerAnimator);
             TimeMachineCharger.Init(WorkerAnimator);
             
             _root = CreateRootBt();
             _stateBt = CreateStateBt();
+            Data.Init();
         }
 
         private void Update() {
@@ -82,12 +86,22 @@ namespace AI {
         }
 
         public void Sleep() {
-            Data.energy.isSleeping = true;
+            Data.needs.Energy.isSleeping = true;
             WorkerAnimator.PlaySleep();
         }
 
         public void WakeUp() {
-            Data.energy.isSleeping = false;
+            Data.needs.Energy.isSleeping = false;
+            WorkerAnimator.ResetToIdle();
+        }
+        
+        public void StartReceiveCare() {
+            Data.needs.CareData.isTakingCareOf = true;
+            WorkerAnimator.PlaySleep();
+        }
+
+        public void StopReceivingCare() {
+            Data.needs.CareData.isTakingCareOf = false;
             WorkerAnimator.ResetToIdle();
         }
 
