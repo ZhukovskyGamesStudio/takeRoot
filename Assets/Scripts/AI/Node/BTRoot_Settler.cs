@@ -13,6 +13,7 @@ namespace AI {
                 //.AddChild(new Behavior_Death(settler))
                 .AddChild(new Behavior_CriticalTired(settler))
                 
+                .AddChild(new Behavior_Electricity(settler))     
                 .AddChild(new Behavior_Water(settler))     
                 .AddChild(new Behavior_Energy(settler))         //Идет в кровать
                 .AddChild(new Behavior_Care(settler))  

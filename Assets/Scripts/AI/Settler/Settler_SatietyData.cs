@@ -13,6 +13,7 @@ namespace AI {
         public float satietyChange;
         
         public Cooler Cooler;
+        public ElectricityLevel ElectricitySource;
 
         public bool isDrinking;
         
