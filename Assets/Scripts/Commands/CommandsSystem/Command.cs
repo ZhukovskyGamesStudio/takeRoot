@@ -46,15 +46,15 @@ public abstract class BaseCommand : IUpdatable {
     }
 
     private void Execute() {
-        if (!Worker.HasPath(Target.InteractPosition.Value)) {
-            Worker.CurrentCommandId = -1;
-            return;
-        }
-
-        Worker.MoveTo(Target.InteractPosition.Value);
-        if (Worker.IsAtPosition(Target.InteractPosition.Value)) {
-            Perform();
-        }
+        //if (!Worker.HasPath(Target.InteractPosition.Value)) {
+        //    Worker.CurrentCommandId = -1;
+        //    return;
+        //}
+//
+        //Worker.MoveTo(Target.InteractPosition.Value);
+        //if (Worker.IsAtPosition(Target.InteractPosition.Value)) {
+        //    Perform();
+        //}
     }
 
     private void HandleTarget() {

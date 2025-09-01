@@ -13,7 +13,7 @@ public class CommandTarget : MonoBehaviour {
     public bool UseAnimatorWhenPerform = true;
     public Animator PerformingAnimator;
 
-    public Vector3? InteractPosition => _gridObject.GetNeighborFreeTile();
+    public Transform InteractPosition;
     public List<Vector3> InteractPositions => _gridObject.GetFreeNeighbors();
     
     [HideInInspector]
