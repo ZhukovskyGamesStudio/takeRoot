@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CodeBase.Services;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GridObject : MonoBehaviour {
 	private IGridService _grid;
@@ -15,6 +16,7 @@ public class GridObject : MonoBehaviour {
 	[Min(0)]
 	public Vector2Int MultiplyGridOffset;
 
+	public List<Vector3> FreeInteractPositions = new List<Vector3>();
 	public int SizeX => MultiplyGridOffset.x + 1;
 	public int SizeY => MultiplyGridOffset.y + 1;
 
@@ -78,6 +80,27 @@ public class GridObject : MonoBehaviour {
 			}
 		}
 		return null;
+	}
+
+	public List<Vector3> GetFreeNeighbors() {
+		if (FreeInteractPositions.Count > 0)
+			return FreeInteractPositions;
+		var freeNeighbors = new List<Vector3>();
+		var objPositions = GetObjectPositions();
+		for (int y = Y; y < Y + SizeY; y++)
+		for (int x = X; x < X + SizeX; x++) {
+			var neighbors = new[] {
+				new Vector3(x - 1, y, 0), // left
+				new Vector3(x + 1, y, 0), // right
+				new Vector3(x, y - 1, 0), // bot
+				new Vector3(x, y + 1, 0)  // top
+			};
+			foreach (var pos in neighbors) {
+				if (!objPositions.Contains(pos) && !_grid.IsOccupiedPos(pos))
+					freeNeighbors.Add(pos);
+			}
+		}
+		return FreeInteractPositions = freeNeighbors;
 	}
 
 	public void OccupyTiles() {
