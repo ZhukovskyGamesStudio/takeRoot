@@ -18,15 +18,19 @@ public class CraftingStation : MonoBehaviour {
     [HideInInspector]
     public AYellowpaper.SerializedCollections.SerializedDictionary<Race, AI.Settler> Crafters = new();
 
+    public Vector3? HaulInteractPos => _gridObject.GetNeighborFreeTile();
     //[HideInInspector]
     public List<Transform> InteractPos = new List<Transform>(2);
 
     private ICraftingService _craftingService;
     private IResourceManager _resourceManager;
+    private GridObject _gridObject;
 
     private void Start() {
         _resourceManager = ServiceLocator.Container.Single<IResourceManager>();
         _craftingService = ServiceLocator.Container.Single<ICraftingService>();
+        _gridObject = GetComponent<GridObject>();
+        _gridObject.UpdatePosition();
         _craftingService.AddCraftingStation(this);
         Crafters = new() {
             { Race.Plants, null},

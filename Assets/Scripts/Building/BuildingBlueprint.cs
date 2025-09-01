@@ -10,7 +10,7 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 	public Dictionary<ResourceType, int> ReservedRequiredResources = new();
 	public Dictionary<ResourceType, int> ResourceStorage = new();
 	public AI.Settler Builder;
-	public Transform InteractionPos;
+	public Vector3? InteractionPos => _gridObject.GetNeighborFreeTile();
 	private GameObject _buildingPrefab;
 
 	[FormerlySerializedAs("Builded")] public bool WasBuilded;
@@ -35,7 +35,7 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 	private GridObject _gridObject;
 	private IBuildingService _buildingService;
 	private IInputService _input;
-
+	
 	public void Init(BuildingRecipeConfig config) {
 		_camera = Camera.main;
 		IsPlaced = false;

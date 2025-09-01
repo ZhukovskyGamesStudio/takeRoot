@@ -1,6 +1,7 @@
 using UnityEngine;
 
 namespace AI.Node.Jobs {
+/*
 	public class Action_MoveToBlueprint : BTNode{
 		private readonly Settler _settler;
 
@@ -24,4 +25,5 @@ namespace AI.Node.Jobs {
 			return _state = BTNodeState.Running;
 		}
 	}
+*/
 }

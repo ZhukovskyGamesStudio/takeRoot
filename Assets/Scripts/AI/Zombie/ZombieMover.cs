@@ -6,7 +6,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace AI {
-	public class ZombieMover : MonoBehaviour, IZombieMover {
+	public class ZombieMover : MonoBehaviour, IZombieMover, IPathfinderUser {
 		public float moveTime = 1f;
 		public float gridSize = 1f;
 
@@ -30,13 +30,13 @@ namespace AI {
 		}
 
 		public bool HasPath(Vector2 target) {
-			return _pathfinder.FindPath(position, target).Count > 0;
+			return _pathfinder.FindPath(position, target, this).Count > 0;
 		}
 
 		public void MoveTo(Vector2 target) {
 			if (IsMoving) return;
 			if (_path == null) {
-				_path = _pathfinder.FindPath(position, target);
+				_path = _pathfinder.FindPath(position, target, this);
 			}
 			
 			int indexOfNextStep = _path.IndexOf(position) + 1;

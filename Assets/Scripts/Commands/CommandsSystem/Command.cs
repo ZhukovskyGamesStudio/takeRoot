@@ -1,5 +1,6 @@
 using System;
 
+[Obsolete]
 public abstract class BaseCommand : IUpdatable {
     public int Id;
     public Worker Worker;
@@ -45,15 +46,15 @@ public abstract class BaseCommand : IUpdatable {
     }
 
     private void Execute() {
-        if (!Worker.HasPath(Target.InteractPosition.position)) {
-            Worker.CurrentCommandId = -1;
-            return;
-        }
-
-        Worker.MoveTo(Target.InteractPosition.position);
-        if (Worker.IsAtPosition(Target.InteractPosition.position)) {
-            Perform();
-        }
+        //if (!Worker.HasPath(Target.InteractPosition.Value)) {
+        //    Worker.CurrentCommandId = -1;
+        //    return;
+        //}
+//
+        //Worker.MoveTo(Target.InteractPosition.Value);
+        //if (Worker.IsAtPosition(Target.InteractPosition.Value)) {
+        //    Perform();
+        //}
     }
 
     private void HandleTarget() {

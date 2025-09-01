@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using CodeBase.Services;
 using UnityEngine.Serialization;
 
-public class Mover : MonoBehaviour, IMovable {
+public class Mover : MonoBehaviour, IMovable, IPathfinderUser {
     [FormerlySerializedAs("moveSpeed"), Header("Movement Settings")] 
     public float moveTime = 1f;
 
@@ -33,7 +33,7 @@ public class Mover : MonoBehaviour, IMovable {
 
         if (_path == null || _targetPosition != targetPos) {
             _targetPosition = targetPos;
-            _path = _pathfindService.FindPath(position, targetPos);
+            _path = _pathfindService.FindPath(position, targetPos, this);
         }
 
         if (_path == null) {
@@ -60,7 +60,7 @@ public class Mover : MonoBehaviour, IMovable {
     }
 
     public bool HasPath(Vector2 target) {
-        List<Vector2> path = _pathfindService.FindPath(position, target);
+        List<Vector2> path = _pathfindService.FindPath(position, target, this);
         return path != null;
     }
 

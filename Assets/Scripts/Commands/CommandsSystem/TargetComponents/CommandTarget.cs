@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using CodeBase.Services;
 using Settlers.Test;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class CommandTarget : MonoBehaviour {
     public Animator PerformingAnimator;
 
     public Transform InteractPosition;
+    public List<Vector3> InteractPositions => _gridObject.GetFreeNeighbors();
     
     [HideInInspector]
     public int CurrentJobId = -1;
@@ -24,6 +26,7 @@ public class CommandTarget : MonoBehaviour {
     private Health _health;
     private SearchableObj _searchable;
     private WaterLevel _waterLevel;
+    private GridObject _gridObject;
 
     private void Start() {
         if (TryGetComponent(out _health)) {
@@ -38,6 +41,7 @@ public class CommandTarget : MonoBehaviour {
         if (TryGetComponent(out _waterLevel)) {
             AddCapability(JobType.Water);
         }
+        _gridObject = GetComponent<GridObject>();
     }
 
     public void AddCapability(JobType job) {
