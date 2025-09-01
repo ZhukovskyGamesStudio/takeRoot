@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace AI {
 	public class Builder : MonoBehaviour ,IBuilder {
-		public float buildTime = 2f;
+		public float buildTime;
 		private bool _isBuilding;
 		
 		private WorkerAnimator _animator;
@@ -35,7 +35,8 @@ namespace AI {
 					break;
 				}
 
-				buildingBlueprint.WasBuilded = true;
+				if (buildingBlueprint.WasBuilded) break;
+				buildingBlueprint.Build();
 			}
 		}
 		
