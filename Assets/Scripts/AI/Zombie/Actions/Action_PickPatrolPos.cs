@@ -12,7 +12,7 @@ namespace AI {
 		public override BTNodeState Evaluate() {
 			var data = _zombie.Data;
 			data.PatrolTimer += Time.deltaTime;
-			if (data.PatrolTimer >= data.PatrolCooldown)
+			if (data.PatrolTimer < data.PatrolCooldown)
 				return BTNodeState.Failure;
 			Vector3 offset = new(Random.Range(-_range, _range), Random.Range(-_range, _range));
 			var pos = _zombie.transform.position + offset;
