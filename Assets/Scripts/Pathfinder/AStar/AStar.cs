@@ -1,11 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using Unity.Mathematics;
 using UnityEngine;
 
 public class AStar : IPathfindService {
     private readonly MapFromSceneObjects _graph;
     private Dictionary<IPathfinderUser, Dictionary<Vector2, int>> _pathfinderChecks = new Dictionary<IPathfinderUser, Dictionary<Vector2, int>>();
+    private List<PathData> _savedPaths = new(); //TODO: cleanup old paths;
     private int _skipChecks = 50;
 
     public AStar(MapFromSceneObjects graph) {
@@ -25,8 +27,13 @@ public class AStar : IPathfindService {
         } else {
             _pathfinderChecks[user] = new Dictionary<Vector2, int>();
         }
+
         int3 startPos = new((int)start.x, (int)start.y, 0);
         int3 endPos = new((int)end.x, (int)end.y, 0);
+        var savedPath = _savedPaths.FirstOrDefault(s => (s.Start.Equals(startPos) || s.Path.Contains(start)) && s.End.Equals(endPos));
+        if (savedPath != null) {
+            return savedPath.Path;
+        }
         List<int3> path = FindPathInternal(_graph.Graph, startPos, endPos);
 
         if (path == null) {
@@ -34,7 +41,12 @@ public class AStar : IPathfindService {
             return null;
         }
 
-        return path.Select(p => new Vector2(p.x, p.y)).ToList();
+        var pathList = path.Select(p => new Vector2(p.x, p.y)).ToList();
+        if (_savedPaths.Count > 200) {
+            _savedPaths.RemoveRange(0, 50);
+        }
+        _savedPaths.Add(new PathData(startPos, endPos, pathList));
+        return pathList;
     }
 
     private List<int3> FindPathInternal(SimpleGraph graph, int3 startPos, int3 endPos) {
@@ -101,6 +113,18 @@ public class AStar : IPathfindService {
             }
 
             return x.node.GetHashCode().CompareTo(y.node.GetHashCode()); // или ReferenceEquals
+        }
+    }
+
+    private class PathData {
+        public int3 Start;
+        public int3 End;
+        public List<Vector2> Path;
+
+        public PathData(int3 start, int3 end, List<Vector2> path) {
+            Start = start;
+            End = end;
+            Path = path;
         }
     }
 }

@@ -32,6 +32,7 @@ public class BuildingService : IBuildingService, IUpdatable {
 			if (blueprint.WasBuilded) continue;
 			if (!blueprint.IsPlaced) continue;
 			if (blueprint.CanBuild()) continue;
+			if (blueprint.GetRequiredResource() == ResourceType.None) continue;
 			if (blueprint.InteractionPos == null) continue; 
 			return blueprint;
 		}
