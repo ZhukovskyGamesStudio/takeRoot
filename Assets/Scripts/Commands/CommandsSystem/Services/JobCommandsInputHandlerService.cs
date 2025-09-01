@@ -50,4 +50,9 @@ public class JobCommandsInputHandlerService : IJobCommandsInputHandlerService, I
     private void CreateCommand(CommandTarget target) {
         target.TrySetJob(PendingCommand.Value);
     }
+
+    public void Dispose() {
+        PendingCommand?.Dispose();
+        _updateService.Unregister(this);
+    }
 }

@@ -6,6 +6,7 @@ using UnityEngine.Profiling;
 
 namespace AI {
     public class Settler : MonoBehaviour {
+        
         public static bool GlobalGodmode;
         private BTRoot_Settler _root;
         private BTNode _stateBt;
@@ -19,10 +20,13 @@ namespace AI {
         public IResourceCarrier ResourceCarrier;
         public ICrafter Crafter;
         public IBuilder Builder;
+        public ITimeMachineCharger TimeMachineCharger;
+        
         public WorkerAnimator WorkerAnimator { get; private set; }
 
         private void Start() {
             WorkerAnimator = GetComponentInChildren<WorkerAnimator>();
+            
             Mover = GetComponent<IMovable>();
             Searcher = GetComponent<ISearcher>();
             Farmer = GetComponent<IPlanter>();
@@ -31,12 +35,16 @@ namespace AI {
             ResourceCarrier = GetComponent<IResourceCarrier>();
             Crafter = GetComponent<ICrafter>();
             Builder = GetComponent<IBuilder>();
+            TimeMachineCharger = GetComponent<ITimeMachineCharger>();
+            
             Searcher.Init(WorkerAnimator);
             Destroyer.Init(WorkerAnimator);
             Waterer.Init(WorkerAnimator);
             Crafter.Init(WorkerAnimator);
             Builder.Init(WorkerAnimator);
             Farmer.Init(WorkerAnimator);
+            TimeMachineCharger.Init(WorkerAnimator);
+            
             _root = CreateRootBt();
             _stateBt = CreateStateBt();
         }
@@ -49,10 +57,13 @@ namespace AI {
             _stateBt?.Evaluate();
             Profiler.EndSample();
         }
+        
+        public void SetMood(Mood mood) => WorkerAnimator.SetMood(mood);
 
         public void SetTactical(bool isTactical) {
             Data.tactical.IsTactical = isTactical;
         }
+
         public void StartBreakdown() {
             Data.needs.StressData.breakdownTimer = 0;
             Data.Condition = SettlerCondition.Breakdown;
@@ -65,7 +76,7 @@ namespace AI {
 
         public void Die() {
             if (GlobalGodmode) return;
-            
+
             gameObject.SetActive(false);
             Data.Dead = true;
         }
@@ -83,8 +94,7 @@ namespace AI {
         private BTNode CreateStateBt() {
             BTNode stateBt = new Sequence()
                 .AddChild(new Action_HandleNeedsChange(this));
-            
-            
+
             return stateBt;
         }
 
@@ -94,7 +104,8 @@ namespace AI {
             IBuildingService building = ServiceLocator.Container.Single<IBuildingService>();
             IResourceManager resources = ServiceLocator.Container.Single<IResourceManager>();
             IFarmingService farming = ServiceLocator.Container.Single<IFarmingService>();
-            BTRoot_Settler root = new(this, commands, crafting, resources, building,farming);
+            ITimeScaleService timeScale = ServiceLocator.Container.Single<ITimeScaleService>();
+            BTRoot_Settler root = new(this, commands, crafting, resources, building, farming, timeScale);
             return root;
         }
     }

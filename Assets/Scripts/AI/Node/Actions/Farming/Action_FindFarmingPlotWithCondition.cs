@@ -20,7 +20,7 @@ namespace AI.Node.Jobs {
                 return _state = BTNodeState.Failure;
             }
 
-            _settler.Data.farming.FarmingPlot = farmingPlot;
+            _settler.Data.targets.FarmingPlot = farmingPlot;
             farmingPlot.Farmer = _settler;
             _settler.Data.curMovePos = farmingPlot.transform.position;
             return _state = BTNodeState.Success;

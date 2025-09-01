@@ -2,10 +2,12 @@ using System;
 using CodeBase.Services;
 using GameResources;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 [Serializable]
 public class ServiceLocatorLoader_Main {
     private BuildingsPanelView _buildingsPanelView;
+    private readonly InGameDaynightLightView _globalDaynightLight;
 
     private ResourcesConfig _resourceConfig;
 
@@ -18,10 +20,11 @@ public class ServiceLocatorLoader_Main {
     private readonly ServiceLocator _services;
 
     public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner, 
-        CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects,  BuildingsPanelView buildingsPanelView) {
+        CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects,  BuildingsPanelView buildingsPanelView, InGameDaynightLightView globalDaynightLight) {
         _coreCanvasUi = coreUI;
         _buildingsPanelView = buildingsPanelView;
-       
+        _globalDaynightLight = globalDaynightLight;
+
         _mapFromSceneObjects = mapFromSceneObjects;
         _services = ServiceLocator.Container;
         if (coroutineRunner == null) {
@@ -62,7 +65,10 @@ public class ServiceLocatorLoader_Main {
             _services.Single<IInputService>()));
         _services.RegisterSingle<IOverlayService>(new OverlayService());
         _services.RegisterSingle<ITimeScaleService>(new TimeScaleService(_services.Single<IConfigsProvider>()));
+        _services.RegisterSingle<IIngameTimeService>(new IngameTimeService(
+            _services.Single<IConfigsProvider>(), _services.Single<IUpdateService>(),_globalDaynightLight));
         
+        _services.RegisterSingle<IOccurenceService>(new OccurenceService(_services.Single<IConfigsProvider>(), _services.Single<IUpdateService>()));
         _mapFromSceneObjects.CreateMap();
         SimpleGraph graph = _mapFromSceneObjects.CreateSimpleGraph();
         _services.RegisterSingle<IPathfindService>(new AStar(_mapFromSceneObjects));
@@ -83,6 +89,6 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<ISettlersService>(new SettlersService());
 
         _services.RegisterSingle<IBuildingService>(new BuildingService(_services.Single<IConfigsProvider>(), _buildingsPanelView));
-        _services.RegisterSingle<INotificationsService>(new NotificationsService(_services.Single<IUpdateService>()));
+        _services.RegisterSingle<INotificationsService>(new NotificationsService(_services.Single<IUpdateService>(), _services.Single<IOccurenceService>()));
     }
 }

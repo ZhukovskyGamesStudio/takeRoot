@@ -4,6 +4,9 @@ using UnityEngine;
 public class WorkerAnimator : MonoBehaviour, IAnimationStateReader {
     [SerializeField]
     private Animator _animator;
+    
+    [SerializeField]
+    private ChangeMoodAnimator _changeMoodAnimator;
 
     private readonly int _hitSpeed = Animator.StringToHash("HitSpeed");
 
@@ -22,6 +25,8 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader {
 
     public bool OnContactPointWhileMove;
 
+    public void SetMood(Mood mood) => _changeMoodAnimator.SetMood(mood);
+    
     public void PlayCraft() {
         _animator.SetTrigger(_craftStateHash);
     }

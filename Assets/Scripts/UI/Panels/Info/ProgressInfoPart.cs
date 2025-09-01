@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,13 +9,28 @@ public class ProgressInfoPart : MonoBehaviour {
 
     [SerializeField]
     private Slider _progressSlider;
+
+    private ProgressData _progressData;
     
     public void SetData(ProgressData data) {
         gameObject.SetActive(true);
+        _progressData = data;
+    }
 
-        _progressSlider.value = (float)data.Progress / data.Needed;
-        _titleText.text = data.Title;
-        _progressText.text = $"{data.Progress}/{data.Needed}";
+    private void UpdateData() {
+        if (!_progressData.Enabled) {
+            _progressSlider.gameObject.SetActive(false);
+            return;
+        }
+        _progressSlider.gameObject.SetActive(true);
+        
+        _progressSlider.value = (float)_progressData.Progress / _progressData.Needed;
+        _titleText.text = _progressData.Title;
+        _progressText.text = $"{_progressData.Progress}/{_progressData.Needed}";
+    }
+
+    private void FixedUpdate() {
+        UpdateData();
     }
 
     public void Disable() {

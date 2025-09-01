@@ -5,8 +5,8 @@ namespace AI.Node.Jobs {
 
 			var moveToCraftingStation = new ConditionalAction()
 				.Do(new Action_MoveToPos(settler))
-				.While(() => settler.Data.crafting.craftingStation &&
-				             settler.Data.crafting.craftingStation.CanCraft());
+				.While(() => settler.Data.targets.CraftingStation &&
+				             settler.Data.targets.CraftingStation.CanCraft());
 
 			Action_Craft crafting = new Action_Craft(settler);
 			

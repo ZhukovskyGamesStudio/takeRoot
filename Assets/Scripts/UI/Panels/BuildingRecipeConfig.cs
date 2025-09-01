@@ -13,6 +13,8 @@ public class BuildingRecipeConfig : ScriptableObject {
     public Vector2Int Footprint;
     public int Hp;
 
+    public int RequiredBuildPoints;
+
     [Header("Normal Values")]
     public BuildingCategory BuildingCategory;
 
