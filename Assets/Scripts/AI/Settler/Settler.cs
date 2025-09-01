@@ -6,6 +6,8 @@ using UnityEngine.Profiling;
 
 namespace AI {
     public class Settler : MonoBehaviour {
+        [SerializeField]
+        private Gravestone _gravestonePrefab;
         
         public static bool GlobalGodmode;
         private BTRoot_Settler _root;
@@ -81,11 +83,16 @@ namespace AI {
             Data.needs.StressData.currentStress = Data.needs.StressData.stressAfterBreakdown;
         }
 
-        public void Die() {
+        public void Die(DeathCause cause) {
             if (GlobalGodmode) return;
 
             gameObject.SetActive(false);
             Data.Dead = true;
+            
+            //TODO: перенести в сервис или ещё куда то хз
+            Vector2 gravePos = new (Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
+            Gravestone gravestone = Instantiate(_gravestonePrefab, gravePos, Quaternion.identity);
+            gravestone.SetData(Data, cause);
         }
 
         public void Sleep() {
@@ -134,5 +141,12 @@ namespace AI {
             BTRoot_Settler root = new(this, commands, crafting, resources, building, farming, timeScale);
             return root;
         }
+    }
+
+    public enum DeathCause {
+        Unknown,
+        Hunger,
+        Care,
+        Hp
     }
 }
