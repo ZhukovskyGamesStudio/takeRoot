@@ -18,7 +18,7 @@ public class ProgressInfoPart : MonoBehaviour {
     }
 
     private void UpdateData() {
-        if (!_progressData.Enabled) {
+        if (!_progressData.InfoViewEnabled) {
             _progressSlider.gameObject.SetActive(false);
             return;
         }
