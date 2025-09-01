@@ -12,6 +12,22 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: e22c774d6c374a248aa9e9cf2133ff9a, type: 2}
+    - target: {fileID: 838319514333708084, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_Size.x
+      value: 0.65625
+      objectReference: {fileID: 0}
+    - target: {fileID: 838319514333708084, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_Size.y
+      value: 0.3125
+      objectReference: {fileID: 0}
+    - target: {fileID: 838319514333708084, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5333460ac1456e944ad9ab496b2688a7, type: 3}
+    - target: {fileID: 838319514333708084, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1504225590657059056, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: m_Size.x
       value: 0.9375
@@ -124,6 +140,14 @@ PrefabInstance:
       propertyPath: _moodSprites._serializedList.Array.data[3].Value
       value: 
       objectReference: {fileID: -1712183407, guid: 59d24a96eea6700438475be8dbd34984, type: 3}
+    - target: {fileID: 7534793223490432368, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7534793223490432368, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -14
+      objectReference: {fileID: 0}
     - target: {fileID: 9211624297980357850, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: m_Size.x
       value: 0.875

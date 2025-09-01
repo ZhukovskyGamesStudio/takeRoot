@@ -16,6 +16,22 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: fcd2eb941d370934fa2393ea517e750d, type: 2}
+    - target: {fileID: 838319514333708084, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_Size.x
+      value: 0.71875
+      objectReference: {fileID: 0}
+    - target: {fileID: 838319514333708084, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_Size.y
+      value: 0.28125
+      objectReference: {fileID: 0}
+    - target: {fileID: 838319514333708084, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 88f2a0b1df5ab3e41b538123300ffa49, type: 3}
+    - target: {fileID: 838319514333708084, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1504225590657059056, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: m_Size.x
       value: 1.15625
@@ -83,6 +99,14 @@ PrefabInstance:
     - target: {fileID: 4083847707166725687, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: moveTime
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4297622237760170878, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4297622237760170878, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4689852369697983819, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: m_IsActive
@@ -168,6 +192,14 @@ PrefabInstance:
       propertyPath: _moodSprites._serializedList.Array.data[3].Value
       value: 
       objectReference: {fileID: 1814164391, guid: ad1dbe56bd36ea74ea621af30ed69bd7, type: 3}
+    - target: {fileID: 7534793223490432368, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7534793223490432368, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -11
+      objectReference: {fileID: 0}
     - target: {fileID: 8341291976306485751, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
