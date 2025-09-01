@@ -107,4 +107,8 @@ public class IterativeDeepeningAStar : IPathfindService {
         return math.abs(a.x - b.x) + math.abs(a.y - b.y);
         //return math.sqrt(math.pow(a.x - b.x, 2) + math.pow(a.y - b.y, 2));
     }
+
+    public List<Vector2> FindPath(Vector2 start, Vector2 end, IPathfinderUser user) {
+        throw new System.NotImplementedException();
+    }
 }

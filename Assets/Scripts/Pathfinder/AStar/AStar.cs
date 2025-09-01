@@ -5,17 +5,32 @@ using UnityEngine;
 
 public class AStar : IPathfindService {
     private readonly MapFromSceneObjects _graph;
+    private Dictionary<IPathfinderUser, Dictionary<Vector2, int>> _pathfinderChecks = new Dictionary<IPathfinderUser, Dictionary<Vector2, int>>();
+    private int _skipChecks = 50;
 
     public AStar(MapFromSceneObjects graph) {
         _graph = graph;
     }
 
-    public List<Vector2> FindPath(Vector2 start, Vector2 end) {
+    public List<Vector2> FindPath(Vector2 start, Vector2 end, IPathfinderUser user) {
+        if (_pathfinderChecks.TryGetValue(user, out var checks)) {
+            if (checks.TryGetValue(end, out var result)) {
+                if (result >= _skipChecks) {
+                    _pathfinderChecks[user].Remove(end);
+                }else {
+                    checks[end]++;
+                    return null;
+                }
+            }
+        } else {
+            _pathfinderChecks[user] = new Dictionary<Vector2, int>();
+        }
         int3 startPos = new((int)start.x, (int)start.y, 0);
         int3 endPos = new((int)end.x, (int)end.y, 0);
         List<int3> path = FindPathInternal(_graph.Graph, startPos, endPos);
 
         if (path == null) {
+            _pathfinderChecks[user].Add(end, 0);
             return null;
         }
 

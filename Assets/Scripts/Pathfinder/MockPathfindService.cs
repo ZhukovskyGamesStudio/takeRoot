@@ -12,4 +12,8 @@ public class MockPathfindService : IPathfindService {
 
         return path;
     }
+
+    public List<Vector2> FindPath(Vector2 start, Vector2 end, IPathfinderUser user) {
+        throw new System.NotImplementedException();
+    }
 }

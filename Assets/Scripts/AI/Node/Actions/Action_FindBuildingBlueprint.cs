@@ -16,6 +16,9 @@ namespace AI.Node.Jobs {
 			if (buildingBlueprint == null) {
 				return BTNodeState.Failure;
 			}
+			if (!_settler.Mover.HasPath(buildingBlueprint.InteractionPos.Value)) {
+				return BTNodeState.Failure;
+			}
 			
 			buildingData.buildingBlueprint = buildingBlueprint;
 			return BTNodeState.Success;
