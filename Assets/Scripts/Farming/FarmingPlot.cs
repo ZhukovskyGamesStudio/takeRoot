@@ -42,7 +42,7 @@ public class FarmingPlot : MonoBehaviour {
 
     public void Init() {
         _waterLevel = GetComponent<WaterLevel>();
-        _waterLevel.currentWater.Subscribe(OnWaterLevelChanged);
+        _waterLevel.CurrentWater.Subscribe(OnWaterLevelChanged);
         PlantType = FarmingPlantType.None;
         PlantState = FarmingPlantState.None;
         _waterLevel.ChangeWater(Random.Range(0,1f));
@@ -81,11 +81,11 @@ public class FarmingPlot : MonoBehaviour {
     }
 
     private void OnWaterLevelChanged(float value) {
-        _plotView.sprite = _waterLevel.currentWater.Value <= DryThreshold ? _drySprite : _wateredSprite;
+        _plotView.sprite = _waterLevel.CurrentWater.Value <= DryThreshold ? _drySprite : _wateredSprite;
 
-        if (PlantState == FarmingPlantState.Growing && _waterLevel.currentWater.Value <= DryThreshold) {
+        if (PlantState == FarmingPlantState.Growing && _waterLevel.CurrentWater.Value <= DryThreshold) {
             PlantState = FarmingPlantState.WaitingForWater;
-        } else if (PlantState == FarmingPlantState.WaitingForWater && _waterLevel.currentWater.Value > DryThreshold) {
+        } else if (PlantState == FarmingPlantState.WaitingForWater && _waterLevel.CurrentWater.Value > DryThreshold) {
             PlantState = FarmingPlantState.Growing;
         }
     }

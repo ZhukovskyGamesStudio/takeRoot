@@ -12,6 +12,8 @@ namespace AI {
                 .AddChild(new Conditional(() => settler.Data.tactical.IsTactical))
                 //.AddChild(new Behavior_Death(settler))
                 .AddChild(new Behavior_CriticalTired(settler))
+                
+                .AddChild(new Behavior_Water(settler))     
                 .AddChild(new Behavior_Energy(settler))         //Идет в кровать
                 .AddChild(new Behavior_Care(settler))   
                 .AddChild(new Jobs(settler, commands))

@@ -95,6 +95,15 @@ namespace AI {
             WorkerAnimator.ResetToIdle();
         }
         
+        public void StartInteract() {
+            WorkerAnimator.PlaySearch();
+        }
+        
+        public void StopInteract() {
+            Data.needs.CareData.isTakingCareOf = true;
+            WorkerAnimator.ResetToIdle();
+        }
+        
         public void StartReceiveCare() {
             Data.needs.CareData.isTakingCareOf = true;
             WorkerAnimator.PlaySleep();
