@@ -7,6 +7,7 @@ public class CraftingService : ICraftingService {
 
     public CraftingStation GetCraftingStationWithJob() {
         foreach (CraftingStation craftingStation in _craftingStations) { //TODO: change crafting station pick
+            if (craftingStation.HaulInteractPos == null) continue;
             var type = craftingStation.GetRequiredResource();
             if (type != ResourceType.None)
                 return craftingStation;

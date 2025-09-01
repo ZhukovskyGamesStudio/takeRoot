@@ -17,7 +17,7 @@ namespace AI.Node.Jobs {
             if (station == null) {
                 return BTNodeState.Failure;
             }
-
+            
             _settler.Data.craftingTransport.craftingStation = station;
             return BTNodeState.Success;
         }
