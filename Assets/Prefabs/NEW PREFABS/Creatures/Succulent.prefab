@@ -152,6 +152,14 @@ PrefabInstance:
       propertyPath: Data.names.Subrace
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: Data.needs.CareData.defaultCareChange
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: Data.needs.CareData.onStationCareChange
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6962432183896193380, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: _moodSprites._serializedList.Array.data[0].Value
       value: 
