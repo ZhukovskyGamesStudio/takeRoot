@@ -32,7 +32,7 @@ public class BuildingService : IBuildingService, IUpdatable {
 			if (blueprint.WasBuilded) continue;
 			if (!blueprint.IsPlaced) continue;
 			if (blueprint.CanBuild()) continue;
-			if (_map.IsOccupiedPos(blueprint.InteractionPos.position)) continue; //TODO: make multiply interact pos around blueprint
+			if (blueprint.InteractionPos == null) continue; 
 			return blueprint;
 		}
 

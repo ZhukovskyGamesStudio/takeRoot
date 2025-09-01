@@ -13,9 +13,13 @@ namespace AI.Node.Jobs {
 			if (buildingBlueprint == null) {
 				return BTNodeState.Failure;
 			}
+
+			if (buildingBlueprint.InteractionPos == null) {
+				return BTNodeState.Failure;
+			}
 			_settler.Data.targets.BuildingBlueprint = buildingBlueprint;
 			buildingBlueprint.Builder = _settler;
-			_settler.Data.curMovePos = buildingBlueprint.InteractionPos.position;
+			_settler.Data.curMovePos = buildingBlueprint.InteractionPos.Value;
 			return _state = BTNodeState.Success;
 		}
 	}

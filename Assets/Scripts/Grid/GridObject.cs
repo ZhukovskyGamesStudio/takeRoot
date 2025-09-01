@@ -4,74 +4,92 @@ using CodeBase.Services;
 using UnityEngine;
 
 public class GridObject : MonoBehaviour {
-    private IGridService _grid;
-    [HideInInspector]
-    public int X, Y;
-    public int Layer;
+	private IGridService _grid;
+	[HideInInspector]
+	public int X, Y;
+	public int Layer;
 
-    public bool Obstacle;
-    public int3 Position => new(X, Y, Layer);
+	public bool Obstacle;
+	public int3 Position => new(X, Y, Layer);
 
-    [Min(0)]
-    public Vector2Int MultiplyGridOffset;
+	[Min(0)]
+	public Vector2Int MultiplyGridOffset;
 
-    public int SizeX => MultiplyGridOffset.x + 1;
-    public int SizeY => MultiplyGridOffset.y + 1;
+	public int SizeX => MultiplyGridOffset.x + 1;
+	public int SizeY => MultiplyGridOffset.y + 1;
 
-    private void Start() {
-        _grid = ServiceLocator.Container.Single<IGridService>();
-    }
+	private void Start() {
+		_grid = ServiceLocator.Container.Single<IGridService>();
+	}
 
-    public void Init() {
-        var pos = transform.position;
-        var newPos = new Vector3(Mathf.Floor(pos.x), Mathf.Floor(pos.y), pos.z);
-        transform.position = newPos;
-        X = (int)transform.position.x;
-        Y = (int)transform.position.y;
-    }
+	public void Init() {
+		var pos = transform.position;
+		var newPos = new Vector3(Mathf.Floor(pos.x), Mathf.Floor(pos.y), pos.z);
+		transform.position = newPos;
+		X = (int)transform.position.x;
+		Y = (int)transform.position.y;
+	}
 
-    public Vector3 GetObjectCenter() {
-        Vector3 origin = transform.position - Vector3.one / 2; // нижний левый угол
-        return origin + new Vector3(SizeX / 2f, SizeY / 2f, 0);
-    }
+	public Vector3 GetObjectCenter() {
+		Vector3 origin = transform.position - Vector3.one / 2; // нижний левый угол
+		return origin + new Vector3(SizeX / 2f, SizeY / 2f, 0);
+	}
 
-    public List<Vector3> GetObjectPositions() {
-        List<Vector3> positions = new List<Vector3>();
-        for (int y = Y; y < Y + SizeY; y++)
-        for (int x = X; x < X + SizeX; x++) {
-            positions.Add(new Vector3(x, y, 0));
-        }
-        return positions;
-    }
+	public List<Vector3> GetObjectPositions() {
+		List<Vector3> positions = new List<Vector3>();
+		for (int y = Y; y < Y + SizeY; y++)
+		for (int x = X; x < X + SizeX; x++) {
+			positions.Add(new Vector3(x, y, 0));
+		}
+		return positions;
+	}
     
-    public bool IsObstacle(int3 pos) {
-        return Obstacle && pos.x >= X && pos.x < X + MultiplyGridOffset.x && pos.y >= Y && pos.y < Y + MultiplyGridOffset.y && pos.z == Layer;
-    }
+	public bool IsObstacle(int3 pos) {
+		return Obstacle && pos.x >= X && pos.x < X + MultiplyGridOffset.x && pos.y >= Y && pos.y < Y + MultiplyGridOffset.y && pos.z == Layer;
+	}
 
-    public void UpdatePosition() {
-        X = (int)transform.position.x;
-        Y = (int)transform.position.y;
-    }
+	public void UpdatePosition() {
+		X = (int)transform.position.x;
+		Y = (int)transform.position.y;
+	}
 
-    public List<Vector3> GetObjectCorners() {
-        List<Vector3> corners = new(4);
-        corners.Add(transform.position - Vector3.one / 2); // нижний левый
-        corners.Add(transform.position - Vector3.one / 2 + new Vector3(SizeX, 0)); // нижний правый
-        corners.Add(transform.position - Vector3.one / 2 + new Vector3(SizeX, SizeY)); // верхний правый
-        corners.Add(transform.position - Vector3.one / 2 + new Vector3(0, SizeY)); // верхний левый
-        return corners;
-    }
+	public List<Vector3> GetObjectCorners() {
+		List<Vector3> corners = new(4);
+		corners.Add(transform.position - Vector3.one / 2); // нижний левый
+		corners.Add(transform.position - Vector3.one / 2 + new Vector3(SizeX, 0)); // нижний правый
+		corners.Add(transform.position - Vector3.one / 2 + new Vector3(SizeX, SizeY)); // верхний правый
+		corners.Add(transform.position - Vector3.one / 2 + new Vector3(0, SizeY)); // верхний левый
+		return corners;
+	}
 
-    public void OccupyTiles() {
-        for (int y = Y; y < Y + SizeY; y++)
-        for (int x = X; x < X + SizeX; x++) {
-            _grid.OccupyTile(x, y);
-        }
-    }
-    public void Destroy() {
-        for (int y = Y; y < Y + SizeY; y++)
-        for (int x = X; x < X + SizeX; x++) {
-            _grid.FreeTile(x, y);
-        }
-    }
+	public Vector3? GetNeighborFreeTile() {
+		var objPositions = GetObjectPositions();
+		for (int y = Y; y < Y + SizeY; y++)
+		for (int x = X; x < X + SizeX; x++) {
+			var neighbors = new[] {
+				new Vector3(x - 1, y, 0), // left
+				new Vector3(x + 1, y, 0), // right
+				new Vector3(x, y - 1, 0), // bot
+				new Vector3(x, y + 1, 0)  // top
+			};
+			foreach (var pos in neighbors) {
+				if (!objPositions.Contains(pos) && !_grid.IsOccupiedPos(pos))
+					return pos;
+			}
+		}
+		return null;
+	}
+
+	public void OccupyTiles() {
+		for (int y = Y; y < Y + SizeY; y++)
+		for (int x = X; x < X + SizeX; x++) {
+			_grid.OccupyTile(x, y);
+		}
+	}
+	public void Destroy() {
+		for (int y = Y; y < Y + SizeY; y++)
+		for (int x = X; x < X + SizeX; x++) {
+			_grid.FreeTile(x, y);
+		}
+	}
 }

@@ -19,8 +19,11 @@ namespace AI.Node.Jobs {
 				ResourceType = resource.Type,
 				Amount = dataBuildingTransport.amountToPick
 			};
+			if (dataBuildingTransport.buildingBlueprint.InteractionPos == null) {
+				return BTNodeState.Failure;
+			}
 			_settler.ResourceCarrier.CarryResource(resource.Type);
-			_settler.Data.curMovePos = dataBuildingTransport.buildingBlueprint.InteractionPos.position;
+			_settler.Data.curMovePos = dataBuildingTransport.buildingBlueprint.InteractionPos.Value;
 			return BTNodeState.Success;
 		}
 	}
