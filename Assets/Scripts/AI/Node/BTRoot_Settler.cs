@@ -15,8 +15,9 @@ namespace AI {
                 .AddChild(new Behavior_Energy(settler))         //Идет в кровать
                 .AddChild(new Behavior_Care(settler))   
                 .AddChild(new Jobs(settler, commands))
-                .AddChild(new Job_Craft(settler, crafting))
+                .AddChild(new Job_GiveCare(settler))
                 .AddChild(new Job_ChargeTimeMachine(settler, timeScale))
+                .AddChild(new Job_Craft(settler, crafting))
                
                 //фермерство
                 .AddChild(new Job_Harvest(settler,farming))

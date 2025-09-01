@@ -1643,6 +1643,18 @@ PrefabInstance:
       propertyPath: Data.needs.CareData.careChange
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: Data.needs.CareData.defaultCareChange
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: Data.needs.CareData.onStationCareChange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705605191681286231, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: CareTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9211624297980357850, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: m_Sprite
       value: 

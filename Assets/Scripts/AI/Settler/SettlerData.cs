@@ -21,18 +21,15 @@ namespace AI {
         public bool HasItem => ItemInHands != null;
 
         public SettlerCondition Condition;
+        
+        [Header("Names")]
+        public Settler_Names names;
 
         [Header("Needs")]
         public Settler_Needs needs;
         public float needsUpdateCooldown;
         public float needsUpdateTimer;
-
-        [Header("Names")]
-        public Settler_Names names;
-
-        [Header("Energy")]
-       
-
+        
         [Header("Transport for crafting")]
         public Settler_TransportForCrafting craftingTransport;
 

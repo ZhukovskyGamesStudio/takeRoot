@@ -15,6 +15,7 @@ namespace AI {
         public IMovable Mover;
         public ISearcher Searcher;
         public IPlanter Farmer;
+        public ICareGiver CareGiver;
         public IDestroyer Destroyer;
         public IWaterer Waterer;
         public IResourceCarrier ResourceCarrier;
@@ -34,6 +35,7 @@ namespace AI {
             Waterer = GetComponent<IWaterer>();
             ResourceCarrier = GetComponent<IResourceCarrier>();
             Crafter = GetComponent<ICrafter>();
+            CareGiver = GetComponent<ICareGiver>();
             Builder = GetComponent<IBuilder>();
             TimeMachineCharger = GetComponent<ITimeMachineCharger>();
             
@@ -43,6 +45,7 @@ namespace AI {
             Crafter.Init(WorkerAnimator);
             Builder.Init(WorkerAnimator);
             Farmer.Init(WorkerAnimator);
+            CareGiver.Init(WorkerAnimator);
             TimeMachineCharger.Init(WorkerAnimator);
             
             _root = CreateRootBt();
