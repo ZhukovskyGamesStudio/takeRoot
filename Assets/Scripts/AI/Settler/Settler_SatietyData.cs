@@ -5,12 +5,17 @@ namespace AI {
     [Serializable]
     public class Settler_SatietyData {
         public int maxSatiety;
-        public int currentSatiety;
+        public float currentSatiety;
         [Space]
         public int lowSatietyThreshold;
         public int highSatietyThreshold;
         [Space]
-        public int satietyChange;
+        public float satietyChange;
+        
+        public Cooler Cooler;
+        public ElectricityLevel ElectricitySource;
+
+        public bool isDrinking;
         
         public bool LowSatiety => currentSatiety < lowSatietyThreshold;
         public bool HighSatiety => currentSatiety >= highSatietyThreshold;

@@ -12,11 +12,21 @@ namespace AI {
                 .AddChild(new Conditional(() => settler.Data.tactical.IsTactical))
                 //.AddChild(new Behavior_Death(settler))
                 .AddChild(new Behavior_CriticalTired(settler))
+                
+                .AddChild(new Behavior_Electricity(settler))     
+                .AddChild(new Behavior_Water(settler))     
                 .AddChild(new Behavior_Energy(settler))         //Идет в кровать
+                .AddChild(new Behavior_Care(settler))  
+                
                 .AddChild(new Jobs(settler, commands))
-                .AddChild(new Job_Craft(settler, crafting))
+                .AddChild(new Job_GiveCare(settler))
+                
+                //зарядка станций
+                .AddChild(new Job_ChargeDinamoMachine(settler))
                 .AddChild(new Job_ChargeTimeMachine(settler, timeScale))
-               
+                
+                .AddChild(new Job_Craft(settler, crafting))
+                
                 //фермерство
                 .AddChild(new Job_Harvest(settler,farming))
                 .AddChild(new Job_Plant(settler,farming))

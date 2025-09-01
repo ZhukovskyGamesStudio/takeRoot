@@ -1,4 +1,5 @@
 using System;
+using UniRx;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,9 +15,9 @@ public class TimeStatusUI : MonoBehaviour {
 
     private Action<GameSpeedType> _onChangeSpeed;
 
-    public void SetData(IngameTimeData data, Action<GameSpeedType> onChangeSpeed) {
+    public void SetData(IngameTimeData data, Action<GameSpeedType> onChangeSpeed, ReactiveProperty<bool> isReadyToPause) {
         _onChangeSpeed = onChangeSpeed;
-        _gameSpeedView.Init(ChangeSpeed);
+        _gameSpeedView.Init(ChangeSpeed,isReadyToPause);
 
         _dayStatusView.SetData(data);
     }

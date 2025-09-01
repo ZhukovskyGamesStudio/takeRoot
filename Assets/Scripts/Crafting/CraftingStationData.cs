@@ -55,7 +55,9 @@ public class CraftingStationData {
     }
     
     public void RemoveRecipe(ResourceType recipeRes) {
-        if (RecipesToCraft[recipeRes] == 0) return;
+        if (RecipesToCraft[recipeRes] == 0) {
+            return;
+        }
         var recipe = AvailableCraftingRecipes.FirstOrDefault(r => r.ResultingResource.ResourceType == recipeRes);
         if (recipe == null) {
             Debug.LogError("Recipe UID: " + recipeRes + " not found!");

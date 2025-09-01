@@ -7,5 +7,7 @@ namespace AI {
 		public BuildingBlueprint BuildingBlueprint;
 		public FarmingPlot FarmingPlot;
 		public TimeMachine TimeMachine;
+		public CareStation CareStation;
+		public DinamoMachine DinamoMachine;
 	}
 }

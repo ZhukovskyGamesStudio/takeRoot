@@ -5,15 +5,18 @@ namespace AI {
     [Serializable]
     public class Settler_EnergyData {
         public int maxEnergy;
-        public int currentEnergy;
+        [HideInInspector]
+        public float currentEnergy;
         [Space]
         public int tiredThreshold;
         public int criticalTiredThreshold;
+      
+        [HideInInspector]
+        public float energyChange;
         [Space]
-        public int energyChange;
-        public int defaultEnergyChange;
-        public int onGroundEnergyChange;
-        public int onBedEnergyChange;
+        public float defaultEnergyChange;
+        public float onGroundEnergyChange;
+        public float onBedEnergyChange;
         [Space]
         public bool isSleeping;
         public Bed bed;

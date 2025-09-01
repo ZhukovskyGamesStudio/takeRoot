@@ -20,7 +20,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.08, y: 0.16, z: 0}
+        value: {x: -20, y: -7, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -30,7 +30,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Body
+    path: BodyView
   m_ScaleCurves: []
   m_FloatCurves:
   - serializedVersion: 2
@@ -46,20 +46,11 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - serializedVersion: 3
-        time: 0.4
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: EmotionView
+    path: EmotionView/Sprite
     classID: 212
     script: {fileID: 0}
     flags: 0
@@ -75,7 +66,7 @@ AnimationClip:
     - time: 0.6
       value: {fileID: -337229297, guid: bab2322ad729d0547a8a70d281640a4a, type: 3}
     attribute: m_Sprite
-    path: Body
+    path: BodyView/Sprite
     classID: 212
     script: {fileID: 0}
     flags: 2
@@ -87,7 +78,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 4249156775
+      path: 516536689
       attribute: 3305885265
       script: {fileID: 0}
       typeID: 212
@@ -96,7 +87,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2073732236
+      path: 2941321144
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -105,7 +96,7 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     - serializedVersion: 2
-      path: 2073732236
+      path: 1799893675
       attribute: 1
       script: {fileID: 0}
       typeID: 4
@@ -152,20 +143,11 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
-      - serializedVersion: 3
-        time: 0.4
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Enabled
-    path: EmotionView
+    path: EmotionView/Sprite
     classID: 212
     script: {fileID: 0}
     flags: 0
@@ -175,7 +157,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.08
+        value: -20
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -186,7 +168,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.x
-    path: Body
+    path: BodyView
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -196,7 +178,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.16
+        value: -7
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -207,7 +189,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.y
-    path: Body
+    path: BodyView
     classID: 4
     script: {fileID: 0}
     flags: 0
@@ -228,7 +210,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalPosition.z
-    path: Body
+    path: BodyView
     classID: 4
     script: {fileID: 0}
     flags: 0

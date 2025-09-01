@@ -6,6 +6,8 @@ using UnityEngine.Profiling;
 
 namespace AI {
     public class Settler : MonoBehaviour {
+        [SerializeField]
+        private Gravestone _gravestonePrefab;
         
         public static bool GlobalGodmode;
         private BTRoot_Settler _root;
@@ -15,6 +17,8 @@ namespace AI {
         public IMovable Mover;
         public ISearcher Searcher;
         public IPlanter Farmer;
+        public IDinamoCharger DinamoCharger;
+        public ICareGiver CareGiver;
         public IDestroyer Destroyer;
         public IWaterer Waterer;
         public IResourceCarrier ResourceCarrier;
@@ -34,19 +38,24 @@ namespace AI {
             Waterer = GetComponent<IWaterer>();
             ResourceCarrier = GetComponent<IResourceCarrier>();
             Crafter = GetComponent<ICrafter>();
+            CareGiver = GetComponent<ICareGiver>();
             Builder = GetComponent<IBuilder>();
+            DinamoCharger = GetComponent<IDinamoCharger>();
             TimeMachineCharger = GetComponent<ITimeMachineCharger>();
             
+            DinamoCharger.Init(WorkerAnimator);
             Searcher.Init(WorkerAnimator);
             Destroyer.Init(WorkerAnimator);
             Waterer.Init(WorkerAnimator);
             Crafter.Init(WorkerAnimator);
             Builder.Init(WorkerAnimator);
             Farmer.Init(WorkerAnimator);
+            CareGiver.Init(WorkerAnimator);
             TimeMachineCharger.Init(WorkerAnimator);
             
             _root = CreateRootBt();
             _stateBt = CreateStateBt();
+            Data.Init();
         }
 
         private void Update() {
@@ -74,20 +83,44 @@ namespace AI {
             Data.needs.StressData.currentStress = Data.needs.StressData.stressAfterBreakdown;
         }
 
-        public void Die() {
+        public void Die(DeathCause cause) {
             if (GlobalGodmode) return;
 
             gameObject.SetActive(false);
             Data.Dead = true;
+            
+            //TODO: перенести в сервис или ещё куда то хз
+            Vector2 gravePos = new (Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
+            Gravestone gravestone = Instantiate(_gravestonePrefab, gravePos, Quaternion.identity);
+            gravestone.SetData(Data, cause);
         }
 
         public void Sleep() {
-            Data.energy.isSleeping = true;
+            Data.needs.Energy.isSleeping = true;
             WorkerAnimator.PlaySleep();
         }
 
         public void WakeUp() {
-            Data.energy.isSleeping = false;
+            Data.needs.Energy.isSleeping = false;
+            WorkerAnimator.ResetToIdle();
+        }
+        
+        public void StartInteract() {
+            WorkerAnimator.PlaySearch();
+        }
+        
+        public void StopInteract() {
+            Data.needs.CareData.isTakingCareOf = true;
+            WorkerAnimator.ResetToIdle();
+        }
+        
+        public void StartReceiveCare() {
+            Data.needs.CareData.isTakingCareOf = true;
+            WorkerAnimator.PlaySleep();
+        }
+
+        public void StopReceivingCare() {
+            Data.needs.CareData.isTakingCareOf = false;
             WorkerAnimator.ResetToIdle();
         }
 
@@ -108,5 +141,12 @@ namespace AI {
             BTRoot_Settler root = new(this, commands, crafting, resources, building, farming, timeScale);
             return root;
         }
+    }
+
+    public enum DeathCause {
+        Unknown,
+        Hunger,
+        Care,
+        Hp
     }
 }

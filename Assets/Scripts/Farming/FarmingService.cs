@@ -16,7 +16,7 @@ public class FarmingService : IFarmingService, IUpdatable, IDisposable {
     //GetPlantsThathNeedReplanting
 
     public float DryRate = 1 / 120f;
-    public float GrowRate = 1 / 300f * 30;
+    public float GrowRate = 1 / 300f;
 
     private List<FarmingPlantConfig> _farmingPlantConfigs;
     public List<FarmingPlantConfig> AvailableFarmingPlantConfigs => _farmingPlantConfigs;

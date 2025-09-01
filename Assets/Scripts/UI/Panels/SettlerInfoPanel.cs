@@ -15,6 +15,9 @@ public class SettlerInfoPanel : MonoBehaviour {
     private TMP_InputField _nameInput;
 
     [SerializeField]
+    private TextMeshProUGUI _satietyBarName;
+
+    [SerializeField]
     private Image _hpFill, _stressFill, _conditionIcon;
 
     [SerializeField]
@@ -37,6 +40,8 @@ public class SettlerInfoPanel : MonoBehaviour {
         _nameContainer.SetActive(true);
         _editNameContainer.SetActive(false);
 
+        _satietyBarName.text = settlerData.names.Race == Race.Plants ? "Вода" : "Зарядка";
+
         UpdateData();
     }
 
@@ -50,7 +55,7 @@ public class SettlerInfoPanel : MonoBehaviour {
         float hp = (float)_settlerData.needs.Hp / _settlerData.needs.MaxHp;
         float stress = 1 - _settlerData.needs.StressData.Percentage;
         float satiety = _settlerData.needs.SatietyData.Percentage;
-        float energy = _settlerData.energy.Percentage;
+        float energy = _settlerData.needs.Energy.Percentage;
         float care = _settlerData.needs.CareData.Percentage;
 
         _hpSlider.value = hp;

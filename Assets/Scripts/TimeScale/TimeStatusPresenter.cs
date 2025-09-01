@@ -6,7 +6,7 @@ public class TimeStatusPresenter {
         _service = service;
         _ingameTimeService = ingameTimeService;
 
-        view.SetData(_ingameTimeService.IngameTimeData, SetGameSpeed );
+        view.SetData(_ingameTimeService.IngameTimeData, SetGameSpeed, service.IsReadyForPause );
     }
 
     private void SetGameSpeed(GameSpeedType speed) {

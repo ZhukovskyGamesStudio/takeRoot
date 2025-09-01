@@ -106,7 +106,7 @@ public class CraftingStation : MonoBehaviour {
         _resourceManager.SpawnResource(InteractPos[0].position, StationData.CurrentRecipe.ResultingResource.ResourceType, StationData.CurrentRecipe.ResultingResource.Amount);
         StationData.CurrentRecipeCraftingPoints = 0;
         StationData.CurrentRecipe = null;
-        _progressData.ProgressData.Enabled = false;
+        _progressData.ProgressData.InfoViewEnabled = false;
         _progressData.ProgressData.Progress = 0;
         Debug.Log($"Crafted {resource.ResourceType}");
     }
@@ -122,7 +122,7 @@ public class CraftingStation : MonoBehaviour {
 
                 StationData.CurrentRecipe = StationData.AvailableCraftingRecipes.FirstOrDefault(r => r.ResultingResource.ResourceType == config.ResultingResource.ResourceType);
                 
-                _progressData.ProgressData.Enabled = true;
+                _progressData.ProgressData.InfoViewEnabled = true;
                 _progressData.ProgressData.Needed = StationData.CurrentRecipe!.CraftingPoints;
                 _progressData.ProgressData.Title = StationData.CurrentRecipe.MainInfo.Name;
                 return;
