@@ -12,6 +12,7 @@ public class Action_DrinkWater : BTNode {
         if (!target.HasWater ||_settler.Data.needs.SatietyData.HighSatiety) {
             _settler.StopInteract();
             _settler.Data.needs.SatietyData.Cooler = null;
+            _settler.Data.needs.SatietyData.isDrinking = false;
             return _state = BTNodeState.Success;
         }
 

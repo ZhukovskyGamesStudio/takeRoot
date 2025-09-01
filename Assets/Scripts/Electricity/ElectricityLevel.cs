@@ -8,9 +8,12 @@ public class ElectricityLevel : MonoBehaviour {
 
     [Header("DirectCharge Settings")]
     public bool CanDirectlyCharge = true;
-    
+
     [SerializeField]
+    public DirectChargeCable DirectChargeCable;
+
     public float DirectChargeSpeed = 1f;
+
     [SerializeField]
     [Range(0f, 1f)]
     private float _canDirectChargeThreshold = 0.3f;

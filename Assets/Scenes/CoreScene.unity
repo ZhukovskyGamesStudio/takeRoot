@@ -48565,6 +48565,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7042911103670071435, guid: ce94f0fc05d42f24bb87ea80cdbcb74f, type: 3}
+      propertyPath: DirectChargeSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7626318561151303953, guid: ce94f0fc05d42f24bb87ea80cdbcb74f, type: 3}
       propertyPath: m_Name
       value: DinamoMachine
