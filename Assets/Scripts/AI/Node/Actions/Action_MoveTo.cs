@@ -10,6 +10,9 @@ namespace AI.Node.Jobs {
 
         public override BTNodeState Evaluate() {
             CommandTarget target = _useSubsequentTarget ? _settler.Data.subsequentTarget : _settler.Data.currTarget;
+            
+            //TODO поселенцы застревают т.к. не могут сломать препятствия сверху вниз
+            //мега крит, надо починить!!!
             if (!_settler.Mover.HasPath(target.InteractPosition.position)) {
                 return _state = BTNodeState.Failure;
             }
