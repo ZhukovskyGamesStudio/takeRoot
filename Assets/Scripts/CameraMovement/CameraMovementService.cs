@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.LowLevel;
 
@@ -135,6 +136,9 @@ public class CameraMovementService : ICameraMovementService, IUpdatable, IDispos
     }
 
     private void HandleZoom() {
+        if (EventSystem.current.IsPointerOverGameObject()) {
+            return;
+        }
         float scrollInput = Mouse.current.scroll.ReadValue().y; // Get the scroll wheel input
 
         if (scrollInput != 0) {
