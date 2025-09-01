@@ -10,7 +10,7 @@ namespace AI {
             //находится в обычном режиме
             nonTactical
                 .AddChild(new Conditional(() => settler.Data.tactical.IsTactical))
-                //.AddChild(new Behavior_Death(settler))
+                .AddChild(new Behavior_Death(settler))
                 .AddChild(new Behavior_CriticalTired(settler))
                 
                 .AddChild(new Behavior_Electricity(settler))     
