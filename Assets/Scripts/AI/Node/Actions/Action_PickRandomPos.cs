@@ -14,7 +14,7 @@ namespace AI.Node.Jobs {
             if (_settler.Data.IdleMoveTimer < _settler.Data.IdleMoveCooldown) {
                 return BTNodeState.Failure;
             }
-            Vector3 offset = new(Random.Range(-_range, _range), Random.Range(-_range, _range));
+            Vector3 offset = new(Random.Range(-_range, _range + 1), Random.Range(-_range, _range + 1));
             Vector3 pos = _settler.transform.position + offset;
             if (_settler.Mover.HasPath(pos)) {
                 _settler.Data.curMovePos = pos;

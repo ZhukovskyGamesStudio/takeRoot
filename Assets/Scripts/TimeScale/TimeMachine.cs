@@ -12,26 +12,26 @@ public class TimeMachine : MonoBehaviour {
 
     [SerializeField]
     private int _neededProgress;
-    
+
     public Dictionary<Race, AI.Settler> Chargers;
 
     private int _progress;
     private Dictionary<Race, bool> _chargedRace;
     private ITimeScaleService _timeScaleService;
-    
+
     public bool Charged => _progress >= _neededProgress;
-    
+
     private void Start() {
         Chargers = new Dictionary<Race, AI.Settler> {
             { Race.Plants, null },
             { Race.Robots, null }
         };
-        
+
         _chargedRace = new Dictionary<Race, bool> {
             { Race.Plants, false },
             { Race.Robots, false }
         };
-
+        
         _progressBar.ProgressData.Needed = _neededProgress;
 
         _timeScaleService = ServiceLocator.Container.Single<ITimeScaleService>();
@@ -53,11 +53,13 @@ public class TimeMachine : MonoBehaviour {
         _progressBar.ProgressData.Progress = _progress;
 
         if (Charged) {
+            GetComponent<Animator>().SetTrigger("Work");
             _timeScaleService.SetReadyToPause();
         }
     }
 
     public void Use() {
+        GetComponent<Animator>().SetTrigger("Idle");
         _progress = 0;
         _progressBar.ProgressData.Progress = 0;
     }

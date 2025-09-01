@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameResources;
-using Settlers.Occurences;
 using UnityEngine;
 
 public class ConfigsProvider : IConfigsProvider {
@@ -15,6 +14,7 @@ public class ConfigsProvider : IConfigsProvider {
     public WorldConfig WorldConfig { get; set; }
     public IngameTimeConfig IngameTimeConfig { get; set; }
     public List<OccurenceConfig> OccurenceConfigs { get; set; }
+    public OccurenceMainConfig OccurenceMainConfig { get; set; }
 
     public ConfigsProvider() {
         CacheConfigs();
@@ -30,6 +30,8 @@ public class ConfigsProvider : IConfigsProvider {
         CameraMovementConfig = Resources.LoadAll<CameraMovementConfig>("Configs").FirstOrDefault();
         WorldConfig = Resources.LoadAll<WorldConfig>("Configs").FirstOrDefault();
         IngameTimeConfig = Resources.LoadAll<IngameTimeConfig>("Configs").FirstOrDefault();
-        OccurenceConfigs = Resources.LoadAll<OccurenceConfig>("Configs").ToList();
+        
+        OccurenceMainConfig = Resources.LoadAll<OccurenceMainConfig>("Configs").FirstOrDefault();
+        OccurenceConfigs = Resources.LoadAll<OccurenceConfig>("Configs/Occurencies").ToList();
     }
 }

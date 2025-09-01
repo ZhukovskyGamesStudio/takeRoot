@@ -1,4 +1,5 @@
 using System;
+using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,9 +12,10 @@ public class GameSpeedView : MonoBehaviour {
 
     private Action<GameSpeedType> _onSpeedSelect;
 
-    public void Init(Action<GameSpeedType> onSpeedSelect) {
+    public void Init(Action<GameSpeedType> onSpeedSelect, ReactiveProperty<bool> isReadyToPause) {
         _onSpeedSelect = onSpeedSelect;
         InitToggles();
+        isReadyToPause.Subscribe(ChangeSpeedAvailable);
     }
 
     private void InitToggles() {
@@ -24,6 +26,10 @@ public class GameSpeedView : MonoBehaviour {
                 }
             });
         }
+    }
+
+    private void ChangeSpeedAvailable(bool isOn) {
+        _speedToggles[GameSpeedType.Paused].interactable = isOn;
     }
 
     private void SelectSpeed(GameSpeedType type) {

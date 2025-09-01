@@ -10,6 +10,7 @@ namespace AI {
 		public override BTNodeState Evaluate() {
 			var pos = _zombie.Data.CurrMovePos;
 			if (_zombie.Mover.IsAtPosition(pos)) {
+				_zombie.Data.PatrolTimer = 0f;
 				return BTNodeState.Success;
 			}
 			if (!_zombie.Mover.HasPath(pos)) {

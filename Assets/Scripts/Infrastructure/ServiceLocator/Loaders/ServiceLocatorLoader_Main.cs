@@ -68,6 +68,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IIngameTimeService>(new IngameTimeService(
             _services.Single<IConfigsProvider>(), _services.Single<IUpdateService>(),_globalDaynightLight));
         
+        _services.RegisterSingle<IOccurenceService>(new OccurenceService(_services.Single<IConfigsProvider>(), _services.Single<IUpdateService>()));
         _mapFromSceneObjects.CreateMap();
         SimpleGraph graph = _mapFromSceneObjects.CreateSimpleGraph();
         _services.RegisterSingle<IPathfindService>(new AStar(_mapFromSceneObjects));
@@ -88,6 +89,6 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<ISettlersService>(new SettlersService());
 
         _services.RegisterSingle<IBuildingService>(new BuildingService(_services.Single<IConfigsProvider>(), _buildingsPanelView));
-        _services.RegisterSingle<INotificationsService>(new NotificationsService(_services.Single<IUpdateService>()));
+        _services.RegisterSingle<INotificationsService>(new NotificationsService(_services.Single<IUpdateService>(), _services.Single<IOccurenceService>()));
     }
 }
