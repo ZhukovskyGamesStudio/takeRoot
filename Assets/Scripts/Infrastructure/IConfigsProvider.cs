@@ -13,4 +13,7 @@ public interface IConfigsProvider : IService {
     public CameraMovementConfig CameraMovementConfig { get; set; }
     public WorldConfig WorldConfig { get; set; }
     public IngameTimeConfig IngameTimeConfig { get; set; }
+    public List<OccurenceConfig> OccurenceConfigs { get; set; }
+    
+    public OccurenceMainConfig OccurenceMainConfig { get; set; }
 }

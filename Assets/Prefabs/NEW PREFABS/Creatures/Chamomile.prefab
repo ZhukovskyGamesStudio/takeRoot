@@ -1181,14 +1181,14 @@ Transform:
   m_GameObject: {fileID: 6358486999858199006}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.094, y: 0.683, z: 0}
+  m_LocalPosition: {x: -0.09399998, y: 0.6830001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2344912125245627537}
   - {fileID: 59091077657550761}
   - {fileID: 2598247427922181103}
-  m_Father: {fileID: 1489217735651303537}
+  m_Father: {fileID: 3588220149786009109}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!210 &4470468395050326640
 SortingGroup:
@@ -1627,6 +1627,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 22100000, guid: 2fe4bb44c56eb0846b0d7ee1018098c6, type: 2}
+    - target: {fileID: 4689852369697983819, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6094444002186240976, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: m_Name
       value: Chamomile
@@ -1634,6 +1638,14 @@ PrefabInstance:
     - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: Data.names.Race
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211624297980357850, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211624297980357850, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1650,14 +1662,14 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7040036758771370869, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5557050449062528618}
-    - targetCorrespondingSourceObject: {fileID: 1684780501004557878, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 3603058254754635858, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6037284086869462825}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
---- !u!4 &1489217735651303537 stripped
+--- !u!4 &3588220149786009109 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 1684780501004557878, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3603058254754635858, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
   m_PrefabInstance: {fileID: 273392825772850759}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7095550347490768178 stripped

@@ -17,8 +17,18 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 
 	public bool IsPlaced;
 	private bool _canPlace;
+	private int _buildPoints, _neededBuildPoints;
 
 	[SerializeField] private SpriteRenderer _sprite;
+	[SerializeField]
+	private CommandTarget _commandTarget;
+
+	[SerializeField]
+	private Progress _progressBar;
+
+	[SerializeField]
+	private Collider2D _clickCollider;
+	
 	private IUpdateService _update;
 	private Camera _camera;
 	private IGridService _grid;
@@ -34,6 +44,11 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 		_buildingService = ServiceLocator.Container.Single<IBuildingService>();
 		_input = ServiceLocator.Container.Single<IInputService>();
 		_gridObject = GetComponent<GridObject>();
+		
+		_commandTarget.Data.MainInfoData = config.mainInfo;
+		_progressBar.ProgressData.Needed = config.RequiredBuildPoints;
+		
+		_neededBuildPoints = config.RequiredBuildPoints;
 		
 		foreach (var kvp in config.Ingridients) {
 			var type = kvp.Key;
@@ -128,6 +143,7 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 		_update.Unregister(this);
 		_buildingService.PlaceBlueprint(this);
 		IsPlaced = true;
+		_clickCollider.enabled = true;
 	}
 
 	public void CancelPlacement() {
@@ -142,7 +158,12 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 	}
 
 	public void Build() {
+		_buildPoints++;
+		_progressBar.ProgressData.Progress = _buildPoints;
+		if (_buildPoints < _neededBuildPoints) return;
+		
 		_buildingService.Build(this);
+		WasBuilded = true;
 		Instantiate(_buildingPrefab, transform.position, Quaternion.identity); //TODO: move instantiate to service
 		if (_gridObject.Obstacle) {
 			_gridObject.OccupyTiles();

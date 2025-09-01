@@ -9,6 +9,9 @@ public class CraftingStation : MonoBehaviour {
     [field: SerializeField]
     public CraftingStationData StationData { get; private set; }
 
+    [SerializeField]
+    private Progress _progressData;
+    
     [HideInInspector]
     public Dictionary<ResourceType, int> ReservedRequiredResources;
 
@@ -82,6 +85,7 @@ public class CraftingStation : MonoBehaviour {
 
     public void Craft() {
         StationData.CurrentRecipeCraftingPoints++;
+        _progressData.ProgressData.Progress = StationData.CurrentRecipeCraftingPoints;
         if (StationData.CurrentRecipe.CraftingPoints == StationData.CurrentRecipeCraftingPoints) {
             CraftResource();
             PickNewRecipe();
@@ -98,6 +102,8 @@ public class CraftingStation : MonoBehaviour {
         _resourceManager.SpawnResource(InteractPos[0].position, StationData.CurrentRecipe.ResultingResource.ResourceType, StationData.CurrentRecipe.ResultingResource.Amount);
         StationData.CurrentRecipeCraftingPoints = 0;
         StationData.CurrentRecipe = null;
+        _progressData.ProgressData.InfoViewEnabled = false;
+        _progressData.ProgressData.Progress = 0;
         Debug.Log($"Crafted {resource.ResourceType}");
     }
 
@@ -111,10 +117,12 @@ public class CraftingStation : MonoBehaviour {
                 }
 
                 StationData.CurrentRecipe = StationData.AvailableCraftingRecipes.FirstOrDefault(r => r.ResultingResource.ResourceType == config.ResultingResource.ResourceType);
+                
+                _progressData.ProgressData.InfoViewEnabled = true;
+                _progressData.ProgressData.Needed = StationData.CurrentRecipe!.CraftingPoints;
+                _progressData.ProgressData.Title = StationData.CurrentRecipe.MainInfo.Name;
                 return;
             }
         }
-
-        ;
     }
 }
