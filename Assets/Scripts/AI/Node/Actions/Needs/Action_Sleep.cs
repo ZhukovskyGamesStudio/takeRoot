@@ -18,6 +18,7 @@ namespace AI.Node.Jobs {
                 _settler.Data.energy.energyChange = _settler.Data.energy.defaultEnergyChange;
                 _settler.transform.position = _settler.Data.energy.bed.NearPos.position;
                 _settler.WakeUp();
+                _settler.Data.energy.bed.ReleaseBed();
                 return _state = BTNodeState.Success;
             }
 

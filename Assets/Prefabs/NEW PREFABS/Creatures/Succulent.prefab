@@ -1176,6 +1176,18 @@ PrefabInstance:
       propertyPath: Data.names.Subrace
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: Data.needs.CareData.careChange
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: Data.needs.CareData.defaultCareChange
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: Data.needs.CareData.onStationCareChange
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7040036758771370869, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

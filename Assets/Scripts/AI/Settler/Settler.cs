@@ -90,6 +90,16 @@ namespace AI {
             Data.energy.isSleeping = false;
             WorkerAnimator.ResetToIdle();
         }
+        
+        public void StartReceiveCare() {
+            Data.needs.CareData.isTakingCareOf = true;
+            WorkerAnimator.PlaySleep();
+        }
+
+        public void StopReceivingCare() {
+            Data.needs.CareData.isTakingCareOf = false;
+            WorkerAnimator.ResetToIdle();
+        }
 
         private BTNode CreateStateBt() {
             BTNode stateBt = new Sequence()
