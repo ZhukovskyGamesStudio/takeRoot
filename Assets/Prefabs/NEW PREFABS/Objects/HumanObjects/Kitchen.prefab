@@ -52,6 +52,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kitchen
       objectReference: {fileID: 0}
+    - target: {fileID: 2743286669860116333, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: _drop.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2743286669860116333, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: _drop.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2743286669860116333, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: _drop.Array.data[1].type
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2743286669860116333, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: _drop.Array.data[0].amount
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2743286669860116333, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: _drop.Array.data[1].amount
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 3575029597453831756, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Size.x
       value: 5.8287525
