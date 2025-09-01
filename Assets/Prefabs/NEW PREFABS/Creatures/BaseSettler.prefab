@@ -540,6 +540,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0686627f6564fdb8e5e27bf97af28a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gravestonePrefab: {fileID: 3119123577627285324, guid: d1bee85eb883d8e478ded13a52d0f075, type: 3}
   Data:
     Dead: 0
     currJob: 0
@@ -585,6 +586,7 @@ MonoBehaviour:
         highSatietyThreshold: 80
         satietyChange: -2
         Cooler: {fileID: 0}
+        ElectricitySource: {fileID: 0}
         isDrinking: 0
       CareData:
         maxCare: 100
