@@ -11,6 +11,7 @@ namespace AI.Node.Jobs {
 			if (blueprint.WasBuilded) {
 				blueprint.Build();
 				_settler.Data.targets.BuildingBlueprint = null;
+				_settler.Builder.Cancel();
 				return _state = BTNodeState.Success;
 			}
 			_settler.Builder.Build(_settler.Data.targets.BuildingBlueprint);
