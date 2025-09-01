@@ -47,6 +47,7 @@ namespace AI {
             
             _root = CreateRootBt();
             _stateBt = CreateStateBt();
+            Data.Init();
         }
 
         private void Update() {
@@ -82,12 +83,12 @@ namespace AI {
         }
 
         public void Sleep() {
-            Data.energy.isSleeping = true;
+            Data.needs.Energy.isSleeping = true;
             WorkerAnimator.PlaySleep();
         }
 
         public void WakeUp() {
-            Data.energy.isSleeping = false;
+            Data.needs.Energy.isSleeping = false;
             WorkerAnimator.ResetToIdle();
         }
         

@@ -31,7 +31,7 @@ namespace AI {
         public Settler_Names names;
 
         [Header("Energy")]
-        public Settler_EnergyData energy;
+       
 
         [Header("Transport for crafting")]
         public Settler_TransportForCrafting craftingTransport;
@@ -51,6 +51,12 @@ namespace AI {
 
         [Header("Hit")]
         public float HitTime = 1.3f;
+
+
+        public void Init() {
+            needs.CareData.careChange = needs.CareData.defaultCareChange;
+            needs.Energy.energyChange = needs.Energy.defaultEnergyChange;
+        }
     }
 
     public enum SettlerCondition {

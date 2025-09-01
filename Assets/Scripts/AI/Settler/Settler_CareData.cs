@@ -16,7 +16,7 @@ namespace AI {
         public int defaultCareChange;
         public int onStationCareChange;
         
-        [Space]
+        [HideInInspector]
         public int careChange;
         [Space]
         public bool isTakingCareOf;

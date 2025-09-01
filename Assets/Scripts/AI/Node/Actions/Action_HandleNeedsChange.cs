@@ -10,7 +10,7 @@ namespace AI.Node.Jobs {
         private readonly Settler _settler;
 
         public Action_HandleNeedsChange(Settler settler) {
-            _energyData = settler.Data.energy;
+            _energyData = settler.Data.needs.Energy;
             _stressData = settler.Data.needs.StressData;
             _satietyData = settler.Data.needs.SatietyData;
             _careData = settler.Data.needs.CareData;
