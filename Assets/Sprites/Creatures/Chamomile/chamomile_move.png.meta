@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1f99466ac3bac2044ab15817db5076cd
+guid: 626e5512a9082334e8fd2b9aaf7a019e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: toaster_idle_0
+      name: chamomile_move_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 49
-        height: 50
+        width: 32
+        height: 54
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,20 +151,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22d1f14d85478a240830fbc24f4ef072
-      internalID: 1469941574
+      spriteID: 752ad484573d90040a9bd0dcb64e4358
+      internalID: 861517317
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toaster_idle_1
+      name: chamomile_move_1
       rect:
         serializedVersion: 2
-        x: 49
+        x: 32
         y: 0
-        width: 49
-        height: 50
+        width: 32
+        height: 54
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,8 +173,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1c1034f605d55a4e98a11975ce879c2
-      internalID: 43291980
+      spriteID: 04f9a74fb5a676747abe53a76a13a759
+      internalID: 129012158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chamomile_move_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 54
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53bb1b0c0d793ca409acbbf7f41d55c8
+      internalID: 826421398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chamomile_move_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 54
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc5ae3be62b06744839d55295bf1415
+      internalID: 1995773248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chamomile_move_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 54
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82b6f6020db9fe54fa2e1e2bc72b60d5
+      internalID: -764039529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: chamomile_move_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 54
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fc9f96bfe6a9d047b1145e1eccc25ee
+      internalID: -844321136
       vertices: []
       indices: 
       edges: []
@@ -193,8 +281,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      toaster_idle_0: 1469941574
-      toaster_idle_1: 43291980
+      chamomile_move_0: 861517317
+      chamomile_move_1: 129012158
+      chamomile_move_2: 826421398
+      chamomile_move_3: 1995773248
+      chamomile_move_4: -764039529
+      chamomile_move_5: -844321136
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

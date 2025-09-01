@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1f99466ac3bac2044ab15817db5076cd
+guid: dbe9bdcbaf7f04f4aaf9cce51e5d20d3
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: toaster_idle_0
+      name: succulent_craft_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 49
-        height: 50
+        width: 42
+        height: 48
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,20 +151,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22d1f14d85478a240830fbc24f4ef072
-      internalID: 1469941574
+      spriteID: 03638460e03ac454f8a6f3d55c3d8b15
+      internalID: -968625520
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toaster_idle_1
+      name: succulent_craft_1
       rect:
         serializedVersion: 2
-        x: 49
+        x: 42
         y: 0
-        width: 49
-        height: 50
+        width: 42
+        height: 48
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,8 +173,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1c1034f605d55a4e98a11975ce879c2
-      internalID: 43291980
+      spriteID: 9bc13d91a9ab0494dab7f858330b513a
+      internalID: -1805540107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: succulent_craft_2
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 0
+        width: 42
+        height: 48
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1829f9edfe2213348b7c2f5bb2e70412
+      internalID: -2109341711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: succulent_craft_3
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 0
+        width: 42
+        height: 48
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b7dc38426b8f4d429fa49e70f872062
+      internalID: 2070467397
       vertices: []
       indices: 
       edges: []
@@ -193,8 +237,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      toaster_idle_0: 1469941574
-      toaster_idle_1: 43291980
+      succulent_craft_0: -968625520
+      succulent_craft_1: -1805540107
+      succulent_craft_2: -2109341711
+      succulent_craft_3: 2070467397
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

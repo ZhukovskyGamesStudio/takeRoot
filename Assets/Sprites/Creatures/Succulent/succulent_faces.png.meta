@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1f99466ac3bac2044ab15817db5076cd
+guid: b37e9f5572fed6440b1d132b3e106f5c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: toaster_idle_0
+      name: succulent_faces_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 49
-        height: 50
+        width: 38
+        height: 33
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,20 +151,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22d1f14d85478a240830fbc24f4ef072
-      internalID: 1469941574
+      spriteID: d07a72cd37250ac4da27a42c414ca1d0
+      internalID: -1088660569
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: toaster_idle_1
+      name: succulent_faces_1
       rect:
         serializedVersion: 2
-        x: 49
+        x: 38
         y: 0
-        width: 49
-        height: 50
+        width: 38
+        height: 33
       alignment: 6
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -173,8 +173,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d1c1034f605d55a4e98a11975ce879c2
-      internalID: 43291980
+      spriteID: 8b2a77ec3340d7f479e70724823fbb8f
+      internalID: -1364752592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: succulent_faces_2
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 0
+        width: 38
+        height: 33
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a0550f3da36d4e4fa2957b2baa9f575
+      internalID: 579542806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: succulent_faces_3
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 0
+        width: 38
+        height: 33
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9176107f8c0e24546a09c0c706598b1a
+      internalID: -418164829
       vertices: []
       indices: 
       edges: []
@@ -193,8 +237,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      toaster_idle_0: 1469941574
-      toaster_idle_1: 43291980
+      succulent_faces_0: -1088660569
+      succulent_faces_1: -1364752592
+      succulent_faces_2: 579542806
+      succulent_faces_3: -418164829
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
