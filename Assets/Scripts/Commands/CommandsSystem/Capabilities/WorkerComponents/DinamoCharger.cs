@@ -9,6 +9,7 @@ public class DinamoCharger : MonoBehaviour, IDinamoCharger {
     private WorkerAnimator _animator;
     private IAsyncRunner _asyncRunner;
     private CancellationTokenSource _taskCts;
+    private DinamoMachine _dinamoMachine;
 
     public void Init(WorkerAnimator animator) {
         _animator = animator;
@@ -27,6 +28,8 @@ public class DinamoCharger : MonoBehaviour, IDinamoCharger {
     private async UniTaskVoid DoCharge(DinamoMachine dinamoMachine, CancellationToken token) {
         _isCrafting = true;
         _animator.PlayCraft();
+        _dinamoMachine = dinamoMachine;
+        dinamoMachine.PlayWorkAnimation();
         while (!token.IsCancellationRequested) {
             await _asyncRunner.Wait(chargeTime, token);
             if (token.IsCancellationRequested) {
@@ -42,6 +45,9 @@ public class DinamoCharger : MonoBehaviour, IDinamoCharger {
             _taskCts.Cancel();
             _taskCts.Dispose();
             _taskCts = null;
+            if (_dinamoMachine != null) {
+                _dinamoMachine.PlayIdleAnimation();
+            }
             _animator.ResetToIdle();
             _isCrafting = false;
         }

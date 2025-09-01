@@ -13,6 +13,7 @@ public class Action_ConsumeElectricity : BTNode {
             _settler.WakeUp();
             _settler.Data.needs.SatietyData.ElectricitySource = null;
             target.DirectChargeCable.Disconnect();
+            target.ConnectedSettler=null;
             _settler.Data.needs.SatietyData.isDrinking = false;
             return _state = BTNodeState.Success;
         }

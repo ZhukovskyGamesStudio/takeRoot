@@ -9,6 +9,7 @@ public class ElectricityLevel : MonoBehaviour {
     [Header("DirectCharge Settings")]
     public bool CanDirectlyCharge = true;
 
+    public AI.Settler ConnectedSettler;
     [SerializeField]
     public DirectChargeCable DirectChargeCable;
 

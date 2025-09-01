@@ -45,4 +45,12 @@ public class DinamoMachine : MonoBehaviour {
     public void Charge() {
         _electricityLevel.ChangeElecticity(ElectricityChange);
     }
+
+    public void PlayWorkAnimation() {
+        GetComponent<Animator>().SetTrigger("Work");
+    }
+
+    public void PlayIdleAnimation() {
+        GetComponent<Animator>().SetTrigger("Idle");
+    }
 }

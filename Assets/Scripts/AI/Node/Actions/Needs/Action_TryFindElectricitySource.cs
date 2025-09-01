@@ -11,14 +11,15 @@ public class Action_TryFindElectricitySource : BTNode {
     }
 
     public override BTNodeState Evaluate() {
-        ElectricityLevel coolerWithWater = Object.FindObjectsByType<ElectricityLevel>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
-            .FirstOrDefault(b => b.CanDirectlyCharge && b.EnoughToDirectCharge);
-        if (coolerWithWater == null) {
+        ElectricityLevel source = Object.FindObjectsByType<ElectricityLevel>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+            .FirstOrDefault(b => b.CanDirectlyCharge && b.EnoughToDirectCharge && !b.ConnectedSettler);
+        if (source == null) {
             return _state = BTNodeState.Failure;
         }
 
-        _settler.Data.needs.SatietyData.ElectricitySource = coolerWithWater;
-        _settler.Data.curMovePos = coolerWithWater.DirectChargePos.position;
+        source.ConnectedSettler = _settler;
+        _settler.Data.needs.SatietyData.ElectricitySource = source;
+        _settler.Data.curMovePos = source.DirectChargePos.position;
         return _state = BTNodeState.Success;
     }
 }
