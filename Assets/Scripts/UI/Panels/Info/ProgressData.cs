@@ -5,4 +5,5 @@ public class ProgressData {
     public int Progress;
     public int Needed;
     public string Title;
+    public bool Enabled;
 }

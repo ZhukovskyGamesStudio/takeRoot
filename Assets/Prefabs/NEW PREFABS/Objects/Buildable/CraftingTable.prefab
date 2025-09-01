@@ -96,6 +96,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4457218376182889559}
     - target: {fileID: 1378913489894693337, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: _progress
+      value: 
+      objectReference: {fileID: 8668883149177456375}
+    - target: {fileID: 1378913489894693337, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: _craftingStation
       value: 
       objectReference: {fileID: 8235734295133231953}
@@ -224,6 +228,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4457218376182889559}
+    - targetCorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8668883149177456375}
   m_SourcePrefab: {fileID: 100100000, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
 --- !u!4 &1940747106609110402 stripped
 Transform:
@@ -263,6 +270,7 @@ MonoBehaviour:
       _serializedList: []
     CurrentRecipe: {fileID: 0}
     CurrentRecipeCraftingPoints: 0
+  _progressData: {fileID: 8668883149177456375}
   Crafters:
     _serializedList: []
   InteractPos:
@@ -292,3 +300,20 @@ MonoBehaviour:
       Amount: 0
     - ResourceType: 0
       Amount: 0
+--- !u!114 &8668883149177456375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626318561151303953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9106c00d0ac4ae74ebc133238da08199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ProgressData>k__BackingField:
+    Progress: 0
+    Needed: 0
+    Title: 
+    Enabled: 0
