@@ -15,6 +15,7 @@ namespace AI {
         public IMovable Mover;
         public ISearcher Searcher;
         public IPlanter Farmer;
+        public IDinamoCharger DinamoCharger;
         public ICareGiver CareGiver;
         public IDestroyer Destroyer;
         public IWaterer Waterer;
@@ -37,8 +38,10 @@ namespace AI {
             Crafter = GetComponent<ICrafter>();
             CareGiver = GetComponent<ICareGiver>();
             Builder = GetComponent<IBuilder>();
+            DinamoCharger = GetComponent<IDinamoCharger>();
             TimeMachineCharger = GetComponent<ITimeMachineCharger>();
             
+            DinamoCharger.Init(WorkerAnimator);
             Searcher.Init(WorkerAnimator);
             Destroyer.Init(WorkerAnimator);
             Waterer.Init(WorkerAnimator);

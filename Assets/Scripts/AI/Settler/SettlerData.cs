@@ -53,6 +53,7 @@ namespace AI {
         public void Init() {
             needs.CareData.careChange = needs.CareData.defaultCareChange;
             needs.Energy.energyChange = needs.Energy.defaultEnergyChange;
+            needs.Energy.currentEnergy = needs.Energy.maxEnergy;
         }
     }
 

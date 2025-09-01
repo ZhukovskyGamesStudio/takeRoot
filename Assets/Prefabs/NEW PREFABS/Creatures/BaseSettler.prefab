@@ -503,6 +503,7 @@ GameObject:
   - component: {fileID: 87286551851091647}
   - component: {fileID: 6831899165233617512}
   - component: {fileID: 4841874120884828648}
+  - component: {fileID: 5977438119890675664}
   m_Layer: 0
   m_Name: BaseSettler
   m_TagString: Untagged
@@ -610,6 +611,7 @@ MonoBehaviour:
       FarmingPlot: {fileID: 0}
       TimeMachine: {fileID: 0}
       CareStation: {fileID: 0}
+      DinamoMachine: {fileID: 0}
     buildingTransport:
       buildingBlueprint: {fileID: 0}
       resourceToHaul: {fileID: 0}
@@ -821,6 +823,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CareTime: 0.5
+--- !u!114 &5977438119890675664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6094444002186240976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37a9646ec89f42cab6045efaadd0650d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chargeTime: 3
 --- !u!1 &8258255922625784048
 GameObject:
   m_ObjectHideFlags: 0
