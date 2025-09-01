@@ -9,10 +9,14 @@ public class AdminManager : MonoBehaviour {
     private void Awake() {
         DontDestroyOnLoad(gameObject);
         _adminPanel.SetActive(false);
+        AI.Settler.Immortal = true;
     }
 
     public void SwitchGodmode(bool isOn) {
         AI.Settler.GlobalGodmode = isOn;
+    }
+    public void SwitchImmortal(bool isOn) {
+        AI.Settler.Immortal = isOn;
     }
     
     public void UnlockPause() {

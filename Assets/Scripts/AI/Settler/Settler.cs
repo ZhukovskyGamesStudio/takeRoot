@@ -10,6 +10,7 @@ namespace AI {
         private Gravestone _gravestonePrefab;
         
         public static bool GlobalGodmode;
+        public static bool Immortal;
         private BTRoot_Settler _root;
         private BTNode _stateBt;
         public SettlerData Data;
