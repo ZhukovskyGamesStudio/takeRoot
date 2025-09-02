@@ -20,6 +20,7 @@ namespace AI {
 
 		private Vector2 position => new(transform.position.x, transform.position.y);
 		public bool IsMoving { get; private set; }
+		private Vector2 _targetPos;
 
 		private void Start() {
 			_pathfinder = ServiceLocator.Container.Single<IPathfindService>();
@@ -35,7 +36,8 @@ namespace AI {
 
 		public void MoveTo(Vector2 target) {
 			if (IsMoving) return;
-			if (_path == null) {
+			if (_path == null || _targetPos != target) {
+				_targetPos = target;
 				_path = _pathfinder.FindPath(position, target, this);
 			}
 			
@@ -52,6 +54,9 @@ namespace AI {
 
 		private async UniTaskVoid DoMove(Vector2 next, CancellationToken token) {
 			IsMoving = true;
+			Vector3 target3 = new(next.x, next.y);
+			Vector3 diff = target3 - transform.localPosition;
+			RotateToMoveDirection(diff);
 			var elapsedTime = 0f;
 			while (!token.IsCancellationRequested && elapsedTime < moveTime) {
 				float t = elapsedTime / moveTime;
@@ -63,7 +68,19 @@ namespace AI {
 			transform.position = next;
 			IsMoving = false;
 		}
-		
+		private void RotateToMoveDirection(Vector3 diff) {
+			if (!RotateWhileMove) {
+				return;
+			}
+
+			if (diff.x < 0) {
+				transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+			}
+
+			if (diff.x > 0) {
+				transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
+			}
+		}
 		private void OnDrawGizmos() {
 			if (_path == null) {
 				return;
