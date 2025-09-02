@@ -163,7 +163,7 @@ public class BuildingBlueprint : MonoBehaviour, IUpdatable {
 
 	public void Build() {
 		_buildPoints++;
-		_progressBar.ProgressData.Progress = _buildPoints;
+		_progressBar.ProgressData.Progress.Value = _buildPoints;
 		if (_buildPoints < _neededBuildPoints) return;
 		
 		_buildingService.Build(this);

@@ -24,7 +24,7 @@ public class ProgressInfoPart : MonoBehaviour {
         }
         _progressSlider.gameObject.SetActive(true);
         
-        _progressSlider.value = (float)_progressData.Progress / _progressData.Needed;
+        _progressSlider.value = (float)_progressData.Progress.Value / _progressData.Needed;
         _titleText.text = _progressData.Title;
         _progressText.text = $"{_progressData.Progress}/{_progressData.Needed}";
     }

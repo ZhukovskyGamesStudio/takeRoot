@@ -1,8 +1,9 @@
 using System;
+using UniRx;
 
 [Serializable]
 public class ProgressData {
-    public int Progress;
+    public ReactiveProperty<int> Progress;
     public int Needed;
     public string Title;
     public bool InfoViewEnabled = true;
