@@ -42,18 +42,24 @@ public class TimeScaleService : ITimeScaleService {
     }
 
     public void SetTimeScale(GameSpeedType type, Race race) {
+        Debug.Log($"Setting time scale {type} {race}");
         _selectedSpeeds[race] = type;
+        
+        Debug.Log("Selected speeds: " + string.Join(", ", _selectedSpeeds.Select(kv => kv.Key + ": " + kv.Value)));
+        
         GameSpeedType min = _selectedSpeeds.Values.OrderBy(v => (int)v).First();
 
         if (min == GameSpeedType.Paused && !IsReadyForPause.Value) {
+            Debug.Log("Not ready to pause");
             return;
         }
 
         if (min == GameSpeedType.Paused) {
+            Debug.Log("Ready to pause");
             Pause();
             return;
         }
-
+        Debug.Log("Setting time scale to " + _config.TimeScales[min]);
         NetworkDataHolder.Instance.SetGameSpeedClientRpc(_config.TimeScales[min]);
     }
 

@@ -44,6 +44,5 @@ public class NetworkDataHolder : NetworkBehaviour {
     [ClientRpc]
     public void SetGameSpeedClientRpc(float speed) {
         Time.timeScale = speed;
-       
     }
 }

@@ -29,8 +29,8 @@ public class TimeStatusUI : NetworkBehaviour {
         _colonyStatusView.SetData(Random.Range(0, 12), Random.Range(0, 101));
     }
 
-    private void ChangeSpeed(GameSpeedType speed) {
-        _onChangeSpeed.Invoke(speed, ServiceLocator.Container.Single<INetworkService>().MyRace.Value);
+    private void ChangeSpeed(GameSpeedType speed, Race race) {
+        _onChangeSpeed.Invoke(speed, race);
     }
 
     public void JumpToFriend() {

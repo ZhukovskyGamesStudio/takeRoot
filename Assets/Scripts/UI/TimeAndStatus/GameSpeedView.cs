@@ -1,4 +1,5 @@
 using System;
+using CodeBase.Services;
 using UniRx;
 using Unity.Netcode;
 using UnityEngine;
@@ -11,9 +12,9 @@ public class GameSpeedView : NetworkBehaviour {
     [SerializeField]
     private AYellowpaper.SerializedCollections.SerializedDictionary<GameSpeedType, GameObject> _friendSelection;
 
-    private Action<GameSpeedType> _onSpeedSelect;
+    private Action<GameSpeedType, Race> _onSpeedSelect;
 
-    public void Init(Action<GameSpeedType> onSpeedSelect, ReactiveProperty<bool> isReadyToPause) {
+    public void Init(Action<GameSpeedType, Race> onSpeedSelect, ReactiveProperty<bool> isReadyToPause) {
         _onSpeedSelect = onSpeedSelect;
         InitToggles();
         isReadyToPause.Subscribe(ChangeSpeedAvailable);
@@ -34,14 +35,15 @@ public class GameSpeedView : NetworkBehaviour {
     }
 
     private void SelectSpeed(GameSpeedType type) {
-        SelectSpeedServerRpc(type);
+        SelectSpeedServerRpc(type, ServiceLocator.Container.Single<INetworkService>().MyRace.Value);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void SelectSpeedServerRpc(GameSpeedType type) {
-        _onSpeedSelect?.Invoke(type);
+    private void SelectSpeedServerRpc(GameSpeedType speedType, Race race) {
+        _onSpeedSelect?.Invoke(speedType, race);
+        Debug.Log("Selected speed: " + speedType);
     }
-    
+
     [ClientRpc]
     public void SetFriendSelectionClientRpc(GameSpeedType type) {
         foreach (var kvp in _friendSelection) {
