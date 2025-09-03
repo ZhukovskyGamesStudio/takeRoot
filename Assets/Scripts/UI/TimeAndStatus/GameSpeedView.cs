@@ -1,9 +1,10 @@
 using System;
 using UniRx;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameSpeedView : MonoBehaviour {
+public class GameSpeedView : NetworkBehaviour {
     [SerializeField]
     private AYellowpaper.SerializedCollections.SerializedDictionary<GameSpeedType, Toggle> _speedToggles;
 
@@ -33,10 +34,16 @@ public class GameSpeedView : MonoBehaviour {
     }
 
     private void SelectSpeed(GameSpeedType type) {
-        _onSpeedSelect?.Invoke(type);
+        SelectSpeedServerRpc(type);
     }
 
-    public void SetFriendSelection(GameSpeedType type) {
+    [ServerRpc(RequireOwnership = false)]
+    private void SelectSpeedServerRpc(GameSpeedType type) {
+        _onSpeedSelect?.Invoke(type);
+    }
+    
+    [ClientRpc]
+    public void SetFriendSelectionClientRpc(GameSpeedType type) {
         foreach (var kvp in _friendSelection) {
             kvp.Value.SetActive(kvp.Key == type);
         }

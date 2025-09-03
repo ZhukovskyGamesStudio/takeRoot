@@ -561,6 +561,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef330ea0170106047abcff8c4f0035a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _speedToggles:
     _serializedList:
     - Key: 1
@@ -1786,6 +1787,7 @@ GameObject:
   - component: {fileID: 4898442080514852606}
   - component: {fileID: 7314039573195461475}
   - component: {fileID: 5483438676763694363}
+  - component: {fileID: -1505177492611661481}
   - component: {fileID: 3719684428205546187}
   m_Layer: 5
   m_Name: TimeStatusUI
@@ -1855,6 +1857,31 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &-1505177492611661481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8266585357624554208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3763644422
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &3719684428205546187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1867,6 +1894,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71cc867659b093848a1081d3644ea164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _gameSpeedView: {fileID: 6763776976276094075}
   _dayStatusView: {fileID: 293322219584646303}
   _colonyStatusView: {fileID: 5190653246976114568}

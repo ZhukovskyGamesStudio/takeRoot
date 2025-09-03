@@ -1,5 +1,6 @@
 using System;
 using Unity.Netcode;
+using UnityEngine;
 
 public class NetworkDataHolder : NetworkBehaviour {
     public static NetworkDataHolder Instance;
@@ -38,5 +39,11 @@ public class NetworkDataHolder : NetworkBehaviour {
 
     public static Race GetRace() {
         return NetworkManager.Singleton.IsHost ? Instance.MainGameNetworkData.HostRace.Value : Instance.MainGameNetworkData.ClientRace.Value;
+    }
+    
+    [ClientRpc]
+    public void SetGameSpeedClientRpc(float speed) {
+        Time.timeScale = speed;
+       
     }
 }

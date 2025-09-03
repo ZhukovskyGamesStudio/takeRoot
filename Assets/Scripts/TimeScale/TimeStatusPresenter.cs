@@ -9,7 +9,7 @@ public class TimeStatusPresenter {
         view.SetData(_ingameTimeService.IngameTimeData, SetGameSpeed, service.IsReadyForPause );
     }
 
-    private void SetGameSpeed(GameSpeedType speed) {
-        _service.SetTimeScale(speed);
+    private void SetGameSpeed(GameSpeedType speed, Race race) {
+        _service.SetTimeScale(speed, race);
     }
 }

@@ -1,9 +1,11 @@
 using System;
+using CodeBase.Services;
 using UniRx;
+using Unity.Netcode;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class TimeStatusUI : MonoBehaviour {
+public class TimeStatusUI : NetworkBehaviour {
     [SerializeField]
     private GameSpeedView _gameSpeedView;
 
@@ -13,9 +15,9 @@ public class TimeStatusUI : MonoBehaviour {
     [SerializeField]
     private ColonyStatusView _colonyStatusView;
 
-    private Action<GameSpeedType> _onChangeSpeed;
+    private Action<GameSpeedType, Race> _onChangeSpeed;
 
-    public void SetData(IngameTimeData data, Action<GameSpeedType> onChangeSpeed, ReactiveProperty<bool> isReadyToPause) {
+    public void SetData(IngameTimeData data, Action<GameSpeedType,Race> onChangeSpeed, ReactiveProperty<bool> isReadyToPause) {
         _onChangeSpeed = onChangeSpeed;
         _gameSpeedView.Init(ChangeSpeed,isReadyToPause);
 
@@ -23,12 +25,12 @@ public class TimeStatusUI : MonoBehaviour {
     }
 
     public void Start() {
-        _gameSpeedView.SetFriendSelection(Random.Range(0, 2) == 1 ? GameSpeedType.High : GameSpeedType.Normal);
+        _gameSpeedView.SetFriendSelectionClientRpc(Random.Range(0, 2) == 1 ? GameSpeedType.High : GameSpeedType.Normal);
         _colonyStatusView.SetData(Random.Range(0, 12), Random.Range(0, 101));
     }
 
     private void ChangeSpeed(GameSpeedType speed) {
-        _onChangeSpeed.Invoke(speed);
+        _onChangeSpeed.Invoke(speed, ServiceLocator.Container.Single<INetworkService>().MyRace.Value);
     }
 
     public void JumpToFriend() {
