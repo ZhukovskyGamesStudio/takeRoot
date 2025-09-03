@@ -7,8 +7,8 @@ public class NetworkDataHolder : NetworkBehaviour {
     public static Action OnCreated;
     public static bool IsCreated = false;
 
-    public SelectRaceNetworkData SelectRaceData = new();
-    public MainGameNetworkData MainGameNetworkData = new();
+    public SelectRaceNetworkData SelectRaceData ;
+    public MainGameNetworkData MainGameNetworkData ;
     
 
     private void Awake() {

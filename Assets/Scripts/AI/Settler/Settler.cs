@@ -1,11 +1,12 @@
 using AI.Node;
 using AI.Node.Jobs;
 using CodeBase.Services;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Profiling;
 
 namespace AI {
-    public class Settler : MonoBehaviour {
+    public class Settler : NetworkBehaviour {
         [SerializeField]
         private Gravestone _gravestonePrefab;
         
@@ -13,7 +14,8 @@ namespace AI {
         public static bool Immortal;
         private BTRoot_Settler _root;
         private BTNode _stateBt;
-        public SettlerData Data;
+        public NetworkVariable<SettlerData> NetworkData;
+        public SettlerData Data => NetworkData.Value;
 
         public IMovable Mover;
         public ISearcher Searcher;
@@ -44,7 +46,7 @@ namespace AI {
             DinamoCharger = GetComponent<IDinamoCharger>();
             TimeMachineCharger = GetComponent<ITimeMachineCharger>();
             
-            DinamoCharger.Init(WorkerAnimator);
+            Mover.Init(WorkerAnimator);
             Searcher.Init(WorkerAnimator);
             Destroyer.Init(WorkerAnimator);
             Waterer.Init(WorkerAnimator);
@@ -52,14 +54,22 @@ namespace AI {
             Builder.Init(WorkerAnimator);
             Farmer.Init(WorkerAnimator);
             CareGiver.Init(WorkerAnimator);
+            DinamoCharger.Init(WorkerAnimator);
             TimeMachineCharger.Init(WorkerAnimator);
             
-            _root = CreateRootBt();
-            _stateBt = CreateStateBt();
             Data.Init();
+
+            if (IsOwner || AdminManager.IsFakeOnline) {
+                _root = CreateRootBt();
+                _stateBt = CreateStateBt();
+            }
         }
 
         private void Update() {
+            
+            if (!IsOwner && !AdminManager.IsFakeOnline) {
+                return;
+            }
             Profiler.BeginSample("Evaluate Settler Action BT");
             _root?.Evaluate();
             Profiler.EndSample();
