@@ -40,10 +40,13 @@ namespace AI {
 			Vector3 br = ScreenToWorld(x + w, y + h);
 			return new Rect(tl.x, tl.y, br.x - tl.x, br.y - tl.y);
 		}
+#if UNITY_EDITOR
 		void OnDrawGizmosSelected()
 		{
 			Rect rect = ScreenRect((int)Data.DetectArea.x, (int)Data.DetectArea.y, (int)Data.DetectArea.width, (int)Data.DetectArea.height);
 			UnityEditor.Handles.DrawSolidRectangleWithOutline(Data.DetectArea, Color.black, Color.white);
 		}
+#endif
+		
 	}
 }

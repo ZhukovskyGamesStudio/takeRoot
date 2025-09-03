@@ -1,9 +1,10 @@
 using System.Threading;
 using CodeBase.Services;
 using Cysharp.Threading.Tasks;
+using Unity.Netcode;
 using UnityEngine;
 
-public class Searcher : MonoBehaviour, ISearcher {
+public class Searcher : NetworkBehaviour, ISearcher {
     [Header("Searcher Settings")]
     public float searchCooldown = 0.5f;
 

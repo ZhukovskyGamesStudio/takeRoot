@@ -1,7 +1,8 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public class WorkerAnimator : MonoBehaviour, IAnimationStateReader {
+public class WorkerAnimator : NetworkBehaviour, IAnimationStateReader {
     [SerializeField]
     private Animator _animator;
     
@@ -27,41 +28,48 @@ public class WorkerAnimator : MonoBehaviour, IAnimationStateReader {
 
     public void SetMood(Mood mood) => _changeMoodAnimator.SetMood(mood);
     
-    public void PlayCraft() {
-        _animator.SetTrigger(_craftStateHash);
+    
+    [ClientRpc]
+    private void SetTriggerClientRpc(int triggerHash) {
+        _animator.SetTrigger(triggerHash);
+        if (!IsHost) {
+            Debug.Log("received animation change");
+        }
     }
-
+    public void PlayCraft() {
+        SetTriggerClientRpc(_craftStateHash);
+    }
     public void PlayBuild() {
-        _animator.SetTrigger((_craftStateHash)); //TODO: make build animation
+        SetTriggerClientRpc(_craftStateHash); //TODO: make build animation
     }
 
     public void PlayWater() {
-        _animator.SetTrigger(_waterStateHash);
+        SetTriggerClientRpc(_waterStateHash);
     }
 
     public void PlaySearch() {
-        _animator.SetTrigger(_searchStateHash);
+        SetTriggerClientRpc(_searchStateHash);
     }
 
     public void PlayHit() {
-        _animator.SetTrigger(_hitStateHash);
+        SetTriggerClientRpc(_hitStateHash);
     }
 
     public void PlayMove() {
-        _animator.SetTrigger(_moveStateHash);
+        SetTriggerClientRpc(_moveStateHash);
     }
 
     public void PlaySleep() {
-        _animator.SetTrigger(_sleepStateHash);
+        SetTriggerClientRpc(_sleepStateHash);
     }
 
     public void ResetToIdle() {
-        _animator.SetTrigger(_idleStateHash);
+        SetTriggerClientRpc(_idleStateHash);
         OnContactPointWhileMove = false;
     }
 
     public void DoJump() {
-        _animator.SetTrigger(_jumpStateHash);
+        SetTriggerClientRpc(_jumpStateHash);
     }
 
     public void SetHitSpeedMultiplier(float multiplier) {
