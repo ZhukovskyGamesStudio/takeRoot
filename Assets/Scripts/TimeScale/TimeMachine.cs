@@ -50,7 +50,7 @@ public class TimeMachine : MonoBehaviour {
         }
 
         _progress++;
-        _progressBar.ProgressData.Progress = _progress;
+        _progressBar.ProgressData.Progress.Value = _progress;
 
         if (Charged) {
             GetComponent<Animator>().SetTrigger("Work");
@@ -61,6 +61,6 @@ public class TimeMachine : MonoBehaviour {
     public void Use() {
         GetComponent<Animator>().SetTrigger("Idle");
         _progress = 0;
-        _progressBar.ProgressData.Progress = 0;
+        _progressBar.ProgressData.Progress.Value = 0;
     }
 }

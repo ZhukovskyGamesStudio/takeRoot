@@ -89,7 +89,7 @@ public class CraftingStation : MonoBehaviour {
 
     public void Craft() {
         StationData.CurrentRecipeCraftingPoints++;
-        _progressData.ProgressData.Progress = StationData.CurrentRecipeCraftingPoints;
+        _progressData.ProgressData.Progress.Value = StationData.CurrentRecipeCraftingPoints;
         if (StationData.CurrentRecipe.CraftingPoints == StationData.CurrentRecipeCraftingPoints) {
             CraftResource();
             PickNewRecipe();
@@ -107,7 +107,7 @@ public class CraftingStation : MonoBehaviour {
         StationData.CurrentRecipeCraftingPoints = 0;
         StationData.CurrentRecipe = null;
         _progressData.ProgressData.InfoViewEnabled = false;
-        _progressData.ProgressData.Progress = 0;
+        _progressData.ProgressData.Progress.Value = 0;
         Debug.Log($"Crafted {resource.ResourceType}");
     }
 
