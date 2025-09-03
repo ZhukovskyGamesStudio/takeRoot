@@ -9,6 +9,9 @@ namespace AI {
 			AddChild(new ConditionalAction()
 				.Do(new Action_ZombieMove(zombie))
 				.While(() => zombie.Data.CurrMovePos == zombie.Data.Target.transform.position));
+			AddChild(new ConditionalAction()
+				.Do(new Action_AttackSettler(zombie))
+				.While(() => zombie.Data.Target));
 		}
 	}
 }
