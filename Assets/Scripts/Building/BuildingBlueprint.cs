@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CodeBase.Services;
 using Unity.Netcode;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
     [FormerlySerializedAs("Builded")]
     public bool WasBuilded;
 
-    public NetworkVariable<bool> IsPlaced;
+    public bool IsPlaced;
     private bool _canPlace;
     private int _buildPoints, _neededBuildPoints;
 
@@ -39,7 +40,7 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
     private GridObject _gridObject;
     private IBuildingService _buildingService;
     private IInputService _input;
-    private NetworkVariable<Race> _placedByRace = new();
+    private Race _placedByRace = Race.None;
     private INetworkService _networkService;
 
     private void Awake() {
@@ -53,11 +54,17 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
         _camera = Camera.main;
     }
 
-    public void Init(BuildingRecipeConfig config, Race placedByRace) {
-        Debug.Log("Init BuildingBlueprint");
+    [ClientRpc]
+    public void InitClientRpc(string biuldingName, Race placedByRace) {
+        Debug.Log("Init BuildingBlueprintRpc ");
+        _placedByRace = placedByRace;
+        IsPlaced = false;
+        var cnfg = ServiceLocator.Container.Single<IConfigsProvider>().BuildingsBlueprintsConfigs.First(c => c.mainInfo.Name == biuldingName);
+        Init(cnfg);
+    }
 
-        IsPlaced.Value = false;
-        _placedByRace.Value = placedByRace;
+    public void Init(BuildingRecipeConfig config) {
+        Debug.Log("Init BuildingBlueprint");
 
         _commandTarget.Data.MainInfoData = config.mainInfo;
         _progressBar.ProgressData.Needed = config.RequiredBuildPoints;
@@ -83,7 +90,7 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
 
         _buildingPrefab = config.BuildingPrefab;
         _gridObject.Obstacle = _buildingPrefab.GetComponent<GridObject>().Obstacle;
-        _update.Register(this);
+        //_update.Register(this);
     }
 
     public ResourceType GetRequiredResource() {
@@ -113,17 +120,21 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
     }
 
     public void Update() {
-        if (IsPlaced.Value) {
+        if (IsPlaced) {
             return;
         }
 
-        if (_networkService.MyRace.Value != _placedByRace.Value) {
-            Debug.Log($"not moving cause not owner, me {_networkService.MyRace.Value} placed by {_placedByRace.Value}");
+        if (IsHost) {
+            CheckObstacles();
+        }
+
+        if (_networkService.MyRace.Value != _placedByRace) {
+            Debug.Log($"not moving cause not owner, me {_networkService.MyRace.Value} placed by {_placedByRace}");
             return;
         }
 
         BuildingShadowMouseFollow();
-        CheckObstacles();
+
         if (_input.GetMouseButtonDown(MouseButton.Right)) {
             CancelPlacement();
         }
@@ -142,8 +153,13 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
 
     [ServerRpc(RequireOwnership = false)]
     private void MoveToMouseServerRpc(Vector3 newPosition) {
-        transform.position = newPosition;
+        UpdatePosClientRpc(newPosition);
         _gridObject.UpdatePosition();
+    }
+
+    [ClientRpc]
+    private void UpdatePosClientRpc(Vector3 newPosition) {
+        transform.position = newPosition;
     }
 
     private Vector3 AdjustPositionToGrid(Vector3 position) {
@@ -157,18 +173,26 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
                 continue;
             }
 
-            _canPlace = false;
-            _sprite.color = new Color(255, 0, 0, 100);
+            SetCanPlaceClientRpc(false);
             return;
         }
 
-        _canPlace = true;
-        _sprite.color = new Color(0, 0, 255, 100);
+        SetCanPlaceClientRpc(true);
+    }
+
+    [ClientRpc]
+    private void SetCanPlaceClientRpc(bool canPlace) {
+        _canPlace = canPlace;
+        _sprite.color = canPlace ? new Color(0, 0, 255, 100) : new Color(255, 0, 0, 100);
     }
 
     private void TryPlaceBuildingBlueprint() {
-        if (!_canPlace) return;
+        if (!_canPlace) {
+            Debug.Log("Can't place here");
+            return;
+        }
 
+        Debug.Log("Placing here");
         Place();
     }
 
@@ -180,7 +204,13 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
     private void PlaceServerRpc() {
         _update.Unregister(this);
         _buildingService.PlaceBlueprint(this);
-        IsPlaced.Value = true;
+        MoveToMouseServerRpc(transform.position);
+        SetPlacedClientRpc();
+    }
+
+    [ClientRpc]
+    private void SetPlacedClientRpc() {
+        IsPlaced = true;
         _clickCollider.enabled = true;
     }
 

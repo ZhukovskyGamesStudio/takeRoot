@@ -32,7 +32,7 @@ public class BuildingService : IBuildingService, IUpdatable {
     public BuildingBlueprint GetBuildingBlueprintWithTransportJob() {
         foreach (BuildingBlueprint blueprint in _blueprints) {
             if (blueprint.WasBuilded) continue;
-            if (!blueprint.IsPlaced.Value) continue;
+            if (!blueprint.IsPlaced) continue;
             if (blueprint.CanBuild()) continue;
             if (blueprint.GetRequiredResource() == ResourceType.None) continue;
             if (blueprint.InteractionPos == null) continue;
@@ -65,8 +65,7 @@ public class BuildingService : IBuildingService, IUpdatable {
 
         BuildingBlueprint blueprint = _networkService.InstantiateAndSpawn(_prefab);
         IsEnabled = false;
-        var cnfg = _buildingRecipeConfigs.First(c => c.mainInfo.Name == buildingName);
-        blueprint.Init(cnfg, placedByRace);
+        blueprint.InitClientRpc(buildingName, placedByRace);
     }
 
     public void PlaceBlueprint(BuildingBlueprint blueprint) {
