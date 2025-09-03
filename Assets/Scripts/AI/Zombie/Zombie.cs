@@ -10,12 +10,14 @@ namespace AI {
 		public ZombieData Data;
 		
 		public IZombieMover Mover;
+		public IZombieAttacker Attacker;
 		private IUpdateService _update;
 		
 		private float m_Value;
 
 		private void Start() {
 			Mover = GetComponent<IZombieMover>();
+			Attacker = GetComponent<IZombieAttacker>();
 			_root = new BTRoot_Zombie(this, ServiceLocator.Container.Single<ISettlersService>());
 			_update = ServiceLocator.Container.Single<IUpdateService>();
 			_update.Register(this);
