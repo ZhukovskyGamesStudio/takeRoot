@@ -47,8 +47,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data:
-    Target: {fileID: 0}
     CurrMovePos: {x: 0, y: 0, z: 0}
+    DetectArea:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    DetectRange: 12
+    Target: {fileID: 0}
     PatrolCooldown: 3
     PatrolTimer: 0
 --- !u!114 &5019395529538938306
