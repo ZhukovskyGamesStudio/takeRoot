@@ -29,6 +29,7 @@ public class TacticalService : ITacticalService {
 				if (!_gridService.IsOccupiedPos(curPos)) {
 					isFreePos = true;
 					settler.Data.tactical.TacticalMovePos = curPos;
+					settler.Data.tactical.HasTacticalMovePos = true;
 				}
 			}
 		}
