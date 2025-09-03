@@ -7,5 +7,6 @@ namespace AI {
 		public bool IsTactical;
 		public Vector3 TacticalMovePos;
 		public bool HasTacticalMovePos;
+		public Zombie Target;
 	}
 }

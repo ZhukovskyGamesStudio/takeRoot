@@ -91,6 +91,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IBuildingService>(new BuildingService(_services.Single<IConfigsProvider>(), _buildingsPanelView));
         _services.RegisterSingle<INotificationsService>(new NotificationsService(_services.Single<IUpdateService>(), _services.Single<IOccurenceService>()));
         
-        _services.RegisterSingle<ITacticalService>(new TacticalService(_services.Single<IGridService>()));
+        _services.RegisterSingle<ITacticalService>(new TacticalService(
+            _services.Single<IGridService>(), _services.Single<ISelectionService>(), _services.Single<IUpdateService>(), _services.Single<IInputService>(), _services.Single<IPhysicsService>() ));
     }
 }

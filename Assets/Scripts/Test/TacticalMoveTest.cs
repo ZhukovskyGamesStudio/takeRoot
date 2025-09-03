@@ -18,12 +18,11 @@ namespace Settlers.Test {
 
 		public void SetSelectedSettler() {
 			CheckService();
-			_tacticalService.SetSelected(new List<AI.Settler>(){settlerToTest});
 		}
 
-		public void SetSelectedTactical(bool isTactical) {
+		public void SetSelectedTactical() {
 			CheckService();
-			_tacticalService.SetTacticalForSelectedSettlers(isTactical);
+			_tacticalService.SetTacticalForSelectedSettlers();
 		}
 
 		public void AddTacticalMovePos() {
