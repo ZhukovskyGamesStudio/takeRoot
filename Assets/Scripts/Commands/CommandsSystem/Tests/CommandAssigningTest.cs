@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using CodeBase.Services;
 using UnityEngine;
 
+[Obsolete]
 public class CommandAssigningTest : MonoBehaviour, IUpdateService {
     public Transform movePos;
 

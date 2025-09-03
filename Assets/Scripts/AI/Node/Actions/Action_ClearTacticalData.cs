@@ -6,7 +6,8 @@ namespace AI.Node.Jobs {
 			_settler = settler;
 		}
 		public override BTNodeState Evaluate() {
-			_settler.Data.tactical.HasTacticalMovePos = false;
+			var dataTactical = _settler.Data.tactical;
+			dataTactical.HasTacticalMovePos = false;
 			return BTNodeState.Failure;
 		}
 	}

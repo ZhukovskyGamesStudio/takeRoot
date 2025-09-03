@@ -10,10 +10,12 @@ namespace AI.Node.Jobs {
 		public override BTNodeState Evaluate() {
 			Vector3 pos = _settler.Data.tactical.TacticalMovePos;
 			if (!_settler.Mover.HasPath(pos)) {
+				_settler.Data.tactical.HasTacticalMovePos = false;
 				return _state = BTNodeState.Failure;
 			}
 
 			if (_settler.Mover.IsAtPosition(pos)) {
+				_settler.Data.tactical.HasTacticalMovePos = false;
 				return _state = BTNodeState.Success;
 			}
 

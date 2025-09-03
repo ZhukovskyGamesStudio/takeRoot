@@ -34,7 +34,7 @@ public class TacticalService : ITacticalService, IUpdatable {
 		if (selectable is SettlerSelectable) {
 			var data = (AI.SettlerData)selectable.GetData();
 			data.tactical.Target = null;
-			data.tactical.TacticalMovePos = pos;
+			data.tactical.TacticalMovePos = new Vector3((int)pos.x, (int)pos.y, (int)pos.z);
 			data.tactical.HasTacticalMovePos = true;
 		}
 	}

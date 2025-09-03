@@ -4,16 +4,18 @@ using UnityEditor;
 using UnityEngine;
 
 namespace AI {
-	public class Zombie : MonoBehaviour, IUpdatable{
+	public class Zombie : MonoBehaviour, IUpdatable {
+		[SerializeField]private int _health = 100;
+		
 		private BTRoot_Zombie _root;
 		
 		public ZombieData Data;
 		
+		public Vector3 Position => new Vector3((int)transform.position.x, (int)transform.position.y, transform.position.z);
+		
 		public IZombieMover Mover;
 		public IZombieAttacker Attacker;
 		private IUpdateService _update;
-		
-		private float m_Value;
 
 		private void Start() {
 			Mover = GetComponent<IZombieMover>();
@@ -23,14 +25,22 @@ namespace AI {
 			_update.Register(this);
 		}
 
-		public void Update() {
-			_root.Evaluate();
+		public void TakeDamage(int damage) {
+			_health -= damage;
+			if (_health <= 0) {
+				_update.Unregister(this);
+				Destroy(gameObject);
+			}
 		}
 
 		public void Dispose() {
 			_update.Unregister(this);
 		}
-		
+
+		public void Update() {
+			_root.Evaluate();
+		}
+
 		Vector3 ScreenToWorld(float x, float y) {
 			Camera camera = Camera.current;
 			Vector3 s = camera.WorldToScreenPoint(transform.position);

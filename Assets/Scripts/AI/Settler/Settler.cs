@@ -26,6 +26,7 @@ namespace AI {
         public ICrafter Crafter;
         public IBuilder Builder;
         public ITimeMachineCharger TimeMachineCharger;
+        public IAttacker Attacker;
         
         public WorkerAnimator WorkerAnimator { get; private set; }
 
@@ -43,6 +44,7 @@ namespace AI {
             Builder = GetComponent<IBuilder>();
             DinamoCharger = GetComponent<IDinamoCharger>();
             TimeMachineCharger = GetComponent<ITimeMachineCharger>();
+            Attacker = GetComponent<IAttacker>();
             
             DinamoCharger.Init(WorkerAnimator);
             Searcher.Init(WorkerAnimator);
@@ -53,6 +55,7 @@ namespace AI {
             Farmer.Init(WorkerAnimator);
             CareGiver.Init(WorkerAnimator);
             TimeMachineCharger.Init(WorkerAnimator);
+            Attacker.Init(WorkerAnimator);
             
             _root = CreateRootBt();
             _stateBt = CreateStateBt();
