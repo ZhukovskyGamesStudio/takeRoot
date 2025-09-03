@@ -27,18 +27,19 @@ public class TacticalService : ITacticalService, IUpdatable {
 		}
 	}
 
-	public void AddTacticalMovePosToSelectedSettlers(Vector3 pos) {
+	private void AddTacticalMovePosToSelectedSettlers(Vector3 pos) {
 		var selectable = _selection.SelectedReactive.Value;
 		if (selectable == null) return;
 		if (_gridService.IsOccupiedPos(pos)) return;
 		if (selectable is SettlerSelectable) {
 			var data = (AI.SettlerData)selectable.GetData();
+			data.tactical.Target = null;
 			data.tactical.TacticalMovePos = pos;
 			data.tactical.HasTacticalMovePos = true;
 		}
 	}
 
-	public void AddTacticalAttackTargetToSelectedSettlers(AI.Zombie zombie) {
+	private void AddTacticalAttackTargetToSelectedSettlers(AI.Zombie zombie) {
 		var selectable = _selection.SelectedReactive.Value;
 		if (selectable == null) return;
 		if (selectable is SettlerSelectable) {
