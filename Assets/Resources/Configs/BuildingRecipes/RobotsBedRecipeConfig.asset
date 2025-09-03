@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
-  m_Name: ShredderRecipeConfig
+  m_Name: RobotsBedRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 11400000, guid: 3289629f94094554187dc80fd7f56fab, type: 2}
+  mainInfo: {fileID: 11400000, guid: 7d7a815b695582d46b9a43d7c96a37fb, type: 2}
   ObjectSprite: {fileID: 0}
-  BuildingPrefab: {fileID: 7626318561151303953, guid: cafef8e1b1f00124c9c51a49c7609b1b, type: 3}
-  Footprint: {x: 3, y: 1}
-  Hp: 250
+  BuildingPrefab: {fileID: 7110737873876841608, guid: d111e4aabc15df2469a67cc71504cdf1, type: 3}
+  Footprint: {x: 1, y: 2}
+  Hp: 75
   RequiredBuildPoints: 10
-  BuildingCategory: 1
+  BuildingCategory: 2
   Ingridients:
     _serializedList:
-    - Key: 1
-      Value: 20
     - Key: 2
-      Value: 20
+      Value: 15

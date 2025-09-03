@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
-  m_Name: RobotsBed2RecipeConfig
+  m_Name: BiogeneratorRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 11400000, guid: 28165f13b7b70bf4f8cf30cab8274d9c, type: 2}
+  mainInfo: {fileID: 11400000, guid: 26ed32ccdf77f474e9fc5f1c8e12321d, type: 2}
   ObjectSprite: {fileID: 0}
-  BuildingPrefab: {fileID: 7626318561151303953, guid: ff0269d8b6123954bb08ec835d460508, type: 3}
-  Footprint: {x: 1, y: 2}
-  Hp: 75
+  BuildingPrefab: {fileID: 7110737873876841608, guid: 6d6456cbde59721429a16f7471a9630a, type: 3}
+  Footprint: {x: 3, y: 1}
+  Hp: 250
   RequiredBuildPoints: 10
-  BuildingCategory: 2
+  BuildingCategory: 4
   Ingridients:
     _serializedList:
+    - Key: 1
+      Value: 20
     - Key: 4
-      Value: 15
-    - Key: 3
-      Value: 15
+      Value: 20

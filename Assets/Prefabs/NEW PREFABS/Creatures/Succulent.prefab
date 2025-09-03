@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8505431740431982526, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1236072770
+      objectReference: {fileID: 0}
     - target: {fileID: 92807046831022777, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -177,8 +181,112 @@ PrefabInstance:
       value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.names.Race
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: Data.needs.CareData.onStationCareChange
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.MaxHp
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.IdleMoveCooldown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needsUpdateCooldown
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.CareData.maxCare
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.Energy.maxEnergy
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.StressData.maxStress
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.Energy.tiredThreshold
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.SatietyData.maxSatiety
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.Energy.onBedEnergyChange
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.CareData.lowCareThreshold
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.SatietyData.satietyChange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.CareData.defaultCareChange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.CareData.highCareThreshold
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.Energy.defaultEnergyChange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.StressData.breakdownChance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.Energy.onGroundEnergyChange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.CareData.onStationCareChange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.StressData.breakdownDuration
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.Energy.criticalTiredThreshold
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.SatietyData.lowSatietyThreshold
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.StressData.stressAfterBreakdown
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.SatietyData.highSatietyThreshold
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.StressData.lowSatietyStressChange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.StressData.highSatietyStressChange
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291129578118111390, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
+      propertyPath: NetworkData.m_InternalValue.needs.StressData.breakdownStressThreshold
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6962432183896193380, guid: 646863db4c33bbd43a791dad6832c91a, type: 3}
       propertyPath: _moodSprites._serializedList.Array.data[0].Value

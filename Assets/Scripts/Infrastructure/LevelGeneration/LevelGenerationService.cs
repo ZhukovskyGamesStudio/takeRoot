@@ -4,6 +4,12 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class LevelGenerationService : ILevelGenerationService {
+    private readonly INetworkService _networkService;
+
+    public LevelGenerationService(INetworkService networkService) {
+        _networkService = networkService;
+    }
+
     public async UniTask Generate() {
         GenerateSettlers();
     }

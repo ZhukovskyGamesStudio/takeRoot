@@ -5,23 +5,29 @@ using Object = UnityEngine.Object;
 
 public class OccurenceService : IOccurenceService, IUpdatable {
     private readonly IUpdateService _updateService;
+    private readonly INetworkService _networkService;
     private List<OccurenceConfig> _occurencesConfigs;
     private OccurenceMainConfig _mainConfig;
     private float _difficltyPoints = 0;
 
-    public OccurenceService(IConfigsProvider configsProvider, IUpdateService updateService) {
+    public Action<OccurenceConfig> OnOccurenceSpawn { get; set; }
+
+    public OccurenceService(IConfigsProvider configsProvider, IUpdateService updateService, INetworkService networkService) {
         _updateService = updateService;
+        _networkService = networkService;
         _mainConfig = configsProvider.OccurenceMainConfig;
         _occurencesConfigs = configsProvider.OccurenceConfigs;
 
-        _updateService.Register(this);
+        if (_networkService.IsHost) {
+            _updateService.Register(this);
+        }
     }
 
     public void Update() {
         _difficltyPoints += _mainConfig.DifficultyPointsPerMinute / 60 * Time.deltaTime;
         TrySpawnOccurence();
     }
-    
+
     private void TrySpawnOccurence() {
         foreach (var occurenceConfig in _occurencesConfigs) {
             if (_difficltyPoints >= occurenceConfig.DifficultyCost) {
@@ -40,6 +46,4 @@ public class OccurenceService : IOccurenceService, IUpdatable {
     public void Dispose() {
         _updateService.Unregister(this);
     }
-
-    public Action<OccurenceConfig> OnOccurenceSpawn { get; set; }
 }

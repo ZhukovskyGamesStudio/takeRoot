@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
-  m_Name: ResearchStationRecipeConfig
+  m_Name: BatteryRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 11400000, guid: 0524f318c2d72dd46a1c3239d782685a, type: 2}
+  mainInfo: {fileID: 11400000, guid: 0e321a093db721d41ad74b94498efaa1, type: 2}
   ObjectSprite: {fileID: 0}
-  BuildingPrefab: {fileID: 7626318561151303953, guid: 4da822d066cb5d642b838218bd184a24, type: 3}
-  Footprint: {x: 4, y: 2}
-  Hp: 150
+  BuildingPrefab: {fileID: 7110737873876841608, guid: 61dccf6f7a9591443a8a8708af01d4c5, type: 3}
+  Footprint: {x: 2, y: 3}
+  Hp: 50
   RequiredBuildPoints: 10
-  BuildingCategory: 4
+  BuildingCategory: 0
   Ingridients:
     _serializedList:
-    - Key: 2
-      Value: 20
     - Key: 1
-      Value: 20
+      Value: 10

@@ -46,7 +46,9 @@ public class CoreEntryPoint : EntryPointBase {
         Single<IDataProvider>().CreaturesData = new CreaturesData();
 
         InitPresenters();
-        GenerateLevel();
+        if (IsHost) {
+            GenerateLevel();
+        }
     }
 
     private async UniTask GenerateLevel() {

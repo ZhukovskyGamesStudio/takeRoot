@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
-  m_Name: CraftingTableRecipeConfig
+  m_Name: PlantsBedRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 11400000, guid: b420e50162f8fa04e91101ba76e5edaa, type: 2}
+  mainInfo: {fileID: 11400000, guid: 85abbce2a4055b44bb4e25d9a70617de, type: 2}
   ObjectSprite: {fileID: 0}
-  BuildingPrefab: {fileID: 7626318561151303953, guid: 0a7c139f4d6b445489555f27099b6a76, type: 3}
-  Footprint: {x: 2, y: 1}
-  Hp: 100
+  BuildingPrefab: {fileID: 7110737873876841608, guid: 56804dca03d12f44fac5602d2cb23a22, type: 3}
+  Footprint: {x: 1, y: 2}
+  Hp: 75
   RequiredBuildPoints: 10
-  BuildingCategory: 1
+  BuildingCategory: 2
   Ingridients:
     _serializedList:
+    - Key: 16
+      Value: 15
     - Key: 1
-      Value: 10
-    - Key: 2
-      Value: 5
+      Value: 15

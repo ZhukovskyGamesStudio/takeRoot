@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
-  m_Name: CareStationRecipeConfig
+  m_Name: ShredderRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 11400000, guid: 71a444d1fbcc8db4ab805b5f1b445a8b, type: 2}
+  mainInfo: {fileID: 11400000, guid: 3289629f94094554187dc80fd7f56fab, type: 2}
   ObjectSprite: {fileID: 0}
-  BuildingPrefab: {fileID: 7626318561151303953, guid: cb0e412fb14a9ba43ac24b1a1901cec9, type: 3}
+  BuildingPrefab: {fileID: 7110737873876841608, guid: cafef8e1b1f00124c9c51a49c7609b1b, type: 3}
   Footprint: {x: 3, y: 1}
   Hp: 250
   RequiredBuildPoints: 10
-  BuildingCategory: 2
+  BuildingCategory: 1
   Ingridients:
     _serializedList:
     - Key: 1

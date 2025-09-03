@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
-  m_Name: BigBoxRecipeConfig
+  m_Name: CoolerRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 11400000, guid: 94ef7cdfeccd8df4ab1dae06b7ba630f, type: 2}
+  mainInfo: {fileID: 11400000, guid: 8068c229718052d488931b89bdcd994a, type: 2}
   ObjectSprite: {fileID: 0}
-  BuildingPrefab: {fileID: 3317381679181958196, guid: 95ea72a4211bf46428b27c4b90d5d9ce, type: 3}
-  Footprint: {x: 2, y: 2}
-  Hp: 200
+  BuildingPrefab: {fileID: 7110737873876841608, guid: 468977f71c83f734c8f6a06f4f1a8d74, type: 3}
+  Footprint: {x: 3, y: 1}
+  Hp: 250
   RequiredBuildPoints: 10
-  BuildingCategory: 0
+  BuildingCategory: 2
   Ingridients:
     _serializedList:
-    - Key: 3
-      Value: 10
+    - Key: 1
+      Value: 20
     - Key: 2
-      Value: 5
+      Value: 20

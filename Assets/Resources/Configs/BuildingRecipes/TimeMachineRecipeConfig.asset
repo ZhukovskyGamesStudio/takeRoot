@@ -10,16 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
-  m_Name: DinamoMachineRecipeConfig
+  m_Name: TimeMachineRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 11400000, guid: e93b36ef41afb6143841cbf55e04132c, type: 2}
-  ObjectSprite: {fileID: 21300000, guid: aa6620976a185214d81ad3a1a3087698, type: 3}
-  BuildingPrefab: {fileID: 7626318561151303953, guid: ce94f0fc05d42f24bb87ea80cdbcb74f, type: 3}
-  Footprint: {x: 2, y: 1}
-  Hp: 200
+  mainInfo: {fileID: 11400000, guid: 59f4b373e34a49e459f7527ab1130516, type: 2}
+  ObjectSprite: {fileID: 0}
+  BuildingPrefab: {fileID: 7110737873876841608, guid: fe0953c9091baa84aa2919f6e6672eb2, type: 3}
+  Footprint: {x: 3, y: 1}
+  Hp: 250
   RequiredBuildPoints: 10
-  BuildingCategory: 0
+  BuildingCategory: 4
   Ingridients:
     _serializedList:
+    - Key: 1
+      Value: 20
     - Key: 2
-      Value: 10
+      Value: 20
+    - Key: 15
+      Value: 1

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
-  m_Name: DistillerRecipeConfig
+  m_Name: CraftingTableRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 11400000, guid: 3d70f532fb4fba84988178d2acc2a414, type: 2}
+  mainInfo: {fileID: 11400000, guid: b420e50162f8fa04e91101ba76e5edaa, type: 2}
   ObjectSprite: {fileID: 0}
-  BuildingPrefab: {fileID: 7626318561151303953, guid: ca48befd822732a4696067097d798c59, type: 3}
-  Footprint: {x: 3, y: 1}
-  Hp: 250
+  BuildingPrefab: {fileID: 7110737873876841608, guid: 0a7c139f4d6b445489555f27099b6a76, type: 3}
+  Footprint: {x: 2, y: 1}
+  Hp: 100
   RequiredBuildPoints: 10
   BuildingCategory: 1
   Ingridients:
     _serializedList:
     - Key: 1
-      Value: 20
+      Value: 10
     - Key: 2
-      Value: 20
+      Value: 5

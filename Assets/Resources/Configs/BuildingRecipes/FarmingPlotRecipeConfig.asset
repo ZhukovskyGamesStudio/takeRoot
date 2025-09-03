@@ -10,18 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
-  m_Name: BiogeneratorRecipeConfig
+  m_Name: FarmingPlotRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 11400000, guid: 26ed32ccdf77f474e9fc5f1c8e12321d, type: 2}
+  mainInfo: {fileID: 11400000, guid: ff2a9307b47f44c4fa823eadb0ea0844, type: 2}
   ObjectSprite: {fileID: 0}
-  BuildingPrefab: {fileID: 7626318561151303953, guid: 6d6456cbde59721429a16f7471a9630a, type: 3}
-  Footprint: {x: 3, y: 1}
-  Hp: 250
+  BuildingPrefab: {fileID: 7110737873876841608, guid: dbd452a093e6cfa4eb8c12e15e6e6a49, type: 3}
+  Footprint: {x: 1, y: 1}
+  Hp: 50
   RequiredBuildPoints: 10
-  BuildingCategory: 4
+  BuildingCategory: 0
   Ingridients:
     _serializedList:
-    - Key: 1
-      Value: 20
-    - Key: 4
-      Value: 20
+    - Key: 16
+      Value: 5

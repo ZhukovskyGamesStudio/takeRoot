@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GameResources;
+using Unity.Netcode;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -9,13 +10,15 @@ public class ResourcesManager : IResourceManager {
     private readonly ResourcesConfig _config;
     private readonly ResourcesTable _config2;
     private readonly IGridService _grid;
+    private readonly INetworkService _networkService;
     private List<Resource> ResourcesPrefabs ;
     private Dictionary<Vector3, Resource> ExistingResourcesOnGround = new();
 
-    public ResourcesManager(IConfigsProvider configService, IGridService grid) {
+    public ResourcesManager(IConfigsProvider configService, IGridService grid, INetworkService networkService) {
         _config = configService.ResourcesConfig;
         _config2 = configService.ResourcesTable;
         _grid = grid;
+        _networkService = networkService;
         ResourcesPrefabs = _config.ResourcesPrefabs;
     }
 
@@ -32,7 +35,7 @@ public class ResourcesManager : IResourceManager {
             return;
         }
         spawnPos = new Vector3(Mathf.Ceil(spawnPos.Value.x), Mathf.Ceil(spawnPos.Value.y), spawnPos.Value.z);
-        Resource r = Object.Instantiate(prefab, spawnPos.Value, Quaternion.identity);
+        Resource r = _networkService.InstantiateAndSpawn(prefab, spawnPos.Value);
         ExistingResourcesOnGround.Add(spawnPos.Value, r);
         r.Init(amount);
     }

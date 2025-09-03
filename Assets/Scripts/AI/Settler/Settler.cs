@@ -95,7 +95,9 @@ namespace AI {
         }
 
         public void Die(DeathCause cause) {
-            if (GlobalGodmode) return;
+            if (GlobalGodmode) {
+                return;
+            }
 
             gameObject.SetActive(false);
             Data.Dead = true;
@@ -104,6 +106,20 @@ namespace AI {
             Vector2 gravePos = new (Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
             Gravestone gravestone = Instantiate(_gravestonePrefab, gravePos, Quaternion.identity);
             gravestone.SetData(Data, cause);
+        }
+        
+        [ClientRpc]
+        private void DieClientRpc() {
+            
+        }
+
+        public void TeleportToPos(Vector3 pos) {
+            TeleportToPosClientRpc(pos);
+        }
+
+        [ClientRpc]
+        private void TeleportToPosClientRpc(Vector3 pos) {
+            transform.position = pos;
         }
 
         public void Sleep() {

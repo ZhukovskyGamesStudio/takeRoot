@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 
+[Obsolete]
 public class PlannedCommandView : MonoBehaviour {
     [SerializeField]
     private SpriteRenderer _spriteRenderer;

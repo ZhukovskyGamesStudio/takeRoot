@@ -62,7 +62,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IAsyncRunner>(new UniTaskAsyncRunner());
         _services.RegisterSingle<IResearchService>(new ResearchService(_services.Single<IConfigsProvider>()));
         _services.RegisterSingle<ICameraMovementService>(new CameraMovementService(_services.Single<IConfigsProvider>(), _services.Single<IUpdateService>()));
-        _services.RegisterSingle<ILevelGenerationService>(new LevelGenerationService());
+        _services.RegisterSingle<ILevelGenerationService>(new LevelGenerationService(_services.Single<INetworkService>()));
         _services.RegisterSingle<IFarmingService>(new FarmingService(_services.Single<IUpdateService>(), _services.Single<IConfigsProvider>(),
             _services.Single<IInputService>()));
         _services.RegisterSingle<IOverlayService>(new OverlayService());
@@ -70,7 +70,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IIngameTimeService>(new IngameTimeService(
             _services.Single<IConfigsProvider>(), _services.Single<IUpdateService>(),_globalDaynightLight));
         
-        _services.RegisterSingle<IOccurenceService>(new OccurenceService(_services.Single<IConfigsProvider>(), _services.Single<IUpdateService>()));
+        _services.RegisterSingle<IOccurenceService>(new OccurenceService(_services.Single<IConfigsProvider>(), _services.Single<IUpdateService>(),_services.Single<INetworkService>()));
         _mapFromSceneObjects.CreateMap();
         SimpleGraph graph = _mapFromSceneObjects.CreateSimpleGraph();
         _services.RegisterSingle<IPathfindService>(new AStar(_mapFromSceneObjects));
@@ -79,18 +79,18 @@ public class ServiceLocatorLoader_Main {
         //TODO setup race from online service
         _services.RegisterSingle<IRaceService>(new RaceService(_services.Single<INetworkService>()));
 
-        _services.RegisterSingle<IResourceManager>(new ResourcesManager(_services.Single<IConfigsProvider>(), _services.Single<IGridService>()));
+        _services.RegisterSingle<IResourceManager>(new ResourcesManager(_services.Single<IConfigsProvider>(), _services.Single<IGridService>(), _services.Single<INetworkService>()));
         _services.RegisterSingle<ICraftingService>(new CraftingService());
         _services.RegisterSingle<ICommandService>(new CommandService());
         _services.RegisterSingle<IJobCommandsInputHandlerService>(new JobCommandsInputHandlerService(_services.Single<IInputService>(),
-            _services.Single<IPhysicsService>(), _services.Single<IUpdateService>()));
+            _services.Single<IPhysicsService>(), _services.Single<IUpdateService>(), _services.Single<INetworkService>()));
         _services.RegisterSingle<IWorkerAssigner>(new WorkerAssigner(_services.Single<IUpdateService>(), _services.Single<ICommandService>()));
 
         _services.RegisterSingle<ISelectionService>(new SelectionService(_services.Single<IInputService>(), _services.Single<IPhysicsService>(),
             _services.Single<IUpdateService>(), _services.Single<ICommandService>()));
         _services.RegisterSingle<ISettlersService>(new SettlersService());
 
-        _services.RegisterSingle<IBuildingService>(new BuildingService(_services.Single<IConfigsProvider>(), _buildingsPanelView));
+        _services.RegisterSingle<IBuildingService>(new BuildingService(_services.Single<IConfigsProvider>(), _buildingsPanelView, _services.Single<INetworkService>()));
         _services.RegisterSingle<INotificationsService>(new NotificationsService(_services.Single<IUpdateService>(), _services.Single<IOccurenceService>()));
     }
 }
