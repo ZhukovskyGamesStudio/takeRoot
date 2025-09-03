@@ -24,6 +24,9 @@ public class CoreEntryPoint : EntryPointBase {
     [SerializeField]
     private InGameDaynightLightView _globalDaynightLight;
 
+    [SerializeField]
+    private NetworkDataHolder _networkDataHolderPrefab;
+    
     private ServiceLocator _services;
 
     private void Awake() {
@@ -34,7 +37,7 @@ public class CoreEntryPoint : EntryPointBase {
         IUpdateService updateService = GetComponent<IUpdateService>();
         ICoroutineRunner coroutineRunner = GetComponent<ICoroutineRunner>();
         MapFromSceneObjects map = GetComponent<MapFromSceneObjects>();
-        ServiceLocatorLoader_Main loader = new(updateService, coroutineRunner, _coreCanvasUi, map, _buildingsPanelView,_globalDaynightLight);
+        ServiceLocatorLoader_Main loader = new(updateService, coroutineRunner, _coreCanvasUi, map, _buildingsPanelView,_globalDaynightLight,_networkDataHolderPrefab);
 
         loader.RegisterServices();
         _services = ServiceLocator.Container;
@@ -51,16 +54,18 @@ public class CoreEntryPoint : EntryPointBase {
     }
 
     private void InitPresenters() {
+        CoreCanvasUiPresenter coreCanvasUiPresenter = new(_coreCanvasUi, Single<IRaceService>());
+        
         CommandPresenter commandPresenter = new(_commandView, Single<IJobCommandsInputHandlerService>());
 
         OverlaysPresenter overlaysPresenter = new OverlaysPresenter(_coreCanvasUi.OverlaysView, Single<IOverlayService>());
 
         SelectionServicePresenter selectionPresenter = new(_infoPanelView, _settlerPanel, Single<IJobCommandsInputHandlerService>(),
-            Single<ISelectionService>(), Single<IUpdateService>());
+            Single<ISelectionService>(), Single<IUpdateService>(), Single<INetworkService>());
         AvatarsViewPresenter avatarsPresenter = new(_coreCanvasUi.AvatarsView, Single<ISettlersService>(), Single<IRaceService>(),
             Single<IUpdateService>());
 
-        PanelsPresenter panelsPresenter = new(_coreCanvasUi.PanelTogglesView, _coreCanvasUi.PanelsView, Single<ISelectionService>());
+        PanelsPresenter panelsPresenter = new(_coreCanvasUi.PanelTogglesView, _coreCanvasUi.PanelsView, Single<ISelectionService>(), Single<INetworkService>());
 
         ResourcesViewPresenter resorcesPresenter = new(_coreCanvasUi.ResourcesView, Single<IResourceManager>(), Single<IUpdateService>());
 

@@ -34,24 +34,24 @@ public class PlayerCursor : NetworkBehaviour {
             _image.enabled = false;
         }
 
-        if (PlayerRaceSelection.IsCreated) {
+        if (NetworkDataHolder.IsCreated) {
             SubscribeToRaceChange();
         } else {
-            PlayerRaceSelection.OnCreated += SubscribeToRaceChange;
+            NetworkDataHolder.OnCreated += SubscribeToRaceChange;
         }
     }
 
     private void SubscribeToRaceChange() {
         Debug.Log("SubscribeToRaceChange");
-        PlayerRaceSelection raceSelection = PlayerRaceSelection.Instance;
-        raceSelection.Player1Race.OnValueChanged += (_, newValue) => {
+        NetworkDataHolder raceSelection = NetworkDataHolder.Instance;
+        raceSelection.MainGameNetworkData.HostRace.OnValueChanged += (_, newValue) => {
             Debug.Log("Player1Race changed");
             if (OwnerClientId == 0) {
                 SetCursorByRaceInternal(newValue);
             }
         };
 
-        raceSelection.Player2Race.OnValueChanged += (_, newValue) => {
+        raceSelection.MainGameNetworkData.ClientRace.OnValueChanged += (_, newValue) => {
             Debug.Log("Player2Race changed");
             if (OwnerClientId == 1) {
                 SetCursorByRaceInternal(newValue);

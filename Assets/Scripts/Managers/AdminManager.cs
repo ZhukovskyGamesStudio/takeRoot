@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 public class AdminManager : MonoBehaviour {
     [SerializeField]
     private GameObject _adminPanel;
-
+    
+    public static bool IsFakeOnline;
+    
     private void Awake() {
         DontDestroyOnLoad(gameObject);
         _adminPanel.SetActive(false);
@@ -24,6 +26,7 @@ public class AdminManager : MonoBehaviour {
     }
 
     public void StartFakeOnlineGame() {
+        IsFakeOnline = true;
         SceneManager.LoadScene("CoreScene");
     }
 

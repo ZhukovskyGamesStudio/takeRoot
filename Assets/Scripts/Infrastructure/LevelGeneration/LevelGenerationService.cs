@@ -12,7 +12,7 @@ public class LevelGenerationService : ILevelGenerationService {
         List<SettlerSelectable> settlers = Object.FindObjectsByType<SettlerSelectable>(FindObjectsInactive.Include, FindObjectsSortMode.None)
             .ToList();
         foreach (SettlerSelectable settler in settlers) {
-            AI.SettlerData data = (AI.SettlerData)settler.GetData();
+            AI.SettlerData data = settler.GetComponent<AI.Settler>().Data;
 
             data.names.Name = NamesList[Random.Range(0, NamesList.Count)];
             data.needs.Hp = Random.Range(data.needs.MaxHp / 4, data.needs.MaxHp);

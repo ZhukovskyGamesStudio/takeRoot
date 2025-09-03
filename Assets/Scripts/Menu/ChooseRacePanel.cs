@@ -11,30 +11,26 @@ public class ChooseRacePanel : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _readyAmount;
 
-    private PlayerRaceSelection _playerRaceSelection;
-
-    private void Start() {
-        _playerRaceSelection = FindAnyObjectByType<PlayerRaceSelection>();
-    }
+    private NetworkDataHolder NetworkDataHolder => NetworkDataHolder.Instance;
 
     public void ChooseRace(int raceIndex) {
         Race race = (Race)raceIndex;
-        _playerRaceSelection.ChooseClientRaceServerRpc(NetworkManager.Singleton.IsHost ? 1 : 2, race);
+        NetworkDataHolder.ChooseClientRaceServerRpc(NetworkManager.Singleton.IsHost ? 1 : 2, race);
     }
 
     public void SetReady() {
-        _playerRaceSelection.SetClientReadyServerRpc(NetworkManager.Singleton.IsHost ? 1 : 2);
+        NetworkDataHolder.SetClientReadyServerRpc(NetworkManager.Singleton.IsHost ? 1 : 2);
     }
 
     private void Update() {
-        if (_playerRaceSelection.Player1Ready.Value && _playerRaceSelection.Player2Ready.Value) {
+        if (NetworkDataHolder.SelectRaceData.HostReady.Value && NetworkDataHolder.SelectRaceData.ClientReady.Value) {
             gameObject.SetActive(false);
             MenuEntryPoint.Instance.Play();
         }
 
-        if (_playerRaceSelection.Player2Race.Value != Race.None && _playerRaceSelection.Player1Race.Value != Race.None) {
+        if (NetworkDataHolder.MainGameNetworkData.ClientRace.Value != Race.None && NetworkDataHolder.MainGameNetworkData.HostRace.Value != Race.None) {
             _readyButton.gameObject.SetActive(true);
-            _readyButton.interactable = _playerRaceSelection.Player2Race.Value != _playerRaceSelection.Player1Race.Value;
+            _readyButton.interactable = NetworkDataHolder.MainGameNetworkData.ClientRace.Value != NetworkDataHolder.MainGameNetworkData.HostRace.Value;
         } else {
             _readyButton.gameObject.SetActive(false);
         }
@@ -44,11 +40,11 @@ public class ChooseRacePanel : MonoBehaviour {
 
     private void UpdateReadyAmount() {
         int amount = 0;
-        if (_playerRaceSelection.Player1Ready.Value) {
+        if (NetworkDataHolder.SelectRaceData.HostReady.Value) {
             amount++;
         }
 
-        if (_playerRaceSelection.Player2Ready.Value) {
+        if (NetworkDataHolder.SelectRaceData.ClientReady.Value) {
             amount++;
         }
 

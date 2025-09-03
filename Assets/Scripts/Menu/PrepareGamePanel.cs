@@ -22,7 +22,7 @@ public class PrepareGamePanel : MonoBehaviour {
     private ChooseRacePanel _chooseRacePanel;
 
     [SerializeField]
-    private PlayerRaceSelection _playerRaceSelection;
+    private NetworkDataHolder _networkDataHolder;
 
     private State _state = State.Choosing;
 
@@ -80,8 +80,8 @@ public class PrepareGamePanel : MonoBehaviour {
 
     [ServerRpc]
     private void SpawnDataHolder() {
-        if (FindAnyObjectByType<PlayerRaceSelection>() == null) {
-            NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(_playerRaceSelection.GetComponent<NetworkObject>());
+        if (FindAnyObjectByType<NetworkDataHolder>() == null) {
+            NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(_networkDataHolder.GetComponent<NetworkObject>());
         }
     }
 

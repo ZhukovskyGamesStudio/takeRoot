@@ -7,5 +7,5 @@ public abstract class Selectable : MonoBehaviour {
 
     public Action OnSelect;
 
-    public abstract object GetData();
+    public abstract object GetData(Race race);
 }

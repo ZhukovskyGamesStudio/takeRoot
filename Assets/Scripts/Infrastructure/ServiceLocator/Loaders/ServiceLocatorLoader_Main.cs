@@ -14,16 +14,17 @@ public class ServiceLocatorLoader_Main {
     private CoreCanvasUi _coreCanvasUi;
 
     private readonly MapFromSceneObjects _mapFromSceneObjects;
-
+    private NetworkDataHolder _networkDataHolderPrefab;
     private IUpdateService _updateService;
     private ICoroutineRunner _coroutineRunner;
     private readonly ServiceLocator _services;
 
     public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner, 
-        CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects,  BuildingsPanelView buildingsPanelView, InGameDaynightLightView globalDaynightLight) {
+        CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects,  BuildingsPanelView buildingsPanelView, InGameDaynightLightView globalDaynightLight,NetworkDataHolder networkDataHolderPrefab) {
         _coreCanvasUi = coreUI;
         _buildingsPanelView = buildingsPanelView;
         _globalDaynightLight = globalDaynightLight;
+        _networkDataHolderPrefab = networkDataHolderPrefab;
 
         _mapFromSceneObjects = mapFromSceneObjects;
         _services = ServiceLocator.Container;
@@ -51,6 +52,7 @@ public class ServiceLocatorLoader_Main {
        
         _services.RegisterSingle<IDataProvider>(new DataProvider());
         _services.RegisterSingle<IPhysicsService>(new PhysicsService());
+        _services.RegisterSingle<INetworkService>(new NetworkService(_networkDataHolderPrefab));
 
         _services.RegisterSingle<IUpdateService>(_updateService);
         _services.RegisterSingle<IInputService>(new InputService(_services.Single<IUpdateService>()));
@@ -75,7 +77,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IGridService>(new GridService(_mapFromSceneObjects));
 
         //TODO setup race from online service
-        _services.RegisterSingle<IRaceService>(new RaceService(Race.Plants));
+        _services.RegisterSingle<IRaceService>(new RaceService(_services.Single<INetworkService>()));
 
         _services.RegisterSingle<IResourceManager>(new ResourcesManager(_services.Single<IConfigsProvider>(), _services.Single<IGridService>()));
         _services.RegisterSingle<ICraftingService>(new CraftingService());

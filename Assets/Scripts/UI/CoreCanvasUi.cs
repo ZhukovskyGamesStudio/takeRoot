@@ -3,7 +3,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
+public class CoreCanvasUi : NetworkBehaviour {
     [SerializeField]
     private InfoPanelView _infoPanel;
 
@@ -35,19 +35,10 @@ public class CoreCanvasUi : NetworkBehaviour, IInitableInstance {
     public OverlaysView OverlaysView { get; private set; }
     [field: SerializeField]
     public NotificationsView NotificationsView { get; private set; }
+    
 
-    public void Init() {
-        ObsoleteCoreEntryPoint.UI = this;
-        //TODO refactor
-        InitRace();
-    }
-
-    private void InitRace() {
-        if (NetworkManager.Singleton != null) {
-            SetRace(PlayerRaceSelection.GetRace());
-        } else {
-            SetRace(ObsoleteCoreEntryPoint.Instance.CurrentNetworkFakeRace);
-        }
+    public void InitRace(Race race) {
+        SetRace(race);
     }
 
     private void SetRace(Race race) {
