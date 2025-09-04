@@ -43,6 +43,11 @@ public class SelectionService : ISelectionService, IUpdatable {
         SelectedReactive.Value = null;
     }
 
+    public void SelectSettler(SettlerSelectable settler) {
+        Unselect();
+        SetSelected(settler, true);
+    }
+
     private void SetSelected(Selectable selectable, bool selected) {
         SelectedReactive.Value = selectable;
         selectable.Selected = true;

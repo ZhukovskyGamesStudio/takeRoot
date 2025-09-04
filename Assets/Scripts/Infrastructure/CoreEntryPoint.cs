@@ -71,7 +71,7 @@ public class CoreEntryPoint : EntryPointBase {
         SelectionServicePresenter selectionPresenter = new(_infoPanelView, _settlerPanel, Single<IJobCommandsInputHandlerService>(),
             Single<ISelectionService>(), Single<IUpdateService>(), Single<INetworkService>());
         AvatarsViewPresenter avatarsPresenter = new(_coreCanvasUi.AvatarsView, Single<ISettlersService>(), Single<IRaceService>(),
-            Single<IUpdateService>());
+            Single<IUpdateService>(), Single<ISelectionService>());
 
         PanelsPresenter panelsPresenter = new(_coreCanvasUi.PanelTogglesView, _coreCanvasUi.PanelsView, Single<ISelectionService>(),
             Single<INetworkService>());
