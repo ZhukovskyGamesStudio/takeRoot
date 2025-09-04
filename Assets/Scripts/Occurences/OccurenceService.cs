@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -9,20 +10,22 @@ public class OccurenceService : IOccurenceService, IUpdatable {
     private readonly IUpdateService _updateService;
     private readonly ISettlersService _settlers;
     private readonly IGridService _grid;
+    private readonly INetworkService _networkService;
     private List<OccurenceConfig> _occurencesConfigs;
     private OccurenceMainConfig _mainConfig;
     private float _difficltyPoints = 0;
     private int _minDistanceFromSettlers = 10;
 
-    public OccurenceService(IConfigsProvider configsProvider, IUpdateService updateService, ISettlersService settlers, IGridService grid,INetworkService networkService) {
+    public OccurenceService(IConfigsProvider configsProvider, IUpdateService updateService, ISettlersService settlers, IGridService grid,
+        INetworkService networkService) {
         _updateService = updateService;
         _settlers = settlers;
         _grid = grid;
+        _networkService = networkService;
         _mainConfig = configsProvider.OccurenceMainConfig;
         _occurencesConfigs = configsProvider.OccurenceConfigs;
 
         if (networkService.IsHost) {
-            
             _updateService.Register(this);
         }
     }
@@ -31,7 +34,7 @@ public class OccurenceService : IOccurenceService, IUpdatable {
         _difficltyPoints += _mainConfig.DifficultyPointsPerMinute / 60 * Time.deltaTime;
         TrySpawnOccurence();
     }
-    
+
     private void TrySpawnOccurence() {
         foreach (var occurenceConfig in _occurencesConfigs) {
             if (_difficltyPoints >= occurenceConfig.DifficultyCost) {
@@ -44,7 +47,7 @@ public class OccurenceService : IOccurenceService, IUpdatable {
 
     private void SpawnOccurence(OccurenceConfig occurenceConfig) {
         var pos = PickSpawnPos();
-        Object.Instantiate(occurenceConfig.PrefabToSpawn, pos, Quaternion.identity);
+        _networkService.InstantiateAndSpawn(occurenceConfig.GetRandomizeToSpawn.GetComponent<NetworkBehaviour>(), pos);
         OnOccurenceSpawn?.Invoke(occurenceConfig);
     }
 

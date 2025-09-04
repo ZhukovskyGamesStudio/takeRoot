@@ -184105,6 +184105,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1373235225252647884, guid: 7b96d32c775b0ad4b83644d532c244ce, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1499322714
+      objectReference: {fileID: 0}
+    - target: {fileID: -1373235225252647884, guid: 7b96d32c775b0ad4b83644d532c244ce, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -1373235225252647884, guid: 7b96d32c775b0ad4b83644d532c244ce, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3608319699
+      objectReference: {fileID: 0}
     - target: {fileID: 2922299703392995829, guid: 7b96d32c775b0ad4b83644d532c244ce, type: 3}
       propertyPath: Data.PatrolCooldown
       value: 9999
@@ -185220,6 +185232,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8943515194267112104, guid: 71d5477656095674191ccd469ca0cae6, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943515194267112104, guid: 71d5477656095674191ccd469ca0cae6, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
