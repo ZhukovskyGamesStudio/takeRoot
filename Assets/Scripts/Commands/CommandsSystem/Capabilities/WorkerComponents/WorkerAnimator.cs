@@ -32,9 +32,6 @@ public class WorkerAnimator : NetworkBehaviour, IAnimationStateReader {
     [ClientRpc]
     private void SetTriggerClientRpc(int triggerHash) {
         _animator.SetTrigger(triggerHash);
-        if (!IsHost) {
-            Debug.Log("received animation change");
-        }
     }
     public void PlayCraft() {
         SetTriggerClientRpc(_craftStateHash);
