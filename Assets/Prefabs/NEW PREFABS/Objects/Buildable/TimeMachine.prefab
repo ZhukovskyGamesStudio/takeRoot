@@ -167,6 +167,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TimeMachine
       objectReference: {fileID: 0}
+    - target: {fileID: 3022492300764533728, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1792906810
+      objectReference: {fileID: 0}
     - target: {fileID: 3575029597453831756, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Size.x
       value: 3.108702
@@ -391,9 +395,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ProgressData>k__BackingField:
-    Progress: 0
+    Progress:
+      value: 0
     Needed: 0
     Title: "\u0437\u0430\u0440\u044F\u0434"
+    InfoViewEnabled: 1
+  _linkedSlider: {fileID: 0}
 --- !u!114 &-3848391582090810957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,8 +413,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28cd7573908c93d468e6e1dd17292550, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   InteractPos:
   - {fileID: 1940747106609110402}
   - {fileID: 1752587227282644233}
   _progressBar: {fileID: 7946383905899612602}
   _neededProgress: 100
+  _chargingSpeed: 5
