@@ -16,5 +16,8 @@ namespace Settlers.Crafting {
 
         [field: SerializeField]
         public ResourceData ResultingResource { get; private set; }
+
+        [field: SerializeField] 
+        public Research RequiredResearch;
     }
 }
