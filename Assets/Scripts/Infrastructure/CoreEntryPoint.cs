@@ -51,7 +51,7 @@ public class CoreEntryPoint : EntryPointBase {
     }
 
     private void Start() {
-        if (IsHost || AdminManager.IsFakeOnline) {
+        if (Single<INetworkService>().IsHost) {
             GenerateLevel().Forget();
         }
     }

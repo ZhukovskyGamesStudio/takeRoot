@@ -14,15 +14,17 @@ public class OccurenceService : IOccurenceService, IUpdatable {
     private float _difficltyPoints = 0;
     private int _minDistanceFromSettlers = 10;
 
-    public OccurenceService(IConfigsProvider configsProvider, IUpdateService updateService, ISettlersService settlers, IGridService grid) {
+    public OccurenceService(IConfigsProvider configsProvider, IUpdateService updateService, ISettlersService settlers, IGridService grid,INetworkService networkService) {
         _updateService = updateService;
         _settlers = settlers;
         _grid = grid;
         _mainConfig = configsProvider.OccurenceMainConfig;
         _occurencesConfigs = configsProvider.OccurenceConfigs;
-        
 
-        _updateService.Register(this);
+        if (networkService.IsHost) {
+            
+            _updateService.Register(this);
+        }
     }
 
     public void Update() {

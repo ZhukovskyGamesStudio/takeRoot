@@ -55,6 +55,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IPhysicsService>(new PhysicsService());
 
         _services.RegisterSingle<IUpdateService>(_updateService);
+        _services.RegisterSingle<INetworkService>(new NetworkService(_networkDataHolder));
         _services.RegisterSingle<IInputService>(new InputService(_services.Single<IUpdateService>()));
         _services.RegisterSingle<ICoroutineRunner>(_coroutineRunner);
         _services.RegisterSingle<IPathfindService>(new MockPathfindService());
@@ -92,7 +93,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<IBuildingService>(new BuildingService(_services.Single<IConfigsProvider>(), _buildingsPanelView,_services.Single<INetworkService>()));
         
         _services.RegisterSingle<IOccurenceService>(
-            new OccurenceService(_services.Single<IConfigsProvider>(), _services.Single<IUpdateService>(), _services.Single<ISettlersService>(), _services.Single<IGridService>()));
+            new OccurenceService(_services.Single<IConfigsProvider>(), _services.Single<IUpdateService>(), _services.Single<ISettlersService>(), _services.Single<IGridService>(), _services.Single<INetworkService>()));
         _services.RegisterSingle<INotificationsService>(new NotificationsService(_services.Single<IUpdateService>(), _services.Single<IOccurenceService>()));
         
         _services.RegisterSingle<ITacticalService>(new TacticalService(
