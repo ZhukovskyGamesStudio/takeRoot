@@ -1,6 +1,7 @@
 using System;
 using CodeBase.Services;
 using Cysharp.Threading.Tasks;
+using Settlers.UI.Commands;
 using UnityEngine;
 
 public class CoreEntryPoint : EntryPointBase {
@@ -27,6 +28,9 @@ public class CoreEntryPoint : EntryPointBase {
 
     [SerializeField]
     private NetworkDataHolder _networkDataHolderPrefab;
+    
+    [SerializeField]
+    private TacticalView _tacticalView;
 
     private ServiceLocator _services;
 
@@ -85,6 +89,9 @@ public class CoreEntryPoint : EntryPointBase {
         NotificationsPresenter notificationsPresenter = new(_coreCanvasUi.NotificationsView, Single<INotificationsService>());
 
         TimeStatusPresenter timeStatusPresenter = new(_timeStatusView, Single<ITimeScaleService>(), Single<IIngameTimeService>());
+
+        TacticalPresenter tacticalPresenter = new TacticalPresenter(_tacticalView, _commandView,
+            Single<ISelectionService>(), Single<ITacticalService>(), Single<INetworkService>());
     }
 
     private TService Single<TService>() where TService : IService {
