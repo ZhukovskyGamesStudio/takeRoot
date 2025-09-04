@@ -9,7 +9,7 @@ namespace AI.Behaviors {
                 new Conditional(() => settler.Data.needs.CareData.LowCare));
 
             Selector hasCareStation = new Selector()
-                .AddChild(new Conditional(() => settler.Data.needs.CareData.HasOwnCareStation))
+                .AddChild(new Conditional(() => settler.Data.targets.SitOnCareStation != null))
                 .AddChild(new Action_TryClaimCareStation(settler));
 
             Sequence waitOnCareStationWhenLowcare = new Sequence()
@@ -18,7 +18,7 @@ namespace AI.Behaviors {
                 .AddChild(new Action_GoToCareStation(settler))
                 .AddChild(new ConditionalAction()
                     .Do(new Action_MoveToPos(settler))
-                    .While(() => settler.Data.needs.CareData.LowCare && settler.Data.needs.CareData.HasOwnCareStation))
+                    .While(() => settler.Data.needs.CareData.LowCare && settler.Data.targets.SitOnCareStation != null))
                 .AddChild(new Action_ReceiveCare(settler));
 
             Selector careBehaviour = new Selector()

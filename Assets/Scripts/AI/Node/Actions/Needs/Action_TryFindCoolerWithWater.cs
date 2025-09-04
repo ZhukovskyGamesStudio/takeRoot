@@ -16,7 +16,7 @@ public class Action_TryFindCoolerWithWater : BTNode {
             return _state = BTNodeState.Failure;
         }
 
-        _settler.Data.needs.SatietyData.Cooler = coolerWithWater;
+        _settler.Data.targets.Cooler = coolerWithWater;
         _settler.Data.curMovePos = coolerWithWater.GetComponent<CommandTarget>().InteractPosition.position;
         return _state = BTNodeState.Success;
     }

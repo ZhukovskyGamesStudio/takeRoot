@@ -8,7 +8,7 @@ namespace AI.Node.Jobs {
         }
 
         public override BTNodeState Evaluate() {
-            _settler.Data.curMovePos = _settler.Data.needs.SatietyData.Cooler.InteractPos.position;
+            _settler.Data.curMovePos = _settler.Data.targets.Cooler.InteractPos.position;
             return _state = BTNodeState.Success;
         }
     }

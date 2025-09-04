@@ -20,9 +20,7 @@ namespace AI {
         public float careChange;
         [Space]
         public bool isTakingCareOf;
-
-        public CareStation careStation;
-        public bool HasOwnCareStation => careStation != null;
+        
         public bool LowCare => currentCare < lowCareThreshold;
         public bool HighCare => currentCare >= highCareThreshold;
         public float Percentage => (float)currentCare / maxCare;

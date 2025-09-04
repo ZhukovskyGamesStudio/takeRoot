@@ -8,6 +8,10 @@ namespace AI {
 		public FarmingPlot FarmingPlot;
 		public TimeMachine TimeMachine;
 		public CareStation CareStation;
+		public CareStation SitOnCareStation;
 		public DinamoMachine DinamoMachine;
+		public Bed Bed;
+		public Cooler Cooler;
+		public ElectricityLevel ElectricitySource;
 	}
 }

@@ -18,7 +18,7 @@ namespace AI.Behaviors {
                 //.AddChild(new Action_GetFreePosNearBed(settler))
                 .AddChild(new ConditionalAction()
                     .Do(new Action_MoveToPos(settler))
-                    .While(() => settler.Data.needs.SatietyData.LowSatiety && settler.Data.needs.SatietyData.Cooler != null))
+                    .While(() => settler.Data.needs.SatietyData.LowSatiety && settler.Data.targets.Cooler != null))
                 .AddChild(new Action_DrinkWater(settler));
 
             Selector drinkBehaviour = new Selector()

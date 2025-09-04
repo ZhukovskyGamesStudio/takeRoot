@@ -8,10 +8,10 @@ public class Action_DrinkWater : BTNode {
     }
 
     public override BTNodeState Evaluate() {
-        var target = _settler.Data.needs.SatietyData.Cooler;
+        var target = _settler.Data.targets.Cooler;
         if (!target.HasWater ||_settler.Data.needs.SatietyData.HighSatiety) {
             _settler.StopInteract();
-            _settler.Data.needs.SatietyData.Cooler = null;
+            _settler.Data.targets.Cooler = null;
             _settler.Data.needs.SatietyData.isDrinking = false;
             return _state = BTNodeState.Success;
         }
@@ -21,8 +21,8 @@ public class Action_DrinkWater : BTNode {
             _settler.StartInteract();
         }
 
-        _settler.Data.needs.SatietyData.currentSatiety += _settler.Data.needs.SatietyData.Cooler.SatietyChange;
-        _settler.Data.needs.SatietyData.Cooler.DecreaseWater();
+        _settler.Data.needs.SatietyData.currentSatiety += _settler.Data.targets.Cooler.SatietyChange;
+        _settler.Data.targets.Cooler.DecreaseWater();
         return _state = BTNodeState.Running;
     }
 }

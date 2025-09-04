@@ -11,9 +11,6 @@ namespace AI {
         public int highSatietyThreshold;
         [Space]
         public float satietyChange;
-        
-        public Cooler Cooler;
-        public ElectricityLevel ElectricitySource;
 
         public bool isDrinking;
         

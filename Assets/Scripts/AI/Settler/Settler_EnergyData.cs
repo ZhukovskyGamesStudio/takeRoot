@@ -19,8 +19,6 @@ namespace AI {
         public float onBedEnergyChange;
         [Space]
         public bool isSleeping;
-        public Bed bed;
-        public bool HasOwnBed => bed != null;
         public bool IsTired => currentEnergy < tiredThreshold;
         public bool IsCriticalTired => currentEnergy < criticalTiredThreshold;
         public float Percentage => (float)currentEnergy / maxEnergy;
