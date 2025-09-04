@@ -91,5 +91,9 @@ namespace AI {
 				Gizmos.DrawWireCube(pos, new Vector3(gridSize, gridSize));
 			}
 		}
+
+		private void OnDestroy() {
+			_taskCts?.Cancel();
+		}
 	}
 }
