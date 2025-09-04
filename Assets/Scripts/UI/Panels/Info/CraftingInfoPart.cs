@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CodeBase.Services;
 using Settlers.Crafting;
 using UnityEngine;
 
@@ -14,8 +15,10 @@ public class CraftingInfoPart : MonoBehaviour {
     private Transform _linesContainer;
 
     private CraftingStationData _craftingData;
+    private IResearchService _researchService;
 
     public void SetData(CraftingStationData craftingStation) {
+        _researchService = ServiceLocator.Container.Single<IResearchService>();
         gameObject.SetActive(true);
         _craftingData = craftingStation;
 
@@ -25,7 +28,10 @@ public class CraftingInfoPart : MonoBehaviour {
 
         foreach (var recipe in craftingStation.AvailableCraftingRecipes) {
             var line = Instantiate(_craftingLineViewPrefab, _linesContainer);
-            line.Set(recipe, _craftingData, AddRecipe, RemoveRecipe);
+            if (recipe.RequiredResearch == Research.None || _researchService.GetInitResearchData()[recipe.RequiredResearch].Researchable)
+                line.Set(recipe, _craftingData, AddRecipe, RemoveRecipe);
+            else  
+                line.Set(recipe, _craftingData);
         }
     }
 

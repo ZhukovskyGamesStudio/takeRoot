@@ -46,6 +46,20 @@ public class CraftingLineView : MonoBehaviour {
         UpdateRecipesAmountButtons(GetQueuedAmount);
     }
 
+    public void Set(CraftingRecipeConfig config, CraftingStationData data) {
+        _config = config;
+        _data = data;
+        _explainText.text = config.MainInfo.Description;
+        _result.SetDataUnavailable(config.MainInfo.Icon, config.MainInfo.Name);
+
+        foreach (var ingridient in _ingridients) {
+            ingridient.gameObject.SetActive(false);
+        }
+        _addButton.gameObject.SetActive(false);
+        _removeButton.gameObject.SetActive(false);
+        _amountText.transform.parent.gameObject.SetActive(false);
+    }
+
     private void UpdateIngridients(CraftingRecipeConfig config) {
         foreach (ImageTextPair ingridient in _ingridients) {
             ingridient.gameObject.SetActive(false);

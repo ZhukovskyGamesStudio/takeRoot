@@ -13,4 +13,10 @@ public class ImageTextPair : MonoBehaviour {
         _image.sprite = sprite;
         _text.text = text;
     }
+
+    public void SetDataUnavailable(Sprite sprite, string text) {
+        _image.sprite = sprite;
+        _text.text = text;
+        _image.color = new Color(90f/255f, 90f/255f, 90f/255f, 212f);
+    }
 }
