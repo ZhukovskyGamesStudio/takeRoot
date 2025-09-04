@@ -35,6 +35,10 @@ public class AdminManager : MonoBehaviour {
         ServiceLocator.Container.Single<ITimeScaleService>().SetReadyToPause();
     }
 
+    public void UnlockResearches() {
+        ServiceLocator.Container.Single<IResearchService>().UnlockAllResearches();
+    }
+
     public void StartFakeOnlineGame() {
         IsFakeOnline = true;
         if (NetworkDataHolder.Instance == null) {

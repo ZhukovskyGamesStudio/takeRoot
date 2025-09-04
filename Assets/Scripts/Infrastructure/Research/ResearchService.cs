@@ -76,4 +76,11 @@ public class ResearchService : IResearchService {
             }
         }
     }
+
+    public void UnlockAllResearches() {
+        foreach (var (type, data) in _researchData) {
+            SelectResearch(type);
+            AddResearchPoints(data.Price);
+        }
+    }
 }
