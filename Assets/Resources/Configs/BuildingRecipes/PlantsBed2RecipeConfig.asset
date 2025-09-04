@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
+  m_Name: PlantsBed2RecipeConfig
+  m_EditorClassIdentifier: 
+  mainInfo: {fileID: 11400000, guid: e78575e6c61a1584b844a3d2b7dd08fc, type: 2}
+  ObjectSprite: {fileID: 0}
+  BuildingPrefab: {fileID: 7110737873876841608, guid: 591240ebbdad5164394d204c1d55c84c, type: 3}
+  Footprint: {x: 1, y: 2}
+  Hp: 75
+  RequiredBuildPoints: 10
+  BuildingCategory: 2
+  Ingridients:
+    _serializedList:
+    - Key: 16
+      Value: 15
+    - Key: 3
+      Value: 15

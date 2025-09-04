@@ -99,6 +99,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Plant
       objectReference: {fileID: 0}
+    - target: {fileID: 3022492300764533728, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2378512275
+      objectReference: {fileID: 0}
     - target: {fileID: 3575029597453831756, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Size.x
       value: 0.67753583
@@ -200,7 +204,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxWater: 100
-  currentWater: 0
+  CurrentWater:
+    value: 0
+  _linkedProgress: {fileID: 0}
 --- !u!114 &-2847252512630540321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,3 +221,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
+  _drop: []

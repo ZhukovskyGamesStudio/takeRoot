@@ -64,7 +64,7 @@ public class Worker : MonoBehaviour {
 
     //Mover
     public void MoveTo(Vector2 position) {
-        _mover.MoveTo(position, WorkerAnimator); //TODO: change animations play while moving
+        _mover.MoveTo(position); //TODO: change animations play while moving
     }
 
     public bool HasPath(Vector2 position) {

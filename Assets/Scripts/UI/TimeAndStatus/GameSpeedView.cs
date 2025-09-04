@@ -1,18 +1,20 @@
 using System;
+using CodeBase.Services;
 using UniRx;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameSpeedView : MonoBehaviour {
+public class GameSpeedView : NetworkBehaviour {
     [SerializeField]
     private AYellowpaper.SerializedCollections.SerializedDictionary<GameSpeedType, Toggle> _speedToggles;
 
     [SerializeField]
     private AYellowpaper.SerializedCollections.SerializedDictionary<GameSpeedType, GameObject> _friendSelection;
 
-    private Action<GameSpeedType> _onSpeedSelect;
+    private Action<GameSpeedType, Race> _onSpeedSelect;
 
-    public void Init(Action<GameSpeedType> onSpeedSelect, ReactiveProperty<bool> isReadyToPause) {
+    public void Init(Action<GameSpeedType, Race> onSpeedSelect, ReactiveProperty<bool> isReadyToPause) {
         _onSpeedSelect = onSpeedSelect;
         InitToggles();
         isReadyToPause.Subscribe(ChangeSpeedAvailable);
@@ -33,10 +35,17 @@ public class GameSpeedView : MonoBehaviour {
     }
 
     private void SelectSpeed(GameSpeedType type) {
-        _onSpeedSelect?.Invoke(type);
+        SelectSpeedServerRpc(type, ServiceLocator.Container.Single<INetworkService>().MyRace.Value);
     }
 
-    public void SetFriendSelection(GameSpeedType type) {
+    [ServerRpc(RequireOwnership = false)]
+    private void SelectSpeedServerRpc(GameSpeedType speedType, Race race) {
+        _onSpeedSelect?.Invoke(speedType, race);
+        Debug.Log("Selected speed: " + speedType);
+    }
+
+    [ClientRpc]
+    public void SetFriendSelectionClientRpc(GameSpeedType type) {
         foreach (var kvp in _friendSelection) {
             kvp.Value.SetActive(kvp.Key == type);
         }

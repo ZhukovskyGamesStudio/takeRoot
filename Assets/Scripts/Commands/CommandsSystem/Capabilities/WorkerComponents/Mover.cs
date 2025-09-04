@@ -2,10 +2,11 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using CodeBase.Services;
+using Unity.Netcode;
 using UnityEngine.Serialization;
 
-public class Mover : MonoBehaviour, IMovable, IPathfinderUser {
-    [FormerlySerializedAs("moveSpeed"), Header("Movement Settings")] 
+public class Mover : NetworkBehaviour, IMovable, IPathfinderUser {
+    [FormerlySerializedAs("moveSpeed"), Header("Movement Settings")]
     public float moveTime = 1f;
 
     public float gridSize = 1f;
@@ -22,11 +23,13 @@ public class Mover : MonoBehaviour, IMovable, IPathfinderUser {
     [SerializeField]
     private bool RotateWhileMove = true;
 
+    private WorkerAnimator _workerAnimator;
+
     private void Start() {
         _pathfindService = ServiceLocator.Container.Single<IPathfindService>();
     }
 
-    public void MoveTo(Vector2 targetPos, WorkerAnimator workerAnimator = null) {
+    public void MoveTo(Vector2 targetPos) {
         if (_isMoving) {
             return;
         }
@@ -37,7 +40,7 @@ public class Mover : MonoBehaviour, IMovable, IPathfinderUser {
         }
 
         if (_path == null) {
-            return; //TODO: evaluate path
+            return;
         }
 
         int indexOfNextStep = _path.IndexOf(position) + 1;
@@ -45,14 +48,18 @@ public class Mover : MonoBehaviour, IMovable, IPathfinderUser {
             return;
         }
 
-        Vector2 next = _path[indexOfNextStep];
+        Vector2 nextPos = _path[indexOfNextStep];
 
         if (_moveCoroutine != null) {
             return;
         }
 
-        _moveCoroutine = StartCoroutine(MoveToCell(next, workerAnimator));
-        return;
+        MoveToClientRpc(nextPos);
+    }
+
+    [ClientRpc]
+    private void MoveToClientRpc(Vector2 nextPos) {
+        _moveCoroutine = StartCoroutine(MoveToCell(nextPos, _workerAnimator));
     }
 
     public bool IsAtPosition(Vector2 target) {
@@ -121,6 +128,11 @@ public class Mover : MonoBehaviour, IMovable, IPathfinderUser {
     }
 
     public void Stop() {
+        StopClientRpc();
+    }
+
+    [ClientRpc]
+    private void StopClientRpc() {
         _isMoving = false;
         if (_moveCoroutine != null) {
             StopCoroutine(_moveCoroutine);
@@ -138,5 +150,13 @@ public class Mover : MonoBehaviour, IMovable, IPathfinderUser {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireCube(pos, new Vector3(gridSize, gridSize));
         }
+    }
+
+    public void Init(WorkerAnimator animator) {
+        _workerAnimator = animator;
+    }
+
+    public void Cancel() {
+        _workerAnimator.ResetToIdle();
     }
 }

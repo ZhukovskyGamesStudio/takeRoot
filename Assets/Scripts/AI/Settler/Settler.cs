@@ -1,11 +1,12 @@
 using AI.Node;
 using AI.Node.Jobs;
 using CodeBase.Services;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Profiling;
 
 namespace AI {
-    public class Settler : MonoBehaviour {
+    public class Settler : NetworkBehaviour {
         [SerializeField]
         private Gravestone _gravestonePrefab;
         
@@ -13,7 +14,8 @@ namespace AI {
         public static bool Immortal;
         private BTRoot_Settler _root;
         private BTNode _stateBt;
-        public SettlerData Data;
+        public NetworkVariable<SettlerData> NetworkData;
+        public SettlerData Data => NetworkData.Value;
 
         public IMovable Mover;
         public ISearcher Searcher;
@@ -46,7 +48,7 @@ namespace AI {
             TimeMachineCharger = GetComponent<ITimeMachineCharger>();
             Attacker = GetComponent<IAttacker>();
             
-            DinamoCharger.Init(WorkerAnimator);
+            Mover.Init(WorkerAnimator);
             Searcher.Init(WorkerAnimator);
             Destroyer.Init(WorkerAnimator);
             Waterer.Init(WorkerAnimator);
@@ -54,15 +56,23 @@ namespace AI {
             Builder.Init(WorkerAnimator);
             Farmer.Init(WorkerAnimator);
             CareGiver.Init(WorkerAnimator);
+            DinamoCharger.Init(WorkerAnimator);
             TimeMachineCharger.Init(WorkerAnimator);
             Attacker.Init(WorkerAnimator);
             
-            _root = CreateRootBt();
-            _stateBt = CreateStateBt();
             Data.Init();
+
+            if (IsOwner || AdminManager.IsFakeOnline) {
+                _root = CreateRootBt();
+                _stateBt = CreateStateBt();
+            }
         }
 
         private void Update() {
+            
+            if (!IsOwner && !AdminManager.IsFakeOnline) {
+                return;
+            }
             Profiler.BeginSample("Evaluate Settler Action BT");
             _root?.Evaluate();
             Profiler.EndSample();
@@ -88,7 +98,9 @@ namespace AI {
         }
 
         public void Die(DeathCause cause) {
-            if (GlobalGodmode) return;
+            if (GlobalGodmode) {
+                return;
+            }
 
             gameObject.SetActive(false);
             Data.Dead = true;
@@ -97,6 +109,20 @@ namespace AI {
             Vector2 gravePos = new (Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
             Gravestone gravestone = Instantiate(_gravestonePrefab, gravePos, Quaternion.identity);
             gravestone.SetData(Data, cause);
+        }
+        
+        [ClientRpc]
+        private void DieClientRpc() {
+            
+        }
+
+        public void TeleportToPos(Vector3 pos) {
+            TeleportToPosClientRpc(pos);
+        }
+
+        [ClientRpc]
+        private void TeleportToPosClientRpc(Vector3 pos) {
+            transform.position = pos;
         }
 
         public void Sleep() {

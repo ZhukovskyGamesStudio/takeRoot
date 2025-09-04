@@ -18,6 +18,8 @@ public class SmoothMover : MonoBehaviour, IMovable, IPathfinderUser {
 
     private Vector2 position => new(transform.position.x, transform.position.y);
     public bool IsMoving => _isMoving;
+    
+    private WorkerAnimator _workerAnimator;
 
     [SerializeField]
     private bool RotateWhileMove = true;
@@ -26,7 +28,7 @@ public class SmoothMover : MonoBehaviour, IMovable, IPathfinderUser {
         _pathfindService = ServiceLocator.Container.Single<IPathfindService>();
     }
 
-    public void MoveTo(Vector2 targetPos, WorkerAnimator workerAnimator = null) {
+    public void MoveTo(Vector2 targetPos) {
         if (_path == null || _targetPosition != targetPos) {
             _targetPosition = targetPos;
             _path = _pathfindService.FindPath(position, targetPos, this);
@@ -48,7 +50,7 @@ public class SmoothMover : MonoBehaviour, IMovable, IPathfinderUser {
             return;
         }
 
-        _moveCoroutine = StartCoroutine(MoveToCell(next, workerAnimator));
+        _moveCoroutine = StartCoroutine(MoveToCell(next));
         return;
     }
 
@@ -124,5 +126,12 @@ public class SmoothMover : MonoBehaviour, IMovable, IPathfinderUser {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireCube(pos, new Vector3(gridSize, gridSize));
         }
+    }
+    
+    public void Init(WorkerAnimator animator) {
+        _workerAnimator = animator;
+    }
+    public void Cancel() {
+        _workerAnimator.ResetToIdle();
     }
 }

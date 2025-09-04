@@ -40,7 +40,7 @@ namespace AI.Node.Jobs {
                 return _state = BTNodeState.Success;
             }
 
-            _settler.Mover.MoveTo(interactPosition.Value, _settler.WorkerAnimator);
+            _settler.Mover.MoveTo(interactPosition.Value);
             return _state = BTNodeState.Running;
         }
     }

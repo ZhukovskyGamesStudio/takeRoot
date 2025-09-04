@@ -19,7 +19,7 @@ namespace AI.Node.Jobs {
 				return _state = BTNodeState.Success;
 			}
 
-			_settler.Mover.MoveTo(pos, _settler.WorkerAnimator);
+			_settler.Mover.MoveTo(pos);
 			return _state = BTNodeState.Running;
 		}
 	}

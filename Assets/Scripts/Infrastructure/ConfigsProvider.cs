@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class ConfigsProvider : IConfigsProvider {
     public List<FarmingPlantConfig> FarmingConfigs { get; set; }
+    public List<BuildingRecipeConfig> BuildingsBlueprintsConfigs { get; set; }
     public ResourcesTable ResourcesTable { get; set; }
     public ResourcesConfig ResourcesConfig { get; set; }
     public BuildingsConfig BuildingsConfig { get; set; }
@@ -22,6 +23,7 @@ public class ConfigsProvider : IConfigsProvider {
 
     private void CacheConfigs() {
         FarmingConfigs = Resources.LoadAll<FarmingPlantConfig>("Configs/FarmingPlants").ToList();
+        BuildingsBlueprintsConfigs = Resources.LoadAll<BuildingRecipeConfig>("Configs/BuildingRecipes").ToList();
         ResourcesTable = Resources.LoadAll<ResourcesTable>("Configs").FirstOrDefault();
         ResourcesConfig = Resources.LoadAll<ResourcesConfig>("Configs").FirstOrDefault();
         BuildingsConfig = Resources.LoadAll<BuildingsConfig>("Configs").FirstOrDefault();

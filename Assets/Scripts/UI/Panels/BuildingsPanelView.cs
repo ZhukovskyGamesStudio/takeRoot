@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CodeBase.Services;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BuildingsPanelView : MonoBehaviour {
+public class BuildingsPanelView : NetworkBehaviour {
     [SerializeField]
     private BuildingPanelGridView _itemPrefab;
 
@@ -29,7 +31,7 @@ public class BuildingsPanelView : MonoBehaviour {
     private List<BuildingPanelGridView> _gridItems;
     private List<BuildingRecipeConfig> _recipeConfigs;
     private BuildingRecipeConfig _selectedConfig;
-    private Action<BuildingRecipeConfig> _onBuild;
+    private Action<string, Race> _onBuild;
 
     private BuildingCategory _currentCategory = BuildingCategory.General;
 
@@ -44,13 +46,13 @@ public class BuildingsPanelView : MonoBehaviour {
         }
     }
 
+    private void OnEnable() {
+        _infoPage.SetEmptyData();
+    }
+
     private void Start() {
         InitToggles();
         //SetData(_mockRecipeConfigs, recipeConfig => Debug.Log($"Starting build of {recipeConfig.HeaderName}"));
-    }
-
-    private void OnEnable() {
-        _infoPage.SetEmptyData();
     }
 
     private void CreateEmptyGrid() {
@@ -62,7 +64,7 @@ public class BuildingsPanelView : MonoBehaviour {
         }
     }
 
-    public void SetData(List<BuildingRecipeConfig> costConfigs, Action<BuildingRecipeConfig> onBuild) {
+    public void SetData(List<BuildingRecipeConfig> costConfigs, Action<string, Race> onBuild) {
         _onBuild = onBuild;
         if (_gridItems == null) {
             CreateEmptyGrid();
@@ -91,6 +93,13 @@ public class BuildingsPanelView : MonoBehaviour {
     }
 
     public void Build() {
-        _onBuild?.Invoke(_selectedConfig);
+        Debug.Log("Build " + _selectedConfig.mainInfo.Name);
+        BuildServerRpc(_selectedConfig.mainInfo.Name, ServiceLocator.Container.Single<INetworkService>().MyRace.Value);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void BuildServerRpc(string buildingName, Race race) {
+        Debug.Log("BuildServerRpc " + buildingName);
+        _onBuild?.Invoke(buildingName, race);
     }
 }

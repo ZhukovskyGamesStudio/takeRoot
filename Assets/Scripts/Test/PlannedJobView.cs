@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
 namespace Settlers.Test {
@@ -15,6 +17,8 @@ namespace Settlers.Test {
 
         [SerializeField]
         private List<Sprite> _plannedJob;
+        [SerializeField]
+        private AYellowpaper.SerializedCollections.SerializedDictionary<JobType, Sprite> _jobTypeToSprite;
 
         [SerializeField]
         private Transform _view;
@@ -34,23 +38,7 @@ namespace Settlers.Test {
         }
 
         public void Enable(JobType jobType) {
-            switch (jobType) {
-                case JobType.None:
-                    _jobIcon.sprite = null;
-                    break;
-                case JobType.Search:
-                    _jobIcon.sprite = _plannedJob[0];
-                    break;
-                case JobType.Destroy:
-                    _jobIcon.sprite = _plannedJob[1];
-                    break;
-                case JobType.Water:
-                    _jobIcon.sprite = _plannedJob[2];
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(jobType), jobType, null);
-            }
-
+            _jobIcon.sprite = _jobTypeToSprite[jobType];
             gameObject.SetActive(true);
         }
     }

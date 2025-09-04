@@ -8,13 +8,15 @@ public class TacticalService : ITacticalService, IUpdatable {
 	private readonly IUpdateService _update;
 	private readonly IInputService _input;
 	private readonly IPhysicsService _physics;
+	private readonly INetworkService _network;
 
-	public TacticalService(IGridService gridService, ISelectionService selection, IUpdateService update, IInputService input, IPhysicsService physics) {
+	public TacticalService(IGridService gridService, ISelectionService selection, IUpdateService update, IInputService input, IPhysicsService physics, INetworkService network) {
 		_gridService = gridService;
 		_selection = selection;
 		_update = update;
 		_input = input;
 		_physics = physics;
+		_network = network;
 		_update.Register(this);
 	}
 
@@ -22,7 +24,7 @@ public class TacticalService : ITacticalService, IUpdatable {
 		var selectable = _selection.SelectedReactive.Value;
 		if (selectable == null) return;
 		if (selectable is SettlerSelectable) {
-			var data = (AI.SettlerData)selectable.GetData();
+			var data = (AI.SettlerData)selectable.GetData(_network.MyRace.Value);
 			data.tactical.IsTactical = !data.tactical.IsTactical;
 		}
 	}
@@ -32,7 +34,7 @@ public class TacticalService : ITacticalService, IUpdatable {
 		if (selectable == null) return;
 		if (_gridService.IsOccupiedPos(pos)) return;
 		if (selectable is SettlerSelectable) {
-			var data = (AI.SettlerData)selectable.GetData();
+			var data = (AI.SettlerData)selectable.GetData(_network.MyRace.Value);
 			data.tactical.Target = null;
 			data.tactical.TacticalMovePos = new Vector3((int)pos.x, (int)pos.y, (int)pos.z);
 			data.tactical.HasTacticalMovePos = true;
@@ -43,7 +45,7 @@ public class TacticalService : ITacticalService, IUpdatable {
 		var selectable = _selection.SelectedReactive.Value;
 		if (selectable == null) return;
 		if (selectable is SettlerSelectable) {
-			var data = (AI.SettlerData)selectable.GetData();
+			var data = (AI.SettlerData)selectable.GetData(_network.MyRace.Value);
 			data.tactical.Target = zombie;
 		}
 	}

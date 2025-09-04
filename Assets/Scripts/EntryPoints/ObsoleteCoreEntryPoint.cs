@@ -78,7 +78,7 @@ public class ObsoleteCoreEntryPoint : EntryPointBase, IResetable {
     }
 
     public Race MyRace() {
-        return NetworkManager.Singleton != null ? PlayerRaceSelection.GetRace() : CurrentNetworkFakeRace;
+        return NetworkManager.Singleton != null ? NetworkDataHolder.GetRace() : CurrentNetworkFakeRace;
     }
 
     public void SwitchFakeRace() {

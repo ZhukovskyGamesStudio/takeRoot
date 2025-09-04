@@ -40,6 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6128987409294760557}
+  - component: {fileID: 3022492300764533728}
   - component: {fileID: 1266403541157989836}
   - component: {fileID: 2743286669860116333}
   - component: {fileID: 933429075467480961}
@@ -70,6 +71,31 @@ Transform:
   - {fileID: 6692009469353226330}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3022492300764533728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939751201788196949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 0
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &1266403541157989836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,10 +108,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb7d1544eb644b4a84cdbf1cfa219915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   Data:
     Id: 0
     JobCapabilities: 0
     CurrentJob: 0
+    RaceToPlaceJob: 0
     AssignedSettler: {fileID: 0}
     MainInfoData: {fileID: 0}
   PlannedJob: {fileID: 8488974201712262369}
@@ -126,6 +154,7 @@ MonoBehaviour:
   Layer: 0
   Obstacle: 1
   MultiplyGridOffset: {x: 0, y: 0}
+  FreeInteractPositions: []
 --- !u!61 &3575029597453831756
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -188,6 +217,7 @@ MonoBehaviour:
   _commandTarget: {fileID: 1266403541157989836}
   _storage: {fileID: 0}
   _craftingStation: {fileID: 0}
+  _progress: {fileID: 0}
 --- !u!1 &4817668026266952817
 GameObject:
   m_ObjectHideFlags: 0

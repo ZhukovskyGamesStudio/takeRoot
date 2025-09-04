@@ -15,7 +15,7 @@ public class CommandTargetSelectable : Selectable {
     
     //TODO: cache all components in awake
 
-    public override object GetData() {
+    public override object GetData(Race race) {
         var res = new InfoDataCombined {
             MainInfoData = _commandTarget.Data.MainInfoData
         };

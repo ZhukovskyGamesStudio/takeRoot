@@ -96,6 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6053809496973094735}
+  - component: {fileID: 546889551575408087}
   - component: {fileID: 4592410373107801597}
   - component: {fileID: 2059078755304209396}
   - component: {fileID: 7503785437495999416}
@@ -127,6 +128,31 @@ Transform:
   - {fileID: 2474080000464550223}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &546889551575408087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941775438455596488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3278503905
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &4592410373107801597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,8 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b575c329fd4da49a078deccb2a0394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   Builder: {fileID: 0}
-  InteractionPos: {fileID: 2474080000464550223}
   WasBuilded: 0
   IsPlaced: 0
   _sprite: {fileID: 5226772419472081032}
@@ -164,6 +190,7 @@ MonoBehaviour:
   Layer: 0
   Obstacle: 0
   MultiplyGridOffset: {x: 0, y: 0}
+  FreeInteractPositions: []
 --- !u!61 &7503785437495999416
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -239,10 +266,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb7d1544eb644b4a84cdbf1cfa219915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   Data:
     Id: 0
     JobCapabilities: 0
     CurrentJob: 0
+    RacePlacedBy: 0
     AssignedSettler: {fileID: 0}
     MainInfoData: {fileID: 0}
   PlannedJob: {fileID: 2475981664836124592}
@@ -264,10 +293,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ProgressData>k__BackingField:
-    Progress: 0
+    Progress:
+      value: 0
     Needed: 0
     Title: "\u041F\u0440\u043E\u0433\u0440\u0435\u0441\u0441 \u0441\u0442\u0440\u043E\u0438\u0442\u0435\u043B\u044C\u0441\u0442\u0432\u0430"
-    Enabled: 1
+    InfoViewEnabled: 1
+  _linkedSlider: {fileID: 0}
 --- !u!1 &8050952677493801755
 GameObject:
   m_ObjectHideFlags: 0

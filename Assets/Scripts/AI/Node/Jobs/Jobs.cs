@@ -15,6 +15,13 @@ namespace AI.Node.Jobs {
                 .AddChild(new ResetJobOnSettler(settler));
             AddChild(jobsBehavior);
         }
+        
+        public static bool JobCondition(SettlerData data, JobType job) {
+            return data.currTarget &&
+                   data.currTarget.Data.CurrentJob == job &&
+                   data.currJob == job &&
+                   data.names.Race == data.currTarget.Data.RacePlacedBy;
+        }
     }
 }
 

@@ -42,7 +42,7 @@ public class ElectricityLevel : MonoBehaviour {
     private void TryUpdateLinkedProgress() {
         if (_linkedProgress) {
             _linkedProgress.ProgressData.Needed = Mathf.RoundToInt(maxElectricity);
-            _linkedProgress.ProgressData.Progress = Mathf.RoundToInt(CurrentElectricity.Value);
+            _linkedProgress.ProgressData.Progress.Value = Mathf.RoundToInt(CurrentElectricity.Value);
         }
     }
 

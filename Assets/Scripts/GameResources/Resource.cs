@@ -1,10 +1,11 @@
 using System;
 using CodeBase.Services;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace GameResources {
-    public class Resource : MonoBehaviour {
+    public class Resource : NetworkBehaviour {
         [SerializeField]
         private ResourceType _resourceType;
 

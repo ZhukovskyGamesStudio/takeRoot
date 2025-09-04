@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public interface IMovable {
+public interface IMovable : IPerformerComponent {
     bool IsMoving { get; }
-    void MoveTo(Vector2 position, WorkerAnimator workerAnimator = null);
+    void MoveTo(Vector2 position);
     bool IsAtPosition(Vector2 target);
     bool HasPath(Vector2 target);
     void SetMoveTime(float time);

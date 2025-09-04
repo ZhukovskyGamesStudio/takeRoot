@@ -1,9 +1,10 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace AI {
     [Serializable]
-    public class SettlerData {
+    public class SettlerData : INetworkSerializable, IEquatable<AI.SettlerData> {
         public bool Dead;
 
         [Header("Jobs")]
@@ -54,6 +55,63 @@ namespace AI {
             needs.CareData.careChange = needs.CareData.defaultCareChange;
             needs.Energy.energyChange = needs.Energy.defaultEnergyChange;
             needs.Energy.currentEnergy = needs.Energy.maxEnergy;
+        }
+
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
+            serializer.SerializeValue(ref curMovePos);
+        }
+
+        public bool Equals(SettlerData other) {
+            if (other is null) {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other)) {
+                return true;
+            }
+
+            return Dead == other.Dead && currJob == other.currJob && Equals(currTarget, other.currTarget) && Equals(subsequentTarget, other.subsequentTarget) && HasMovePos == other.HasMovePos && curMovePos.Equals(other.curMovePos) && Equals(ItemInHands, other.ItemInHands) && Condition == other.Condition && Equals(names, other.names) && Equals(needs, other.needs) && needsUpdateCooldown.Equals(other.needsUpdateCooldown) && needsUpdateTimer.Equals(other.needsUpdateTimer) && Equals(craftingTransport, other.craftingTransport) && Equals(targets, other.targets) && Equals(buildingTransport, other.buildingTransport) && IdleMoveCooldown.Equals(other.IdleMoveCooldown) && IdleMoveTimer.Equals(other.IdleMoveTimer) && IsIdle == other.IsIdle && Equals(tactical, other.tactical) && HitTime.Equals(other.HitTime);
+        }
+
+        public override bool Equals(object obj) {
+            if (obj is null) {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj)) {
+                return true;
+            }
+
+            if (obj.GetType() != GetType()) {
+                return false;
+            }
+
+            return Equals((SettlerData)obj);
+        }
+
+        public override int GetHashCode() {
+            HashCode hashCode = new HashCode();
+            hashCode.Add(Dead);
+            hashCode.Add((int)currJob);
+            hashCode.Add(currTarget);
+            hashCode.Add(subsequentTarget);
+            hashCode.Add(HasMovePos);
+            hashCode.Add(curMovePos);
+            hashCode.Add(ItemInHands);
+            hashCode.Add((int)Condition);
+            hashCode.Add(names);
+            hashCode.Add(needs);
+            hashCode.Add(needsUpdateCooldown);
+            hashCode.Add(needsUpdateTimer);
+            hashCode.Add(craftingTransport);
+            hashCode.Add(targets);
+            hashCode.Add(buildingTransport);
+            hashCode.Add(IdleMoveCooldown);
+            hashCode.Add(IdleMoveTimer);
+            hashCode.Add(IsIdle);
+            hashCode.Add(tactical);
+            hashCode.Add(HitTime);
+            return hashCode.ToHashCode();
         }
     }
 

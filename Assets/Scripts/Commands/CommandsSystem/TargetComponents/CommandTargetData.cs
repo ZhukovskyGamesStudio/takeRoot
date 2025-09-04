@@ -13,6 +13,7 @@ public class CommandTargetData {
 
     [HideInInspector]
     public JobType CurrentJob;
+    public Race RacePlacedBy;
     
     [HideInInspector]
     public AI.Settler AssignedSettler;

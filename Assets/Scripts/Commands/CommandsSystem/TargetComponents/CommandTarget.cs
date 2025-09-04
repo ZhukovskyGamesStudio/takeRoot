@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using CodeBase.Services;
 using Settlers.Test;
+using Unity.Netcode;
 using UnityEngine;
 
-public class CommandTarget : MonoBehaviour {
+public class CommandTarget : NetworkBehaviour {
     public CommandTargetData Data;
-    
+
     [HideInInspector]
     public JobType JobCapabilities { get; private set; }
 
@@ -15,7 +16,7 @@ public class CommandTarget : MonoBehaviour {
 
     public Transform InteractPosition;
     public List<Vector3> InteractPositions => _gridObject.GetFreeNeighbors();
-    
+
     [HideInInspector]
     public int CurrentJobId = -1;
 
@@ -41,6 +42,7 @@ public class CommandTarget : MonoBehaviour {
         if (TryGetComponent(out _waterLevel)) {
             AddCapability(JobType.Water);
         }
+
         _gridObject = GetComponent<GridObject>();
     }
 
@@ -70,7 +72,12 @@ public class CommandTarget : MonoBehaviour {
         }
     }
 
-    public void TrySetJob(JobType job) {
+    public void TrySetJob(JobType job, Race race) {
+        TrySetJobServerRpc(job, race);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void TrySetJobServerRpc(JobType job, Race race) {
         if (Data.HasJob) {
             return;
         }
@@ -79,16 +86,33 @@ public class CommandTarget : MonoBehaviour {
             return; //TODO: update capabilities change
         }
 
+        Data.RacePlacedBy = race;
         Data.CurrentJob = job;
-        PlannedJob.Enable(job);
+        ChangePlannedJobClientRpc(job, race);
         ServiceLocator.Container.Single<ICommandService>().RegisterJob(Data.Id, this);
     }
 
+    [ClientRpc]
+    private void ChangePlannedJobClientRpc(JobType job, Race race) {
+        if (job == JobType.None) {
+            PlannedJob.gameObject.SetActive(false);
+            return;
+        }
+
+        PlannedJob.Enable(job);
+    }
+
     public void CancelJob() {
+        CancelJobServerRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void CancelJobServerRpc() {
         Reserved = false;
         Data.CurrentJob = JobType.None;
+        Data.RacePlacedBy = Race.None;
         Data.AssignedSettler = null;
-        PlannedJob.gameObject.SetActive(false);
+        ChangePlannedJobClientRpc(JobType.None, Race.None);
         ServiceLocator.Container.Single<ICommandService>().UnregisterJob(Data.Id); //TODO: cache service
     }
 

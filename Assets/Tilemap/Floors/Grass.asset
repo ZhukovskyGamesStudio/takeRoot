@@ -13,10 +13,35 @@ MonoBehaviour:
   m_Name: Grass
   m_EditorClassIdentifier: 
   m_DefaultSprite: {fileID: 21300000, guid: 6831f737f31d3af46924fc7630706d2b, type: 3}
-  m_DefaultGameObject: {fileID: 2316070447231690505, guid: 11707b67f2f928541a6c31eb25f1c420, type: 3}
+  m_DefaultGameObject: {fileID: 2316070447231690505, guid: 7ffafd3767ab64e438f2a02b739bc468, type: 3}
   m_DefaultColliderType: 1
   m_TilingRules:
   - m_Id: 0
+    m_Sprites:
+    - {fileID: 21300000, guid: 6831f737f31d3af46924fc7630706d2b, type: 3}
+    - {fileID: 21300000, guid: bf6d9f3d43588194897990bcb3627bcf, type: 3}
+    - {fileID: 21300000, guid: 904d4d7861193fb479054bf4b9b92289, type: 3}
+    - {fileID: 21300000, guid: 406c6c82063d81840a18527832e74b51, type: 3}
+    - {fileID: 21300000, guid: 3ddfb124e8a1faf4384129a90a93828f, type: 3}
+    - {fileID: 21300000, guid: 07e7c455c6ef52e4c94a5b54e2b65dfa, type: 3}
+    - {fileID: 21300000, guid: d466d4eac441c82438b0cfdf340bb20d, type: 3}
+    - {fileID: 21300000, guid: b17a0c139fde5f047b68b46f34e9de36, type: 3}
+    - {fileID: 21300000, guid: 601a8d5aebe973a4aaf90f98e24cbd2f, type: 3}
+    m_GameObject: {fileID: 2316070447231690505, guid: 7ffafd3767ab64e438f2a02b739bc468, type: 3}
+    m_MinAnimationSpeed: 1
+    m_MaxAnimationSpeed: 1
+    m_PerlinScale: 0.2
+    m_Output: 1
+    m_ColliderType: 0
+    m_RandomTransform: 0
+    m_Neighbors: 01000000010000000100000001000000
+    m_NeighborPositions:
+    - {x: 0, y: -1, z: 0}
+    - {x: -1, y: 0, z: 0}
+    - {x: 0, y: 1, z: 0}
+    - {x: 1, y: 0, z: 0}
+    m_RuleTransform: 0
+  - m_Id: 2
     m_Sprites:
     - {fileID: 21300000, guid: 6831f737f31d3af46924fc7630706d2b, type: 3}
     - {fileID: 21300000, guid: bf6d9f3d43588194897990bcb3627bcf, type: 3}
@@ -35,13 +60,5 @@ MonoBehaviour:
     m_ColliderType: 0
     m_RandomTransform: 0
     m_Neighbors: 
-    m_NeighborPositions:
-    - {x: -1, y: 1, z: 0}
-    - {x: 0, y: 1, z: 0}
-    - {x: 1, y: 1, z: 0}
-    - {x: -1, y: 0, z: 0}
-    - {x: 1, y: 0, z: 0}
-    - {x: -1, y: -1, z: 0}
-    - {x: 0, y: -1, z: 0}
-    - {x: 1, y: -1, z: 0}
+    m_NeighborPositions: []
     m_RuleTransform: 0

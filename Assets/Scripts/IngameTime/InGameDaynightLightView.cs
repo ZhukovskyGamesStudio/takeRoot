@@ -1,8 +1,9 @@
 using UniRx;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
-public class InGameDaynightLightView : MonoBehaviour {
+public class InGameDaynightLightView : NetworkBehaviour {
     [SerializeField]
     private Light2D _daynightLight;
 
@@ -12,10 +13,18 @@ public class InGameDaynightLightView : MonoBehaviour {
     public void Init(IngameTimeConfig config, IIngameTimeService service) {
         _config = config;
         _service = service;
-        _service.IngameTimeData.TimeOfDayInSeconds.Subscribe(SetData);
+
+        if (IsHost) {
+            _service.IngameTimeData.TimeOfDayInSeconds.Subscribe(SetData);
+        }
     }
 
-    public void SetData(float timeOfDayInSeconds) {
+    private void SetData(float timeOfDayInSeconds) {
+        SetDataClientRpc(timeOfDayInSeconds);
+    }
+
+    [ClientRpc]
+    private void SetDataClientRpc(float timeOfDayInSeconds) {
         _daynightLight.color = _config.DaynightLightColorGradient.Evaluate(timeOfDayInSeconds / (_config.IngameDayInMinutes * 60));
     }
 }

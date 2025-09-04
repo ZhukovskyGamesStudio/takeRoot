@@ -29,7 +29,7 @@ public class WaterLevel : MonoBehaviour {
     private void TryUpdateLinkedProgress() {
         if (_linkedProgress) {
             _linkedProgress.ProgressData.Needed = Mathf.RoundToInt(maxWater);
-            _linkedProgress.ProgressData.Progress = Mathf.RoundToInt(CurrentWater.Value);
+            _linkedProgress.ProgressData.Progress.Value = Mathf.RoundToInt(CurrentWater.Value);
         }
     }
 }
