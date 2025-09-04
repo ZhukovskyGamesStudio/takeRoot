@@ -171,6 +171,9 @@ namespace AI {
             BTRoot_Settler root = new(this, commands, crafting, resources, building, farming, timeScale);
             return root;
         }
+        
+        //TODO refactor this
+        public Vector2Int PosOnGrid => new(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
     }
 
     public enum DeathCause {

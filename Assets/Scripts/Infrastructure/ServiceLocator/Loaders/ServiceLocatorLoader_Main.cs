@@ -53,7 +53,7 @@ public class ServiceLocatorLoader_Main {
        
         _services.RegisterSingle<IDataProvider>(new DataProvider());
         _services.RegisterSingle<IPhysicsService>(new PhysicsService());
-
+       
         _services.RegisterSingle<IUpdateService>(_updateService);
         _services.RegisterSingle<INetworkService>(new NetworkService(_networkDataHolder));
         _services.RegisterSingle<IInputService>(new InputService(_services.Single<IUpdateService>()));
@@ -98,6 +98,7 @@ public class ServiceLocatorLoader_Main {
         
         _services.RegisterSingle<ITacticalService>(new TacticalService(
             _services.Single<IGridService>(), _services.Single<ISelectionService>(), _services.Single<IUpdateService>(), _services.Single<IInputService>(), _services.Single<IPhysicsService>(),_services.Single<INetworkService>() ));
-        
+        _services.RegisterSingle<IFogOfWarService>(new FogOfWarService(_services.Single<IConfigsProvider>(),_services.Single<IUpdateService>(),_services.Single<ISettlersService>(), _services.Single<INetworkService>()));
+
     }
 }
