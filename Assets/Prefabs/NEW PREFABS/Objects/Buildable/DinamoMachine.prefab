@@ -661,7 +661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58dc866af58744ec8079d33889eb01c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ElectricityChange: 5
+  ElectricityChange: 15
   LowElectricityThreshold: 0.3
   HighElectricityThreshold: 1
   _spriteRenderer: {fileID: 0}

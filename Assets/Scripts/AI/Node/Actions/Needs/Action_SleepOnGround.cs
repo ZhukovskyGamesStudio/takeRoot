@@ -7,13 +7,13 @@ namespace AI.Node.Jobs {
         }
 
         public override BTNodeState Evaluate() {
-            if (!_settler.Data.needs.Energy.isSleeping) {
+            if (!_settler.Data.needs.Value.Energy.isSleeping) {
                 _settler.Sleep();
-                _settler.Data.needs.Energy.energyChange = _settler.Data.needs.Energy.onGroundEnergyChange;
+                _settler.Data.needs.Value.Energy.energyChange = _settler.Data.needs.Value.Energy.onGroundEnergyChange;
             }
 
-            if (!_settler.Data.needs.Energy.IsTired) {
-                _settler.Data.needs.Energy.energyChange = _settler.Data.needs.Energy.defaultEnergyChange;
+            if (!_settler.Data.needs.Value.Energy.IsTired) {
+                _settler.Data.needs.Value.Energy.energyChange = _settler.Data.needs.Value.Energy.defaultEnergyChange;
                 _settler.WakeUp();
                 return _state = BTNodeState.Success;
             }

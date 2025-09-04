@@ -65,7 +65,7 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<ICameraMovementService>(new CameraMovementService(_services.Single<IConfigsProvider>(), _services.Single<IUpdateService>()));
         _services.RegisterSingle<ILevelGenerationService>(new LevelGenerationService(_services.Single<INetworkService>()));
         _services.RegisterSingle<IFarmingService>(new FarmingService(_services.Single<IUpdateService>(), _services.Single<IConfigsProvider>(),
-            _services.Single<IInputService>()));
+            _services.Single<IInputService>(), _services.Single<INetworkService>()));
         _services.RegisterSingle<IOverlayService>(new OverlayService());
         _services.RegisterSingle<ITimeScaleService>(new TimeScaleService(_services.Single<IConfigsProvider>()));
         _services.RegisterSingle<IIngameTimeService>(new IngameTimeService(

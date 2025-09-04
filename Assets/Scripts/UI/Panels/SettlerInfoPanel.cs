@@ -52,11 +52,11 @@ public class SettlerInfoPanel : MonoBehaviour {
     public void UpdateData() {
         _nameText.text = _settlerData.names.Name;
 
-        float hp = (float)_settlerData.needs.Hp / _settlerData.needs.MaxHp;
-        float stress = 1 - _settlerData.needs.StressData.Percentage;
-        float satiety = _settlerData.needs.SatietyData.Percentage;
-        float energy = _settlerData.needs.Energy.Percentage;
-        float care = _settlerData.needs.CareData.Percentage;
+        float hp = (float)_settlerData.needs.Value.Hp / _settlerData.needs.Value.MaxHp;
+        float stress = 1 - _settlerData.needs.Value.StressData.Percentage;
+        float satiety = _settlerData.needs.Value.SatietyData.Percentage;
+        float energy = _settlerData.needs.Value.Energy.Percentage;
+        float care = _settlerData.needs.Value.CareData.Percentage;
 
         _hpSlider.value = hp;
         _stressSlider.value = stress;

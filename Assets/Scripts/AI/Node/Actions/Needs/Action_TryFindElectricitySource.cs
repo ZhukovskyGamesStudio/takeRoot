@@ -18,7 +18,7 @@ public class Action_TryFindElectricitySource : BTNode {
         }
 
         source.ConnectedSettler = _settler;
-        _settler.Data.needs.SatietyData.ElectricitySource = source;
+        _settler.Data.targets.ElectricitySource = source;
         _settler.Data.curMovePos = source.DirectChargePos.position;
         return _state = BTNodeState.Success;
     }

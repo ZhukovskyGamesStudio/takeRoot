@@ -22,39 +22,41 @@ namespace AI {
         public bool HasItem => ItemInHands != null;
 
         public SettlerCondition Condition;
-        
+
         [Header("Names")]
         public Settler_Names names;
 
         [Header("Needs")]
-        public Settler_Needs needs;
+        public NetworkVariable<Settler_Needs> needs = new();
+
         public float needsUpdateCooldown;
         public float needsUpdateTimer;
-        
+
         [Header("Transport for crafting")]
         public Settler_TransportForCrafting craftingTransport;
 
+        [HideInInspector]
         public Settler_Targets targets;
-        
+
         [Header("Transport for Building")]
         public Settler_TransportForBuilding buildingTransport;
-        
+
         [Header("Idle move")]
         public float IdleMoveCooldown;
+
         public float IdleMoveTimer;
         public bool IsIdle;
-        
+
         [Header("Tactical")]
         public Settler_Tactical tactical;
 
         [Header("Hit")]
         public float HitTime = 1.3f;
 
-
         public void Init() {
-            needs.CareData.careChange = needs.CareData.defaultCareChange;
-            needs.Energy.energyChange = needs.Energy.defaultEnergyChange;
-            needs.Energy.currentEnergy = needs.Energy.maxEnergy;
+            needs.Value.CareData.careChange = needs.Value.CareData.defaultCareChange;
+            needs.Value.Energy.energyChange = needs.Value.Energy.defaultEnergyChange;
+            needs.Value.Energy.currentEnergy = needs.Value.Energy.maxEnergy;
         }
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
@@ -70,7 +72,14 @@ namespace AI {
                 return true;
             }
 
-            return Dead == other.Dead && currJob == other.currJob && Equals(currTarget, other.currTarget) && Equals(subsequentTarget, other.subsequentTarget) && HasMovePos == other.HasMovePos && curMovePos.Equals(other.curMovePos) && Equals(ItemInHands, other.ItemInHands) && Condition == other.Condition && Equals(names, other.names) && Equals(needs, other.needs) && needsUpdateCooldown.Equals(other.needsUpdateCooldown) && needsUpdateTimer.Equals(other.needsUpdateTimer) && Equals(craftingTransport, other.craftingTransport) && Equals(targets, other.targets) && Equals(buildingTransport, other.buildingTransport) && IdleMoveCooldown.Equals(other.IdleMoveCooldown) && IdleMoveTimer.Equals(other.IdleMoveTimer) && IsIdle == other.IsIdle && Equals(tactical, other.tactical) && HitTime.Equals(other.HitTime);
+            return Dead == other.Dead && currJob == other.currJob && Equals(currTarget, other.currTarget) &&
+                   Equals(subsequentTarget, other.subsequentTarget) && HasMovePos == other.HasMovePos && curMovePos.Equals(other.curMovePos) &&
+                   Equals(ItemInHands, other.ItemInHands) && Condition == other.Condition && Equals(names, other.names) &&
+                   Equals(needs, other.needs) && needsUpdateCooldown.Equals(other.needsUpdateCooldown) &&
+                   needsUpdateTimer.Equals(other.needsUpdateTimer) && Equals(craftingTransport, other.craftingTransport) &&
+                   Equals(targets, other.targets) && Equals(buildingTransport, other.buildingTransport) &&
+                   IdleMoveCooldown.Equals(other.IdleMoveCooldown) && IdleMoveTimer.Equals(other.IdleMoveTimer) && IsIdle == other.IsIdle &&
+                   Equals(tactical, other.tactical) && HitTime.Equals(other.HitTime);
         }
 
         public override bool Equals(object obj) {

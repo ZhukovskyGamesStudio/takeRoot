@@ -66,4 +66,9 @@ public class CoreCanvasUi : NetworkBehaviour {
         _infoPanel.gameObject.SetActive(false);
         _infoToggle.isOn = false;
     }
+
+    public void ExitCore() {
+        NetworkManager.Singleton.Shutdown();
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MenuScene");
+    }
 }

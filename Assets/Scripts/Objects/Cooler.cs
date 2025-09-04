@@ -30,6 +30,6 @@ public class Cooler : MonoBehaviour {
     }
 
     public void DecreaseWater() {
-        _waterLevel.ChangeWater(-WaterLevelChange);
+        _waterLevel.ChangeWaterServerRpc(-WaterLevelChange);
     }
 }

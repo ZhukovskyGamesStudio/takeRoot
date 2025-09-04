@@ -1,11 +1,12 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace AI {
     [Serializable]
-    public class Settler_StressData {
+    public class Settler_StressData : INetworkSerializable{
         public int maxStress;
-        public int currentStress;
+        public float currentStress;
         [Space]
         public int breakdownStressThreshold;
         public float breakdownChance;
@@ -19,5 +20,17 @@ namespace AI {
 
         public bool CanBreakdown => currentStress >= breakdownStressThreshold;
         public float Percentage => (float)currentStress / maxStress;
+        public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
+            serializer.SerializeValue(ref maxStress);
+            serializer.SerializeValue(ref currentStress);
+            serializer.SerializeValue(ref breakdownStressThreshold);
+            serializer.SerializeValue(ref breakdownChance);
+            serializer.SerializeValue(ref breakdownDuration);
+            serializer.SerializeValue(ref breakdownTimer);
+            serializer.SerializeValue(ref stressAfterBreakdown);
+            serializer.SerializeValue(ref stressChange);
+            serializer.SerializeValue(ref lowSatietyStressChange);
+            serializer.SerializeValue(ref highSatietyStressChange);
+        }
     }
 }

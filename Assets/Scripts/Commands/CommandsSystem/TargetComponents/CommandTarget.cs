@@ -5,6 +5,8 @@ using Unity.Netcode;
 using UnityEngine;
 
 public class CommandTarget : NetworkBehaviour {
+    private static readonly int Work = Animator.StringToHash("Work");
+    private static readonly int Idle = Animator.StringToHash("Idle");
     public CommandTargetData Data;
 
     [HideInInspector]
@@ -65,10 +67,19 @@ public class CommandTarget : NetworkBehaviour {
             return;
         }
 
+        UpdatePerforming(isPerforming);
+        UpdatePerformingClientRpc(isPerforming);
+    }
+    [ClientRpc]
+    private void UpdatePerformingClientRpc(bool isPerforming) {
+        UpdatePerforming(isPerforming);
+    }
+
+    private void UpdatePerforming(bool isPerforming) {
         if (isPerforming) {
-            PerformingAnimator.SetTrigger("Work");
+            PerformingAnimator.SetTrigger(Work);
         } else {
-            PerformingAnimator?.SetTrigger("Idle");
+            PerformingAnimator?.SetTrigger(Idle);
         }
     }
 
@@ -140,11 +151,11 @@ public class CommandTarget : NetworkBehaviour {
 
     //Water
     public void Dry(float amount) {
-        _waterLevel.Dry(amount);
+        _waterLevel.DryServerRpc(amount);
     }
 
     public void Water(float amount) {
-        _waterLevel.ChangeWater(amount);
+        _waterLevel.ChangeWaterServerRpc(amount);
     }
 
     public bool EnoughWater => _waterLevel.EnoughWater;

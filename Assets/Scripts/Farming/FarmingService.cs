@@ -8,6 +8,7 @@ using Object = UnityEngine.Object;
 public class FarmingService : IFarmingService, IUpdatable, IDisposable {
     private IUpdateService _updateService;
     private readonly IInputService _inputService;
+    private readonly INetworkService _networkService;
 
     //список farming plant грядок
 
@@ -25,13 +26,17 @@ public class FarmingService : IFarmingService, IUpdatable, IDisposable {
     private bool _isCutting;
     private FarmingPlantConfig _selectedPlantToPlant;
 
-    public FarmingService(IUpdateService updateService, IConfigsProvider configsProvider, IInputService inputService) {
+    public FarmingService(IUpdateService updateService, IConfigsProvider configsProvider, IInputService inputService, INetworkService networkService) {
         _updateService = updateService;
         _inputService = inputService;
-        _updateService.Register(this);
+        _networkService = networkService;
+
         _farmingPlantConfigs = configsProvider.FarmingConfigs;
         inputService.OnSelectionEnd += OnSelectionEnd;
         FarmingPlots = GetAllPlots();
+
+        _updateService.Register(this);
+        
         /*foreach (var plot in FarmingPlots) {
             plot.Init();
         }*/
@@ -41,7 +46,7 @@ public class FarmingService : IFarmingService, IUpdatable, IDisposable {
         if (_selectedPlantToPlant) {
             foreach (var plot in FarmingPlots) {
                 if (selectedArea.Contains(plot.transform.position) && plot.PlantType == FarmingPlantType.None) {
-                    plot.ChangePlant(_selectedPlantToPlant);
+                    plot.ChangePlantServerRpc(_selectedPlantToPlant.PlantType);
                 }
             }
         }
@@ -49,7 +54,7 @@ public class FarmingService : IFarmingService, IUpdatable, IDisposable {
         if (_isCutting) {
             foreach (var plot in FarmingPlots) {
                 if (selectedArea.Contains(plot.transform.position) && plot.PlantType != FarmingPlantType.None) {
-                    plot.CutPlant();
+                    plot.CutPlantServerRpc();
                 }
             }
         }
@@ -58,17 +63,22 @@ public class FarmingService : IFarmingService, IUpdatable, IDisposable {
     public void Update() {
         //todo optimize
         FarmingPlots = GetAllPlots();
-
-        foreach (var plot in FarmingPlots) {
-            plot.ChangeWaterLevel(-DryRate * Time.deltaTime);
-            if (plot.PlantState == FarmingPlantState.Growing) {
-                plot.ChangeGrow(GrowRate * Time.deltaTime);
-            }
-        }
-
         if (_isCutting) {
             if (_inputService.GetKeyDown(KeyCode.Escape) || _inputService.GetMouseButtonDown(MouseButton.Right)) {
                 _isCutting = false;
+            }
+        }
+
+        if (_networkService.IsHost) {
+            UpdateFarmingPlots();
+        }
+    }
+
+    private void UpdateFarmingPlots() {
+        foreach (var plot in FarmingPlots) {
+            plot.ChangeWaterLevelServerRpc(-DryRate * Time.deltaTime);
+            if (plot.PlantState == FarmingPlantState.Growing) {
+                plot.ChangeGrow(GrowRate * Time.deltaTime);
             }
         }
     }

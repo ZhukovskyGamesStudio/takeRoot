@@ -14,7 +14,7 @@ public class CareStation : MonoBehaviour {
 
     public void SetSettler(AI.Settler settler) {
         _settler = settler;
-        settler.Data.needs.CareData.careStation = this;
+        settler.Data.targets.SitOnCareStation = this;
     }
 
     public void ReleaseCareSettler() {
@@ -23,17 +23,17 @@ public class CareStation : MonoBehaviour {
         }
 
         CareSettlerReady = false;
-        _settler.Data.needs.CareData.careStation = null;
+        _settler.Data.targets.SitOnCareStation = null;
         _settler = null;
     }
 
     public void AddCare() {
-        _settler.Data.needs.CareData.currentCare += _settler.Data.needs.CareData.onStationCareChange;
+        _settler.Data.needs.Value.CareData.currentCare += _settler.Data.needs.Value.CareData.onStationCareChange;
     }
 
     public void SetCaregiverSettler(AI.Settler settler) {
         _caregiver = settler;
-        settler.Data.needs.CareData.careStation = this;
+        settler.Data.targets.SitOnCareStation = this;
     }
 
     public void ReleaseCaregiverSettler() {
@@ -41,7 +41,7 @@ public class CareStation : MonoBehaviour {
             return;
         }
 
-        _caregiver.Data.needs.CareData.careStation = null;
+        _caregiver.Data.targets.SitOnCareStation = null;
         _caregiver = null;
     }
 }
