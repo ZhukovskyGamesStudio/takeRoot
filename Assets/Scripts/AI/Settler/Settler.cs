@@ -126,6 +126,7 @@ namespace AI {
         }
 
         public void TeleportToPos(Vector3 pos) {
+            transform.position = pos;
             TeleportToPosClientRpc(pos);
         }
 
