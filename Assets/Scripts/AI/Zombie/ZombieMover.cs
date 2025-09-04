@@ -21,9 +21,11 @@ namespace AI {
 		private Vector2 position => new(transform.position.x, transform.position.y);
 		public bool IsMoving { get; private set; }
 		private Vector2 _targetPos;
+		private ZombieAnimator _animator;
 
-		private void Start() {
+		public void Init(ZombieAnimator animator) {
 			_pathfinder = ServiceLocator.Container.Single<IPathfindService>();
+			_animator = animator;
 		}
 
 		public bool IsAtPosition(Vector2 target) {
@@ -54,6 +56,7 @@ namespace AI {
 
 		private async UniTaskVoid DoMove(Vector2 next, CancellationToken token) {
 			IsMoving = true;
+			_animator.PlayMove();
 			Vector3 target3 = new(next.x, next.y);
 			Vector3 diff = target3 - transform.localPosition;
 			RotateToMoveDirection(diff);
@@ -66,8 +69,10 @@ namespace AI {
 				await UniTask.Yield();
 			}
 			transform.position = next;
+			_animator.ResetToIdle();
 			IsMoving = false;
 		}
+
 		private void RotateToMoveDirection(Vector3 diff) {
 			if (!RotateWhileMove) {
 				return;
@@ -81,6 +86,7 @@ namespace AI {
 				transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
 			}
 		}
+
 		private void OnDrawGizmos() {
 			if (_path == null) {
 				return;
@@ -93,7 +99,17 @@ namespace AI {
 		}
 
 		private void OnDestroy() {
-			_taskCts?.Cancel();
+			Cancel();
+		}
+
+		public void Cancel() {
+			if (_taskCts != null && !_taskCts.IsCancellationRequested) {
+				_taskCts.Cancel();
+				_taskCts.Dispose();
+				_taskCts = null;
+				_animator.ResetToIdle();
+				IsMoving = false;
+			}
 		}
 	}
 }
