@@ -19,6 +19,7 @@ public class DinamoMachine : MonoBehaviour {
     public bool IsFree => DinamoCharger == null;
 
     private ElectricityLevel _electricityLevel;
+    private CommandTarget _commandTarget;
 
     [SerializeField]
     private SpriteRenderer _spriteRenderer;
@@ -28,6 +29,7 @@ public class DinamoMachine : MonoBehaviour {
 
     private void Start() {
         _electricityLevel = GetComponent<ElectricityLevel>();
+        _commandTarget = GetComponent<CommandTarget>();
     }
 
     private void Update() {
@@ -47,10 +49,10 @@ public class DinamoMachine : MonoBehaviour {
     }
 
     public void PlayWorkAnimation() {
-        GetComponent<Animator>().SetTrigger("Work");
+        _commandTarget.SetPerform(true);
     }
 
     public void PlayIdleAnimation() {
-        GetComponent<Animator>().SetTrigger("Idle");
+        _commandTarget.SetPerform(false);
     }
 }

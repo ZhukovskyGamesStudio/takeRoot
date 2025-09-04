@@ -1,14 +1,15 @@
 using System;
 using UniRx;
+using Unity.Netcode;
 using UnityEngine;
 
-public class ElectricityLevel : MonoBehaviour {
+public class ElectricityLevel : NetworkBehaviour {
     [Header("Electricity Settings")]
     public float maxElectricity = 100;
 
     [Header("DirectCharge Settings")]
     public bool CanDirectlyCharge = true;
-
+    [HideInInspector]
     public AI.Settler ConnectedSettler;
     [SerializeField]
     public DirectChargeCable DirectChargeCable;
@@ -36,6 +37,13 @@ public class ElectricityLevel : MonoBehaviour {
     public void ChangeElecticity(float amount) {
         CurrentElectricity.Value += amount;
         CurrentElectricity.Value = Math.Clamp(CurrentElectricity.Value, 0, maxElectricity);
+        TryUpdateLinkedProgress();
+        SyncElectricityClientRpc(CurrentElectricity.Value);
+    }
+
+    [ClientRpc]
+    private void SyncElectricityClientRpc(float amount) {
+        CurrentElectricity.Value = amount;
         TryUpdateLinkedProgress();
     }
 
