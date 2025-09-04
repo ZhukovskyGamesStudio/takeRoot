@@ -17,5 +17,13 @@ namespace AI {
 		public void Update() {
 			_timer += Time.deltaTime;
 		}
+
+		public void Init(ZombieAnimator animator) {
+			//animator is not used 
+		}
+
+		public void Cancel() {
+			//nothing to cancel
+		}
 	}
 }
