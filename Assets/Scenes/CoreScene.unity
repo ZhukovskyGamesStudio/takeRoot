@@ -183464,6 +183464,7 @@ MonoBehaviour:
   _coreCanvasUi: {fileID: 1970964712}
   _globalDaynightLight: {fileID: 79785747}
   _networkDataHolderPrefab: {fileID: 8398247404787509252, guid: 6ec52d2582006ec4bb1cbd78ffcdaa37, type: 3}
+  _tacticalView: {fileID: 1804048065}
 --- !u!4 &1484566829
 Transform:
   m_ObjectHideFlags: 0
@@ -184429,6 +184430,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71d5477656095674191ccd469ca0cae6, type: 3}
+--- !u!114 &1804048065 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5669498603979411872, guid: 71d5477656095674191ccd469ca0cae6, type: 3}
+  m_PrefabInstance: {fileID: 1804048064}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 284745440b5a4af8aa2bffbb32a00ed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1948062026
 PrefabInstance:
   m_ObjectHideFlags: 0

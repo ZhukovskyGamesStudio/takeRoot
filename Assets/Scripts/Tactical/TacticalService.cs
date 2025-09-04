@@ -34,10 +34,12 @@ public class TacticalService : ITacticalService, IUpdatable {
 		if (selectable == null) return;
 		if (_gridService.IsOccupiedPos(pos)) return;
 		if (selectable is SettlerSelectable) {
-			var data = (AI.SettlerData)selectable.GetData(_network.MyRace.Value);
-			data.tactical.Target = null;
-			data.tactical.TacticalMovePos = new Vector3((int)pos.x, (int)pos.y, (int)pos.z);
-			data.tactical.HasTacticalMovePos = true;
+			var data = selectable.GetData(_network.MyRace.Value);
+			if (data is AI.SettlerData settlerData) {
+				settlerData.tactical.Target = null;
+				settlerData.tactical.TacticalMovePos = new Vector3((int)pos.x, (int)pos.y, (int)pos.z);
+				settlerData.tactical.HasTacticalMovePos = true;
+			}
 		}
 	}
 

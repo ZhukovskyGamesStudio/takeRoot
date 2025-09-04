@@ -9,6 +9,8 @@ namespace Settlers.UI.Commands {
 		private readonly ISelectionService _selection;
 		private readonly ITacticalService _tacticalService;
 		private readonly INetworkService _network;
+		private string _tacticalText = "боевой режим";
+		private string _regularModeText = "в обычный режим";
 
 		public TacticalPresenter(TacticalView tacticalView, CommandView commandView, ISelectionService selection, ITacticalService tacticalService, INetworkService network) {
 			_tacticalView = tacticalView;
@@ -20,32 +22,36 @@ namespace Settlers.UI.Commands {
 				_tacticalService.SetTacticalForSelectedSettlers();
 				UpdateView();
 			});
-			_selection.SelectedReactive.AsObservable().Subscribe(ShowTacticalButton);
-		}
-
-		private void ShowTacticalButton(Selectable selectable) {
-			var button = _tacticalView.TacticalSwapButton;
-			if (selectable == null) {
-				button.gameObject.SetActive(false);
-				return;
-			}
-			if (selectable is SettlerSelectable) {
-				button.gameObject.SetActive(true);
-			}
+			_selection.SelectedReactive.AsObservable().Subscribe(_ => UpdateView());
 		}
 
 		private void UpdateView() {
 			var selectable = _selection.SelectedReactive.Value;
 			if (selectable == null) {
-				_commandView.transform.parent.gameObject.SetActive(true);
+				_commandView.ToggleContainer.SetActive(true);
+				_tacticalView.TacticalContainer.SetActive(false);
 				return;
 			}
 			if (selectable is SettlerSelectable) {
-				var data = (AI.SettlerData)selectable.GetData(_network.MyRace.Value);
-				_commandView.transform.parent.gameObject.SetActive(!data.tactical.IsTactical);
+				var data = selectable.GetData(_network.MyRace.Value);
+				if (data is AI.SettlerData settlerData) {
+					var isTactical = settlerData.tactical.IsTactical;
+					_tacticalView.TacticalContainer.SetActive(true);
+					_commandView.ToggleContainer.SetActive(!isTactical);
+					SetTacticalElements(isTactical);
+				} else {
+					_commandView.ToggleContainer.SetActive(true);
+					_tacticalView.TacticalContainer.SetActive(false);
+				}
 			}
 		}
 
+		private void SetTacticalElements(bool isTactical) {
+			_tacticalView.TacticalDescription.gameObject.SetActive(isTactical);
+			_tacticalView.TacticalIcon.gameObject.SetActive(!isTactical);
+			_tacticalView.RegularIcon.gameObject.SetActive(isTactical);
+			_tacticalView.TacticalText.text = isTactical ? _regularModeText : _tacticalText;
+		}
 		public void Dispose() {
 			_tacticalView.TacticalSwapButton.onClick.RemoveAllListeners();
 		}
