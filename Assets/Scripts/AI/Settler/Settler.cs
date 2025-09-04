@@ -88,13 +88,13 @@ namespace AI {
         }
 
         public void StartBreakdown() {
-            Data.needs.StressData.breakdownTimer = 0;
+            Data.needs.Value.StressData.breakdownTimer = 0;
             Data.Condition = SettlerCondition.Breakdown;
         }
 
         public void EndBreakdown() {
             Data.Condition = SettlerCondition.Neutral;
-            Data.needs.StressData.currentStress = Data.needs.StressData.stressAfterBreakdown;
+            Data.needs.Value.StressData.currentStress = Data.needs.Value.StressData.stressAfterBreakdown;
         }
 
         public void Die(DeathCause cause) {
@@ -102,18 +102,27 @@ namespace AI {
                 return;
             }
 
-            gameObject.SetActive(false);
-            Data.Dead = true;
-            
-            //TODO: перенести в сервис или ещё куда то хз
-            Vector2 gravePos = new (Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
-            Gravestone gravestone = Instantiate(_gravestonePrefab, gravePos, Quaternion.identity);
-            gravestone.SetData(Data, cause);
+
+            SetAsDead(cause);
+            DieClientRpc(cause);
+            SpawnTombstone(cause);
         }
         
         [ClientRpc]
-        private void DieClientRpc() {
-            
+        private void DieClientRpc(DeathCause cause) {
+            SetAsDead(cause);
+        }
+
+        private void SetAsDead(DeathCause cause) {
+            gameObject.SetActive(false);
+            Data.Dead = true;
+           
+        }
+
+        private void SpawnTombstone(DeathCause cause) {
+            Vector2 gravePos = new (Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
+            Gravestone gravestone = ServiceLocator.Container.Single<INetworkService>().InstantiateAndSpawn(_gravestonePrefab,gravePos);
+            gravestone.SetData(Data.names.Name, cause);
         }
 
         public void TeleportToPos(Vector3 pos) {
@@ -126,12 +135,12 @@ namespace AI {
         }
 
         public void Sleep() {
-            Data.needs.Energy.isSleeping = true;
+            Data.needs.Value.Energy.isSleeping = true;
             WorkerAnimator.PlaySleep();
         }
 
         public void WakeUp() {
-            Data.needs.Energy.isSleeping = false;
+            Data.needs.Value.Energy.isSleeping = false;
             WorkerAnimator.ResetToIdle();
         }
         
@@ -140,17 +149,17 @@ namespace AI {
         }
         
         public void StopInteract() {
-            Data.needs.CareData.isTakingCareOf = true;
+            Data.needs.Value.CareData.isTakingCareOf = true;
             WorkerAnimator.ResetToIdle();
         }
         
         public void StartReceiveCare() {
-            Data.needs.CareData.isTakingCareOf = true;
+            Data.needs.Value.CareData.isTakingCareOf = true;
             WorkerAnimator.PlaySleep();
         }
 
         public void StopReceivingCare() {
-            Data.needs.CareData.isTakingCareOf = false;
+            Data.needs.Value.CareData.isTakingCareOf = false;
             WorkerAnimator.ResetToIdle();
         }
 
@@ -174,6 +183,20 @@ namespace AI {
         
         //TODO refactor this
         public Vector2Int PosOnGrid => new(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
+
+        [ClientRpc]
+        public void UpdateNamesDataClientRpc(string settlerName) {
+            Data.names.Name = settlerName;
+        }
+        
+        [ClientRpc]
+        public void UpdateNeedsClientRpc(float hp,Settler_EnergyData energy, Settler_SatietyData satiety, Settler_CareData care, Settler_StressData stress) {
+            Data.needs.Value.Hp = hp;
+            Data.needs.Value.Energy = energy;
+            Data.needs.Value.SatietyData = satiety;
+            Data.needs.Value.CareData = care;
+            Data.needs.Value.StressData = stress;
+        }
     }
 
     public enum DeathCause {

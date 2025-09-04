@@ -9,23 +9,23 @@ public class Action_ConsumeElectricity : BTNode {
 
     public override BTNodeState Evaluate() {
         var target = _settler.Data.targets.ElectricitySource;
-        if (!target.HasElectricity ||_settler.Data.needs.SatietyData.HighSatiety) {
+        if (!target.HasElectricity ||_settler.Data.needs.Value.SatietyData.HighSatiety) {
             _settler.WakeUp();
             _settler.Data.targets.ElectricitySource = null;
             target.DirectChargeCable.Disconnect();
             target.ConnectedSettler=null;
-            _settler.Data.needs.SatietyData.isDrinking = false;
+            _settler.Data.needs.Value.SatietyData.isDrinking = false;
             return _state = BTNodeState.Success;
         }
 
-        if (!_settler.Data.needs.SatietyData.isDrinking) {
-            _settler.Data.needs.SatietyData.isDrinking = true;
+        if (!_settler.Data.needs.Value.SatietyData.isDrinking) {
+            _settler.Data.needs.Value.SatietyData.isDrinking = true;
             _settler.Sleep();
             target.DirectChargeCable.Connect(_settler);
         }
         
         var energyTransferSpeed = _settler.Data.targets.ElectricitySource.DirectChargeSpeed;
-        _settler.Data.needs.SatietyData.currentSatiety += energyTransferSpeed;
+        _settler.Data.needs.Value.SatietyData.currentSatiety += energyTransferSpeed;
         _settler.Data.targets.ElectricitySource.DecreaseElectricity(energyTransferSpeed);
         return _state = BTNodeState.Running;
     }

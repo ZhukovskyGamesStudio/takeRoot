@@ -9,7 +9,7 @@ namespace AI {
 		
 		public void Attack(Settler settler) {
 			if (_timer >= _cooldown) {
-				settler.Data.needs.Hp -= _damage;
+				settler.Data.needs.Value.Hp -= _damage;
 				_timer = 0;
 			}
 		}

@@ -7,15 +7,15 @@ namespace AI.Node.Jobs {
         }
 
         public override BTNodeState Evaluate() {
-            if (!_settler.Data.needs.Energy.isSleeping) {
+            if (!_settler.Data.needs.Value.Energy.isSleeping) {
                 _settler.transform.position = _settler.Data.targets.Bed.SleepPos.position;
-                _settler.Data.needs.Energy.isSleeping = true;
-                _settler.Data.needs.Energy.energyChange = _settler.Data.needs.Energy.onBedEnergyChange;
+                _settler.Data.needs.Value.Energy.isSleeping = true;
+                _settler.Data.needs.Value.Energy.energyChange = _settler.Data.needs.Value.Energy.onBedEnergyChange;
                 _settler.Sleep();
             }
 
-            if (!_settler.Data.needs.Energy.IsTired) {
-                _settler.Data.needs.Energy.energyChange = _settler.Data.needs.Energy.defaultEnergyChange;
+            if (!_settler.Data.needs.Value.Energy.IsTired) {
+                _settler.Data.needs.Value.Energy.energyChange = _settler.Data.needs.Value.Energy.defaultEnergyChange;
                 _settler.transform.position = _settler.Data.targets.Bed.NearPos.position;
                 _settler.WakeUp();
                 _settler.Data.targets.Bed.ReleaseBed();

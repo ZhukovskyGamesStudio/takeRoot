@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2383178216
+  GlobalObjectIdHash: 3724424707
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -585,50 +585,47 @@ MonoBehaviour:
         Race: 0
         Subrace: 0
       needs:
-        Hp: 0
-        MaxHp: 0
-        Energy:
-          maxEnergy: 0
-          currentEnergy: 0
-          tiredThreshold: 0
-          criticalTiredThreshold: 0
-          energyChange: 0
-          defaultEnergyChange: 0
-          onGroundEnergyChange: 0
-          onBedEnergyChange: 0
-          isSleeping: 0
-          bed: {fileID: 0}
-        StressData:
-          maxStress: 0
-          currentStress: 0
-          breakdownStressThreshold: 0
-          breakdownChance: 0
-          breakdownDuration: 0
-          breakdownTimer: 0
-          stressAfterBreakdown: 0
-          stressChange: 0
-          lowSatietyStressChange: 0
-          highSatietyStressChange: 0
-        SatietyData:
-          maxSatiety: 0
-          currentSatiety: 0
-          lowSatietyThreshold: 0
-          highSatietyThreshold: 0
-          satietyChange: 0
-          Cooler: {fileID: 0}
-          ElectricitySource: {fileID: 0}
-          isDrinking: 0
-        CareData:
-          maxCare: 0
-          currentCare: 0
-          lowCareThreshold: 0
-          highCareThreshold: 0
-          defaultCareChange: 0
-          onStationCareChange: 0
-          careChange: 0
-          isTakingCareOf: 0
-          careStation: {fileID: 0}
-      needsUpdateCooldown: 0
+        m_InternalValue:
+          Hp: 100
+          MaxHp: 100
+          Energy:
+            maxEnergy: 100
+            currentEnergy: 0
+            tiredThreshold: 30
+            criticalTiredThreshold: 5
+            energyChange: 0
+            defaultEnergyChange: -1
+            onGroundEnergyChange: 5
+            onBedEnergyChange: 10
+            isSleeping: 0
+          StressData:
+            maxStress: 100
+            currentStress: 0
+            breakdownStressThreshold: 90
+            breakdownChance: 5
+            breakdownDuration: 10
+            breakdownTimer: 1
+            stressAfterBreakdown: 50
+            stressChange: 0
+            lowSatietyStressChange: -1
+            highSatietyStressChange: 2
+          SatietyData:
+            maxSatiety: 100
+            currentSatiety: 0
+            lowSatietyThreshold: 20
+            highSatietyThreshold: 90
+            satietyChange: -1
+            isDrinking: 0
+          CareData:
+            maxCare: 100
+            currentCare: 70
+            lowCareThreshold: 20
+            highCareThreshold: 80
+            defaultCareChange: -1
+            onStationCareChange: 5
+            careChange: 0
+            isTakingCareOf: 0
+      needsUpdateCooldown: 1
       needsUpdateTimer: 0
       craftingTransport:
         resourceToHaul: {fileID: 0}
@@ -643,7 +640,11 @@ MonoBehaviour:
         FarmingPlot: {fileID: 0}
         TimeMachine: {fileID: 0}
         CareStation: {fileID: 0}
+        SitOnCareStation: {fileID: 0}
         DinamoMachine: {fileID: 0}
+        Bed: {fileID: 0}
+        Cooler: {fileID: 0}
+        ElectricitySource: {fileID: 0}
       buildingTransport:
         buildingBlueprint: {fileID: 0}
         resourceToHaul: {fileID: 0}

@@ -27,7 +27,7 @@ namespace AI {
         public Settler_Names names;
 
         [Header("Needs")]
-        public Settler_Needs needs;
+        public NetworkVariable<Settler_Needs> needs = new();
 
         public float needsUpdateCooldown;
         public float needsUpdateTimer;
@@ -54,9 +54,9 @@ namespace AI {
         public float HitTime = 1.3f;
 
         public void Init() {
-            needs.CareData.careChange = needs.CareData.defaultCareChange;
-            needs.Energy.energyChange = needs.Energy.defaultEnergyChange;
-            needs.Energy.currentEnergy = needs.Energy.maxEnergy;
+            needs.Value.CareData.careChange = needs.Value.CareData.defaultCareChange;
+            needs.Value.Energy.energyChange = needs.Value.Energy.defaultEnergyChange;
+            needs.Value.Energy.currentEnergy = needs.Value.Energy.maxEnergy;
         }
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {

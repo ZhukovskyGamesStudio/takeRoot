@@ -26,17 +26,19 @@ public class LevelGenerationService : ILevelGenerationService {
     }
 
     private void GenerateSettlers(float seed) {
-        List<SettlerSelectable> settlers = Object.FindObjectsByType<SettlerSelectable>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+        List<AI.Settler> settlers = Object.FindObjectsByType<AI.Settler>(FindObjectsInactive.Include, FindObjectsSortMode.None)
             .ToList();
-        foreach (SettlerSelectable settler in settlers) {
+        foreach (AI.Settler settler in settlers) {
             Random.InitState((int)seed + settler.GetInstanceID());
-            AI.SettlerData data = settler.GetComponent<AI.Settler>().Data;
+            AI.SettlerData data = settler.Data;
 
             data.names.Name = NamesList[Random.Range(0, NamesList.Count)];
-            data.needs.Hp = Random.Range(data.needs.MaxHp / 4, data.needs.MaxHp);
-            data.needs.CareData.currentCare = Random.Range(data.needs.CareData.maxCare / 2, data.needs.CareData.maxCare);
-            data.needs.SatietyData.currentSatiety = Random.Range(data.needs.SatietyData.maxSatiety / 2, data.needs.SatietyData.maxSatiety);
-            data.needs.StressData.currentStress = Random.Range(0, data.needs.StressData.maxStress * 3 / 4);
+            settler.UpdateNamesDataClientRpc(data.names.Name);
+            
+            data.needs.Value.Hp = Random.Range(data.needs.Value.MaxHp / 4f, data.needs.Value.MaxHp);
+            data.needs.Value.CareData.currentCare = Random.Range(data.needs.Value.CareData.maxCare / 2f, data.needs.Value.CareData.maxCare);
+            data.needs.Value.SatietyData.currentSatiety = Random.Range(data.needs.Value.SatietyData.maxSatiety / 2f, data.needs.Value.SatietyData.maxSatiety);
+            data.needs.Value.StressData.currentStress = Random.Range(0, data.needs.Value.StressData.maxStress * 3f / 4);
         }
     }
 

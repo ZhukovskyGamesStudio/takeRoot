@@ -7,14 +7,14 @@ namespace AI.Node.Jobs {
         }
 
         public override BTNodeState Evaluate() {
-            if (!_settler.Data.needs.CareData.isTakingCareOf) {
+            if (!_settler.Data.needs.Value.CareData.isTakingCareOf) {
                 _settler.TeleportToPos(_settler.Data.targets.SitOnCareStation.CarePos.position);
-                _settler.Data.needs.CareData.isTakingCareOf = true;
+                _settler.Data.needs.Value.CareData.isTakingCareOf = true;
                 _settler.Data.targets.SitOnCareStation.CareSettlerReady = true;
                 _settler.StartReceiveCare();
             }
 
-            if (_settler.Data.needs.CareData.HighCare) {
+            if (_settler.Data.needs.Value.CareData.HighCare) {
                 _settler.TeleportToPos(_settler.Data.targets.SitOnCareStation.NearPos.position);
                 _settler.StopReceivingCare();
                 _settler.Data.targets.SitOnCareStation.ReleaseCareSettler();

@@ -28,7 +28,7 @@ public class CareStation : MonoBehaviour {
     }
 
     public void AddCare() {
-        _settler.Data.needs.CareData.currentCare += _settler.Data.needs.CareData.onStationCareChange;
+        _settler.Data.needs.Value.CareData.currentCare += _settler.Data.needs.Value.CareData.onStationCareChange;
     }
 
     public void SetCaregiverSettler(AI.Settler settler) {

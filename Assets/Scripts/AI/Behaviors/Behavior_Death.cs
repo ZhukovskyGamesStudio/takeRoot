@@ -6,11 +6,11 @@ namespace AI.Behaviors {
         public Behavior_Death(Settler settler) {
             AddChild(new Conditional(() => !Settler.Immortal));
             Sequence hungerDeath = new Sequence()
-                .AddChild(new Conditional(() => settler.Data.needs.SatietyData.currentSatiety == 0))
+                .AddChild(new Conditional(() => settler.Data.needs.Value.SatietyData.currentSatiety == 0))
                 .AddChild(new Action_Die(settler, DeathCause.Hunger));
             
             Sequence careDeath = new Sequence()
-                .AddChild(new Conditional(() => settler.Data.needs.CareData.currentCare == 0))
+                .AddChild(new Conditional(() => settler.Data.needs.Value.CareData.currentCare == 0))
                 .AddChild(new Action_Die(settler, DeathCause.Care));
             
             Selector behaviour = new Selector()
