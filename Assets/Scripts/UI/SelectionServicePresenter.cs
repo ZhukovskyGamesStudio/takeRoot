@@ -27,7 +27,7 @@ public class SelectionServicePresenter : IDisposable, IUpdatable {
             if (data is AI.SettlerData settlerData) {
                 _settlerPanel.gameObject.SetActive(true);
                 _infoPanelView.gameObject.SetActive(false);
-                _settlerPanel.SetData(settlerData, Unselect);
+                _settlerPanel.SetData(settlerData, selectable.gameObject, Unselect);
             } else {
                 _settlerPanel.gameObject.SetActive(false);
                 _infoPanelView.gameObject.SetActive(true);

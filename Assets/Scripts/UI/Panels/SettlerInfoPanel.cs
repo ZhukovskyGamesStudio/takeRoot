@@ -27,13 +27,27 @@ public class SettlerInfoPanel : MonoBehaviour {
     private Gradient _hpGradient, _stressGradient;
 
     [SerializeField]
+    private Transform _settlerCamera;
+
+    [SerializeField]
     private SerializedDictionary<SettlerCondition, Sprite> _conditionSprites;
 
+    [SerializeField]
+    private int _settlerRenderLayer, _settlerDefaultLayer;
+    
     private AI.SettlerData _settlerData;
     private Action _onClose;
+    private GameObject _settlerObject;
 
-    public void SetData(AI.SettlerData settlerData, Action onClose) {
+    public void SetData(AI.SettlerData settlerData, GameObject settlerObject, Action onClose) {
+        if (_settlerObject != null) {
+            SetSettlerLayer(_settlerObject, _settlerDefaultLayer);
+        }
+        
         _settlerData = settlerData;
+        _settlerObject = settlerObject;
+
+        SetSettlerLayer(_settlerObject, _settlerRenderLayer);
 
         _onClose = onClose;
 
@@ -45,6 +59,13 @@ public class SettlerInfoPanel : MonoBehaviour {
         UpdateData();
     }
 
+    private void SetSettlerLayer(GameObject settler, int layer) {
+        settler.layer = layer;
+        foreach (Transform child in settler.transform) {
+            SetSettlerLayer(child.gameObject, layer);
+        }
+    }
+
     public void Close() {
         _onClose.Invoke();
     }
@@ -52,7 +73,7 @@ public class SettlerInfoPanel : MonoBehaviour {
     public void UpdateData() {
         _nameText.text = _settlerData.names.Name;
 
-        float hp = (float)_settlerData.needs.Value.Hp / _settlerData.needs.Value.MaxHp;
+        float hp = _settlerData.needs.Value.Hp / _settlerData.needs.Value.MaxHp;
         float stress = 1 - _settlerData.needs.Value.StressData.Percentage;
         float satiety = _settlerData.needs.Value.SatietyData.Percentage;
         float energy = _settlerData.needs.Value.Energy.Percentage;
@@ -66,6 +87,8 @@ public class SettlerInfoPanel : MonoBehaviour {
 
         _hpFill.color = _hpGradient.Evaluate(hp);
         _stressFill.color = _stressGradient.Evaluate(stress);
+        
+        _settlerCamera.position = _settlerObject.transform.position + new Vector3(0, 0.5f, -10);
 
         _typeText.text = _settlerData.names.Subrace switch {
             Subrace.Chamomile => "Ромашка",
