@@ -3049,14 +3049,6 @@ PrefabInstance:
       propertyPath: _robotsImage
       value: 
       objectReference: {fileID: 8676811824943039757}
-    - target: {fileID: 5519491075964373344, guid: 6f0ebff9e42cb8a4f849553f6b1c2768, type: 3}
-      propertyPath: GlobalObjectIdHash
-      value: 3619536695
-      objectReference: {fileID: 0}
-    - target: {fileID: 5519491075964373344, guid: 6f0ebff9e42cb8a4f849553f6b1c2768, type: 3}
-      propertyPath: SceneMigrationSynchronization
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6782516736372978212, guid: 6f0ebff9e42cb8a4f849553f6b1c2768, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3136,10 +3128,6 @@ PrefabInstance:
     - target: {fileID: 6782516736372978212, guid: 6f0ebff9e42cb8a4f849553f6b1c2768, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7051813543588969044, guid: 6f0ebff9e42cb8a4f849553f6b1c2768, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 42.385742
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
