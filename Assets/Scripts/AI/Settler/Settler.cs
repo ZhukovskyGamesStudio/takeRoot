@@ -17,6 +17,8 @@ namespace AI {
         public NetworkVariable<SettlerData> NetworkData;
         public SettlerData Data => NetworkData.Value;
 
+        public Race Race => Data.names.Race;
+
         public IMovable Mover;
         public ISearcher Searcher;
         public IPlanter Farmer;

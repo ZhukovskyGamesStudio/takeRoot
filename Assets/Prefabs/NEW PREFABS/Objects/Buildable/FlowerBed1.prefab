@@ -116,6 +116,10 @@ PrefabInstance:
       propertyPath: _drop.Array.data[0].amount
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3022492300764533728, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2705339682
+      objectReference: {fileID: 0}
     - target: {fileID: 3575029597453831756, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Size.x
       value: 1.4055694
@@ -202,15 +206,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6692009469353226330, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: 1.2396
       objectReference: {fileID: 0}
     - target: {fileID: 7625625603824231622, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7625625603824231622, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -250,6 +254,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4024da8586f4c79be7f9afa7c9e5519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _settler: {fileID: 0}
+  <Race>k__BackingField: 1
   SleepPos: {fileID: 149901605007077018}
   NearPos: {fileID: 1940747106609110402}

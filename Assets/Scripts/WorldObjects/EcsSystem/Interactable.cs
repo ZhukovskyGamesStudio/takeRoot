@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-
+[Obsolete]
 public class Interactable : ECSComponent, ISelectable {
     [SerializeField]
     private Vector2Int _interactableShift;
