@@ -57,7 +57,7 @@ public class Farmer : MonoBehaviour, IPlanter {
                 break;
             }
 
-            target.Harvest();
+            target.HarvestServerRpc();
         }
     }
 

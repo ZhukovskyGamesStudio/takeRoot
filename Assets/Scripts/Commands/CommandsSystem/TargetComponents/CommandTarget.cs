@@ -140,11 +140,11 @@ public class CommandTarget : NetworkBehaviour {
 
     //Water
     public void Dry(float amount) {
-        _waterLevel.Dry(amount);
+        _waterLevel.DryServerRpc(amount);
     }
 
     public void Water(float amount) {
-        _waterLevel.ChangeWater(amount);
+        _waterLevel.ChangeWaterServerRpc(amount);
     }
 
     public bool EnoughWater => _waterLevel.EnoughWater;

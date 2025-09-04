@@ -11,6 +11,7 @@ public class AdminManager : MonoBehaviour {
     private NetworkDataHolder _networkDataHolder;
 
     public static bool IsFakeOnline;
+    public static bool IsInstaBuild = true;
 
     private void Awake() {
         DontDestroyOnLoad(gameObject);
@@ -24,6 +25,10 @@ public class AdminManager : MonoBehaviour {
 
     public void SwitchImmortal(bool isOn) {
         AI.Settler.Immortal = isOn;
+    }
+    
+    public void SwitchInstaBuild(bool isOn) {
+        IsInstaBuild = isOn;
     }
 
     public void UnlockPause() {

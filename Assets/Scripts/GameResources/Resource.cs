@@ -24,6 +24,13 @@ namespace GameResources {
             Amount = amount;
             _amountText.text = amount.ToString();
             _resourceManager = ServiceLocator.Container.Single<IResourceManager>();
+            UpdateCountClientRpc(Amount);
+        }
+
+        [ClientRpc]
+        private void UpdateCountClientRpc(int amount) {
+            Amount = amount;
+            _amountText.text = amount.ToString();
         }
 
         public void PickUp(int amount) {
@@ -32,13 +39,9 @@ namespace GameResources {
             _amountText.text = Amount.ToString();
             if (Amount == 0) {
                 _resourceManager.DestroyResource(transform.position);
+            } else {
+                UpdateCountClientRpc(Amount);
             }
         }
-    }
-
-    [Serializable]
-    public class ResourcesData {
-        public ResourceType type;
-        public int amount;
     }
 }

@@ -206,8 +206,13 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
         _buildingService.PlaceBlueprint(this);
         MoveToMouseServerRpc(transform.position);
         SetPlacedClientRpc();
-    }
 
+        if (AdminManager.IsInstaBuild) {
+            _buildPoints += 100000;
+            Build();
+        }
+    }
+    
     [ClientRpc]
     private void SetPlacedClientRpc() {
         IsPlaced = true;
