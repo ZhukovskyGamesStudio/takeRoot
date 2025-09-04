@@ -16,6 +16,7 @@ public class ConfigsProvider : IConfigsProvider {
     public IngameTimeConfig IngameTimeConfig { get; set; }
     public List<OccurenceConfig> OccurenceConfigs { get; set; }
     public OccurenceMainConfig OccurenceMainConfig { get; set; }
+    public FogOfWarConfig FogOfWarConfig { get; set; }
 
     public ConfigsProvider() {
         CacheConfigs();
@@ -32,6 +33,7 @@ public class ConfigsProvider : IConfigsProvider {
         CameraMovementConfig = Resources.LoadAll<CameraMovementConfig>("Configs").FirstOrDefault();
         WorldConfig = Resources.LoadAll<WorldConfig>("Configs").FirstOrDefault();
         IngameTimeConfig = Resources.LoadAll<IngameTimeConfig>("Configs").FirstOrDefault();
+        FogOfWarConfig = Resources.LoadAll<FogOfWarConfig>("Configs").FirstOrDefault();
         
         OccurenceMainConfig = Resources.LoadAll<OccurenceMainConfig>("Configs").FirstOrDefault();
         OccurenceConfigs = Resources.LoadAll<OccurenceConfig>("Configs/Occurencies").ToList();

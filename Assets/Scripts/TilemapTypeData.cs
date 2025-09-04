@@ -25,5 +25,7 @@ public enum TilemapType {
     Sidewalk,
     Floor,
     Water,
-    Other
+    Other,
+    FogOfWarBlack,
+    FogOfWarGrey
 }

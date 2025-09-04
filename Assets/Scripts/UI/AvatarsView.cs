@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AvatarsView : MonoBehaviour {
     [SerializeField]
@@ -7,8 +9,9 @@ public class AvatarsView : MonoBehaviour {
 
     [SerializeField]
     private AvatarView _settlerViewPrefab;
-
-    public void InitSettlers(IEnumerable<AI.Settler> settlers) {
+    [SerializeField]
+    private ToggleGroup _toggleGroup;
+    public void InitSettlers(IEnumerable<AI.Settler> settlers, Action<SettlerSelectable> onSelectSettler) {
         foreach (Transform child in _settlersContainer) {
             Destroy(child.gameObject);
         }
@@ -16,7 +19,7 @@ public class AvatarsView : MonoBehaviour {
         foreach (AI.Settler settler in settlers) {
             AvatarView newSettler = Instantiate(_settlerViewPrefab, _settlersContainer);
 
-            newSettler.Init(settler.Data);
+            newSettler.Init(settler,onSelectSettler,_toggleGroup);
         }
     }
 

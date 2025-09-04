@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7630b61f904cecb56d614ff636b6ce, type: 3}
+  m_Name: FogOfWarConfig
+  m_EditorClassIdentifier: 
+  <BlackTile>k__BackingField: {fileID: 11400000, guid: 94e610e28dafb7d4780f77332cf827bc, type: 2}
+  <GreyTile>k__BackingField: {fileID: 11400000, guid: 65f652c3677b23846b8f96f786c06daa, type: 2}
+  <ViewRadius>k__BackingField: 3
+  <UpdateFogCooldown>k__BackingField: 1

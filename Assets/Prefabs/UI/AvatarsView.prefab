@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3795913214118435115}
   - component: {fileID: 6471667962666228470}
   - component: {fileID: 373900074668380298}
+  - component: {fileID: 1718586565820315441}
   m_Layer: 5
   m_Name: AvatarsView
   m_TagString: Untagged
@@ -77,3 +78,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settlersContainer: {fileID: 3795913214118435115}
   _settlerViewPrefab: {fileID: 2742164233151228586, guid: 625bfdb8c9bdc354bbaeed240e9e9234, type: 3}
+  _toggleGroup: {fileID: 1718586565820315441}
+--- !u!114 &1718586565820315441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7537410968186068982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fafe2cfe61f6974895a912c3755e8f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AllowSwitchOff: 1

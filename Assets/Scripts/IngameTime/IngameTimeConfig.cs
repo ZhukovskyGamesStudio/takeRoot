@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "IngameTimeConfig", menuName = "Scriptable Objecst/IngameTimeConfig", order = 0)]
+[CreateAssetMenu(fileName = "IngameTimeConfig", menuName = "Scriptable Objects/IngameTimeConfig", order = 0)]
 public class IngameTimeConfig : ScriptableObject {
     [field: SerializeField]
     [Min(0)]
@@ -13,7 +13,6 @@ public class IngameTimeConfig : ScriptableObject {
     [field: SerializeField]
     [Range(0, 1f)]
     public float DaytimePercent;
-    
-    
+
     public Gradient DaynightLightColorGradient;
 }
