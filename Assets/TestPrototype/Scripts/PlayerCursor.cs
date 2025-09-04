@@ -13,6 +13,7 @@ public class PlayerCursor : NetworkBehaviour {
     private Sprite _undecidedCursor, _roboCursor, _plantsCursor;
 
     private readonly NetworkVariable<CursorNetworkData> _netData = new(writePerm: NetworkVariableWritePermission.Owner);
+    private bool _isSubscribed;
 
     private void Update() {
         if (IsOwner) {
@@ -42,17 +43,20 @@ public class PlayerCursor : NetworkBehaviour {
     }
 
     private void SubscribeToRaceChange() {
-        Debug.Log("SubscribeToRaceChange");
+        if (_isSubscribed) {
+            return;
+        }
+
+        _isSubscribed = true;
+
         NetworkDataHolder raceSelection = NetworkDataHolder.Instance;
         raceSelection.MainGameNetworkData.HostRace.OnValueChanged += (_, newValue) => {
-            Debug.Log("Player1Race changed");
             if (OwnerClientId == 0) {
                 SetCursorByRaceInternal(newValue);
             }
         };
 
         raceSelection.MainGameNetworkData.ClientRace.OnValueChanged += (_, newValue) => {
-            Debug.Log("Player2Race changed");
             if (OwnerClientId == 1) {
                 SetCursorByRaceInternal(newValue);
             }
@@ -60,7 +64,6 @@ public class PlayerCursor : NetworkBehaviour {
     }
 
     private void SetCursorByRaceInternal(Race race) {
-        Debug.Log($"SetCursorByRaceInternal: {race} owner: {IsOwner} id: {OwnerClientId}");
         if (IsOwner) {
             CursorManager.Instance.SetCursorByRace(race);
         } else {

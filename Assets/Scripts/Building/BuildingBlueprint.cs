@@ -50,13 +50,11 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
         _buildingService = ServiceLocator.Container.Single<IBuildingService>();
         _input = ServiceLocator.Container.Single<IInputService>();
         _gridObject = GetComponent<GridObject>();
-        Debug.Log("Awake BuildingBlueprint");
         _camera = Camera.main;
     }
 
     [ClientRpc]
     public void InitClientRpc(string biuldingName, Race placedByRace) {
-        Debug.Log("Init BuildingBlueprintRpc ");
         _placedByRace = placedByRace;
         IsPlaced = false;
         var cnfg = ServiceLocator.Container.Single<IConfigsProvider>().BuildingsBlueprintsConfigs.First(c => c.mainInfo.Name == biuldingName);
@@ -64,8 +62,6 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
     }
 
     public void Init(BuildingRecipeConfig config) {
-        Debug.Log("Init BuildingBlueprint");
-
         _commandTarget.Data.MainInfoData = config.mainInfo;
         _progressBar.ProgressData.Needed = config.RequiredBuildPoints;
 
@@ -129,7 +125,6 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
         }
 
         if (_networkService.MyRace.Value != _placedByRace) {
-            Debug.Log($"not moving cause not owner, me {_networkService.MyRace.Value} placed by {_placedByRace}");
             return;
         }
 
@@ -212,7 +207,7 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
             Build();
         }
     }
-    
+
     [ClientRpc]
     private void SetPlacedClientRpc() {
         IsPlaced = true;
