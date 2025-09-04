@@ -6,20 +6,41 @@ using UnityEngine.UI;
 
 public class ChooseRacePanel : MonoBehaviour {
     [SerializeField]
-    private Button _readyButton;
+    private Button _readyButton, _plantsButton, _robotsButton;
+
+    [SerializeField]
+    private Image _plantsImage, _robotsImage;
 
     [SerializeField]
     private TextMeshProUGUI _readyAmount;
 
     private NetworkDataHolder NetworkDataHolder => NetworkDataHolder.Instance;
 
+    private string _readyAmountText;
+
     public void ChooseRace(int raceIndex) {
         Race race = (Race)raceIndex;
         NetworkDataHolder.ChooseClientRaceServerRpc(NetworkManager.Singleton.IsHost ? 1 : 2, race);
+
+        _plantsImage.enabled = _robotsImage.enabled = false;
+        _plantsButton.interactable = _robotsButton.interactable = true;
+
+        if (race == Race.Plants) {
+            _plantsImage.enabled = true;
+            _plantsButton.interactable = false;
+        }
+        else if (race == Race.Robots) {
+            _robotsImage.enabled = true;
+            _robotsButton.interactable = false;
+        }
     }
 
     public void SetReady() {
         NetworkDataHolder.SetClientReadyServerRpc(NetworkManager.Singleton.IsHost ? 1 : 2);
+    }
+
+    private void Awake() {
+        _readyAmountText = _readyAmount.text;
     }
 
     private void Update() {
@@ -48,7 +69,7 @@ public class ChooseRacePanel : MonoBehaviour {
             amount++;
         }
 
-        _readyAmount.text = $"{amount}/2";
+        _readyAmount.text = _readyAmountText + $"{amount}/2";
     }
 }
 
