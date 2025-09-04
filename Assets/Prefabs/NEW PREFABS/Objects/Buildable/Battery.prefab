@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1264854463339810107
 Transform:
   m_ObjectHideFlags: 0
@@ -150,7 +150,7 @@ Transform:
   m_GameObject: {fileID: 1830328926989673177}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.907, y: 0.579, z: 0}
+  m_LocalPosition: {x: 0.906, y: -0.032, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -169,6 +169,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3591c9a60f7c4b5296b515d9bd7d82bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _lineRenderer: {fileID: 2708752974103103003}
   _segments: 14
   _sagAmount: 0.5
@@ -569,7 +570,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.65625, y: 2.32812}
+  m_AnchoredPosition: {x: 0.65625, y: 1.715}
   m_SizeDelta: {x: 22, y: 7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4528973043746099369
@@ -705,6 +706,10 @@ PrefabInstance:
       propertyPath: _drop.Array.data[0].amount
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3022492300764533728, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2993670789
+      objectReference: {fileID: 0}
     - target: {fileID: 3575029597453831756, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Size.x
       value: 1.9702394
@@ -791,7 +796,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6692009469353226330, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.409
+      value: 0.201
       objectReference: {fileID: 0}
     - target: {fileID: 7625625603824231622, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -855,7 +860,6 @@ MonoBehaviour:
     Title: "\u041D\u0430\u043A\u043E\u043F\u043B\u0435\u043D\u043D\u044B\u0439 \u0437\u0430\u0440\u044F\u0434"
     InfoViewEnabled: 1
   _linkedSlider: {fileID: 5004747320760550926}
-  a: 1
 --- !u!114 &7042911103670071435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,6 +872,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b6f54e55f6b4112b526520ffeca0295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   maxElectricity: 500
   CanDirectlyCharge: 1
   ConnectedSettler: {fileID: 0}

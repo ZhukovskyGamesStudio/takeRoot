@@ -1,6 +1,8 @@
+using System.Linq;
+using Unity.Netcode;
 using UnityEngine;
 
-public class DirectChargeCable : MonoBehaviour {
+public class DirectChargeCable : NetworkBehaviour {
     [SerializeField]
     private LineRenderer _lineRenderer;
 
@@ -23,14 +25,36 @@ public class DirectChargeCable : MonoBehaviour {
     private GradientAlphaKey[] _alphaKeys;
 
     public void Connect(AI.Settler settler) {
+        ConnectCable(settler);
+        ConnectClientRpc(settler.PosOnGrid, settler.Data.names.Name);
+    }
+
+    private void ConnectCable(AI.Settler settler) {
         gameObject.SetActive(true);
         _target = settler.transform;
     }
 
+    [ClientRpc]
+    private void ConnectClientRpc(Vector2Int pos, string settlerName) {
+        AI.Settler s = FindObjectsByType<AI.Settler>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+            .First(s => s.PosOnGrid == pos && s.Data.names.Name == settlerName);
+        ConnectCable(s);
+    }
+
     public void Disconnect() {
+        DisconnectCable();
+        DisconnectClientRpc();
+    }
+
+    private void DisconnectCable() {
         gameObject.SetActive(false);
         _target = null;
         _lineRenderer.positionCount = 0;
+    }
+
+    [ClientRpc]
+    private void DisconnectClientRpc() {
+        DisconnectCable();
     }
 
     private void Awake() {
@@ -49,6 +73,11 @@ public class DirectChargeCable : MonoBehaviour {
         _gradient.SetKeys(_colorKeys, _alphaKeys);
     }
 
+    public override void OnNetworkSpawn() {
+        base.OnNetworkSpawn();
+        gameObject.SetActive(false);
+    }
+
     private void Update() {
         if (_target == null) {
             return;
@@ -63,6 +92,7 @@ public class DirectChargeCable : MonoBehaviour {
             Vector3 pos = GetCablePoint(start, end, t);
             _lineRenderer.SetPosition(i, pos);
         }
+
         _progress += Time.deltaTime * _speed;
         if (_progress > 1f) {
             _progress = 0f;
@@ -84,7 +114,7 @@ public class DirectChargeCable : MonoBehaviour {
         _lineRenderer.colorGradient = _gradient;
         _gradient.SetKeys(_colorKeys, _alphaKeys);
     }
-    
+
     private Vector3 GetCablePoint(Vector3 start, Vector3 end, float t) {
         Vector3 pos = Vector3.Lerp(start, end, t);
         float sag = Mathf.Sin(t * Mathf.PI) * _sagAmount;
