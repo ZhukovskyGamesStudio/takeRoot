@@ -14,6 +14,7 @@ public class FogOfWarService : IFogOfWarService, IUpdatable {
     private Tilemap _blackTilemap, _greyTilemap;
     private RectInt _gridSize;
 
+    private float _cooldown;
     public FogOfWarService(IConfigsProvider configsProvider, IUpdateService updateService, ISettlersService settlersService,
         INetworkService networkService) {
         _updateService = updateService;
@@ -182,8 +183,17 @@ public class FogOfWarService : IFogOfWarService, IUpdatable {
         _updateService.Unregister(this);
     }
 
+    
     public void Update() {
-        //TODO add timer
-        FindAllBlockingViews();
+
+        _cooldown += Time.deltaTime;
+
+        if (_cooldown >= _config.UpdateFogCooldown) {
+            _cooldown = 0;
+            FindAllBlockingViews();
+            foreach (AI.Settler settler in _settlersService.MySettlers(_networkService.MyRace.Value)) {
+                OpenAroundMovedSettler(settler);
+            }
+        }
     }
 }

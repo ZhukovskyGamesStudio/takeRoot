@@ -11,4 +11,8 @@ public class FogOfWarConfig : ScriptableObject {
     [field: SerializeField]
     [Min(1)]
     public int ViewRadius { get; private set; }
+    
+    [field: SerializeField]
+    [Min(0)]
+    public int UpdateFogCooldown { get; private set; }
 }
