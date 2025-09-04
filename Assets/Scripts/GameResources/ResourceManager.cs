@@ -38,6 +38,24 @@ public class ResourcesManager : IResourceManager {
 		r.Init(amount);
 	}
 
+	public void SpawnRandomResources(Vector3 at, int amount) {
+		Dictionary<ResourceType, int> totalResources = new Dictionary<ResourceType, int>();
+		for (int i = 0; i < amount; i++) {
+			var type = GetRandomResourceType();
+			if (totalResources.TryGetValue(type, out _)) {
+				totalResources[type]++;
+			} else {
+				totalResources.Add(type, 1);
+			}
+		}
+		foreach (var kvp in totalResources) {
+			var type = kvp.Key;
+			var amountToSpawn = kvp.Value;
+			SpawnResource(at, type, amountToSpawn);
+		}
+
+	}
+
 	public void DestroyResource(Vector3 at) {
 		var resource = ExistingResourcesOnGround[at];
 		ExistingResourcesOnGround.Remove(at);
@@ -55,6 +73,7 @@ public class ResourcesManager : IResourceManager {
 	}
 
 	//TODO optimize this
+
 	public Dictionary<ResourceType, int> TotalResources() {
 		Dictionary<ResourceType, int> totalResources = new();
 		foreach (KeyValuePair<Vector3, Resource> resource in ExistingResourcesOnGround) {
