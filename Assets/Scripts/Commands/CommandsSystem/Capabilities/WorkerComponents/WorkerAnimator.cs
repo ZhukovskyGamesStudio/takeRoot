@@ -118,5 +118,6 @@ public enum AnimatorState {
     Water,
     Search,
     Jump,
-    Sleep
+    Sleep,
+    Attack
 }
