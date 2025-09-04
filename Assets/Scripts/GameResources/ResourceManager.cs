@@ -5,6 +5,7 @@ using GameResources;
 using Unity.Netcode;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using Random = UnityEngine.Random;
 
 public class ResourcesManager : IResourceManager {
     private readonly ResourcesConfig _config;
@@ -98,5 +99,37 @@ public class ResourcesManager : IResourceManager {
 
     private Resource GetPrefabByType(ResourceType type) {
         return ResourcesPrefabs.FirstOrDefault(r => r.Type == type);
+    }
+    public void SpawnRandomResources(Vector3 at, int amount) {
+        Dictionary<ResourceType, int> totalResources = new Dictionary<ResourceType, int>();
+        for (int i = 0; i < amount; i++) {
+            var type = GetRandomResourceType();
+            if (totalResources.TryGetValue(type, out _)) {
+                totalResources[type]++;
+            } else {
+                totalResources.Add(type, 1);
+            }
+        }
+        foreach (var kvp in totalResources) {
+            var type = kvp.Key;
+            var amountToSpawn = kvp.Value;
+            SpawnResource(at, type, amountToSpawn);
+        }
+
+    }
+
+    private ResourceType GetRandomResourceType() {
+        var total = _config.TotalWeight;
+        var point = 0;
+        var n = Random.Range(0, total);
+        foreach (var kvp in _config.ResourceWeights) {
+            var type = kvp.Key;
+            var weight = kvp.Value;
+            point += weight;
+            if (n < point) {
+                return type;
+            }
+        }
+        return ResourceType.None;
     }
 }
