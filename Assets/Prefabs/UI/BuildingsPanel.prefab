@@ -1511,6 +1511,7 @@ GameObject:
   - component: {fileID: 5041057250249588221}
   - component: {fileID: 2505781262674210038}
   - component: {fileID: 2114332651599085340}
+  - component: {fileID: 199876065352392754}
   - component: {fileID: 8707196228383959543}
   m_Layer: 5
   m_Name: BuildingsPanel
@@ -1580,6 +1581,31 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &199876065352392754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2711729031930720770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 3487945906
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!114 &8707196228383959543
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1592,8 +1618,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82bc408b3eef46fcb42a40b8634fca4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _itemPrefab: {fileID: 8456580955413782065, guid: 0f938a8ffeb246440b83bd6ddd5042d7, type: 3}
   _gridItemsContainer: {fileID: 8092143229331367805}
+  _categoryHeader: {fileID: 8609388913290360230}
   _shownAmount: 9
   _toggleGroup: {fileID: 6192043490664926000}
   _infoPage: {fileID: 6861311943086354212}
@@ -1607,6 +1635,16 @@ MonoBehaviour:
       Value: {fileID: 8605818216130842328}
     - Key: 4
       Value: {fileID: 5495639234612058722}
+  _categoryNames:
+    _serializedList:
+    - Key: 0
+      Value: "\u041E\u0431\u0449\u0435\u0435"
+    - Key: 1
+      Value: "\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435 \u0438 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0430"
+    - Key: 2
+      Value: "\u041C\u0435\u0431\u0435\u043B\u044C \u0438 \u0434\u0435\u043A\u043E\u0440"
+    - Key: 4
+      Value: "\u0421\u0442\u0430\u043D\u0446\u0438\u0438"
   _mockRecipeConfigs:
   - {fileID: 11400000, guid: fbeb4a5718301b74885a2e34d4efd8af, type: 2}
   - {fileID: 11400000, guid: d10323ac4df1cfd4597e27b4c5218191, type: 2}
@@ -2714,7 +2752,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 4753597958420227849}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.091319256
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4547,8 +4585,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -31.97998, y: 160.50766}
-  m_SizeDelta: {x: 200, y: 25.3498}
+  m_AnchoredPosition: {x: 9.1859, y: 160.50766}
+  m_SizeDelta: {x: 282.33, y: 25.3498}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5896613451159256661
 CanvasRenderer:
@@ -4578,7 +4616,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u041C\u0415\u0411\u0415\u041B\u042C \u0418 \u0414\u0415\u041A\u041E\u0420"
+  m_text: "\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435 \u0438 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0430"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e7898c32cffa5be449e08ef3446f8980, type: 2}
   m_sharedMaterial: {fileID: -7955209605551297342, guid: e7898c32cffa5be449e08ef3446f8980, type: 2}

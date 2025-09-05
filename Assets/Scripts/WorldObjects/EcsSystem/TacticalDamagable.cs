@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using WorldObjects;
 
+[Obsolete]
 public class TacticalDamagable : ECSComponent {
     [field: SerializeField]
     public int Health { get; private set; }

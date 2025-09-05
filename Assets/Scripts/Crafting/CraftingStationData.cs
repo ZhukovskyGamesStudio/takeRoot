@@ -7,6 +7,7 @@ using UnityEngine;
 [Serializable]
 public class CraftingStationData {
     public List<CraftingRecipeConfig> AvailableCraftingRecipes;
+    public CraftingStation Station;
 
     [HideInInspector]
     public AYellowpaper.SerializedCollections.SerializedDictionary<ResourceType, int> ResourceStorage;
@@ -23,7 +24,8 @@ public class CraftingStationData {
     [HideInInspector]
     public int CurrentRecipeCraftingPoints;
 
-    public void Init() {
+    public void Init(CraftingStation station) {
+        Station = station;
         ResourceStorage = new AYellowpaper.SerializedCollections.SerializedDictionary<ResourceType, int>();
         RequiredResources = new Dictionary<ResourceType, int>();
         RecipesToCraft = new Dictionary<ResourceType, int>();
@@ -65,9 +67,12 @@ public class CraftingStationData {
         }
 
         RecipesToCraft[recipeRes]--;
-        if (CurrentRecipe.ResultingResource.ResourceType == recipeRes && RecipesToCraft[recipeRes] == 0) {
-            CurrentRecipe = null;
+        if (CurrentRecipe != null) {
+            if (CurrentRecipe.ResultingResource.ResourceType == recipeRes && RecipesToCraft[recipeRes] == 0) {
+                CurrentRecipe = null;
+            }
         }
+        
 
         foreach (ResourceData resource in recipe.RequiredResources) {
             RequiredResources[resource.ResourceType] -= resource.Amount;

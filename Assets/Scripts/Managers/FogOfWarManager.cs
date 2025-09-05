@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+[Obsolete]
 public class FogOfWarManager : MonoBehaviour, IInitableInstance {
     [SerializeField]
     private Tilemap _blackTilemap, _greyTilemap;

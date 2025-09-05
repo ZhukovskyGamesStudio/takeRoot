@@ -89,6 +89,10 @@ PrefabInstance:
       propertyPath: _drop.Array.data[0].amount
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3022492300764533728, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3722700849
+      objectReference: {fileID: 0}
     - target: {fileID: 3575029597453831756, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Size.x
       value: 2.2819238
@@ -195,6 +199,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8947793090241108815}
+    - targetCorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6707349860042228283}
   m_SourcePrefab: {fileID: 100100000, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
 --- !u!4 &1940747106609110402 stripped
 Transform:
@@ -218,15 +225,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2e6879983e456388256cc8cb662124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   <StationData>k__BackingField:
     AvailableCraftingRecipes:
     - {fileID: 11400000, guid: eb2c9802315981d4fb2986e891dff5a1, type: 2}
     - {fileID: 11400000, guid: ac35a84f77a1dc545b4e76421e02452e, type: 2}
+    Station: {fileID: 0}
     ResourceStorage:
       _serializedList: []
     CurrentRecipe: {fileID: 0}
     CurrentRecipeCraftingPoints: 0
   _progressData: {fileID: 8947793090241108815}
+  _storage: {fileID: 6707349860042228283}
   Crafters:
     _serializedList: []
   InteractPos:
@@ -244,7 +254,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ProgressData>k__BackingField:
-    Progress: 0
+    Progress:
+      value: 0
     Needed: 0
     Title: 
-    Enabled: 0
+    InfoViewEnabled: 1
+  _linkedSlider: {fileID: 0}
+--- !u!114 &6707349860042228283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626318561151303953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6372d345c46642858df988b8a811912e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <StorageData>k__BackingField:
+    Resources:
+    - ResourceType: 0
+      Amount: 0
+    - ResourceType: 0
+      Amount: 0
+    - ResourceType: 0
+      Amount: 0
+    - ResourceType: 0
+      Amount: 0

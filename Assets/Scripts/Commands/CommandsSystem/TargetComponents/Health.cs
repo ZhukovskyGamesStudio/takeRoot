@@ -3,12 +3,15 @@ using System;
 using System.Collections.Generic;
 using CodeBase.Services;
 using GameResources;
+using Unity.Netcode;
 
-public class Health : MonoBehaviour {
+public class Health : NetworkBehaviour {
     [Header("Health Settings")]
     public float maxHealth = 100f;
+
     [HideInInspector]
     public float currentHealth;
+
     private IResourceManager _resources;
 
     [SerializeField]
@@ -32,12 +35,18 @@ public class Health : MonoBehaviour {
     }
 
     public void Die() {
+        Debug.Log($"Die called. IsServer={NetworkManager.Singleton.IsServer}, IsClient={NetworkManager.Singleton.IsClient}");
         OnDeath?.Invoke();
         _grid.Destroy();
         foreach (ResourcesData drop in _drop) {
             _resources.SpawnResource(transform.position, drop.type, drop.amount);
         }
 
+        GetComponent<NetworkObject>().Despawn();
+    }
+
+    public override void OnNetworkDespawn() {
+        Debug.Log($"{name} OnNetworkDespawn on {(IsServer ? "Server" : "Client")}");
         Destroy(gameObject);
     }
 }

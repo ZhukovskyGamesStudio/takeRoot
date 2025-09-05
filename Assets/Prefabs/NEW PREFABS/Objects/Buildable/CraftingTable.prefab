@@ -263,6 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2e6879983e456388256cc8cb662124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   <StationData>k__BackingField:
     AvailableCraftingRecipes:
     - {fileID: 11400000, guid: 700fc6bf48b0b954aa06fe12683b835f, type: 2}
@@ -270,11 +271,13 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 03aa22ab7ff4a1c48a1dac084e689b69, type: 2}
     - {fileID: 11400000, guid: f3c6514d794556345937323582dd2fca, type: 2}
     - {fileID: 11400000, guid: d18dbe62a76c7254fb5c278fce8e7155, type: 2}
+    Station: {fileID: 0}
     ResourceStorage:
       _serializedList: []
     CurrentRecipe: {fileID: 0}
     CurrentRecipeCraftingPoints: 0
   _progressData: {fileID: 8668883149177456375}
+  _storage: {fileID: 4457218376182889559}
   Crafters:
     _serializedList: []
   InteractPos:

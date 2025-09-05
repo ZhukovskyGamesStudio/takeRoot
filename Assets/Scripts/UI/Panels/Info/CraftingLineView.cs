@@ -72,16 +72,18 @@ public class CraftingLineView : MonoBehaviour {
         }
     }
 
+    private void Update() {
+        int queuedAmount = GetQueuedAmount;
+        UpdateRecipesAmount(queuedAmount);
+        UpdateRecipesAmountButtons(queuedAmount);
+    }
+
     public void Add() {
         _addRecipe?.Invoke(_config);
-        UpdateRecipesAmount(GetQueuedAmount);
-        UpdateRecipesAmountButtons(GetQueuedAmount);
     }
 
     public void Remove() {
         _removeRecipe?.Invoke(_config);
-        UpdateRecipesAmount(GetQueuedAmount);
-        UpdateRecipesAmountButtons(GetQueuedAmount);
     }
 
     private int GetQueuedAmount => _data.RecipesToCraft[_config.ResultingResource.ResourceType];

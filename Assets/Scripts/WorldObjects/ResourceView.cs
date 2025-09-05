@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using WorldObjects;
 
+[Obsolete]
 public class ResourceView : ECSEntity {
     [field: SerializeField]
     public int Amount { get; private set; }

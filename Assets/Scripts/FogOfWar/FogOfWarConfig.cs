@@ -15,4 +15,6 @@ public class FogOfWarConfig : ScriptableObject {
     [field: SerializeField]
     [Min(0)]
     public int UpdateFogCooldown { get; private set; }
+
+    public RectInt FogRect = new RectInt(-10, -10, 110, 110);
 }

@@ -24,7 +24,7 @@ public class FogOfWarService : IFogOfWarService, IUpdatable {
         var tilemaps = Object.FindObjectsByType<TilemapTypeData>(FindObjectsInactive.Include, FindObjectsSortMode.None);
         _blackTilemap = tilemaps.First(t => t.Type == TilemapType.FogOfWarBlack).Tilemap;
         _greyTilemap = tilemaps.First(t => t.Type == TilemapType.FogOfWarGrey).Tilemap;
-        _gridSize = new RectInt(-10, -10, 110, 110);
+        _gridSize = _config.FogRect;
         _updateService.Register(this);
 
         _openedCellsD[Race.Robots] = new HashSet<Vector2Int>();

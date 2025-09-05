@@ -36,11 +36,11 @@ public class CraftingInfoPart : MonoBehaviour {
     }
 
     private void AddRecipe(CraftingRecipeConfig recipe) {
-        _craftingData.AddRecipe(recipe.ResultingResource.ResourceType);
+        _craftingData.Station.AddRecipeServerRpc(recipe.ResultingResource.ResourceType);
     }
 
     private void RemoveRecipe(CraftingRecipeConfig recipe) {
-        _craftingData.RemoveRecipe(recipe.ResultingResource.ResourceType);
+        _craftingData.Station.RemoveRecipeServerRpc(recipe.ResultingResource.ResourceType);
     }
 
     public void Disable() {

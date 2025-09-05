@@ -89,6 +89,10 @@ PrefabInstance:
       propertyPath: _drop.Array.data[0].amount
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3022492300764533728, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3596614911
+      objectReference: {fileID: 0}
     - target: {fileID: 3575029597453831756, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Size.x
       value: 1.6539526
@@ -221,16 +225,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce2e6879983e456388256cc8cb662124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   <StationData>k__BackingField:
     AvailableCraftingRecipes:
     - {fileID: 11400000, guid: 59134f0b1e06f8a428e9ba11babf4864, type: 2}
     - {fileID: 11400000, guid: b336f32715f24a64fb0778b65a49420f, type: 2}
     - {fileID: 11400000, guid: 7fdf5b28b82559c489641ed294476fdd, type: 2}
+    Station: {fileID: 0}
     ResourceStorage:
       _serializedList: []
     CurrentRecipe: {fileID: 0}
     CurrentRecipeCraftingPoints: 0
   _progressData: {fileID: 7144286031090238123}
+  _storage: {fileID: 6553336415367732623}
   Crafters:
     _serializedList: []
   InteractPos:
@@ -262,7 +269,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ProgressData>k__BackingField:
-    Progress: 0
+    Progress:
+      value: 0
     Needed: 0
     Title: 
-    Enabled: 0
+    InfoViewEnabled: 1
+  _linkedSlider: {fileID: 0}
