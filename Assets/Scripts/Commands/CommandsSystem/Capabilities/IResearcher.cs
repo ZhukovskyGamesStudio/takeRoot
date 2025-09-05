@@ -1,5 +1,5 @@
 namespace AI {
 	public interface IResearcher : IPerformerComponent {
-		public void Research();
+		public void Research(ResearchStation researchStation);
 	}
 }

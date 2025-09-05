@@ -15,4 +15,6 @@ public class BuildingRecipeConfig : ScriptableObject {
     public BuildingCategory BuildingCategory;
 
     public AYellowpaper.SerializedCollections.SerializedDictionary<ResourceType, int> Ingridients;
+    
+    public Research RequiredResearch;
 }
