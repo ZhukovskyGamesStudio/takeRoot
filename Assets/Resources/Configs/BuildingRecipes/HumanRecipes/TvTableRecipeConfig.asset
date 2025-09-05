@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
   m_Name: TvTableRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 0}
+  mainInfo: {fileID: 11400000, guid: 1af92934f4012d54985a5246ea77f761, type: 2}
   BuildingPrefab: {fileID: 2698218236989389229, guid: 1194f82364416e84aa4d0f53cdf619fc, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 100

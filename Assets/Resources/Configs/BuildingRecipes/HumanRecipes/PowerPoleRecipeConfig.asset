@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
   m_Name: PowerPoleRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 0}
+  mainInfo: {fileID: 11400000, guid: 2acb728b90d990c40891119bb3c30cf1, type: 2}
   BuildingPrefab: {fileID: 2698218236989389229, guid: 2490fd38ece530d4bb159f8ef3af7baf, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 100

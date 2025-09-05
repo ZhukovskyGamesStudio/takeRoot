@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
   m_Name: GarageTableRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 0}
+  mainInfo: {fileID: 11400000, guid: be360f843f0431746a61a917b1ab001f, type: 2}
   BuildingPrefab: {fileID: 2698218236989389229, guid: 4709c6acd0d52524c80537adc988d538, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 150

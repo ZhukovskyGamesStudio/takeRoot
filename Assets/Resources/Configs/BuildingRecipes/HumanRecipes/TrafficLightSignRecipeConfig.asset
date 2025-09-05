@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
   m_Name: TrafficLightSignRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 0}
+  mainInfo: {fileID: 11400000, guid: f428417661be1974694e3d798eaeea1d, type: 2}
   BuildingPrefab: {fileID: 2698218236989389229, guid: 05d2a2eb1e6254540a30b0343e82ba42, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 75

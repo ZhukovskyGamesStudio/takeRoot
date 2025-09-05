@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
   m_Name: RoadSignBroken1RecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 0}
+  mainInfo: {fileID: 11400000, guid: 2b650bf5490007742815cd37f07717b7, type: 2}
   BuildingPrefab: {fileID: 2698218236989389229, guid: 041de9934cb67254288f2aa480df17ca, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 25

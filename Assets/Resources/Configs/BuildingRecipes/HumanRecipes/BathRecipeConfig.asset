@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
   m_Name: BathRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 0}
+  mainInfo: {fileID: 11400000, guid: 243db69f46416724c879a3a13f0a0fb3, type: 2}
   BuildingPrefab: {fileID: 2698218236989389229, guid: e44cb08f96c2d1d41800a4008a01c3fa, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 100

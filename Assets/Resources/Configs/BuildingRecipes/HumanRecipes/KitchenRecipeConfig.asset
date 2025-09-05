@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
   m_Name: KitchenRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 0}
+  mainInfo: {fileID: 11400000, guid: 85b14e45185657c48b14edb6f2ec90ee, type: 2}
   BuildingPrefab: {fileID: 3510032551004158203, guid: 2826731f9d49e2545a23d58a6c49a5bb, type: 3}
   Footprint: {x: 5, y: 3}
   Hp: 300

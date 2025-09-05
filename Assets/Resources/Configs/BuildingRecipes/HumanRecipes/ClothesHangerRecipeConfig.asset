@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
   m_Name: ClothesHangerRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 0}
+  mainInfo: {fileID: 11400000, guid: 11c143f06d1669c48a01c7d5aacee227, type: 2}
   BuildingPrefab: {fileID: 2698218236989389229, guid: 88d1cc7b4f8b40148af4e00985349c81, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 50

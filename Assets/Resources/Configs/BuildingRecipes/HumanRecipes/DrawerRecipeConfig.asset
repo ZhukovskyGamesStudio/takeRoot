@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
   m_Name: DrawerRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 0}
+  mainInfo: {fileID: 11400000, guid: 92924eb666b37234da17a9587efd8881, type: 2}
   BuildingPrefab: {fileID: 2698218236989389229, guid: 0b41a1fefa0348848a8523de35043627, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 100

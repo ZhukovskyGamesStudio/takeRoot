@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
   m_Name: BookshelfRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 0}
+  mainInfo: {fileID: 11400000, guid: 4f2b754cb5625ef489e610482633c66b, type: 2}
   BuildingPrefab: {fileID: 3117958563769161038, guid: ce7d342f487876444953c21944773be9, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 100

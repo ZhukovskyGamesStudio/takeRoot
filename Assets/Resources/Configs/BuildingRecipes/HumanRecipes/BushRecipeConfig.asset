@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
   m_Name: BushRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 0}
+  mainInfo: {fileID: 11400000, guid: 36dfa903139783b498b49127d3366edd, type: 2}
   BuildingPrefab: {fileID: 2540808551972033668, guid: 6efbc38b1f0efd645a91a41b88dce317, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 50

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f0f4a494234057b1ad75e77419b510, type: 3}
   m_Name: CarpetRecipeConfig
   m_EditorClassIdentifier: 
-  mainInfo: {fileID: 0}
+  mainInfo: {fileID: 11400000, guid: 2915d761e553056478634e2d0e0b85d7, type: 2}
   BuildingPrefab: {fileID: 2698218236989389229, guid: 8c0dcb6020a501d44a4ed9b2f302185a, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 50
