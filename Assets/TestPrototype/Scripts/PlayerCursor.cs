@@ -23,6 +23,11 @@ public class PlayerCursor : NetworkBehaviour {
         } else {
             _rectTransform.position = _netData.Value.Pos;
         }
+
+        if (NetworkDataHolder.Instance != null) {
+            var race = NetworkDataHolder.GetOtherRace();
+            SetCursorByRaceInternal(race);
+        }
     }
 
     public override void OnNetworkSpawn() {
@@ -35,11 +40,11 @@ public class PlayerCursor : NetworkBehaviour {
             _image.enabled = false;
         }
 
-        if (NetworkDataHolder.IsCreated) {
+       /* if (NetworkDataHolder.IsCreated) {
             SubscribeToRaceChange();
         } else {
             NetworkDataHolder.OnCreated += SubscribeToRaceChange;
-        }
+        }*/
     }
 
     private void SubscribeToRaceChange() {
