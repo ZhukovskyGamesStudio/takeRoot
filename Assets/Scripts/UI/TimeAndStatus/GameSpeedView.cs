@@ -13,11 +13,15 @@ public class GameSpeedView : NetworkBehaviour {
     private AYellowpaper.SerializedCollections.SerializedDictionary<GameSpeedType, GameObject> _friendSelection;
 
     private Action<GameSpeedType, Race> _onSpeedSelect;
+    private ITimeScaleService _timeScaleService;
+    private INetworkService _networkService;
 
     public void Init(Action<GameSpeedType, Race> onSpeedSelect, ReactiveProperty<bool> isReadyToPause) {
         _onSpeedSelect = onSpeedSelect;
         InitToggles();
         isReadyToPause.Subscribe(ChangeSpeedAvailable);
+        _timeScaleService = ServiceLocator.Container.Single<ITimeScaleService>();
+        _networkService = ServiceLocator.Container.Single<INetworkService>();
     }
 
     private void InitToggles() {
@@ -28,6 +32,12 @@ public class GameSpeedView : NetworkBehaviour {
                 }
             });
         }
+    }
+
+    private void Update() {
+        //TODO refactor
+        var friendRace = NetworkDataHolder.GetOtherRace();
+        SetFriendSelection(_timeScaleService.GetTimeScale(friendRace));
     }
 
     private void ChangeSpeedAvailable(bool isOn) {
@@ -44,8 +54,7 @@ public class GameSpeedView : NetworkBehaviour {
         Debug.Log("Selected speed: " + speedType);
     }
 
-    [ClientRpc]
-    public void SetFriendSelectionClientRpc(GameSpeedType type) {
+    private void SetFriendSelection(GameSpeedType type) {
         foreach (var kvp in _friendSelection) {
             kvp.Value.SetActive(kvp.Key == type);
         }

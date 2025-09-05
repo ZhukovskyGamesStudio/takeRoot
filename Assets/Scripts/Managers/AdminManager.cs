@@ -87,16 +87,36 @@ public class AdminManager : MonoBehaviour {
 
     public void StartFakeOnlineGame() {
         IsFakeOnline = true;
+
         if (NetworkDataHolder.Instance == null) {
+            NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
+
             NetworkManager.Singleton.StartHost();
-            NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(_networkDataHolder.GetComponent<NetworkObject>());
-            NetworkDataHolder.Instance.SelectRaceData.HostReady.Value = true;
-            NetworkDataHolder.Instance.SelectRaceData.ClientReady.Value = true;
-            NetworkDataHolder.Instance.MainGameNetworkData.HostRace.Value = Race.Plants;
-            NetworkDataHolder.Instance.MainGameNetworkData.ClientRace.Value = Race.Robots;
+            // ничего не спавним и не трогаем RPC пока клиент не зарегистрируется
         }
 
         SceneManager.LoadScene("CoreScene");
+    }
+
+    private void OnClientConnected(ulong clientId) {
+        if (clientId != NetworkManager.Singleton.LocalClientId) {
+            return;
+        }
+
+        // локальный клиент (Host) подключился, теперь можно спавнить
+        var obj = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(
+            _networkDataHolder.GetComponent<NetworkObject>()
+        );
+
+        NetworkDataHolder.Instance.SelectRaceData.HostReady.Value = true;
+        NetworkDataHolder.Instance.SelectRaceData.ClientReady.Value = true;
+        NetworkDataHolder.Instance.MainGameNetworkData.HostRace.Value = Race.Plants;
+        NetworkDataHolder.Instance.MainGameNetworkData.ClientRace.Value = Race.Robots;
+
+        Debug.Log("Fake online game initialized on host");
+    
+        // отписываемся, чтобы не вызывалось повторно
+        NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
     }
 
     public void SwitchFakeRace() {

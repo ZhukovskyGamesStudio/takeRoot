@@ -25,7 +25,7 @@ public class PlayerCursor : NetworkBehaviour {
         }
 
         if (NetworkDataHolder.Instance != null) {
-            var race = NetworkDataHolder.GetOtherRace();
+            var race = IsOwner ? NetworkDataHolder.GetRace() :NetworkDataHolder.GetOtherRace();
             SetCursorByRaceInternal(race);
         }
     }

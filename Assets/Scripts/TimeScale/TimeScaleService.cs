@@ -41,9 +41,13 @@ public class TimeScaleService : ITimeScaleService {
         return null;
     }
 
+    public void SetTimeScaleOnly(GameSpeedType type, Race race) {
+        _selectedSpeeds[race] = type;
+    }
+
     public void SetTimeScale(GameSpeedType type, Race race) {
         Debug.Log($"Setting time scale {type} {race}");
-        _selectedSpeeds[race] = type;
+        SetTimeScaleOnly(type, race);
         
         Debug.Log("Selected speeds: " + string.Join(", ", _selectedSpeeds.Select(kv => kv.Key + ": " + kv.Value)));
         
@@ -61,6 +65,11 @@ public class TimeScaleService : ITimeScaleService {
         }
         Debug.Log("Setting time scale to " + _config.TimeScales[min]);
         NetworkDataHolder.Instance.SetGameSpeedClientRpc(_config.TimeScales[min]);
+        NetworkDataHolder.Instance.SetSelectedTimeScaleClientRpc(type,race);
+    }
+
+    public GameSpeedType GetTimeScale(Race race) {
+        return  _selectedSpeeds[race];
     }
 
     public ReactiveProperty<bool> IsReadyForPause { get; set; } = new ReactiveProperty<bool>(false);

@@ -70,8 +70,10 @@ namespace AI.Node.Jobs {
             }
 
             if (_settler.Data.needs.Value != null) {
-                var v = _settler.Data.needs.Value;
-                _settler.UpdateNeedsClientRpc(v.Hp, v.Energy, v.SatietyData, v.CareData, v.StressData);
+                if (!AdminManager.IsFakeOnline) {
+                    var v = _settler.Data.needs.Value;
+                    _settler.UpdateNeedsClientRpc(v.Hp, v.Energy, v.SatietyData, v.CareData, v.StressData);
+                }
             } else {
                 Debug.Log("Needsvalue is null");
             }

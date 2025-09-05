@@ -90,7 +90,7 @@ public class ServiceLocatorLoader_Main {
             _services.Single<IUpdateService>(), _services.Single<ICommandService>()));
         _services.RegisterSingle<ISettlersService>(new SettlersService());
 
-        _services.RegisterSingle<IBuildingService>(new BuildingService(_services.Single<IConfigsProvider>(), _buildingsPanelView,_services.Single<INetworkService>()));
+        _services.RegisterSingle<IBuildingService>(new BuildingService(_services.Single<IConfigsProvider>(), _buildingsPanelView,_services.Single<INetworkService>(), _services.Single<IJobCommandsInputHandlerService>()));
         
         _services.RegisterSingle<IOccurenceService>(
             new OccurenceService(_services.Single<IConfigsProvider>(), _services.Single<IUpdateService>(), _services.Single<ISettlersService>(), _services.Single<IGridService>(), _services.Single<INetworkService>()));

@@ -54,7 +54,8 @@ public class CoreEntryPoint : EntryPointBase {
         InitPresenters();
     }
 
-    private void Start() {
+    protected override void OnNetworkPostSpawn() {
+        base.OnNetworkPostSpawn();
         if (Single<INetworkService>().IsHost) {
             GenerateLevel().Forget();
         }

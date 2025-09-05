@@ -3116,6 +3116,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 379334015558748695, guid: 6f0ebff9e42cb8a4f849553f6b1c2768, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3589681595
+      objectReference: {fileID: 0}
+    - target: {fileID: 379334015558748695, guid: 6f0ebff9e42cb8a4f849553f6b1c2768, type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 379334015558748695, guid: 6f0ebff9e42cb8a4f849553f6b1c2768, type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2859899104
+      objectReference: {fileID: 0}
     - target: {fileID: 2414390923967704115, guid: 6f0ebff9e42cb8a4f849553f6b1c2768, type: 3}
       propertyPath: _plantsImage
       value: 
