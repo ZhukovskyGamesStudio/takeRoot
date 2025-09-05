@@ -4,6 +4,7 @@ using UnityEngine;
 public class ResearchService : IResearchService {
     private ResearchSaveData _researchSaveData;
     private ResearchConfig _researchConfig;
+    private List<ResearchStation> _researchStations = new List<ResearchStation>();
 
     private Dictionary<Research, ResearchData> _researchData;
 
@@ -41,6 +42,7 @@ public class ResearchService : IResearchService {
         if (!_researchData[research].Researchable) return;
         
         _researchSaveData.CurrentResearch = research;
+        UpdateStationsData();
     }
 
     public void AddResearchPoints(int points) {
@@ -56,6 +58,7 @@ public class ResearchService : IResearchService {
         }
 
         _researchSaveData.ResearchProgress[currentResearch] = resultPoints;
+        UpdateStationsData();
         if (resultPoints == _researchData[currentResearch].Price) {
             _researchSaveData.CurrentResearch = Research.None;
             UpdateResearchable();
@@ -74,6 +77,20 @@ public class ResearchService : IResearchService {
                     break;
                 }
             }
+        }
+    }
+
+    public void RegisterResearchStation(ResearchStation researchStation) {
+        _researchStations.Add(researchStation);
+    }
+
+    public void UnregisterResearchStation(ResearchStation researchStation) {
+        _researchStations.Remove(researchStation);
+    }
+
+    private void UpdateStationsData() {
+        foreach (ResearchStation station in _researchStations) {
+            station.SetResearchData();
         }
     }
 
