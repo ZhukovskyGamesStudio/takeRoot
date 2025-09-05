@@ -35,8 +35,14 @@ namespace AI {
         public IResearcher Researcher;
 
         public WorkerAnimator WorkerAnimator { get; private set; }
+        private bool _isInited;
 
-        private void Start() {
+        protected override void OnNetworkPostSpawn() {
+            base.OnNetworkPostSpawn();
+            SelfInit();
+        }
+
+        private void SelfInit() {
             WorkerAnimator = GetComponentInChildren<WorkerAnimator>();
 
             Mover = GetComponent<IMovable>();
@@ -72,9 +78,15 @@ namespace AI {
                 _root = CreateRootBt();
                 _stateBt = CreateStateBt();
             }
+
+            _isInited = true;
         }
 
         private void Update() {
+            if (!_isInited) {
+                return;
+            }
+
             if (!IsOwner && !AdminManager.IsFakeOnline) {
                 return;
             }
@@ -94,6 +106,7 @@ namespace AI {
             Data.tactical.IsTactical = isTactical;
             SetTacticalClientRpc(Data.tactical.IsTactical);
         }
+
         [ClientRpc]
         private void SetTacticalClientRpc(bool isTactical) {
             Data.tactical.IsTactical = isTactical;

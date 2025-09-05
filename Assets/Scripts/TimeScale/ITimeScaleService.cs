@@ -2,6 +2,8 @@ using UniRx;
 
 public interface ITimeScaleService : IService
 {
+    public GameSpeedType GetTimeScale(Race race);
+    public void SetTimeScaleOnly(GameSpeedType type, Race race);
     public void SetTimeScale(GameSpeedType type, Race race);
     public ReactiveProperty<bool> IsReadyForPause { get; set; }
     public void SetReadyToPause();

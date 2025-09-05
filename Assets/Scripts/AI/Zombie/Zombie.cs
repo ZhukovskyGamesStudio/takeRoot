@@ -19,7 +19,8 @@ namespace AI {
         public IZombieAttacker Attacker;
         private IUpdateService _update;
 
-        private void Start() {
+        protected override void OnNetworkPostSpawn() {
+            base.OnNetworkPostSpawn();
             Mover = GetComponent<IZombieMover>();
             Attacker = GetComponent<IZombieAttacker>();
             _root = new BTRoot_Zombie(this, ServiceLocator.Container.Single<ISettlersService>());

@@ -22,7 +22,6 @@ public class NetworkDataHolder : NetworkBehaviour {
         DontDestroyOnLoad(gameObject);
         OnCreated?.Invoke();
     }
-    
 
     public void ResetSelections() {
         MainGameNetworkData.HostRace.Value = Race.None;
@@ -46,6 +45,7 @@ public class NetworkDataHolder : NetworkBehaviour {
     public static Race GetRace() {
         return NetworkManager.Singleton.IsHost ? Instance.MainGameNetworkData.HostRace.Value : Instance.MainGameNetworkData.ClientRace.Value;
     }
+
     public static Race GetOtherRace() {
         return NetworkManager.Singleton.IsHost ? Instance.MainGameNetworkData.ClientRace.Value : Instance.MainGameNetworkData.HostRace.Value;
     }
@@ -53,6 +53,11 @@ public class NetworkDataHolder : NetworkBehaviour {
     [ClientRpc]
     public void SetGameSpeedClientRpc(float speed) {
         Time.timeScale = speed;
+    }
+
+    [ClientRpc]
+    public void SetSelectedTimeScaleClientRpc(GameSpeedType type, Race race) {
+        ServiceLocator.Container.Single<ITimeScaleService>().SetTimeScaleOnly(type, race);
     }
 
     [ClientRpc]

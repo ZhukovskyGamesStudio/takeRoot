@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using CodeBase.Services;
 using UniRx;
 using Unity.Netcode;
@@ -24,9 +25,10 @@ public class TimeStatusUI : NetworkBehaviour {
         _dayStatusView.SetData(data);
     }
 
-    public void Start() {
-        _gameSpeedView.SetFriendSelectionClientRpc(Random.Range(0, 2) == 1 ? GameSpeedType.High : GameSpeedType.Normal);
-        _colonyStatusView.SetData(Random.Range(0, 12), Random.Range(0, 101));
+    private void Update() {
+        var settlers = ServiceLocator.Container.Single<ISettlersService>().MySettlers(NetworkDataHolder.GetRace());
+        int maxStress = Mathf.RoundToInt(settlers.Max(s => s.Data.needs.Value.StressData.currentStress));
+        _colonyStatusView.SetData(settlers.Count, 100-maxStress);
     }
 
     private void ChangeSpeed(GameSpeedType speed, Race race) {
