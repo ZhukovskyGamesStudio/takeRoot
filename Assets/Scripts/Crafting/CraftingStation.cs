@@ -13,6 +13,9 @@ public class CraftingStation : NetworkBehaviour {
     [SerializeField]
     private Progress _progressData;
 
+    [SerializeField]
+    private Storage _storage;
+
     [HideInInspector]
     public Dictionary<ResourceType, int> ReservedRequiredResources;
 
@@ -70,12 +73,26 @@ public class CraftingStation : NetworkBehaviour {
     public void StoreResource(ResourceType type, int amount) {
         StationData.ResourceStorage[type] += amount;
         ReservedRequiredResources[type] -= amount;
+
         SetResourceClientRpc(type, StationData.ResourceStorage[type]);
     }
 
     [ClientRpc]
     private void SetResourceClientRpc(ResourceType type, int amount) {
         StationData.ResourceStorage[type] = amount;
+        var r = _storage.StorageData.Resources.FirstOrDefault(rr => rr.ResourceType == type);
+        if (amount == 0 && r != null) {
+            r.Amount = 0;
+            r.ResourceType = ResourceType.None;
+        }
+
+        if (r != null) {
+            r.Amount = amount;
+        } else {
+            var emptySpace = _storage.StorageData.Resources.FirstOrDefault(rrrr => rrrr.ResourceType == ResourceType.None);
+            emptySpace.ResourceType = type;
+            emptySpace.Amount = amount;
+        }
     }
 
     public bool CanCraft() {
