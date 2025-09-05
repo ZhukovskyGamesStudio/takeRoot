@@ -14,6 +14,8 @@ public class BuildingPanelGridView : MonoBehaviour {
     private Toggle _toggle;
 
     private string _id;
+    
+    [SerializeField]
 
     private BuildingRecipeConfig _config;
     private Action<BuildingRecipeConfig> _openPanel;

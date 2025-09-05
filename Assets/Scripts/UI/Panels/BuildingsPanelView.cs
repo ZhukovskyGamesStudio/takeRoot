@@ -40,6 +40,7 @@ public class BuildingsPanelView : NetworkBehaviour {
     private Action<string, Race> _onBuild;
 
     private BuildingCategory _currentCategory = BuildingCategory.General;
+    private IResearchService _researchService;
 
     private void InitToggles() {
         foreach (KeyValuePair<BuildingCategory, Toggle> kvp in _categoryToggles) {
@@ -77,6 +78,8 @@ public class BuildingsPanelView : NetworkBehaviour {
             CreateEmptyGrid();
         }
 
+        _researchService = ServiceLocator.Container.Single<IResearchService>();
+        _researchService.OnResearchFinished += UpdateCategory;
         _recipeConfigs = costConfigs;
         UpdateCategory();
     }
@@ -86,7 +89,7 @@ public class BuildingsPanelView : NetworkBehaviour {
             item.gameObject.SetActive(false);
         }
 
-        List<BuildingRecipeConfig> curShown = _recipeConfigs.Where(c => c.BuildingCategory == _currentCategory).ToList();
+        List<BuildingRecipeConfig> curShown = _recipeConfigs.Where(c => c.BuildingCategory == _currentCategory && (c.RequiredResearch == Research.None || _researchService.WasResearched(c.RequiredResearch))).ToList();
 
         for (int i = 0; i < curShown.Count; i++) {
             _gridItems[i].gameObject.SetActive(true);

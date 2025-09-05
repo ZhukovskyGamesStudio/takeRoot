@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: FarmingPlotRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: ff2a9307b47f44c4fa823eadb0ea0844, type: 2}
-  ObjectSprite: {fileID: 0}
   BuildingPrefab: {fileID: 7110737873876841608, guid: dbd452a093e6cfa4eb8c12e15e6e6a49, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 50
@@ -23,3 +22,4 @@ MonoBehaviour:
     _serializedList:
     - Key: 16
       Value: 5
+  RequiredResearch: 13
