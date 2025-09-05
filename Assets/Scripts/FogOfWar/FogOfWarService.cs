@@ -15,6 +15,7 @@ public class FogOfWarService : IFogOfWarService, IUpdatable {
     private RectInt _gridSize;
 
     private float _cooldown;
+
     public FogOfWarService(IConfigsProvider configsProvider, IUpdateService updateService, ISettlersService settlersService,
         INetworkService networkService) {
         _updateService = updateService;
@@ -75,11 +76,10 @@ public class FogOfWarService : IFogOfWarService, IUpdatable {
         if (AdminManager.IsUnfogingDisabled) {
             return;
         }
-        
+
         if (settler.Data.names.Race != _networkService.MyRace.Value) {
             return;
         }
-        
 
         Vector2Int settlerCell = settler.PosOnGrid;
         OpenAround(settlerCell, _config.ViewRadius + 2, _config.ViewRadius);
@@ -87,8 +87,8 @@ public class FogOfWarService : IFogOfWarService, IUpdatable {
         RefreshWalls(settlerCell, _config.ViewRadius + 2);
     }
 
-    private void OpenAround(Vector2Int tile, int updateRadius, int viewRadius) {
-        int sqrViewRadius = viewRadius * viewRadius;
+    private void OpenAround(Vector2Int tile, int updateRadius, float viewRadius) {
+        float sqrViewRadius = viewRadius * viewRadius;
 
         for (int i = -updateRadius; i <= updateRadius; i++) {
             for (int j = -updateRadius; j <= updateRadius; j++) {
@@ -188,9 +188,7 @@ public class FogOfWarService : IFogOfWarService, IUpdatable {
         _updateService.Unregister(this);
     }
 
-    
     public void Update() {
-
         _cooldown += Time.deltaTime;
 
         if (_cooldown >= _config.UpdateFogCooldown) {
@@ -201,11 +199,20 @@ public class FogOfWarService : IFogOfWarService, IUpdatable {
             }
         }
 
+        if (AdminManager.FogHControls) {
+            if (Input.GetKey(KeyCode.H)) {
+                if (Input.GetMouseButton(0)) {
+                    Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    Vector2Int coord = new(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y));
+                    OpenAround(coord, 3, 0.9f);
+                }
 
-        if (Input.GetKey(KeyCode.H)) {
-            if (Input.GetMouseButtonDown(0)) {
-                
-                //OpenAround()
+                if (Input.GetKeyDown(KeyCode.Space)) {
+                    Fill(_blackTilemap, _config.BlackTile);
+                    Fill(_greyTilemap, _config.GreyTile);
+                    _openedCellsD[Race.Robots] = new HashSet<Vector2Int>();
+                    _openedCellsD[Race.Plants] = new HashSet<Vector2Int>();
+                }
             }
         }
     }

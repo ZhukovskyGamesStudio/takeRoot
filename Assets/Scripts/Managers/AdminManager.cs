@@ -16,6 +16,7 @@ public class AdminManager : MonoBehaviour {
 
     public static bool IsUnfogingDisabled = false;
     public static bool IsHumanBuildingsBuildable = false;
+    public static bool FogHControls = true;
 
     private void Awake() {
         DontDestroyOnLoad(gameObject);
