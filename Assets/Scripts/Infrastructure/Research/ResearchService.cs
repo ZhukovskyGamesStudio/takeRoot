@@ -58,11 +58,11 @@ public class ResearchService : IResearchService {
         }
 
         _researchSaveData.ResearchProgress[currentResearch] = resultPoints;
-        UpdateStationsData();
         if (resultPoints == _researchData[currentResearch].Price) {
             _researchSaveData.CurrentResearch = Research.None;
             UpdateResearchable();
         }
+        UpdateStationsData();
     }
 
     private void UpdateResearchable() {

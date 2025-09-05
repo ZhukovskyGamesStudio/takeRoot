@@ -24,9 +24,17 @@ public class ResearchStation : MonoBehaviour {
 	}
 
 	public void SetResearchData() {
-		_progressData.ProgressData.Title = _researches.GetInitResearchData()[CurrentResearch].DisplayName;
-		_progressData.ProgressData.Needed = _researches.GetInitResearchData()[CurrentResearch].Price;
-		_progressData.ProgressData.Progress.Value = _researches.GetResearchData().ResearchProgress[CurrentResearch];
+		if (!HasResearch) {
+			_progressData.ProgressData.Title = "не выбрано";
+			_progressData.ProgressData.Progress.Value = 0;
+			_progressData.ProgressData.Needed = 0;
+			return;
+		}
+		var saveData = _researches.GetInitResearchData()[CurrentResearch];
+		var data = _researches.GetResearchData();
+		_progressData.ProgressData.Title = saveData.DisplayName;
+		_progressData.ProgressData.Needed = saveData.Price;
+		_progressData.ProgressData.Progress.Value = data.ResearchProgress[CurrentResearch];
 	}
 
 	private void OnDestroy() {
