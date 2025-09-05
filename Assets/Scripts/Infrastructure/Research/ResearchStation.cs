@@ -31,7 +31,7 @@ public class ResearchStation : MonoBehaviour {
 		_researches.RegisterResearchStation(this);
 	}
 
-	public void DoResearch(int amount) {
+	public void AddResearchPoints(int amount) {
 		_researches.AddResearchPoints(amount);
 		_progressData.ProgressData.Progress.Value = _researches.GetResearchData().ResearchProgress[CurrentResearch];
 	}

@@ -15,7 +15,7 @@ namespace AI.Node.Jobs {
 				if (!researchStation.IsAnotherOnPosition(Race.Plants))
 					return BTNodeState.Running;
 			}
-			_settler.Researcher.Research();
+			_settler.Researcher.Research(researchStation);
 			return BTNodeState.Running;
 		}
 	}

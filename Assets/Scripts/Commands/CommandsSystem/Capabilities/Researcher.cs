@@ -20,16 +20,16 @@ namespace AI {
 			_researchService = ServiceLocator.Container.Single<IResearchService>();
 		}
 
-		public void Research() {
+		public void Research(ResearchStation researchStation) {
 			if (_isResearching) {
 				return;
 			}
 
 			_taskCts = new CancellationTokenSource();
-			DoResearch(_taskCts.Token).Forget();
+			DoResearch(researchStation, _taskCts.Token).Forget();
 		}
 
-		private async UniTaskVoid DoResearch(CancellationToken token) {
+		private async UniTaskVoid DoResearch(ResearchStation researchStation, CancellationToken token) {
 			_isResearching = true;
 			_animator.PlayCraft();
 			while (!token.IsCancellationRequested) {
@@ -38,7 +38,7 @@ namespace AI {
 					break;
 				}
 
-				_researchService.AddResearchPoints(1);
+				researchStation.AddResearchPoints(1);
 			}
 		}
 
