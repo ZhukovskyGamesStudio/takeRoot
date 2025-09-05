@@ -48,7 +48,7 @@ public class CraftingStation : NetworkBehaviour {
             ReservedRequiredResources[type] = 0;
         }
 
-        StationData.Init();
+        StationData.Init(this);
     }
 
     public ResourceType GetRequiredResource() {
@@ -171,5 +171,22 @@ public class CraftingStation : NetworkBehaviour {
         _progressData.ProgressData.InfoViewEnabled = info;
         _progressData.ProgressData.Needed = needed;
         _progressData.ProgressData.Title = title;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void AddRecipeServerRpc(ResourceType recipeRes) {
+        StationData.AddRecipe(recipeRes);
+        SetRecipeAmountClientRpc(recipeRes, StationData.RecipesToCraft[recipeRes]);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void RemoveRecipeServerRpc(ResourceType recipeRes) {
+        StationData.RemoveRecipe(recipeRes);
+        SetRecipeAmountClientRpc(recipeRes, StationData.RecipesToCraft[recipeRes]);
+    }
+
+    [ClientRpc]
+    private void SetRecipeAmountClientRpc(ResourceType recipeRes, int amount) {
+        StationData.RecipesToCraft[recipeRes] = amount;
     }
 }

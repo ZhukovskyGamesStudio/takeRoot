@@ -50,8 +50,8 @@ public class BuildingsPanelView : NetworkBehaviour {
         _infoPage.SetEmptyData();
     }
 
-    public override void OnNetworkSpawn() {
-        base.OnNetworkSpawn();
+    protected override void OnNetworkPostSpawn() {
+        base.OnNetworkPostSpawn();
         InitToggles();
         gameObject.SetActive(false);
     }
