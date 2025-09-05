@@ -15,9 +15,7 @@ namespace AI.Node.Jobs {
 				if (!researchStation.IsAnotherOnPosition(Race.Plants))
 					return BTNodeState.Running;
 			}
-			
-			//TODO: do research;
-			researchStation.DoResearch(1);
+			_settler.Researcher.Research();
 			return BTNodeState.Running;
 		}
 	}
