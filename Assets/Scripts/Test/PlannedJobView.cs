@@ -16,8 +16,6 @@ namespace Settlers.Test {
         private GridObject _grid;
 
         [SerializeField]
-        private List<Sprite> _plannedJob;
-        [SerializeField]
         private AYellowpaper.SerializedCollections.SerializedDictionary<JobType, Sprite> _jobTypeToSprite;
 
         [SerializeField]
