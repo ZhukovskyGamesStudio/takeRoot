@@ -17,4 +17,5 @@ public class BuildingRecipeConfig : ScriptableObject {
     public AYellowpaper.SerializedCollections.SerializedDictionary<ResourceType, int> Ingridients;
     
     public Research RequiredResearch;
+    public bool IsHumanBuilding;
 }

@@ -89,7 +89,11 @@ public class BuildingsPanelView : NetworkBehaviour {
             item.gameObject.SetActive(false);
         }
 
-        List<BuildingRecipeConfig> curShown = _recipeConfigs.Where(c => c.BuildingCategory == _currentCategory && (c.RequiredResearch == Research.None || _researchService.WasResearched(c.RequiredResearch))).ToList();
+        List<BuildingRecipeConfig> curShown;
+        if (AdminManager.IsHumanBuildingsBuildable)
+            curShown = _recipeConfigs.Where(c => c.BuildingCategory == _currentCategory && (c.RequiredResearch == Research.None || _researchService.WasResearched(c.RequiredResearch)) && c.IsHumanBuilding).ToList();
+        else
+            curShown = _recipeConfigs.Where(c => c.BuildingCategory == _currentCategory && (c.RequiredResearch == Research.None || _researchService.WasResearched(c.RequiredResearch))).ToList();
 
         for (int i = 0; i < curShown.Count; i++) {
             _gridItems[i].gameObject.SetActive(true);
