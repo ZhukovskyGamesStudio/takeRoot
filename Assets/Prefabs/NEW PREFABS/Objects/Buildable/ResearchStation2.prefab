@@ -85,6 +85,10 @@ PrefabInstance:
       propertyPath: _drop.Array.data[0].amount
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3022492300764533728, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3726392128
+      objectReference: {fileID: 0}
     - target: {fileID: 3575029597453831756, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Size.x
       value: 4.2120256
@@ -184,5 +188,49 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5986845992242881721}
+    - targetCorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 574056076661571501}
   m_SourcePrefab: {fileID: 100100000, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+--- !u!1 &7626318561151303953 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1939751201788196949, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+  m_PrefabInstance: {fileID: 8303864909110491460}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5986845992242881721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626318561151303953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6200a00c490145c2ae584c29805cd8fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _progressData: {fileID: 574056076661571501}
+  _availableResearch: 
+--- !u!114 &574056076661571501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7626318561151303953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9106c00d0ac4ae74ebc133238da08199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ProgressData>k__BackingField:
+    Progress:
+      value: 0
+    Needed: 0
+    Title: 
+    InfoViewEnabled: 1
+  _linkedSlider: {fileID: 0}
