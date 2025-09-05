@@ -1,3 +1,4 @@
+using System.Linq;
 using AI.Node;
 using AI.Node.Jobs;
 using CodeBase.Services;
@@ -9,7 +10,7 @@ namespace AI {
     public class Settler : NetworkBehaviour {
         [SerializeField]
         private Gravestone _gravestonePrefab;
-        
+
         public static bool GlobalGodmode;
         public static bool Immortal;
         private BTRoot_Settler _root;
@@ -31,12 +32,12 @@ namespace AI {
         public IBuilder Builder;
         public ITimeMachineCharger TimeMachineCharger;
         public IAttacker Attacker;
-        
+
         public WorkerAnimator WorkerAnimator { get; private set; }
 
         private void Start() {
             WorkerAnimator = GetComponentInChildren<WorkerAnimator>();
-            
+
             Mover = GetComponent<IMovable>();
             Searcher = GetComponent<ISearcher>();
             Farmer = GetComponent<IPlanter>();
@@ -49,7 +50,7 @@ namespace AI {
             DinamoCharger = GetComponent<IDinamoCharger>();
             TimeMachineCharger = GetComponent<ITimeMachineCharger>();
             Attacker = GetComponent<IAttacker>();
-            
+
             Mover.Init(WorkerAnimator);
             Searcher.Init(WorkerAnimator);
             Destroyer.Init(WorkerAnimator);
@@ -61,7 +62,7 @@ namespace AI {
             DinamoCharger.Init(WorkerAnimator);
             TimeMachineCharger.Init(WorkerAnimator);
             Attacker.Init(WorkerAnimator);
-            
+
             Data.Init();
 
             if (IsOwner || AdminManager.IsFakeOnline) {
@@ -71,10 +72,10 @@ namespace AI {
         }
 
         private void Update() {
-            
             if (!IsOwner && !AdminManager.IsFakeOnline) {
                 return;
             }
+
             Profiler.BeginSample("Evaluate Settler Action BT");
             _root?.Evaluate();
             Profiler.EndSample();
@@ -82,11 +83,51 @@ namespace AI {
             _stateBt?.Evaluate();
             Profiler.EndSample();
         }
-        
+
         public void SetMood(Mood mood) => WorkerAnimator.SetMood(mood);
 
-        public void SetTactical(bool isTactical) {
+        [ServerRpc(RequireOwnership = false)]
+        public void SetTacticalServerRpc(bool isTactical) {
             Data.tactical.IsTactical = isTactical;
+            SetTacticalClientRpc(Data.tactical.IsTactical);
+        }
+        [ClientRpc]
+        private void SetTacticalClientRpc(bool isTactical) {
+            Data.tactical.IsTactical = isTactical;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void SetTacticalValuesServerRpc(Vector3Int tacticalTarget, bool hasPos) {
+            Data.tactical.Target = null;
+            Data.tactical.TacticalMovePos = tacticalTarget;
+            Data.tactical.HasTacticalMovePos = hasPos;
+            SetTacticalValuesClientRpc(tacticalTarget, hasPos);
+        }
+
+        [ClientRpc]
+        private void SetTacticalValuesClientRpc(Vector3Int tacticalTarget, bool hasPos) {
+            Data.tactical.Target = null;
+            Data.tactical.TacticalMovePos = tacticalTarget;
+            Data.tactical.HasTacticalMovePos = hasPos;
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        public void SetTacticalTargetServerRpc(Vector3 pos) {
+            SetClosestZombieAsTarget(pos);
+            SetTacticalTargetClientRpc(pos);
+        }
+
+        [ClientRpc]
+        private void SetTacticalTargetClientRpc(Vector3 pos) {
+            SetClosestZombieAsTarget(pos);
+        }
+
+        private void SetClosestZombieAsTarget(Vector3 pos) {
+            var zombie = FindObjectsByType<Zombie>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+                .OrderBy(z => Vector3.SqrMagnitude(z.Position - pos)).FirstOrDefault();
+            if (zombie != null) {
+                Data.tactical.Target = zombie;
+            }
         }
 
         public void StartBreakdown() {
@@ -104,12 +145,11 @@ namespace AI {
                 return;
             }
 
-
             SetAsDead(cause);
             DieClientRpc(cause);
             SpawnTombstone(cause);
         }
-        
+
         [ClientRpc]
         private void DieClientRpc(DeathCause cause) {
             SetAsDead(cause);
@@ -118,12 +158,11 @@ namespace AI {
         private void SetAsDead(DeathCause cause) {
             gameObject.SetActive(false);
             Data.Dead = true;
-           
         }
 
         private void SpawnTombstone(DeathCause cause) {
-            Vector2 gravePos = new (Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
-            Gravestone gravestone = ServiceLocator.Container.Single<INetworkService>().InstantiateAndSpawn(_gravestonePrefab,gravePos);
+            Vector2 gravePos = new(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y));
+            Gravestone gravestone = ServiceLocator.Container.Single<INetworkService>().InstantiateAndSpawn(_gravestonePrefab, gravePos);
             gravestone.SetData(Data.names.Name, cause);
         }
 
@@ -146,16 +185,16 @@ namespace AI {
             Data.needs.Value.Energy.isSleeping = false;
             WorkerAnimator.ResetToIdle();
         }
-        
+
         public void StartInteract() {
             WorkerAnimator.PlaySearch();
         }
-        
+
         public void StopInteract() {
             Data.needs.Value.CareData.isTakingCareOf = true;
             WorkerAnimator.ResetToIdle();
         }
-        
+
         public void StartReceiveCare() {
             Data.needs.Value.CareData.isTakingCareOf = true;
             WorkerAnimator.PlaySleep();
@@ -167,8 +206,7 @@ namespace AI {
         }
 
         private BTNode CreateStateBt() {
-            BTNode stateBt = new Sequence()
-                .AddChild(new Action_HandleNeedsChange(this));
+            BTNode stateBt = new Sequence().AddChild(new Action_HandleNeedsChange(this));
 
             return stateBt;
         }
@@ -183,7 +221,7 @@ namespace AI {
             BTRoot_Settler root = new(this, commands, crafting, resources, building, farming, timeScale);
             return root;
         }
-        
+
         //TODO refactor this
         public Vector2Int PosOnGrid => new(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
 
@@ -191,9 +229,10 @@ namespace AI {
         public void UpdateNamesDataClientRpc(string settlerName) {
             Data.names.Name = settlerName;
         }
-        
+
         [ClientRpc]
-        public void UpdateNeedsClientRpc(float hp,Settler_EnergyData energy, Settler_SatietyData satiety, Settler_CareData care, Settler_StressData stress) {
+        public void UpdateNeedsClientRpc(float hp, Settler_EnergyData energy, Settler_SatietyData satiety, Settler_CareData care,
+            Settler_StressData stress) {
             Data.needs.Value.Hp = hp;
             Data.needs.Value.Energy = energy;
             Data.needs.Value.SatietyData = satiety;

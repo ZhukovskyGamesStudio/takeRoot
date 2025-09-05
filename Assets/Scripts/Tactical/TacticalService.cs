@@ -25,7 +25,7 @@ public class TacticalService : ITacticalService, IUpdatable {
 		if (selectable == null) return;
 		if (selectable is SettlerSelectable) {
 			var data = (AI.SettlerData)selectable.GetData(_network.MyRace.Value);
-			data.tactical.IsTactical = !data.tactical.IsTactical;
+			selectable.GetComponent<AI.Settler>().SetTacticalServerRpc(!data.tactical.IsTactical);
 		}
 	}
 
@@ -36,9 +36,8 @@ public class TacticalService : ITacticalService, IUpdatable {
 		if (selectable is SettlerSelectable) {
 			var data = selectable.GetData(_network.MyRace.Value);
 			if (data is AI.SettlerData settlerData) {
-				settlerData.tactical.Target = null;
-				settlerData.tactical.TacticalMovePos = new Vector3((int)pos.x, (int)pos.y, (int)pos.z);
-				settlerData.tactical.HasTacticalMovePos = true;
+				var posInt = new Vector3Int((int)pos.x, (int)pos.y, (int)pos.z); 
+				selectable.GetComponent<AI.Settler>().SetTacticalValuesServerRpc(posInt, true);
 			}
 		}
 	}
@@ -48,6 +47,7 @@ public class TacticalService : ITacticalService, IUpdatable {
 		if (selectable == null) return;
 		if (selectable is SettlerSelectable) {
 			var data = (AI.SettlerData)selectable.GetData(_network.MyRace.Value);
+			selectable.GetComponent<AI.Settler>().SetTacticalTargetServerRpc(zombie.Position);
 			data.tactical.Target = zombie;
 		}
 	}
