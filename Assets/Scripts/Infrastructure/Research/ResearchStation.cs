@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ResearchStation : MonoBehaviour {
 	[SerializeField]private Progress _progressData;
-	[SerializeField] private List<Research> _availableResearch;
+	[SerializeField]private List<Research> _availableResearch;
 	
 	public bool HasResearch => _researches.GetResearchData().CurrentResearch != Research.None 
 	                           && _availableResearch.Contains(_researches.GetResearchData().CurrentResearch);
