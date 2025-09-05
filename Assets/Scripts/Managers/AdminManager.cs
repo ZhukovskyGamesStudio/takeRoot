@@ -1,3 +1,4 @@
+using System.Linq;
 using CodeBase.Services;
 using Unity.Netcode;
 using UnityEngine;
@@ -12,6 +13,9 @@ public class AdminManager : MonoBehaviour {
 
     public static bool IsFakeOnline;
     public static bool IsInstaBuild = true;
+
+    public static bool IsUnfogingDisabled = false;
+    public static bool IsHumanBuildingsBuildable = false;
 
     private void Awake() {
         DontDestroyOnLoad(gameObject);
@@ -29,6 +33,47 @@ public class AdminManager : MonoBehaviour {
     
     public void SwitchInstaBuild(bool isOn) {
         IsInstaBuild = isOn;
+    }
+    
+    public void SwitchUnfoging(bool isOn) {
+        IsUnfogingDisabled = isOn;
+    }
+    
+    public void SwitchHumanBuilds(bool isOn) {
+        IsHumanBuildingsBuildable = isOn;
+    }
+
+
+    private Color _baseGreyColor;
+    private bool _baseColorGot;
+    
+    public void SwitchGreyFog(bool isOn) {
+        var res = FindObjectsByType<TilemapTypeData>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+            .FirstOrDefault(t => t.Type == TilemapType.FogOfWarGrey);
+
+        if (res != null) {
+            if (!_baseColorGot) {
+                _baseColorGot = true;
+                _baseGreyColor = res.Tilemap.color;
+            }
+
+            res.Tilemap.color = isOn ? _baseGreyColor : Color.clear;
+        }
+    }
+    
+    public void SwitchBlackFog(bool isOn) {
+        var res = FindObjectsByType<TilemapTypeData>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+            .FirstOrDefault(t => t.Type == TilemapType.FogOfWarBlack);
+        if (res != null) {
+            res.Tilemap.color = isOn ? Color.white : Color.clear;
+        }
+    }
+
+    public void SwitchCoreCanvasVisibility(bool isOn) {
+        var res = GameObject.Find("CoreCanvas");
+        if (res != null) {
+            res.GetComponent<CanvasGroup>().alpha = isOn ? 0f : 1f;
+        }
     }
 
     public void UnlockPause() {

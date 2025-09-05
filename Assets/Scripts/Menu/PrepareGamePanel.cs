@@ -8,6 +8,8 @@ using UnityEngine;
 public class PrepareGamePanel : MonoBehaviour {
     [SerializeField]
     private Animation _animation;
+    [SerializeField]
+    private MainMenuPanel _mainMenuPanel;
 
     [SerializeField]
     private AnimationClip _show, _hide, _startServer, _stopServer, _startJoin, _stopJoin;
@@ -38,6 +40,7 @@ public class PrepareGamePanel : MonoBehaviour {
         switch (_state) {
             case State.Choosing:
                 Close();
+                _mainMenuPanel.Open();
                 BackgroundParallax.IsParallaxDisabled = false;
                 break;
             case State.Hosting:
