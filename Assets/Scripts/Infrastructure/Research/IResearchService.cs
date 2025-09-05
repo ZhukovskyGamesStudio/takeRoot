@@ -7,5 +7,6 @@ public interface IResearchService : IService {
     public void SelectResearch(Research research);
     public void RegisterResearchStation(ResearchStation researchStation);
     public void UnregisterResearchStation(ResearchStation researchStation);
+    public ResearchStation GetResearchStationWithResearch(Race race);
     public void UnlockAllResearches();
 }

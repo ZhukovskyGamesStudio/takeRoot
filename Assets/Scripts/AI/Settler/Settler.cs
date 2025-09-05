@@ -180,7 +180,8 @@ namespace AI {
             IResourceManager resources = ServiceLocator.Container.Single<IResourceManager>();
             IFarmingService farming = ServiceLocator.Container.Single<IFarmingService>();
             ITimeScaleService timeScale = ServiceLocator.Container.Single<ITimeScaleService>();
-            BTRoot_Settler root = new(this, commands, crafting, resources, building, farming, timeScale);
+            IResearchService researches = ServiceLocator.Container.Single<IResearchService>();
+            BTRoot_Settler root = new(this, commands, crafting, resources, building, farming, timeScale, researches);
             return root;
         }
         

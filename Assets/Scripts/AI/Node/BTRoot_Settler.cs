@@ -5,7 +5,8 @@ using AI.Node.Jobs;
 namespace AI {
     public class BTRoot_Settler : ParallelSelector {
         public BTRoot_Settler(Settler settler, ICommandService commands, ICraftingService crafting,
-            IResourceManager resources, IBuildingService building, IFarmingService farming, ITimeScaleService timeScale) {
+            IResourceManager resources, IBuildingService building, IFarmingService farming, ITimeScaleService timeScale,
+            IResearchService researches) {
             var nonTactical = new Selector();
             //находится в обычном режиме
             nonTactical
@@ -25,6 +26,7 @@ namespace AI {
                 .AddChild(new Job_ChargeDinamoMachine(settler))
                 .AddChild(new Job_ChargeTimeMachine(settler, timeScale))
                 
+                .AddChild(new Job_Research(settler, researches))
                 .AddChild(new Job_Craft(settler, crafting))
                 
                 //фермерство

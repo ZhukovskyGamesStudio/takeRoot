@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ResearchService : IResearchService {
@@ -86,6 +87,11 @@ public class ResearchService : IResearchService {
 
     public void UnregisterResearchStation(ResearchStation researchStation) {
         _researchStations.Remove(researchStation);
+    }
+
+    public ResearchStation GetResearchStationWithResearch(Race race) {
+        return _researchStations.FirstOrDefault(r => r.HasResearch 
+                                                     && (race == Race.Plants ? !r.plantResearcher : !r.robotResearcher));
     }
 
     private void UpdateStationsData() {

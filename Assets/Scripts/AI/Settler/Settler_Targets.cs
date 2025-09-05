@@ -13,5 +13,6 @@ namespace AI {
 		public Bed Bed;
 		public Cooler Cooler;
 		public ElectricityLevel ElectricitySource;
+		public ResearchStation ResearchStation;
 	}
 }
