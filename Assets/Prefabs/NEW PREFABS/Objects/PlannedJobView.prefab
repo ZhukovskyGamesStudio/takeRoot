@@ -56,10 +56,6 @@ MonoBehaviour:
   _rb: {fileID: 8876555855060610017}
   _jobIcon: {fileID: 5066256862286944037}
   _grid: {fileID: 0}
-  _plannedJob:
-  - {fileID: 21300000, guid: cabb72bf7a36ae34380095da4433b85b, type: 3}
-  - {fileID: 21300000, guid: 61ce13a5a78d33e44b88c62bc97c4ee0, type: 3}
-  - {fileID: 21300000, guid: cabb72bf7a36ae34380095da4433b85b, type: 3}
   _jobTypeToSprite:
     _serializedList:
     - Key: 0
@@ -69,13 +65,13 @@ MonoBehaviour:
     - Key: 4
       Value: {fileID: 21300000, guid: 61ce13a5a78d33e44b88c62bc97c4ee0, type: 3}
     - Key: 8
-      Value: {fileID: 21300000, guid: 6bfa6bd2271ebb040aad519626932376, type: 3}
+      Value: {fileID: 21300000, guid: f189e120b2a5c0c49bc4854b0be614e3, type: 3}
     - Key: 16
       Value: {fileID: 21300000, guid: 6bfa6bd2271ebb040aad519626932376, type: 3}
     - Key: 32
       Value: {fileID: 0}
     - Key: 64
-      Value: {fileID: 21300000, guid: 6bfa6bd2271ebb040aad519626932376, type: 3}
+      Value: {fileID: 21300000, guid: ac37b134bb518b946a332f974ccb7405, type: 3}
   _view: {fileID: 0}
 --- !u!210 &6069951586794995288
 SortingGroup:
