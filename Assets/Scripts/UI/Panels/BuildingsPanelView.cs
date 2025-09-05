@@ -50,9 +50,10 @@ public class BuildingsPanelView : NetworkBehaviour {
         _infoPage.SetEmptyData();
     }
 
-    private void Start() {
+    public override void OnNetworkSpawn() {
+        base.OnNetworkSpawn();
         InitToggles();
-        //SetData(_mockRecipeConfigs, recipeConfig => Debug.Log($"Starting build of {recipeConfig.HeaderName}"));
+        gameObject.SetActive(false);
     }
 
     private void CreateEmptyGrid() {

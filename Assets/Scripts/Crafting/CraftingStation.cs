@@ -12,7 +12,7 @@ public class CraftingStation : NetworkBehaviour {
 
     [SerializeField]
     private Progress _progressData;
-    
+
     [HideInInspector]
     public Dictionary<ResourceType, int> ReservedRequiredResources;
 
@@ -20,6 +20,7 @@ public class CraftingStation : NetworkBehaviour {
     public AYellowpaper.SerializedCollections.SerializedDictionary<Race, AI.Settler> Crafters = new();
 
     public Vector3? HaulInteractPos => _gridObject.GetNeighborFreeTile();
+
     //[HideInInspector]
     public List<Transform> InteractPos = new List<Transform>(2);
 
@@ -35,8 +36,8 @@ public class CraftingStation : NetworkBehaviour {
         _gridObject.UpdatePosition();
         _craftingService.AddCraftingStation(this);
         Crafters = new() {
-            { Race.Plants, null},
-            { Race.Robots, null}
+            { Race.Plants, null },
+            { Race.Robots, null }
         };
         ReservedRequiredResources = new Dictionary<ResourceType, int>();
         foreach (ResourceType type in (ResourceType[])Enum.GetValues(typeof(ResourceType))) {
@@ -69,6 +70,12 @@ public class CraftingStation : NetworkBehaviour {
     public void StoreResource(ResourceType type, int amount) {
         StationData.ResourceStorage[type] += amount;
         ReservedRequiredResources[type] -= amount;
+        SetResourceClientRpc(type, StationData.ResourceStorage[type]);
+    }
+
+    [ClientRpc]
+    private void SetResourceClientRpc(ResourceType type, int amount) {
+        StationData.ResourceStorage[type] = amount;
     }
 
     public bool CanCraft() {
@@ -91,11 +98,26 @@ public class CraftingStation : NetworkBehaviour {
 
     public void Craft() {
         StationData.CurrentRecipeCraftingPoints++;
-        _progressData.ProgressData.Progress.Value = StationData.CurrentRecipeCraftingPoints;
+        UpdateCraftingPoints();
+
         if (StationData.CurrentRecipe.CraftingPoints == StationData.CurrentRecipeCraftingPoints) {
             CraftResource();
             PickNewRecipe();
+            SetProgressDataClientRpc(_progressData.ProgressData.InfoViewEnabled, _progressData.ProgressData.Needed,
+                _progressData.ProgressData.Title);
         }
+
+        SyncCraftingPointsClientRpc(StationData.CurrentRecipeCraftingPoints);
+    }
+
+    private void UpdateCraftingPoints() {
+        _progressData.ProgressData.Progress.Value = StationData.CurrentRecipeCraftingPoints;
+    }
+
+    [ClientRpc]
+    private void SyncCraftingPointsClientRpc(int points) {
+        StationData.CurrentRecipeCraftingPoints = points;
+        _progressData.ProgressData.Progress.Value = points;
     }
 
     private void CraftResource() {
@@ -103,18 +125,21 @@ public class CraftingStation : NetworkBehaviour {
         foreach (ResourceData requiredResources in StationData.CurrentRecipe.RequiredResources) {
             StationData.ResourceStorage[requiredResources.ResourceType] -= requiredResources.Amount;
             StationData.RequiredResources[requiredResources.ResourceType] -= requiredResources.Amount;
+            SetResourceClientRpc(requiredResources.ResourceType, StationData.ResourceStorage[requiredResources.ResourceType]);
         }
 
-        _resourceManager.SpawnResource(InteractPos[0].position, StationData.CurrentRecipe.ResultingResource.ResourceType, StationData.CurrentRecipe.ResultingResource.Amount);
+        _resourceManager.SpawnResource(InteractPos[0].position, StationData.CurrentRecipe.ResultingResource.ResourceType,
+            StationData.CurrentRecipe.ResultingResource.Amount);
         StationData.CurrentRecipeCraftingPoints = 0;
         StationData.CurrentRecipe = null;
         _progressData.ProgressData.InfoViewEnabled = false;
         _progressData.ProgressData.Progress.Value = 0;
+        SyncCraftingPointsClientRpc(StationData.CurrentRecipeCraftingPoints);
+
         Debug.Log($"Crafted {resource.ResourceType}");
     }
 
     private void PickNewRecipe() {
-        CraftingRecipeConfig recipe = null;
         foreach (CraftingRecipeConfig config in StationData.AvailableCraftingRecipes) {
             if (StationData.RecipesToCraft[config.ResultingResource.ResourceType] == 0) continue;
             foreach (ResourceData resource in config.RequiredResources) {
@@ -122,13 +147,29 @@ public class CraftingStation : NetworkBehaviour {
                     break;
                 }
 
-                StationData.CurrentRecipe = StationData.AvailableCraftingRecipes.FirstOrDefault(r => r.ResultingResource.ResourceType == config.ResultingResource.ResourceType);
-                
-                _progressData.ProgressData.InfoViewEnabled = true;
-                _progressData.ProgressData.Needed = StationData.CurrentRecipe!.CraftingPoints;
-                _progressData.ProgressData.Title = StationData.CurrentRecipe.MainInfo.Name;
+                var nextRecipe =
+                    StationData.AvailableCraftingRecipes.FirstOrDefault(r =>
+                        r.ResultingResource.ResourceType == config.ResultingResource.ResourceType);
+
+                StationData.CurrentRecipe = nextRecipe;
+
+                SetProgressData();
+
                 return;
             }
         }
+    }
+
+    private void SetProgressData() {
+        _progressData.ProgressData.InfoViewEnabled = true;
+        _progressData.ProgressData.Needed = StationData.CurrentRecipe!.CraftingPoints;
+        _progressData.ProgressData.Title = StationData.CurrentRecipe.MainInfo.Name;
+    }
+
+    [ClientRpc]
+    private void SetProgressDataClientRpc(bool info, int needed, string title) {
+        _progressData.ProgressData.InfoViewEnabled = info;
+        _progressData.ProgressData.Needed = needed;
+        _progressData.ProgressData.Title = title;
     }
 }
