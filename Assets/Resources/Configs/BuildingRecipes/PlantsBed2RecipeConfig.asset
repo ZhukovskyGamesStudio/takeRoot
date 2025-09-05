@@ -13,15 +13,18 @@ MonoBehaviour:
   m_Name: PlantsBed2RecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: e78575e6c61a1584b844a3d2b7dd08fc, type: 2}
-  ObjectSprite: {fileID: 0}
   BuildingPrefab: {fileID: 7110737873876841608, guid: 591240ebbdad5164394d204c1d55c84c, type: 3}
   Footprint: {x: 1, y: 2}
   Hp: 75
-  RequiredBuildPoints: 10
+  RequiredBuildPoints: 40
   BuildingCategory: 2
   Ingridients:
     _serializedList:
+    - Key: 18
+      Value: 3
     - Key: 16
       Value: 15
     - Key: 3
       Value: 15
+  RequiredResearch: 19
+  IsHumanBuilding: 0

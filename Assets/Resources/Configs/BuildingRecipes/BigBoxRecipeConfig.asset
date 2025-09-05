@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: BigBoxRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: 94ef7cdfeccd8df4ab1dae06b7ba630f, type: 2}
-  ObjectSprite: {fileID: 0}
   BuildingPrefab: {fileID: 2698218236989389229, guid: 95ea72a4211bf46428b27c4b90d5d9ce, type: 3}
   Footprint: {x: 2, y: 2}
   Hp: 200
-  RequiredBuildPoints: 10
+  RequiredBuildPoints: 20
   BuildingCategory: 0
   Ingridients:
     _serializedList:
@@ -25,3 +24,5 @@ MonoBehaviour:
       Value: 10
     - Key: 2
       Value: 5
+  RequiredResearch: 2
+  IsHumanBuilding: 0

@@ -16,10 +16,11 @@ MonoBehaviour:
   BuildingPrefab: {fileID: 7110737873876841608, guid: dbd452a093e6cfa4eb8c12e15e6e6a49, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 50
-  RequiredBuildPoints: 10
+  RequiredBuildPoints: 5
   BuildingCategory: 0
   Ingridients:
     _serializedList:
     - Key: 16
       Value: 5
   RequiredResearch: 13
+  IsHumanBuilding: 0

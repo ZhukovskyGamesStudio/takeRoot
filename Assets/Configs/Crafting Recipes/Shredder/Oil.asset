@@ -16,8 +16,10 @@ MonoBehaviour:
   CraftingPoints: 10
   <RequiredResources>k__BackingField:
   - ResourceType: 14
+    Amount: 4
+  - ResourceType: 6
     Amount: 1
   <ResultingResource>k__BackingField:
     ResourceType: 17
-    Amount: 1
+    Amount: 4
   RequiredResearch: 17

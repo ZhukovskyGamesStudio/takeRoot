@@ -13,13 +13,18 @@ MonoBehaviour:
   m_Name: BatteryRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: 0e321a093db721d41ad74b94498efaa1, type: 2}
-  ObjectSprite: {fileID: 0}
   BuildingPrefab: {fileID: 7110737873876841608, guid: 61dccf6f7a9591443a8a8708af01d4c5, type: 3}
   Footprint: {x: 2, y: 3}
   Hp: 50
-  RequiredBuildPoints: 10
+  RequiredBuildPoints: 20
   BuildingCategory: 0
   Ingridients:
     _serializedList:
     - Key: 1
       Value: 10
+    - Key: 7
+      Value: 10
+    - Key: 2
+      Value: 10
+  RequiredResearch: 16
+  IsHumanBuilding: 0

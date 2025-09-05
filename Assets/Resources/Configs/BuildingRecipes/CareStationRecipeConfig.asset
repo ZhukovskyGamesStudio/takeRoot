@@ -13,15 +13,14 @@ MonoBehaviour:
   m_Name: CareStationRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: 71a444d1fbcc8db4ab805b5f1b445a8b, type: 2}
-  ObjectSprite: {fileID: 0}
   BuildingPrefab: {fileID: 7110737873876841608, guid: cb0e412fb14a9ba43ac24b1a1901cec9, type: 3}
   Footprint: {x: 3, y: 1}
   Hp: 250
-  RequiredBuildPoints: 10
+  RequiredBuildPoints: 5
   BuildingCategory: 2
   Ingridients:
     _serializedList:
     - Key: 1
-      Value: 20
-    - Key: 2
-      Value: 20
+      Value: 10
+  RequiredResearch: 12
+  IsHumanBuilding: 0

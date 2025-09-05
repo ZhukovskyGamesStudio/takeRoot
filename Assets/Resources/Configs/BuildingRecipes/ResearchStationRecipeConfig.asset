@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: ResearchStationRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: 0524f318c2d72dd46a1c3239d782685a, type: 2}
-  ObjectSprite: {fileID: 0}
   BuildingPrefab: {fileID: 7110737873876841608, guid: 4da822d066cb5d642b838218bd184a24, type: 3}
   Footprint: {x: 4, y: 2}
   Hp: 150
@@ -22,6 +21,10 @@ MonoBehaviour:
   Ingridients:
     _serializedList:
     - Key: 2
-      Value: 20
+      Value: 5
     - Key: 1
-      Value: 20
+      Value: 5
+    - Key: 16
+      Value: 5
+  RequiredResearch: 0
+  IsHumanBuilding: 0

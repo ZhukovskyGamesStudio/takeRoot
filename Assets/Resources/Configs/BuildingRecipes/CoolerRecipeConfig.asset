@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: CoolerRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: 8068c229718052d488931b89bdcd994a, type: 2}
-  ObjectSprite: {fileID: 0}
   BuildingPrefab: {fileID: 7110737873876841608, guid: 468977f71c83f734c8f6a06f4f1a8d74, type: 3}
   Footprint: {x: 3, y: 1}
   Hp: 250
@@ -22,6 +21,8 @@ MonoBehaviour:
   Ingridients:
     _serializedList:
     - Key: 1
-      Value: 20
+      Value: 5
     - Key: 2
-      Value: 20
+      Value: 5
+  RequiredResearch: 0
+  IsHumanBuilding: 0
