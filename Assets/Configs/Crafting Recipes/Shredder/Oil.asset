@@ -12,14 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 842f9349c2204217902cd1d28ab1e682, type: 3}
   m_Name: Oil
   m_EditorClassIdentifier: 
-  RecipeUid: 1
   MainInfo: {fileID: 11400000, guid: ebc361c9f28be6a47ba3a11ae12d0558, type: 2}
-  RecipeIcon: {fileID: 21300000, guid: 2f8175a6ebc2ab54faa4d1f3f5c8731b, type: 3}
-  ExplainText: "\u043C\u0430\u0441\u043B\u043E"
   CraftingPoints: 10
   <RequiredResources>k__BackingField:
   - ResourceType: 14
     Amount: 1
   <ResultingResource>k__BackingField:
-    ResourceType: 1
+    ResourceType: 17
     Amount: 1
+  RequiredResearch: 17

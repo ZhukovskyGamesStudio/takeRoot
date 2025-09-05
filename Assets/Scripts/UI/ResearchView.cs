@@ -42,6 +42,9 @@ public class ResearchView : MonoBehaviour {
 
         _titleText.text = data.DisplayName;
         _progressText.text = data.Price.ToString();
+        if (data.IsDisabled) {
+            _researchButton.interactable = false;
+        }
         
         _researchButton.onClick.AddListener(() => panelView.SelectResearch(_data));
 
