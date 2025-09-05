@@ -507,6 +507,7 @@ GameObject:
   - component: {fileID: 4841874120884828648}
   - component: {fileID: 5977438119890675664}
   - component: {fileID: 6413539052439460965}
+  - component: {fileID: 3670827552236147074}
   m_Layer: 0
   m_Name: BaseSettler
   m_TagString: Untagged
@@ -543,7 +544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3724424707
+  GlobalObjectIdHash: 2383178216
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -645,6 +646,7 @@ MonoBehaviour:
         Bed: {fileID: 0}
         Cooler: {fileID: 0}
         ElectricitySource: {fileID: 0}
+        ResearchStation: {fileID: 0}
       buildingTransport:
         buildingBlueprint: {fileID: 0}
         resourceToHaul: {fileID: 0}
@@ -794,6 +796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23ed166c73ac4bf18e38efb796571803, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   _resourceContainer: {fileID: 2196910600803747024}
 --- !u!114 &4227291482212248234
 MonoBehaviour:
@@ -888,6 +891,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 25
   _cooldown: 5
+--- !u!114 &3670827552236147074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6094444002186240976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cebc44623526482ab92d083002c78e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  researchTime: 1.5
 --- !u!1 &8258255922625784048
 GameObject:
   m_ObjectHideFlags: 0

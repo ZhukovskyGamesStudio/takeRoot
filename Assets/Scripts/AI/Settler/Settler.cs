@@ -32,6 +32,7 @@ namespace AI {
         public IBuilder Builder;
         public ITimeMachineCharger TimeMachineCharger;
         public IAttacker Attacker;
+        public IResearcher Researcher;
 
         public WorkerAnimator WorkerAnimator { get; private set; }
 
@@ -50,6 +51,7 @@ namespace AI {
             DinamoCharger = GetComponent<IDinamoCharger>();
             TimeMachineCharger = GetComponent<ITimeMachineCharger>();
             Attacker = GetComponent<IAttacker>();
+            Researcher = GetComponent<IResearcher>();
 
             Mover.Init(WorkerAnimator);
             Searcher.Init(WorkerAnimator);
@@ -62,6 +64,7 @@ namespace AI {
             DinamoCharger.Init(WorkerAnimator);
             TimeMachineCharger.Init(WorkerAnimator);
             Attacker.Init(WorkerAnimator);
+            Researcher.Init(WorkerAnimator);
 
             Data.Init();
 
