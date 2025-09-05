@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChooseRacePanel : MonoBehaviour {
+public class ChooseRacePanel : NetworkBehaviour {
     [SerializeField]
     private Button _readyButton, _plantsButton, _robotsButton;
 

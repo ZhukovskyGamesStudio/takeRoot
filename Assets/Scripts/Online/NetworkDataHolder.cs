@@ -46,6 +46,9 @@ public class NetworkDataHolder : NetworkBehaviour {
     public static Race GetRace() {
         return NetworkManager.Singleton.IsHost ? Instance.MainGameNetworkData.HostRace.Value : Instance.MainGameNetworkData.ClientRace.Value;
     }
+    public static Race GetOtherRace() {
+        return NetworkManager.Singleton.IsHost ? Instance.MainGameNetworkData.ClientRace.Value : Instance.MainGameNetworkData.HostRace.Value;
+    }
 
     [ClientRpc]
     public void SetGameSpeedClientRpc(float speed) {
