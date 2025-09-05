@@ -13,6 +13,7 @@ public class CommandTargetData {
 
     [HideInInspector]
     public JobType CurrentJob;
+    [HideInInspector]
     public Race RacePlacedBy;
     
     [HideInInspector]

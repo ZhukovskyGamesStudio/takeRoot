@@ -10,7 +10,7 @@ namespace AI.Node.Jobs {
         }
 
         public override BTNodeState Evaluate() {
-            Bed freeBed = Object.FindObjectsByType<Bed>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault(b => b.IsFree);
+            Bed freeBed = Object.FindObjectsByType<Bed>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).FirstOrDefault(b => b.IsFree && b.Race == _settler.Race);
             if (freeBed == null) {
                 return _state = BTNodeState.Failure;
             }

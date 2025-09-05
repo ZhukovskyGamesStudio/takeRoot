@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Services;
+using Unity.Netcode;
 using UnityEngine;
 
-public class TimeMachine : MonoBehaviour {
+public class TimeMachine : NetworkBehaviour {
     [SerializeField]
     public List<Transform> InteractPos;
 
@@ -11,17 +12,22 @@ public class TimeMachine : MonoBehaviour {
     private Progress _progressBar;
 
     [SerializeField]
-    private int _neededProgress;
+    private int _neededProgress = 100;
+
+    [SerializeField]
+    private float _chargingSpeed = 5;
 
     public Dictionary<Race, AI.Settler> Chargers;
 
-    private int _progress;
+    private float _progress;
     private Dictionary<Race, bool> _chargedRace;
     private ITimeScaleService _timeScaleService;
+    private CommandTarget _commandTarget;
 
     public bool Charged => _progress >= _neededProgress;
 
     private void Start() {
+        _commandTarget = GetComponent<CommandTarget>();
         Chargers = new Dictionary<Race, AI.Settler> {
             { Race.Plants, null },
             { Race.Robots, null }
@@ -31,7 +37,7 @@ public class TimeMachine : MonoBehaviour {
             { Race.Plants, false },
             { Race.Robots, false }
         };
-        
+
         _progressBar.ProgressData.Needed = _neededProgress;
 
         _timeScaleService = ServiceLocator.Container.Single<ITimeScaleService>();
@@ -49,18 +55,35 @@ public class TimeMachine : MonoBehaviour {
             _chargedRace[key] = false;
         }
 
-        _progress++;
-        _progressBar.ProgressData.Progress.Value = _progress;
+        SetProgress(_progress + _chargingSpeed);
+        SetProgressClientRpc(_progress);
 
         if (Charged) {
-            GetComponent<Animator>().SetTrigger("Work");
+            _commandTarget.SetPerform(true);
             _timeScaleService.SetReadyToPause();
+            SetPauseEnabledClientRpc();
         }
     }
 
+    [ClientRpc]
+    private void SetPauseEnabledClientRpc() {
+        _timeScaleService.SetReadyToPause();
+    }
+
     public void Use() {
-        GetComponent<Animator>().SetTrigger("Idle");
-        _progress = 0;
-        _progressBar.ProgressData.Progress.Value = 0;
+        _commandTarget.SetPerform(false);
+        
+        SetProgress(0);
+        SetProgressClientRpc(_progress);
+    }
+
+    [ClientRpc]
+    private void SetProgressClientRpc(float value) {
+        SetProgress(value);
+    }
+
+    private void SetProgress(float value) {
+        _progress = value;
+        _progressBar.ProgressData.Progress.Value = Mathf.RoundToInt(_progress);
     }
 }

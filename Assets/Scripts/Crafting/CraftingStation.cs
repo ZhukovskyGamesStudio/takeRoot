@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Services;
 using Settlers.Crafting;
+using Unity.Netcode;
 using UnityEngine;
 
-public class CraftingStation : MonoBehaviour {
+public class CraftingStation : NetworkBehaviour {
     [field: SerializeField]
     public CraftingStationData StationData { get; private set; }
 
@@ -26,7 +27,8 @@ public class CraftingStation : MonoBehaviour {
     private IResourceManager _resourceManager;
     private GridObject _gridObject;
 
-    private void Start() {
+    public override void OnNetworkSpawn() {
+        base.OnNetworkSpawn();
         _resourceManager = ServiceLocator.Container.Single<IResourceManager>();
         _craftingService = ServiceLocator.Container.Single<ICraftingService>();
         _gridObject = GetComponent<GridObject>();

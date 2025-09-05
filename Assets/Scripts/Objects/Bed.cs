@@ -1,8 +1,10 @@
 using UnityEngine;
 
 public class Bed : MonoBehaviour {
-    [SerializeField]
     private AI.Settler _settler;
+
+    [field: SerializeField]
+    public Race Race { get; private set; }
 
     public Transform SleepPos;
     public Transform NearPos; //??

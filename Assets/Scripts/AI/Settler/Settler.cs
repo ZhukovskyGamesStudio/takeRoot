@@ -17,6 +17,8 @@ namespace AI {
         public NetworkVariable<SettlerData> NetworkData;
         public SettlerData Data => NetworkData.Value;
 
+        public Race Race => Data.names.Race;
+
         public IMovable Mover;
         public ISearcher Searcher;
         public IPlanter Farmer;
@@ -126,6 +128,7 @@ namespace AI {
         }
 
         public void TeleportToPos(Vector3 pos) {
+            transform.position = pos;
             TeleportToPosClientRpc(pos);
         }
 
