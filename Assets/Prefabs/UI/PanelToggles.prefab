@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7970460017755775345}
   - component: {fileID: 2049024956444250355}
   - component: {fileID: 2122308014108864668}
+  - component: {fileID: 7296542728546185937}
   m_Layer: 5
   m_Name: Buildings Toggle
   m_TagString: Untagged
@@ -95,6 +96,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 318176706481859500}
   m_CullTransparentMesh: 1
+--- !u!114 &7296542728546185937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318176706481859500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77fdf6bdf804d7e94d848f7d372614e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Toggle: {fileID: 2049024956444250355}
+  ResearchRequirement: 0
+  RaceRequirement: 3
 --- !u!1 &669138104335060880
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +197,7 @@ GameObject:
   - component: {fileID: 588885835308242906}
   - component: {fileID: 2310248539598777831}
   - component: {fileID: 1208985720464677790}
+  - component: {fileID: 670442035233341084}
   m_Layer: 5
   m_Name: Farming Toggle
   m_TagString: Untagged
@@ -265,6 +282,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132559155350505239}
   m_CullTransparentMesh: 1
+--- !u!114 &670442035233341084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132559155350505239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77fdf6bdf804d7e94d848f7d372614e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Toggle: {fileID: 2310248539598777831}
+  ResearchRequirement: 13
+  RaceRequirement: 1
 --- !u!1 &1148016982912054770
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,6 +1623,18 @@ MonoBehaviour:
       Value: {fileID: 9151895339780322103}
     - Key: 7
       Value: {fileID: 2310248539598777831}
+  <ToggleData>k__BackingField:
+    _serializedList:
+    - Key: 1
+      Value: {fileID: 7296542728546185937}
+    - Key: 2
+      Value: {fileID: 5773513804712675259}
+    - Key: 3
+      Value: {fileID: 4193666132774545997}
+    - Key: 4
+      Value: {fileID: 6561699257739053360}
+    - Key: 7
+      Value: {fileID: 670442035233341084}
 --- !u!114 &4880434643560071705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1705,6 +1749,7 @@ GameObject:
   - component: {fileID: 4249955464414509240}
   - component: {fileID: 6382799000194613701}
   - component: {fileID: 469343574385250208}
+  - component: {fileID: 4193666132774545997}
   m_Layer: 5
   m_Name: Priorities Toggle
   m_TagString: Untagged
@@ -1789,6 +1834,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5730740744635719192}
   m_CullTransparentMesh: 1
+--- !u!114 &4193666132774545997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5730740744635719192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77fdf6bdf804d7e94d848f7d372614e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Toggle: {fileID: 6382799000194613701}
+  ResearchRequirement: 0
+  RaceRequirement: 3
 --- !u!1 &5840654358996289271
 GameObject:
   m_ObjectHideFlags: 0
@@ -2088,6 +2148,7 @@ GameObject:
   - component: {fileID: 7961711579865428808}
   - component: {fileID: 6875631508267324629}
   - component: {fileID: 8572449334449919979}
+  - component: {fileID: 5773513804712675259}
   m_Layer: 5
   m_Name: Research Toggle
   m_TagString: Untagged
@@ -2172,6 +2233,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6704406238362409728}
   m_CullTransparentMesh: 1
+--- !u!114 &5773513804712675259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6704406238362409728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77fdf6bdf804d7e94d848f7d372614e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Toggle: {fileID: 6875631508267324629}
+  ResearchRequirement: 0
+  RaceRequirement: 3
 --- !u!1 &6817390493421347465
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,6 +2395,7 @@ GameObject:
   - component: {fileID: 5601624588963226950}
   - component: {fileID: 9151895339780322103}
   - component: {fileID: 6537729345998818937}
+  - component: {fileID: 6561699257739053360}
   m_Layer: 5
   m_Name: Map Toggle
   m_TagString: Untagged
@@ -2403,6 +2480,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7097616541594020640}
   m_CullTransparentMesh: 1
+--- !u!114 &6561699257739053360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7097616541594020640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77fdf6bdf804d7e94d848f7d372614e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Toggle: {fileID: 9151895339780322103}
+  ResearchRequirement: 0
+  RaceRequirement: 3
 --- !u!1 &7240381107049121484
 GameObject:
   m_ObjectHideFlags: 0

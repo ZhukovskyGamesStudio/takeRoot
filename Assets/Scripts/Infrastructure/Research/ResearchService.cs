@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class ResearchService : IResearchService {
 
     private Dictionary<Research, ResearchData> _researchData;
 
+    public Action OnResearchFinished { get; set; }
+
     public ResearchService(IConfigsProvider configsProvider) {
         _researchConfig = configsProvider.ResearchConfig;
 
@@ -17,6 +20,9 @@ public class ResearchService : IResearchService {
         UpdateResearchable();
     }
 
+    public bool WasResearched(Research research) {
+        return _researchData[research].Price == _researchSaveData.ResearchProgress[research];
+    }
     private void CreateMockResearchData() {
         //тут можешь создавать рандомные параметры для теста
         _researchSaveData = new ResearchSaveData();
@@ -62,6 +68,7 @@ public class ResearchService : IResearchService {
         if (resultPoints == _researchData[currentResearch].Price) {
             _researchSaveData.CurrentResearch = Research.None;
             UpdateResearchable();
+            OnResearchFinished?.Invoke();
         }
         UpdateStationsData();
     }

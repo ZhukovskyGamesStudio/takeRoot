@@ -78,7 +78,7 @@ public class CoreEntryPoint : EntryPointBase {
             Single<IUpdateService>(), Single<ISelectionService>());
 
         PanelsPresenter panelsPresenter = new(_coreCanvasUi.PanelTogglesView, _coreCanvasUi.PanelsView, Single<ISelectionService>(),
-            Single<INetworkService>());
+            Single<INetworkService>(), Single<IResearchService>());
 
         ResourcesViewPresenter resorcesPresenter = new(_coreCanvasUi.ResourcesView, Single<IResourceManager>(), Single<IUpdateService>());
 
