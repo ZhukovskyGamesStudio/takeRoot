@@ -44,7 +44,7 @@ public class ResourcesManager : IResourceManager {
     public void DestroyResource(Vector3 at) {
         var resource = ExistingResourcesOnGround[at];
         ExistingResourcesOnGround.Remove(at);
-        Object.Destroy(resource.gameObject);
+        resource.gameObject.GetComponent<NetworkObject>().Despawn();
     }
 
     public Resource FindResourceOnGround(ResourceType type) {

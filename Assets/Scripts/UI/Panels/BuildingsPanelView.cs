@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CodeBase.Services;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,8 @@ public class BuildingsPanelView : NetworkBehaviour {
     private Transform _gridItemsContainer;
 
     [SerializeField]
+    private TextMeshProUGUI _categoryHeader;
+    [SerializeField]
     private int _shownAmount = 9;
 
     [SerializeField]
@@ -25,6 +28,9 @@ public class BuildingsPanelView : NetworkBehaviour {
     [SerializeField]
     private AYellowpaper.SerializedCollections.SerializedDictionary<BuildingCategory, Toggle> _categoryToggles;
 
+    [SerializeField]
+    private AYellowpaper.SerializedCollections.SerializedDictionary<BuildingCategory, string> _categoryNames;
+    
     [Header("Remove from here!!!"), SerializeField]
     private List<BuildingRecipeConfig> _mockRecipeConfigs;
 
@@ -86,6 +92,8 @@ public class BuildingsPanelView : NetworkBehaviour {
             _gridItems[i].gameObject.SetActive(true);
             _gridItems[i].SetData(curShown[i]);
         }
+
+        _categoryHeader.text = _categoryNames[_currentCategory];
     }
 
     private void OpenInfoPanel(BuildingRecipeConfig config) {

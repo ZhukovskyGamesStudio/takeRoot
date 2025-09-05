@@ -67,9 +67,12 @@ public class CraftingStationData {
         }
 
         RecipesToCraft[recipeRes]--;
-        if (CurrentRecipe.ResultingResource.ResourceType == recipeRes && RecipesToCraft[recipeRes] == 0) {
-            CurrentRecipe = null;
+        if (CurrentRecipe != null) {
+            if (CurrentRecipe.ResultingResource.ResourceType == recipeRes && RecipesToCraft[recipeRes] == 0) {
+                CurrentRecipe = null;
+            }
         }
+        
 
         foreach (ResourceData resource in recipe.RequiredResources) {
             RequiredResources[resource.ResourceType] -= resource.Amount;
