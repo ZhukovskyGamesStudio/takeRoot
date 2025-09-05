@@ -72,9 +72,14 @@ public class FogOfWarService : IFogOfWarService, IUpdatable {
     }
 
     public void OpenAroundMovedSettler(AI.Settler settler) {
+        if (AdminManager.IsUnfogingDisabled) {
+            return;
+        }
+        
         if (settler.Data.names.Race != _networkService.MyRace.Value) {
             return;
         }
+        
 
         Vector2Int settlerCell = settler.PosOnGrid;
         OpenAround(settlerCell, _config.ViewRadius + 2, _config.ViewRadius);
@@ -193,6 +198,14 @@ public class FogOfWarService : IFogOfWarService, IUpdatable {
             FindAllBlockingViews();
             foreach (AI.Settler settler in _settlersService.MySettlers(_networkService.MyRace.Value)) {
                 OpenAroundMovedSettler(settler);
+            }
+        }
+
+
+        if (Input.GetKey(KeyCode.H)) {
+            if (Input.GetMouseButtonDown(0)) {
+                
+                //OpenAround()
             }
         }
     }

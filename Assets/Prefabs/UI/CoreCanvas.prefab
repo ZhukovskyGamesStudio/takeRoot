@@ -907,6 +907,7 @@ GameObject:
   - component: {fileID: 4111831992335270367}
   - component: {fileID: 1621442124239554243}
   - component: {fileID: 3001050645557573153}
+  - component: {fileID: 8136142859334811609}
   m_Layer: 5
   m_Name: CoreCanvas
   m_TagString: Untagged
@@ -1058,6 +1059,18 @@ MonoBehaviour:
   <ResourcesView>k__BackingField: {fileID: 5475529851738297918}
   <OverlaysView>k__BackingField: {fileID: 5792077780103573127}
   <NotificationsView>k__BackingField: {fileID: 7568726843573793468}
+--- !u!225 &8136142859334811609
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7063355970026398798}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &7282043398161551022
 GameObject:
   m_ObjectHideFlags: 0
