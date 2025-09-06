@@ -1,5 +1,6 @@
 using System;
 using UniRx;
+using UnityEngine.UI;
 
 public class CommandPresenter : IDisposable {
     public ReactiveProperty<JobType> PendingCommand;
@@ -25,8 +26,25 @@ public class CommandPresenter : IDisposable {
                 }
             });
         }
+        PendingCommand.AsObservable().Subscribe(_ => UpdateToggles());
     }
 
+    private void UpdateToggles() {
+        Toggle enabledToggle = null;
+        foreach (var kvp in _view.Toggles) {
+            var jobType = kvp.Key;
+            var toggle = kvp.Value;
+            if (toggle.isOn)
+                enabledToggle = toggle;
+            if (PendingCommand.Value == jobType) {
+                toggle.isOn = true;
+                break;
+            }
+        }
+        if (enabledToggle != null) {
+            enabledToggle.isOn = false;
+        }
+    }
     public void Dispose() {
         PendingCommand?.Dispose();
     }

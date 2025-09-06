@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
@@ -9,7 +10,9 @@ public class TacticalService : ITacticalService, IUpdatable {
 	private readonly IInputService _input;
 	private readonly IPhysicsService _physics;
 	private readonly INetworkService _network;
-
+	
+	public Action OnTacticalSwitched { get; set; }
+	
 	public TacticalService(IGridService gridService, ISelectionService selection, IUpdateService update, IInputService input, IPhysicsService physics, INetworkService network) {
 		_gridService = gridService;
 		_selection = selection;
@@ -27,6 +30,7 @@ public class TacticalService : ITacticalService, IUpdatable {
 			var data = (AI.SettlerData)selectable.GetData(_network.MyRace.Value);
 			selectable.GetComponent<AI.Settler>().SetTacticalServerRpc(!data.tactical.IsTactical);
 		}
+		OnTacticalSwitched?.Invoke();
 	}
 
 	private void AddTacticalMovePosToSelectedSettlers(Vector3 pos) {
@@ -53,6 +57,9 @@ public class TacticalService : ITacticalService, IUpdatable {
 	}
 
 	public void Update() {
+		if (_input.GetKeyDown(KeyCode.Space)) {
+			SetTacticalForSelectedSettlers();
+		}
 		if (_input.GetMouseButtonDown(MouseButton.Right)) {
 			var zombie = _physics.Raycast<AI.Zombie>(_input.GetWorldMousePosition(), Vector2.zero);
 			if (zombie == null)

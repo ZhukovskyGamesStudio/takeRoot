@@ -19,9 +19,9 @@ namespace Settlers.UI.Commands {
 			_network = network;
 			_tacticalView.TacticalSwapButton.onClick.AddListener(() => {
 				_tacticalService.SetTacticalForSelectedSettlers();
-				UpdateView();
 			});
 			_selection.SelectedReactive.AsObservable().Subscribe(_ => UpdateView());
+			_tacticalService.OnTacticalSwitched += UpdateView;
 		}
 
 		private void UpdateView() {
@@ -53,6 +53,7 @@ namespace Settlers.UI.Commands {
 		}
 		public void Dispose() {
 			_tacticalView.TacticalSwapButton.onClick.RemoveAllListeners();
+			_tacticalService.OnTacticalSwitched -= UpdateView;
 		}
 	}
 }
