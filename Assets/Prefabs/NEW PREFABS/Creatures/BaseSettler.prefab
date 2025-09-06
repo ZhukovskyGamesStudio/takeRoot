@@ -641,8 +641,10 @@ MonoBehaviour:
             breakdownTimer: 1
             stressAfterBreakdown: 50
             stressChange: 0
-            lowSatietyStressChange: -1
-            highSatietyStressChange: 2
+            lowSatietyStressChange: 0.5
+            highSatietyStressChange: -1
+            lowCareStressChange: 0.5
+            highCareStressChange: -1
           SatietyData:
             maxSatiety: 100
             currentSatiety: 0
