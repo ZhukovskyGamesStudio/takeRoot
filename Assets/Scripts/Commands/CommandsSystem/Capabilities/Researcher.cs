@@ -14,6 +14,7 @@ namespace AI {
 		private IAsyncRunner _asyncRunner;
 		private CancellationTokenSource _taskCts;
 		private IResearchService _researchService;
+		private ResearchStation _researchStation;
 		public void Init(WorkerAnimator animator) {
 			_animator = animator;
 			_asyncRunner = ServiceLocator.Container.Single<IAsyncRunner>();
@@ -30,8 +31,10 @@ namespace AI {
 		}
 
 		private async UniTaskVoid DoResearch(ResearchStation researchStation, CancellationToken token) {
+			_researchStation = researchStation;
 			_isResearching = true;
 			_animator.PlayCraft();
+			researchStation.StartWorking();
 			while (!token.IsCancellationRequested) {
 				await _asyncRunner.Wait(researchTime, token);
 				if (token.IsCancellationRequested) {
@@ -44,6 +47,9 @@ namespace AI {
 
 		public void Cancel() {
 			if (_taskCts != null && !_taskCts.Token.IsCancellationRequested) {
+				if (_researchStation != null) {
+					_researchStation.StopWorking();
+				}
 				_taskCts.Cancel();
 				_taskCts.Dispose();
 				_taskCts = null;

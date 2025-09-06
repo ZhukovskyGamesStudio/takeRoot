@@ -47,8 +47,7 @@ public class ResearchService : IResearchService {
     public void SelectResearch(Research research) {
         if (_researchSaveData.ResearchProgress[research] == _researchData[research].Price) return;
         if (!_researchData[research].Researchable) return;
-        
-        _researchSaveData.CurrentResearch = research;
+        NetworkDataHolder.Instance.ResearchNetworkData.SelectResearch(research);
         UpdateStationsData();
     }
 
@@ -66,7 +65,7 @@ public class ResearchService : IResearchService {
 
         _researchSaveData.ResearchProgress[currentResearch] = resultPoints;
         if (resultPoints == _researchData[currentResearch].Price) {
-            _researchSaveData.CurrentResearch = Research.None;
+            NetworkDataHolder.Instance.ResearchNetworkData.SelectResearch(Research.None);
             UpdateResearchable();
             OnResearchFinished?.Invoke();
         }
