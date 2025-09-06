@@ -12,7 +12,9 @@ public class TacticalService : ITacticalService, IUpdatable {
 	private readonly INetworkService _network;
 	
 	public Action OnTacticalSwitched { get; set; }
-	
+	public Action OnTacticalChanged { get; set; }
+
+
 	public TacticalService(IGridService gridService, ISelectionService selection, IUpdateService update, IInputService input, IPhysicsService physics, INetworkService network) {
 		_gridService = gridService;
 		_selection = selection;
@@ -57,7 +59,7 @@ public class TacticalService : ITacticalService, IUpdatable {
 
 	public void Update() {
 		if (_input.GetKeyDown(KeyCode.Space)) {
-			SetTacticalForSelectedSettlers();
+			OnTacticalChanged?.Invoke();
 		}
 		if (_input.GetMouseButtonDown(MouseButton.Right)) {
 			var zombie = _physics.Raycast<AI.Zombie>(_input.GetWorldMousePosition(), Vector2.zero);
