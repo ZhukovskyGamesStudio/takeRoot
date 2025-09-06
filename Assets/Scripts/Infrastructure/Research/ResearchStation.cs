@@ -17,9 +17,9 @@ public class ResearchStation : MonoBehaviour {
 	public Transform robotInteractPosition;
 
 	public bool IsAnotherOnPosition(Race anotherResearcherRace) {
-		if (anotherResearcherRace == Race.Plants) {
+		if (anotherResearcherRace == Race.Plants && plantInteractPosition != null) {
 			return plantResearcher.transform.position == plantInteractPosition.position;
-		} else if (anotherResearcherRace == Race.Robots) {
+		} else if (anotherResearcherRace == Race.Robots && robotInteractPosition != null) {
 			return robotResearcher.transform.position == robotInteractPosition.position;
 		}
 		return false;
