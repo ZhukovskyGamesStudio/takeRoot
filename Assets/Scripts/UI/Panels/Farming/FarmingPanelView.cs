@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FarmingPanelView : MonoBehaviour {
+    public Sprite SickleIcon;
+    
     [SerializeField]
     private FarmingLineView _farmingLinesPrefab;
-
+    
     [SerializeField]
     private Transform _linesContainer;
 

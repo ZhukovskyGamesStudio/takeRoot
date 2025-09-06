@@ -794,11 +794,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9a9cbb9aba3438597ef4620fcfd4eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SickleIcon: {fileID: 21300000, guid: 4621b23395f80634f94cce2b5723e34f, type: 3}
   _farmingLinesPrefab: {fileID: -253348189037940967, guid: 65520b5810f9ab44c9e91add3f31e19b, type: 3}
-  _farmingConfigsMock:
-  - {fileID: 11400000, guid: 1b05098bad384bd4eb101b3f3bb90cf8, type: 2}
-  - {fileID: 11400000, guid: 7a0488d30cb15ef40bae98884df17f09, type: 2}
-  - {fileID: 11400000, guid: 80049cacfc8edfd4aaf75fedce951fc3, type: 2}
   _linesContainer: {fileID: 8952297456090585608}
 --- !u!1 &4931568788113806049
 GameObject:

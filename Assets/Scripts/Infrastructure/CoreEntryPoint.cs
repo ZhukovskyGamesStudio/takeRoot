@@ -32,6 +32,9 @@ public class CoreEntryPoint : EntryPointBase {
     [SerializeField]
     private TacticalView _tacticalView;
 
+    [SerializeField]
+    private CursorIcon _cursorIcon;
+
     private ServiceLocator _services;
 
     private void Awake() {
@@ -43,7 +46,7 @@ public class CoreEntryPoint : EntryPointBase {
         ICoroutineRunner coroutineRunner = GetComponent<ICoroutineRunner>();
         MapFromSceneObjects map = GetComponent<MapFromSceneObjects>();
         ServiceLocatorLoader_Main loader = new(updateService, coroutineRunner, _coreCanvasUi, map, _buildingsPanelView, _globalDaynightLight,
-            _networkDataHolderPrefab);
+            _networkDataHolderPrefab, _cursorIcon);
 
         loader.RegisterServices();
         _services = ServiceLocator.Container;
@@ -85,7 +88,7 @@ public class CoreEntryPoint : EntryPointBase {
 
         ResearchViewPresenter researchPresenter = new(_coreCanvasUi.ResearchPanelView, Single<IResearchService>());
 
-        FarmingViewPresenter farmingPresenter = new(_coreCanvasUi.FarmingPanelView, Single<IFarmingService>());
+        FarmingViewPresenter farmingPresenter = new(_coreCanvasUi.FarmingPanelView, Single<IFarmingService>(), Single<ICursorService>());
 
         NotificationsPresenter notificationsPresenter = new(_coreCanvasUi.NotificationsView, Single<INotificationsService>());
 

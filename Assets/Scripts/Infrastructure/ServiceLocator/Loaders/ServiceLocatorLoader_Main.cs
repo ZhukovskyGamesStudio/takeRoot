@@ -9,6 +9,7 @@ public class ServiceLocatorLoader_Main {
     private BuildingsPanelView _buildingsPanelView;
     private readonly InGameDaynightLightView _globalDaynightLight;
     private readonly NetworkDataHolder _networkDataHolder;
+    private readonly CursorIcon _cursorIcon;
 
     private ResourcesConfig _resourceConfig;
 
@@ -20,12 +21,14 @@ public class ServiceLocatorLoader_Main {
     private ICoroutineRunner _coroutineRunner;
     private readonly ServiceLocator _services;
 
-    public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner, 
-        CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects,  BuildingsPanelView buildingsPanelView, InGameDaynightLightView globalDaynightLight, NetworkDataHolder networkDataHolder) {
+    public ServiceLocatorLoader_Main(IUpdateService updateService, ICoroutineRunner coroutineRunner,
+        CoreCanvasUi coreUI, MapFromSceneObjects mapFromSceneObjects, BuildingsPanelView buildingsPanelView,
+        InGameDaynightLightView globalDaynightLight, NetworkDataHolder networkDataHolder, CursorIcon cursorIcon) {
         _coreCanvasUi = coreUI;
         _buildingsPanelView = buildingsPanelView;
         _globalDaynightLight = globalDaynightLight;
         _networkDataHolder = networkDataHolder;
+        _cursorIcon = cursorIcon;
 
         _mapFromSceneObjects = mapFromSceneObjects;
         _services = ServiceLocator.Container;
@@ -99,6 +102,8 @@ public class ServiceLocatorLoader_Main {
         _services.RegisterSingle<ITacticalService>(new TacticalService(
             _services.Single<IGridService>(), _services.Single<ISelectionService>(), _services.Single<IUpdateService>(), _services.Single<IInputService>(), _services.Single<IPhysicsService>(),_services.Single<INetworkService>() ));
         _services.RegisterSingle<IFogOfWarService>(new FogOfWarService(_services.Single<IConfigsProvider>(),_services.Single<IUpdateService>(),_services.Single<ISettlersService>(), _services.Single<INetworkService>()));
+        
+        _services.RegisterSingle<ICursorService>(new CursorService(_services.Single<IInputService>(), _cursorIcon));
 
     }
 }
