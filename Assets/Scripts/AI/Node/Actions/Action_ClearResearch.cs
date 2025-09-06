@@ -16,7 +16,7 @@ namespace AI.Node.Jobs {
 				}
 			}
 			data.targets.ResearchStation = null;
-			return BTNodeState.Success;
+			return BTNodeState.Failure;
 		}
 	}
 }
