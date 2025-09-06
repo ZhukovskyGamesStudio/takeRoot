@@ -15,7 +15,7 @@ public class NetworkDataHolder : NetworkBehaviour {
 
     public SelectRaceNetworkData SelectRaceData;
     public MainGameNetworkData MainGameNetworkData;
-
+    public ResearchNetworkData ResearchNetworkData;
     private void Awake() {
         Instance = this;
         IsCreated = true;

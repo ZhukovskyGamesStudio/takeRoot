@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8398247404787509252}
   - component: {fileID: -588113318151816941}
   - component: {fileID: -1820047799234327946}
+  - component: {fileID: 8484179201434835098}
   m_Layer: 0
   m_Name: NetworkDataHolder
   m_TagString: Untagged
@@ -75,6 +76,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   SelectRaceData: {fileID: -588113318151816941}
   MainGameNetworkData: {fileID: -1820047799234327946}
+  ResearchNetworkData: {fileID: 8484179201434835098}
 --- !u!114 &-588113318151816941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,4 +110,19 @@ MonoBehaviour:
   HostRace:
     m_InternalValue: 0
   ClientRace:
+    m_InternalValue: 0
+--- !u!114 &8484179201434835098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 702913861411266796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45dae329fd4c423cbbb01555a225c967, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
+  CurrentResearch:
     m_InternalValue: 0
