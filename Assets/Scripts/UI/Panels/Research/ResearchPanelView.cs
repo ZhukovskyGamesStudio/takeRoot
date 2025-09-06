@@ -118,7 +118,6 @@ public class ResearchPanelView : MonoBehaviour {
         if (_selectedResearch == null) return;
         
         _presenter.SelectResearch(_selectedResearch.Id);
-        _presenter.AddPoints();
     }
 
     private void UpdateLayoutGroups() {

@@ -49,7 +49,7 @@ public class PanelsPresenter : IDisposable {
 			if (_panelsView.Panels.TryGetValue(kvp.Key, out GameObject panel)) {
 				var toggle = _togglesView.ToggleData[kvp.Key];
 				if ((toggle.ResearchRequirement == Research.None ||
-				     _researches.WasResearched(toggle.ResearchRequirement)) && (toggle.RaceRequirement == Race.Both || _networkService.MyRace.Value == toggle.RaceRequirement))
+				     _researches.IsResearched(toggle.ResearchRequirement)) && (toggle.RaceRequirement == Race.Both || _networkService.MyRace.Value == toggle.RaceRequirement))
 					kvp.Value.gameObject.SetActive(true);
 				else
 					kvp.Value.gameObject.SetActive(false);

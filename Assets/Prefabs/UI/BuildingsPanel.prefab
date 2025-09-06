@@ -1593,7 +1593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3510978995
+  GlobalObjectIdHash: 3487945906
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1642,7 +1642,7 @@ MonoBehaviour:
     - Key: 1
       Value: "\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435 \u0438 \u043E\u0431\u0440\u0430\u0431\u043E\u0442\u043A\u0430"
     - Key: 2
-      Value: "\u041C\u0435\u0431\u0435\u043B\u044C \u0438 \u0434\u0435\u043A\u043E\u0440"
+      Value: "\u041C\u0435\u0431\u0435\u043B\u044C \u0438 \u043D\u0443\u0436\u0434\u044B"
     - Key: 4
       Value: "\u0421\u0442\u0430\u043D\u0446\u0438\u0438"
   _mockRecipeConfigs:
@@ -2751,8 +2751,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5533142840026761767}
   m_HandleRect: {fileID: 4753597958420227849}
   m_Direction: 2
-  m_Value: -0.00000009951097
-  m_Size: 0.3499194
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4312,7 +4312,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -142.65921, y: 613.3511}
+  m_AnchoredPosition: {x: -142.65921, y: 0}
   m_SizeDelta: {x: 285.31842, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7372416152866150592

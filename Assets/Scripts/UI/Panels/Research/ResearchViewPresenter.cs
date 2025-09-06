@@ -17,10 +17,6 @@ public class ResearchViewPresenter {
     public void SelectResearch(Research research) {
         _service.SelectResearch(research);
     }
-    
-    public void AddPoints() {
-        _service.AddResearchPoints(100);
-    }
 
     public ResearchData GetResearchData(Research research) {
         return _initResearchData[research];
