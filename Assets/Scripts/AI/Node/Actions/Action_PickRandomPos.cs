@@ -10,7 +10,7 @@ namespace AI.Node.Jobs {
         }
 
         public override BTNodeState Evaluate() {
-            _settler.Data.IdleMoveTimer += Time.deltaTime;
+            _settler.Data.IdleMoveTimer += Time.deltaTime * Random.Range(0.7f,1.3f);
             if (_settler.Data.IdleMoveTimer < _settler.Data.IdleMoveCooldown) {
                 return BTNodeState.Failure;
             }

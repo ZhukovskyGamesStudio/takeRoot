@@ -43,7 +43,7 @@ namespace AI {
 
         [Header("Idle move")]
         public float IdleMoveCooldown;
-
+        [HideInInspector]
         public float IdleMoveTimer;
         public bool IsIdle;
 

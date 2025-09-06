@@ -20,6 +20,7 @@ public class InGameDaynightLightView : NetworkBehaviour {
     }
 
     private void SetData(float timeOfDayInSeconds) {
+        _daynightLight.color = _config.DaynightLightColorGradient.Evaluate(timeOfDayInSeconds / (_config.IngameDayInMinutes * 60));
         SetDataClientRpc(timeOfDayInSeconds);
     }
 

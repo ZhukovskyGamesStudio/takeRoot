@@ -31,23 +31,22 @@ public class AdminManager : MonoBehaviour {
     public void SwitchImmortal(bool isOn) {
         AI.Settler.Immortal = isOn;
     }
-    
+
     public void SwitchInstaBuild(bool isOn) {
         IsInstaBuild = isOn;
     }
-    
+
     public void SwitchUnfoging(bool isOn) {
         IsUnfogingDisabled = isOn;
     }
-    
+
     public void SwitchHumanBuilds(bool isOn) {
         IsHumanBuildingsBuildable = isOn;
     }
 
-
     private Color _baseGreyColor;
     private bool _baseColorGot;
-    
+
     public void SwitchGreyFog(bool isOn) {
         var res = FindObjectsByType<TilemapTypeData>(FindObjectsInactive.Include, FindObjectsSortMode.None)
             .FirstOrDefault(t => t.Type == TilemapType.FogOfWarGrey);
@@ -61,7 +60,7 @@ public class AdminManager : MonoBehaviour {
             res.Tilemap.color = isOn ? _baseGreyColor : Color.clear;
         }
     }
-    
+
     public void SwitchBlackFog(bool isOn) {
         var res = FindObjectsByType<TilemapTypeData>(FindObjectsInactive.Include, FindObjectsSortMode.None)
             .FirstOrDefault(t => t.Type == TilemapType.FogOfWarBlack);
@@ -85,6 +84,44 @@ public class AdminManager : MonoBehaviour {
         ServiceLocator.Container.Single<IResearchService>().UnlockAllResearches();
     }
 
+    public void SpawnPlanks() {
+        if (!_networkDataHolder.IsHost) {
+            return;
+        }
+        var coord = GetCenterScreenPos();
+        ServiceLocator.Container.Single<IResourceManager>().SpawnResource(coord, ResourceType.Planks, 100);
+    }
+
+    public void SpawnMetaScraps() {
+        if (!_networkDataHolder.IsHost) {
+            return;
+        }
+        var coord = GetCenterScreenPos();
+        ServiceLocator.Container.Single<IResourceManager>().SpawnResource(coord, ResourceType.MetalScraps, 100);
+    }
+
+    public void SpawnDirt() {
+        if (!_networkDataHolder.IsHost) {
+            return;
+        }
+        var coord = GetCenterScreenPos();
+        ServiceLocator.Container.Single<IResourceManager>().SpawnResource(coord, ResourceType.Dirt, 100);
+    }
+
+    public void SpawnArtiact() {
+        if (!_networkDataHolder.IsHost) {
+            return;
+        }
+        var coord = GetCenterScreenPos();
+        ServiceLocator.Container.Single<IResourceManager>().SpawnResource(coord, ResourceType.Artifact, 1);
+    }
+
+    private static Vector3 GetCenterScreenPos() {
+        var pos = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width / 2f, Screen.height / 2f));
+        pos.z = 0;
+        return pos;
+    }
+
     public void StartFakeOnlineGame() {
         IsFakeOnline = true;
 
@@ -104,9 +141,7 @@ public class AdminManager : MonoBehaviour {
         }
 
         // локальный клиент (Host) подключился, теперь можно спавнить
-        var obj = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(
-            _networkDataHolder.GetComponent<NetworkObject>()
-        );
+        var obj = NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(_networkDataHolder.GetComponent<NetworkObject>());
 
         NetworkDataHolder.Instance.SelectRaceData.HostReady.Value = true;
         NetworkDataHolder.Instance.SelectRaceData.ClientReady.Value = true;
@@ -114,7 +149,7 @@ public class AdminManager : MonoBehaviour {
         NetworkDataHolder.Instance.MainGameNetworkData.ClientRace.Value = Race.Robots;
 
         Debug.Log("Fake online game initialized on host");
-    
+
         // отписываемся, чтобы не вызывалось повторно
         NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnected;
     }

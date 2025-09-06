@@ -11,11 +11,12 @@ public class IngameTimeService : IIngameTimeService, IUpdatable {
         _config = configsProvider.IngameTimeConfig;
         _updateService = updateService;
         _globalDaynightLight = globalDaynightLight;
-        _updateService.Register(this);
+       
     
         InitTimeData();
         
         _globalDaynightLight.Init(_config, this);
+        
     }
 
     private void InitTimeData() {
