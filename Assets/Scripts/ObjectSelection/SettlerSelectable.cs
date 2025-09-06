@@ -7,6 +7,9 @@ public class SettlerSelectable : Selectable {
     [SerializeField]
     private MainInfoData _mainInfoData;
 
+    
+    public AI.Settler Settler => _settler;
+
     public override object GetData(Race race) {
         if (race == _settler.Data.names.Race) {
             return _settler.Data;

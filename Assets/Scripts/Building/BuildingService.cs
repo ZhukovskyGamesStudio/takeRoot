@@ -7,7 +7,6 @@ using UnityEngine.InputSystem.LowLevel;
 
 public class BuildingService : IBuildingService, IUpdatable {
     private readonly INetworkService _networkService;
-    private readonly IJobCommandsInputHandlerService _jobsInput;
     private List<BuildingRecipeConfig> _buildingRecipeConfigs;
     private BuildingBlueprint _prefab;
     private List<BuildingBlueprint> _blueprints = new List<BuildingBlueprint>();
@@ -18,9 +17,8 @@ public class BuildingService : IBuildingService, IUpdatable {
 
     public bool IsEnabled { get; set; } = true;
 
-    public BuildingService(IConfigsProvider configsProvider, BuildingsPanelView buildingsPanelView, INetworkService networkService, IJobCommandsInputHandlerService jobsInput) {
+    public BuildingService(IConfigsProvider configsProvider, BuildingsPanelView buildingsPanelView, INetworkService networkService) {
         _networkService = networkService;
-        _jobsInput = jobsInput;
         _map = ServiceLocator.Container.Single<IGridService>();
         _physics = ServiceLocator.Container.Single<IPhysicsService>();
         _update = ServiceLocator.Container.Single<IUpdateService>();
@@ -85,7 +83,8 @@ public class BuildingService : IBuildingService, IUpdatable {
     }
 
     public void Update() {
-        if (_input.GetMouseButtonDown(MouseButton.Left) && _jobsInput.PendingCommand.Value == JobType.Cancel) {
+        //TODO add cancel via cancel command
+        if (_input.GetMouseButtonDown(MouseButton.Right)) {
             var blueprint = _physics.Raycast<BuildingBlueprint>(_input.GetWorldMousePosition(), Vector2.zero);
             if (blueprint != null) {
                 blueprint.CancelPlacement();

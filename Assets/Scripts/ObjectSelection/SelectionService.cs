@@ -38,7 +38,9 @@ public class SelectionService : ISelectionService, IUpdatable {
         if (SelectedReactive.Value == null) {
             return;
         }
-
+        if (SelectedReactive.Value is SettlerSelectable settler) {
+            settler.Settler.Mover.SwitchPathLine(false);
+        }
         SelectedReactive.Value.Selected = false;
         SelectedReactive.Value = null;
     }
@@ -51,6 +53,9 @@ public class SelectionService : ISelectionService, IUpdatable {
     private void SetSelected(Selectable selectable, bool selected) {
         SelectedReactive.Value = selectable;
         selectable.Selected = true;
+        if (selectable is SettlerSelectable settler) {
+            settler.Settler.Mover.SwitchPathLine(true);
+        }
     }
 
     public void Dispose() {
