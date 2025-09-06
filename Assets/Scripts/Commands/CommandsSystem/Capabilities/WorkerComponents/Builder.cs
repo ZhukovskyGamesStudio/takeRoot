@@ -28,7 +28,7 @@ namespace AI {
 
 		private async UniTaskVoid DoBuild(BuildingBlueprint buildingBlueprint, CancellationToken token) {
 			_isBuilding = true;
-			_animator.PlayBuild();
+			_animator.PlayHit();
 			while (!token.IsCancellationRequested) {
 				await _asyncRunner.Wait(buildTime, token);
 				if (token.IsCancellationRequested) {
