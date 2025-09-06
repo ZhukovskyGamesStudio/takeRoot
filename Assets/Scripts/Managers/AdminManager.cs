@@ -12,16 +12,16 @@ public class AdminManager : MonoBehaviour {
     private NetworkDataHolder _networkDataHolder;
 
     public static bool IsFakeOnline;
-    public static bool IsInstaBuild = true;
+    public static bool IsInstaBuild = false;
 
     public static bool IsUnfogingDisabled = false;
     public static bool IsHumanBuildingsBuildable = false;
-    public static bool FogHControls = true;
+    public static bool FogHControls = false;
 
     private void Awake() {
         DontDestroyOnLoad(gameObject);
         _adminPanel.SetActive(false);
-        AI.Settler.Immortal = true;
+        AI.Settler.Immortal = false;
     }
 
     public void SwitchGodmode(bool isOn) {
@@ -84,10 +84,15 @@ public class AdminManager : MonoBehaviour {
         ServiceLocator.Container.Single<IResearchService>().UnlockAllResearches();
     }
 
+    public void AddResearchPoints() {
+        ServiceLocator.Container.Single<IResearchService>().AddResearchPoints(1000);
+    }
+
     public void SpawnPlanks() {
         if (!_networkDataHolder.IsHost) {
             return;
         }
+
         var coord = GetCenterScreenPos();
         ServiceLocator.Container.Single<IResourceManager>().SpawnResource(coord, ResourceType.Planks, 100);
     }
@@ -96,6 +101,7 @@ public class AdminManager : MonoBehaviour {
         if (!_networkDataHolder.IsHost) {
             return;
         }
+
         var coord = GetCenterScreenPos();
         ServiceLocator.Container.Single<IResourceManager>().SpawnResource(coord, ResourceType.MetalScraps, 100);
     }
@@ -104,6 +110,7 @@ public class AdminManager : MonoBehaviour {
         if (!_networkDataHolder.IsHost) {
             return;
         }
+
         var coord = GetCenterScreenPos();
         ServiceLocator.Container.Single<IResourceManager>().SpawnResource(coord, ResourceType.Dirt, 100);
     }
@@ -112,6 +119,7 @@ public class AdminManager : MonoBehaviour {
         if (!_networkDataHolder.IsHost) {
             return;
         }
+
         var coord = GetCenterScreenPos();
         ServiceLocator.Container.Single<IResourceManager>().SpawnResource(coord, ResourceType.Artifact, 1);
     }

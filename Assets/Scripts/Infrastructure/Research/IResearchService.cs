@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public interface IResearchService : IService {
     public Action OnResearchFinished { get; set; }
-    public bool WasResearched(Research research);
+    public bool IsResearched(Research research);
     public Dictionary<Research, ResearchData> GetInitResearchData();
     public ResearchSaveData GetResearchData();
     public void AddResearchPoints(int points);

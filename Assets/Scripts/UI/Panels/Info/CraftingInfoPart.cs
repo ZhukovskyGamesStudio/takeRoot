@@ -28,7 +28,7 @@ public class CraftingInfoPart : MonoBehaviour {
 
         foreach (var recipe in craftingStation.AvailableCraftingRecipes) {
             var line = Instantiate(_craftingLineViewPrefab, _linesContainer);
-            if (recipe.RequiredResearch == Research.None || _researchService.GetInitResearchData()[recipe.RequiredResearch].Researchable)
+            if (recipe.RequiredResearch == Research.None || _researchService.IsResearched(recipe.RequiredResearch))
                 line.Set(recipe, _craftingData, AddRecipe, RemoveRecipe);
             else  
                 line.Set(recipe, _craftingData);
@@ -36,11 +36,11 @@ public class CraftingInfoPart : MonoBehaviour {
     }
 
     private void AddRecipe(CraftingRecipeConfig recipe) {
-        _craftingData.Station.AddRecipeServerRpc(recipe.ResultingResource.ResourceType);
+        _craftingData.Station.AddRecipe(recipe.ResultingResource.ResourceType);
     }
 
     private void RemoveRecipe(CraftingRecipeConfig recipe) {
-        _craftingData.Station.RemoveRecipeServerRpc(recipe.ResultingResource.ResourceType);
+        _craftingData.Station.RemoveRecipe(recipe.ResultingResource.ResourceType);
     }
 
     public void Disable() {

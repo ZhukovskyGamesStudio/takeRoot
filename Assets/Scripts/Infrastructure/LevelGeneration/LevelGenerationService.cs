@@ -34,11 +34,6 @@ public class LevelGenerationService : ILevelGenerationService {
 
             data.names.Name = NamesList[Random.Range(0, NamesList.Count)];
             settler.UpdateNamesDataClientRpc(data.names.Name);
-            
-            data.needs.Value.Hp = Random.Range(data.needs.Value.MaxHp / 4f, data.needs.Value.MaxHp);
-            data.needs.Value.CareData.currentCare = Random.Range(data.needs.Value.CareData.maxCare / 2f, data.needs.Value.CareData.maxCare);
-            data.needs.Value.SatietyData.currentSatiety = Random.Range(data.needs.Value.SatietyData.maxSatiety / 2f, data.needs.Value.SatietyData.maxSatiety);
-            data.needs.Value.StressData.currentStress = Random.Range(0, data.needs.Value.StressData.maxStress * 3f / 4);
         }
     }
 

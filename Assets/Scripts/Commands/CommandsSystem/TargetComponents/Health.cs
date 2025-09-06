@@ -35,8 +35,7 @@ public class Health : NetworkBehaviour {
     }
 
     public void Die() {
-        Debug.Log($"Die called. IsServer={NetworkManager.Singleton.IsServer}, IsClient={NetworkManager.Singleton.IsClient}");
-        OnDeath?.Invoke();
+           OnDeath?.Invoke();
         _grid.Destroy();
         foreach (ResourcesData drop in _drop) {
             _resources.SpawnResource(transform.position, drop.type, drop.amount);
@@ -46,7 +45,6 @@ public class Health : NetworkBehaviour {
     }
 
     public override void OnNetworkDespawn() {
-        Debug.Log($"{name} OnNetworkDespawn on {(IsServer ? "Server" : "Client")}");
-        Destroy(gameObject);
+         Destroy(gameObject);
     }
 }

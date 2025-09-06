@@ -57,6 +57,11 @@ namespace AI {
             needs.Value.CareData.careChange = needs.Value.CareData.defaultCareChange;
             needs.Value.Energy.energyChange = needs.Value.Energy.defaultEnergyChange;
             needs.Value.Energy.currentEnergy = needs.Value.Energy.maxEnergy;
+            
+             needs.Value.Hp = needs.Value.MaxHp;
+            needs.Value.CareData.currentCare = needs.Value.CareData.maxCare;
+            needs.Value.SatietyData.currentSatiety =  needs.Value.SatietyData.maxSatiety;
+            needs.Value.StressData.currentStress = 0;
         }
 
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {

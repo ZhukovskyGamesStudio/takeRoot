@@ -190,14 +190,22 @@ public class CraftingStation : NetworkBehaviour {
         _progressData.ProgressData.Title = title;
     }
 
+    public void AddRecipe(ResourceType recipeRes) {
+        AddRecipeServerRpc(recipeRes);
+    }
+
     [ServerRpc(RequireOwnership = false)]
-    public void AddRecipeServerRpc(ResourceType recipeRes) {
+    private void AddRecipeServerRpc(ResourceType recipeRes) {
         StationData.AddRecipe(recipeRes);
         SetRecipeAmountClientRpc(recipeRes, StationData.RecipesToCraft[recipeRes]);
     }
 
+    public void RemoveRecipe(ResourceType recipeRes) {
+        RemoveRecipeServerRpc(recipeRes);
+    }
+
     [ServerRpc(RequireOwnership = false)]
-    public void RemoveRecipeServerRpc(ResourceType recipeRes) {
+    private void RemoveRecipeServerRpc(ResourceType recipeRes) {
         StationData.RemoveRecipe(recipeRes);
         SetRecipeAmountClientRpc(recipeRes, StationData.RecipesToCraft[recipeRes]);
     }

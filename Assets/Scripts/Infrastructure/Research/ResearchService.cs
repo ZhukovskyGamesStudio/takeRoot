@@ -20,9 +20,10 @@ public class ResearchService : IResearchService {
         UpdateResearchable();
     }
 
-    public bool WasResearched(Research research) {
+    public bool IsResearched(Research research) {
         return _researchData[research].Price == _researchSaveData.ResearchProgress[research];
     }
+
     private void CreateMockResearchData() {
         //тут можешь создавать рандомные параметры для теста
         _researchSaveData = new ResearchSaveData();
@@ -69,6 +70,7 @@ public class ResearchService : IResearchService {
             UpdateResearchable();
             OnResearchFinished?.Invoke();
         }
+
         UpdateStationsData();
     }
 
@@ -78,7 +80,7 @@ public class ResearchService : IResearchService {
             foreach (Research requirement in research.Requirements) {
                 int progress = _researchSaveData.ResearchProgress[requirement];
                 int price = _researchData[requirement].Price;
-                
+
                 if (progress != price) {
                     research.Researchable = false;
                     break;
@@ -96,8 +98,7 @@ public class ResearchService : IResearchService {
     }
 
     public ResearchStation GetResearchStationWithResearch(Race race) {
-        return _researchStations.FirstOrDefault(r => r.HasResearch 
-                                                     && (race == Race.Plants ? !r.plantResearcher : !r.robotResearcher));
+        return _researchStations.FirstOrDefault(r => r.HasResearch && (race == Race.Plants ? !r.plantResearcher : !r.robotResearcher));
     }
 
     private void UpdateStationsData() {
