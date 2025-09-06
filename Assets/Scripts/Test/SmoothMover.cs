@@ -67,6 +67,10 @@ public class SmoothMover : MonoBehaviour, IMovable, IPathfinderUser {
         moveTime = time;
     }
 
+    public void SwitchPathLine(bool isOn) {
+        throw new System.NotImplementedException();
+    }
+
     private IEnumerator MoveToCell(Vector2 target, WorkerAnimator workerAnimator = null) {
         Vector3 targetPos = new Vector3(target.x, target.y) * gridSize;
         Vector3 direction = (targetPos - transform.localPosition).normalized;
