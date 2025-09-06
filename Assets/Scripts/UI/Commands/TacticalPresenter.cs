@@ -8,8 +8,8 @@ namespace Settlers.UI.Commands {
 		private readonly ISelectionService _selection;
 		private readonly ITacticalService _tacticalService;
 		private readonly INetworkService _network;
-		private string _tacticalText = "боевой режим\n (space)";
-		private string _regularModeText = "в обычный режим\n (space)";
+		private string _tacticalText = "в бой\n (space)";
+		private string _regularModeText = "к задачам\n (space)";
 
 		public TacticalPresenter(TacticalView tacticalView, CommandView commandView, ISelectionService selection, ITacticalService tacticalService, INetworkService network) {
 			_tacticalView = tacticalView;

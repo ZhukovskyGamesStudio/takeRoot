@@ -130,10 +130,6 @@ public class BuildingBlueprint : NetworkBehaviour, IUpdatable {
 
         BuildingShadowMouseFollow();
 
-        if (_input.GetMouseButtonDown(MouseButton.Right)) {
-            CancelPlacement();
-        }
-
         if (_input.GetMouseButtonDown(MouseButton.Left)) {
             TryPlaceBuildingBlueprint();
         }
