@@ -17,14 +17,17 @@ namespace Settlers.UI.Commands {
 			_selection = selection;
 			_tacticalService = tacticalService;
 			_network = network;
-			_tacticalView.TacticalSwapButton.onClick.AddListener(() => {
-				_tacticalService.SetTacticalForSelectedSettlers();
-				UpdateView();
-			});
-			_selection.SelectedReactive.AsObservable().Subscribe(_ => UpdateView());
+			_tacticalView.Init(OnChange);
+			_selection.SelectedReactive.AsObservable().Subscribe(_ => OnSelectionChange());
 		}
 
-		private void UpdateView() {
+		private void OnChange(bool isOn) {
+			_tacticalService.SetTacticalForSelectedSettlers(isOn);
+			OnSelectionChange();
+			SetTacticalElements(isOn);
+		}
+
+		private void OnSelectionChange() {
 			var selectable = _selection.SelectedReactive.Value;
 			if (selectable == null) {
 				_commandView.ToggleContainer.SetActive(true);
@@ -46,13 +49,14 @@ namespace Settlers.UI.Commands {
 		}
 
 		private void SetTacticalElements(bool isTactical) {
+			_tacticalView.TacticalToggle.SetIsOnWithoutNotify(isTactical);
 			_tacticalView.TacticalDescription.gameObject.SetActive(isTactical);
 			_tacticalView.TacticalIcon.gameObject.SetActive(!isTactical);
 			_tacticalView.RegularIcon.gameObject.SetActive(isTactical);
 			_tacticalView.TacticalText.text = isTactical ? _regularModeText : _tacticalText;
 		}
 		public void Dispose() {
-			_tacticalView.TacticalSwapButton.onClick.RemoveAllListeners();
+			
 		}
 	}
 }

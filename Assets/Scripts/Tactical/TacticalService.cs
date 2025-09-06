@@ -20,12 +20,11 @@ public class TacticalService : ITacticalService, IUpdatable {
 		_update.Register(this);
 	}
 
-	public void SetTacticalForSelectedSettlers() {
+	public void SetTacticalForSelectedSettlers(bool isOn) {
 		var selectable = _selection.SelectedReactive.Value;
 		if (selectable == null) return;
 		if (selectable is SettlerSelectable) {
-			var data = (AI.SettlerData)selectable.GetData(_network.MyRace.Value);
-			selectable.GetComponent<AI.Settler>().SetTacticalServerRpc(!data.tactical.IsTactical);
+			selectable.GetComponent<AI.Settler>().SetTacticalServerRpc(isOn);
 		}
 	}
 
