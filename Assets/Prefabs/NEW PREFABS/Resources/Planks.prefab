@@ -8,9 +8,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -993241011995131094, guid: 211ff249b1c034441ba94c14db149d83, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3903612732
+      objectReference: {fileID: 0}
     - target: {fileID: 111658201851395651, guid: 211ff249b1c034441ba94c14db149d83, type: 3}
       propertyPath: m_Name
-      value: Wood
+      value: Planks
       objectReference: {fileID: 0}
     - target: {fileID: 838986805541642949, guid: 211ff249b1c034441ba94c14db149d83, type: 3}
       propertyPath: m_Sprite

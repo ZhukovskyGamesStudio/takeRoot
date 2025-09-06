@@ -13,13 +13,16 @@ namespace AI {
         public float breakdownDuration;
         public float breakdownTimer;
         public int stressAfterBreakdown;
+        
         [Space]
-        public int stressChange;
-        public int lowSatietyStressChange;
-        public int highSatietyStressChange;
+        public float stressChange;
+        public float lowSatietyStressChange;
+        public float highSatietyStressChange;
+        public float lowCareStressChange;
+        public float highCareStressChange;
 
         public bool CanBreakdown => currentStress >= breakdownStressThreshold;
-        public float Percentage => (float)currentStress / maxStress;
+        public float Percentage => currentStress / maxStress;
         public void NetworkSerialize<T>(BufferSerializer<T> serializer) where T : IReaderWriter {
             serializer.SerializeValue(ref maxStress);
             serializer.SerializeValue(ref currentStress);
@@ -31,6 +34,8 @@ namespace AI {
             serializer.SerializeValue(ref stressChange);
             serializer.SerializeValue(ref lowSatietyStressChange);
             serializer.SerializeValue(ref highSatietyStressChange);
+            serializer.SerializeValue(ref lowCareStressChange);
+            serializer.SerializeValue(ref highCareStressChange);
         }
     }
 }
