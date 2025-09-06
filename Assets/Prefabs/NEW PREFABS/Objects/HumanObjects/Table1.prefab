@@ -60,6 +60,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Table1
       objectReference: {fileID: 0}
+    - target: {fileID: 2743286669860116333, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: _drop.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2743286669860116333, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: _drop.Array.data[0].type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2743286669860116333, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: _drop.Array.data[0].amount
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3022492300764533728, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 4041133269
+      objectReference: {fileID: 0}
     - target: {fileID: 3575029597453831756, guid: ebfc2a121b21be24dbef2d90b06d443e, type: 3}
       propertyPath: m_Size.x
       value: 2.9406857
