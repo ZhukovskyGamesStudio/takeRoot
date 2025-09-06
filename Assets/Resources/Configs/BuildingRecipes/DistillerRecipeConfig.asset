@@ -13,15 +13,18 @@ MonoBehaviour:
   m_Name: DistillerRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: 3d70f532fb4fba84988178d2acc2a414, type: 2}
-  ObjectSprite: {fileID: 0}
   BuildingPrefab: {fileID: 7110737873876841608, guid: ca48befd822732a4696067097d798c59, type: 3}
   Footprint: {x: 3, y: 1}
   Hp: 250
-  RequiredBuildPoints: 10
+  RequiredBuildPoints: 30
   BuildingCategory: 1
   Ingridients:
     _serializedList:
     - Key: 1
       Value: 20
+    - Key: 13
+      Value: 1
     - Key: 2
       Value: 20
+  RequiredResearch: 14
+  IsHumanBuilding: 0

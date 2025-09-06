@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: DinamoMachineRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: e93b36ef41afb6143841cbf55e04132c, type: 2}
-  ObjectSprite: {fileID: 21300000, guid: aa6620976a185214d81ad3a1a3087698, type: 3}
   BuildingPrefab: {fileID: 7110737873876841608, guid: ce94f0fc05d42f24bb87ea80cdbcb74f, type: 3}
   Footprint: {x: 2, y: 1}
   Hp: 200
-  RequiredBuildPoints: 10
-  BuildingCategory: 0
+  RequiredBuildPoints: 15
+  BuildingCategory: 4
   Ingridients:
     _serializedList:
     - Key: 2
       Value: 10
+  RequiredResearch: 0
+  IsHumanBuilding: 0

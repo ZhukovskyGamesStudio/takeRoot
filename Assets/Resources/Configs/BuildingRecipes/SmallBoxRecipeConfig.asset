@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: SmallBoxRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: a3a32223648e8504399ab62cc350f9a7, type: 2}
-  ObjectSprite: {fileID: 0}
   BuildingPrefab: {fileID: 2698218236989389229, guid: 5bfd480eb92e02048b920c53b59fb94c, type: 3}
   Footprint: {x: 1, y: 1}
   Hp: 50
-  RequiredBuildPoints: 10
+  RequiredBuildPoints: 5
   BuildingCategory: 0
   Ingridients:
     _serializedList:
     - Key: 1
       Value: 10
+  RequiredResearch: 0
+  IsHumanBuilding: 0

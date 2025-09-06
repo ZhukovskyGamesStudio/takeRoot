@@ -35,7 +35,9 @@ public class CoreCanvasUi : NetworkBehaviour {
     public OverlaysView OverlaysView { get; private set; }
     [field: SerializeField]
     public NotificationsView NotificationsView { get; private set; }
-    
+
+    [SerializeField]
+    private RectTransform _selection;
 
     public void InitRace(Race race) {
         SetRace(race);
@@ -47,6 +49,31 @@ public class CoreCanvasUi : NetworkBehaviour {
             variable.SetVariant(race);
         }
     }
+
+    private void Update() {
+        UpdateSelection();
+    }
+
+    private void UpdateSelection() {
+        if (Input.GetMouseButtonDown(0)) {
+            _selection.gameObject.SetActive(true);
+            _selection.localPosition = Input.mousePosition - new Vector3(Screen.width * 0.5f, Screen.height * 0.5f);
+            UpdateSelectionSize();
+        }
+        else if (Input.GetMouseButton(0)) {
+            UpdateSelectionSize();
+        } else {
+            _selection.gameObject.SetActive(false);
+        }
+    }
+    
+    private void UpdateSelectionSize() 
+    {
+        Vector2 sizeDelta = Input.mousePosition - new Vector3(Screen.width * 0.5f, Screen.height * 0.5f) - _selection.localPosition;
+        _selection.pivot = new Vector2(sizeDelta.x >= 0 ? 0 : 1, sizeDelta.y >= 0 ? 0 : 1);
+        _selection.sizeDelta = new Vector2(Mathf.Abs(sizeDelta.x), Mathf.Abs(sizeDelta.y));
+    }
+
     [Obsolete]
     public void OpenInfoPanel(ISelectable selectable) {
        /*

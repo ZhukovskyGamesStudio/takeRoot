@@ -17,6 +17,8 @@ public class ResearchData {
     public List<SpriteAndName> Rewards;
     public List<Research> Requirements;
 
+    public bool IsDisabled;
+    
     [HideInInspector]
     public bool Researchable;
 }

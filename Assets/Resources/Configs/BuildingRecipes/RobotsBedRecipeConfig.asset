@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: RobotsBedRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: 7d7a815b695582d46b9a43d7c96a37fb, type: 2}
-  ObjectSprite: {fileID: 0}
   BuildingPrefab: {fileID: 7110737873876841608, guid: d111e4aabc15df2469a67cc71504cdf1, type: 3}
   Footprint: {x: 1, y: 2}
   Hp: 75
-  RequiredBuildPoints: 10
+  RequiredBuildPoints: 5
   BuildingCategory: 2
   Ingridients:
     _serializedList:
-    - Key: 2
-      Value: 15
+    - Key: 3
+      Value: 5
+  RequiredResearch: 11
+  IsHumanBuilding: 0

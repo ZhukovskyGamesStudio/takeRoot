@@ -13,17 +13,20 @@ MonoBehaviour:
   m_Name: TimeMachineRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: 59f4b373e34a49e459f7527ab1130516, type: 2}
-  ObjectSprite: {fileID: 0}
   BuildingPrefab: {fileID: 7110737873876841608, guid: fe0953c9091baa84aa2919f6e6672eb2, type: 3}
   Footprint: {x: 3, y: 1}
   Hp: 250
-  RequiredBuildPoints: 10
+  RequiredBuildPoints: 100
   BuildingCategory: 4
   Ingridients:
     _serializedList:
-    - Key: 1
-      Value: 20
-    - Key: 2
-      Value: 20
+    - Key: 3
+      Value: 5
+    - Key: 4
+      Value: 5
+    - Key: 13
+      Value: 1
     - Key: 15
       Value: 1
+  RequiredResearch: 5
+  IsHumanBuilding: 0

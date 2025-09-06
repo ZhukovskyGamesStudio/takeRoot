@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: CraftingTableRecipeConfig
   m_EditorClassIdentifier: 
   mainInfo: {fileID: 11400000, guid: b420e50162f8fa04e91101ba76e5edaa, type: 2}
-  ObjectSprite: {fileID: 0}
   BuildingPrefab: {fileID: 7110737873876841608, guid: 0a7c139f4d6b445489555f27099b6a76, type: 3}
   Footprint: {x: 2, y: 1}
   Hp: 100
@@ -25,3 +24,5 @@ MonoBehaviour:
       Value: 10
     - Key: 2
       Value: 5
+  RequiredResearch: 0
+  IsHumanBuilding: 0
