@@ -42,8 +42,6 @@ namespace Settlers.UI.Commands {
 				var data = selectable.GetData(_network.MyRace.Value);
 				if (data is AI.SettlerData settlerData) {
 					var isTactical = settlerData.tactical.IsTactical;
-					_tacticalView.TacticalContainer.SetActive(true);
-					_commandView.ToggleContainer.SetActive(!isTactical);
 					SetTacticalElements(isTactical);
 				} else {
 					_commandView.ToggleContainer.SetActive(true);
@@ -53,6 +51,8 @@ namespace Settlers.UI.Commands {
 		}
 
 		private void SetTacticalElements(bool isTactical) {
+			_tacticalView.TacticalContainer.SetActive(isTactical);
+			_commandView.ToggleContainer.SetActive(!isTactical);
 			_tacticalView.TacticalToggle.SetIsOnWithoutNotify(isTactical);
 			_tacticalView.TacticalDescription.gameObject.SetActive(isTactical);
 			_tacticalView.TacticalIcon.gameObject.SetActive(!isTactical);

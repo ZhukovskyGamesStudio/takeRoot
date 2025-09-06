@@ -8,224 +8,231 @@ using Unity.Netcode;
 using UnityEngine.Serialization;
 
 public class Mover : NetworkBehaviour, IMovable, IPathfinderUser {
-	[FormerlySerializedAs("moveSpeed"), Header("Movement Settings")]
-	public float moveTime = 1f;
+    [FormerlySerializedAs("moveSpeed"), Header("Movement Settings")]
+    public float moveTime = 1f;
 
-	public float gridSize = 1f;
-    
-	[SerializeField]
-	private Line _linePrefab;
+    public float gridSize = 1f;
 
-	[SerializeField] 
-	private GameObject _targetIcon;
-	private GameObject _targetIconInstance;
-    
-	private Vector2 _targetPosition;
-	private bool _isMoving;
-	private Coroutine _moveCoroutine;
-	private IPathfindService _pathfindService;
-	private List<Vector2> _path = new List<Vector2>();
-	private List<Line> _lineList = new List<Line>();
-	private bool _linesShown;
-	private Line _firstLine;
+    [SerializeField]
+    private Line _linePrefab;
 
-	private Vector2 position => new(transform.position.x, transform.position.y);
-	private Vector2 positionInt => new(Mathf.Floor(transform.position.x), Mathf.Floor(transform.position.y));
-	public bool IsMoving => _isMoving;
+    [SerializeField]
+    private GameObject _targetIcon;
 
-	[SerializeField]
-	private bool RotateWhileMove = true;
+    private GameObject _targetIconInstance;
 
-	private WorkerAnimator _workerAnimator;
+    private Vector2 _targetPosition;
+    private bool _isMoving;
+    private Coroutine _moveCoroutine;
+    private IPathfindService _pathfindService;
+    private List<Vector2> _path = new List<Vector2>();
+    private List<Line> _lineList = new List<Line>();
+    private bool _linesShown;
+    private Line _firstLine;
 
-	private void Start() {
-		_pathfindService = ServiceLocator.Container.Single<IPathfindService>();
-		_targetIconInstance = Instantiate(_targetIcon);
-		_targetIconInstance.SetActive(false);
-	}
+    private Vector2 position => new(transform.position.x, transform.position.y);
+    private Vector2 positionInt => new(Mathf.Floor(transform.position.x), Mathf.Floor(transform.position.y));
+    public bool IsMoving => _isMoving;
 
-	public void MoveTo(Vector2 targetPos) {
-		if (_isMoving) {
-			return;
-		}
+    [SerializeField]
+    private bool RotateWhileMove = true;
 
-		if (_path == null || _targetPosition != targetPos) {
-			_targetPosition = targetPos;
-			_path = _pathfindService.FindPath(position, targetPos, this);
-			UpdateLines();
-			if (_linesShown)
-				SwitchPathLine(true);
-		}
+    private WorkerAnimator _workerAnimator;
 
-		if (_path == null) {
-			return;
-		}
+    protected override void OnNetworkPostSpawn() {
+        base.OnNetworkPostSpawn();
+        _pathfindService = ServiceLocator.Container.Single<IPathfindService>();
+        _targetIconInstance = Instantiate(_targetIcon);
+        _targetIconInstance.SetActive(false);
+    }
 
-		int indexOfNextStep = _path.IndexOf(position) + 1;
-		if (indexOfNextStep == _path.Count) {
-			return;
-		}
+    public void MoveTo(Vector2 targetPos) {
+        if (_isMoving) {
+            return;
+        }
 
-		Vector2 nextPos = _path[indexOfNextStep];
+        UpdatePathClientRpc(targetPos);
 
-		if (_moveCoroutine != null) {
-			return;
-		}
+        if (_path == null) {
+            return;
+        }
 
-		MoveToClientRpc(nextPos);
-	}
+        int indexOfNextStep = _path.IndexOf(position) + 1;
+        if (indexOfNextStep == _path.Count) {
+            return;
+        }
 
-	[ClientRpc]
-	private void MoveToClientRpc(Vector2 nextPos) {
-		_moveCoroutine = StartCoroutine(MoveToCell(nextPos, _workerAnimator));
-	}
+        Vector2 nextPos = _path[indexOfNextStep];
 
-	public bool IsAtPosition(Vector2 target) {
-		return position == target;
-	}
+        if (_moveCoroutine != null) {
+            return;
+        }
 
-	public bool HasPath(Vector2 target) {
-		List<Vector2> path = _pathfindService.FindPath(position, target, this);
-		return path != null;
-	}
+        MoveToClientRpc(nextPos);
+    }
 
-	public void SetMoveTime(float time) {
-		moveTime = time;
-	}
-	
-	public void SwitchPathLine(bool isOn) {
-		if (isOn) {
-			var enable = false;
-			for (int i = 0; i < _path.Count - 1; i++) {
-				if (_path[i] == positionInt) {
-					enable = true;
-					_firstLine = _lineList[i];
-				}
+    [ClientRpc]
+    private void UpdatePathClientRpc(Vector2 targetPos) {
+        if (_path == null || _targetPosition != targetPos) {
+            _targetPosition = targetPos;
+            _path = _pathfindService.FindPath(position, targetPos, this);
+            UpdateLines();
+            if (_linesShown)
+                SwitchPathLine(true);
+        }
+    }
 
-				if (enable) {
-					_lineList[i].gameObject.SetActive(true);
-				}
-			}
+    [ClientRpc]
+    private void MoveToClientRpc(Vector2 nextPos) {
+        _moveCoroutine = StartCoroutine(MoveToCell(nextPos, _workerAnimator));
+    }
 
-			if (_path.Count > 0 && _path.Last() != positionInt) {
-				_targetIconInstance.transform.position = _path.Last();
-				_targetIconInstance.SetActive(true);
-			}
-			else {
-				_targetIconInstance.SetActive(false);
-			}
-		}
-		else {
-			_targetIconInstance.SetActive(false);
-			foreach (Line line in _lineList) {
-				line.gameObject.SetActive(false);
-			}
-		}
-		_linesShown = isOn;
-	}
+    public bool IsAtPosition(Vector2 target) {
+        return position == target;
+    }
 
-	private void UpdateLines() {
-		foreach (Line line in _lineList) {
-			Destroy(line.gameObject);
-		}
-		_lineList.Clear();
-		if (_path.Count == 0) return;
-		for (int i = 0; i < _path.Count - 1; i++) {
-			var line = Instantiate(_linePrefab);
-			line.gameObject.SetActive(false);
-			line.Init(_path[i], _path[i + 1]);
-			_lineList.Add(line);
-		}
-	}
+    public bool HasPath(Vector2 target) {
+        List<Vector2> path = _pathfindService.FindPath(position, target, this);
+        return path != null;
+    }
 
-	private IEnumerator MoveToCell(Vector2 target, WorkerAnimator workerAnimator = null) {
-		Vector3 target3 = new(target.x, target.y);
-		Vector3 diff = target3 - transform.localPosition;
-		
-		RotateToMoveDirection(diff);
-		workerAnimator?.PlayMove();
-		yield return StartCoroutine(LerpFromTo(transform.localPosition, target3 * gridSize, moveTime, workerAnimator));
-		workerAnimator?.ResetToIdle();
-		yield return new WaitForSeconds(0.1f);
-		_moveCoroutine = null;
-	}
+    public void SetMoveTime(float time) {
+        moveTime = time;
+    }
 
-	private IEnumerator LerpFromTo(Vector3 from, Vector3 to, float time, WorkerAnimator workerAnimator = null) {
-		float elapsedTime = 0f;
-		_isMoving = true;
+    public void SwitchPathLine(bool isOn) {
+        if (isOn) {
+            var enable = false;
+            for (int i = 0; i < _path.Count - 1; i++) {
+                if (_path[i] == positionInt) {
+                    enable = true;
+                    _firstLine = _lineList[i];
+                }
 
-		while (elapsedTime < time) {
-			float t = elapsedTime / time;
-			t = Mathf.SmoothStep(0f, 1f, t);
-			if (workerAnimator == null) {
-				transform.localPosition = Vector3.Lerp(from, to, t);
-				elapsedTime += Time.deltaTime;
-			} else if (!workerAnimator.OnContactPointWhileMove) {
-				transform.localPosition = Vector3.Lerp(from, to, t);
-				elapsedTime += Time.deltaTime;
-			}
+                if (enable) {
+                    _lineList[i].gameObject.SetActive(true);
+                }
+            }
 
-			if (_firstLine != null)
-				_firstLine.Init(transform.localPosition, to);
-			yield return null;
-		}
+            if (_path.Count > 0 && _path.Last() != positionInt) {
+                _targetIconInstance.transform.position = _path.Last();
+                _targetIconInstance.SetActive(true);
+            } else {
+                _targetIconInstance.SetActive(false);
+            }
+        } else {
+            _targetIconInstance.SetActive(false);
+            foreach (Line line in _lineList) {
+                line.gameObject.SetActive(false);
+            }
+        }
 
-		transform.localPosition = to;
-		if (_linesShown) {
-			SwitchPathLine(true);
-		}
+        _linesShown = isOn;
+    }
 
-		_isMoving = false;
-	}
+    private void UpdateLines() {
+        foreach (Line line in _lineList) {
+            Destroy(line.gameObject);
+        }
 
-	private void RotateToMoveDirection(Vector3 diff) {
-		if (!RotateWhileMove) {
-			return;
-		}
+        _lineList.Clear();
+        if (_path.Count == 0) return;
+        for (int i = 0; i < _path.Count - 1; i++) {
+            var line = Instantiate(_linePrefab);
+            line.gameObject.SetActive(false);
+            line.Init(_path[i], _path[i + 1]);
+            _lineList.Add(line);
+        }
+    }
 
-		if (diff.x < 0) {
-			transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
-		}
+    private IEnumerator MoveToCell(Vector2 target, WorkerAnimator workerAnimator = null) {
+        Vector3 target3 = new(target.x, target.y);
+        Vector3 diff = target3 - transform.localPosition;
 
-		if (diff.x > 0) {
-			transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-		}
-	}
+        RotateToMoveDirection(diff);
+        workerAnimator?.PlayMove();
+        yield return StartCoroutine(LerpFromTo(transform.localPosition, target3 * gridSize, moveTime, workerAnimator));
+        workerAnimator?.ResetToIdle();
+        yield return new WaitForSeconds(0.1f);
+        _moveCoroutine = null;
+    }
 
-	private Vector2 GetGridPosition(Vector2 worldPosition) {
-		return new Vector2(Mathf.Round(worldPosition.x / gridSize) * gridSize, Mathf.Round(worldPosition.y / gridSize) * gridSize);
-	}
+    private IEnumerator LerpFromTo(Vector3 from, Vector3 to, float time, WorkerAnimator workerAnimator = null) {
+        float elapsedTime = 0f;
+        _isMoving = true;
 
-	public void Stop() {
-		StopClientRpc();
-	}
+        while (elapsedTime < time) {
+            float t = elapsedTime / time;
+            t = Mathf.SmoothStep(0f, 1f, t);
+            if (workerAnimator == null) {
+                transform.localPosition = Vector3.Lerp(from, to, t);
+                elapsedTime += Time.deltaTime;
+            } else if (!workerAnimator.OnContactPointWhileMove) {
+                transform.localPosition = Vector3.Lerp(from, to, t);
+                elapsedTime += Time.deltaTime;
+            }
 
-	[ClientRpc]
-	private void StopClientRpc() {
-		_isMoving = false;
-		if (_moveCoroutine != null) {
-			StopCoroutine(_moveCoroutine);
-			_path = null;
-			_moveCoroutine = null;
-		}
-	}
+            if (_firstLine != null)
+                _firstLine.Init(transform.localPosition, to);
+            yield return null;
+        }
 
-	private void OnDrawGizmos() {
-		if (_path == null) {
-			return;
-		}
+        transform.localPosition = to;
+        if (_linesShown) {
+            SwitchPathLine(true);
+        }
 
-		foreach (Vector2 pos in _path) {
-			Gizmos.color = Color.yellow;
-			Gizmos.DrawWireCube(pos, new Vector3(gridSize, gridSize));
-		}
-	}
+        _isMoving = false;
+    }
 
-	public void Init(WorkerAnimator animator) {
-		_workerAnimator = animator;
-	}
+    private void RotateToMoveDirection(Vector3 diff) {
+        if (!RotateWhileMove) {
+            return;
+        }
 
-	public void Cancel() {
-		_workerAnimator.ResetToIdle();
-	}
+        if (diff.x < 0) {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x) * -1, transform.localScale.y, transform.localScale.z);
+        }
+
+        if (diff.x > 0) {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+    }
+
+    private Vector2 GetGridPosition(Vector2 worldPosition) {
+        return new Vector2(Mathf.Round(worldPosition.x / gridSize) * gridSize, Mathf.Round(worldPosition.y / gridSize) * gridSize);
+    }
+
+    public void Stop() {
+        StopClientRpc();
+    }
+
+    [ClientRpc]
+    private void StopClientRpc() {
+        _isMoving = false;
+        if (_moveCoroutine != null) {
+            StopCoroutine(_moveCoroutine);
+            _path = null;
+            _moveCoroutine = null;
+        }
+    }
+
+    private void OnDrawGizmos() {
+        if (_path == null) {
+            return;
+        }
+
+        foreach (Vector2 pos in _path) {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(pos, new Vector3(gridSize, gridSize));
+        }
+    }
+
+    public void Init(WorkerAnimator animator) {
+        _workerAnimator = animator;
+    }
+
+    public void Cancel() {
+        _workerAnimator.ResetToIdle();
+    }
 }
