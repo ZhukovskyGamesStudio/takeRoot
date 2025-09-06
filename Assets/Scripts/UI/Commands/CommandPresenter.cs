@@ -26,25 +26,17 @@ public class CommandPresenter : IDisposable {
                 }
             });
         }
-        PendingCommand.AsObservable().Subscribe(_ => UpdateToggles());
+        _jobCommandsInputHandler.OnJobChanged += (j) => {
+            if (j == JobType.None) {
+                foreach (var kvp in _view.Toggles) {
+                    if (kvp.Value.isOn)
+                        kvp.Value.isOn = false;
+                }
+            } else
+                _view.Toggles[j].isOn = !_view.Toggles[j].isOn;
+        };
     }
-
-    private void UpdateToggles() {
-        Toggle enabledToggle = null;
-        foreach (var kvp in _view.Toggles) {
-            var jobType = kvp.Key;
-            var toggle = kvp.Value;
-            if (toggle.isOn)
-                enabledToggle = toggle;
-            if (PendingCommand.Value == jobType) {
-                toggle.isOn = true;
-                break;
-            }
-        }
-        if (enabledToggle != null) {
-            enabledToggle.isOn = false;
-        }
-    }
+    
     public void Dispose() {
         PendingCommand?.Dispose();
     }

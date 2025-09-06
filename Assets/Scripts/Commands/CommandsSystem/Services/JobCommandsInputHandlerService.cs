@@ -1,3 +1,4 @@
+using System;
 using UniRx;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,6 +10,7 @@ public class JobCommandsInputHandlerService : IJobCommandsInputHandlerService, I
     private readonly IUpdateService _updateService;
     private readonly INetworkService _networkService;
 
+    public Action<JobType> OnJobChanged { get; set; }
     public ReactiveProperty<JobType> PendingCommand { get; set; } = new();
     public bool IsEnabled { get; set; } = true;
 
@@ -24,16 +26,14 @@ public class JobCommandsInputHandlerService : IJobCommandsInputHandlerService, I
         if (!IsEnabled) {
             return;
         }
-        if (_input.GetKeyDown(KeyCode.D)) PendingCommand.Value = JobType.Destroy;
-        if (_input.GetKeyDown(KeyCode.W)) PendingCommand.Value = JobType.Water;
-        if (_input.GetKeyDown(KeyCode.S)) PendingCommand.Value = JobType.Search;
-        if (_input.GetKeyDown(KeyCode.H)) PendingCommand.Value = JobType.Transport;
-        if (_input.GetKeyDown(KeyCode.C)) PendingCommand.Value = JobType.Cancel;
+        if (_input.GetKeyDown(KeyCode.D)) OnJobChanged?.Invoke(JobType.Destroy);
+        if (_input.GetKeyDown(KeyCode.W)) OnJobChanged?.Invoke(JobType.Water);
+        if (_input.GetKeyDown(KeyCode.S)) OnJobChanged?.Invoke(JobType.Search);
+        if (_input.GetKeyDown(KeyCode.H)) OnJobChanged?.Invoke(JobType.Transport);
+        if (_input.GetKeyDown(KeyCode.C)) OnJobChanged?.Invoke(JobType.Cancel);
         
         
-        if (_input.GetKeyDown(KeyCode.Escape)) {
-            PendingCommand.Value = JobType.None;
-        }
+        if (_input.GetKeyDown(KeyCode.Escape)) OnJobChanged?.Invoke(JobType.None);
 
         if (PendingCommand.Value == JobType.None) {
             return;
