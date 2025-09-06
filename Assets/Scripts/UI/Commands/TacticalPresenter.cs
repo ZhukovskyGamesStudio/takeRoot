@@ -8,8 +8,8 @@ namespace Settlers.UI.Commands {
 		private readonly ISelectionService _selection;
 		private readonly ITacticalService _tacticalService;
 		private readonly INetworkService _network;
-		private string _tacticalText = "боевой режим";
-		private string _regularModeText = "в обычный режим";
+		private string _tacticalText = "боевой режим\n (space)";
+		private string _regularModeText = "в обычный режим\n (space)";
 
 		public TacticalPresenter(TacticalView tacticalView, CommandView commandView, ISelectionService selection, ITacticalService tacticalService, INetworkService network) {
 			_tacticalView = tacticalView;
@@ -19,6 +19,10 @@ namespace Settlers.UI.Commands {
 			_network = network;
 			_tacticalView.Init(OnChange);
 			_selection.SelectedReactive.AsObservable().Subscribe(_ => OnSelectionChange());
+
+			_tacticalService.OnTacticalChanged += () => {
+				_tacticalView.TacticalToggle.isOn = !_tacticalView.TacticalToggle.isOn;
+			};
 		}
 
 		private void OnChange(bool isOn) {
