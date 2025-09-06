@@ -15,6 +15,10 @@ public class Mover : NetworkBehaviour, IMovable, IPathfinderUser {
     
 	[SerializeField]
 	private Line _linePrefab;
+
+	[SerializeField] 
+	private GameObject _targetIcon;
+	private GameObject _targetIconInstance;
     
 	private Vector2 _targetPosition;
 	private bool _isMoving;
@@ -36,6 +40,8 @@ public class Mover : NetworkBehaviour, IMovable, IPathfinderUser {
 
 	private void Start() {
 		_pathfindService = ServiceLocator.Container.Single<IPathfindService>();
+		_targetIconInstance = Instantiate(_targetIcon);
+		_targetIconInstance.SetActive(false);
 	}
 
 	public void MoveTo(Vector2 targetPos) {
@@ -100,8 +106,17 @@ public class Mover : NetworkBehaviour, IMovable, IPathfinderUser {
 					_lineList[i].gameObject.SetActive(true);
 				}
 			}
+
+			if (_path.Count > 0 && _path.Last() != positionInt) {
+				_targetIconInstance.transform.position = _path.Last();
+				_targetIconInstance.SetActive(true);
+			}
+			else {
+				_targetIconInstance.SetActive(false);
+			}
 		}
 		else {
+			_targetIconInstance.SetActive(false);
 			foreach (Line line in _lineList) {
 				line.gameObject.SetActive(false);
 			}
@@ -155,10 +170,11 @@ public class Mover : NetworkBehaviour, IMovable, IPathfinderUser {
 			yield return null;
 		}
 
+		transform.localPosition = to;
 		if (_linesShown) {
 			SwitchPathLine(true);
 		}
-		transform.localPosition = to;
+
 		_isMoving = false;
 	}
 
