@@ -49,6 +49,7 @@ public class SelectionServicePresenter : IDisposable, IUpdatable {
     }
 
     public void Unselect() {
+        _settlerPanel.gameObject.SetActive(false);
         _selection.Unselect();
     }
 

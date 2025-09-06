@@ -9,6 +9,7 @@ public class PanelsPresenter : IDisposable {
 	private readonly PanelsView _panelsView;
 	private readonly INetworkService _networkService;
 	private readonly IResearchService _researches;
+	private readonly ISelectionService _selection;
 	private readonly BuildingsPanelView _buildingsPanelView;
 
 	public PanelsPresenter(PanelTogglesView togglesView, PanelsView panelsView, ISelectionService selectionService, INetworkService networkService, IResearchService researches) {
@@ -16,9 +17,11 @@ public class PanelsPresenter : IDisposable {
 		_panelsView = panelsView;
 		_networkService = networkService;
 		_researches = researches;
+		_selection = selectionService;
 		foreach (KeyValuePair<PanelType, Toggle> kvp in _togglesView.Toggles) {
 			if (panelsView.Panels.TryGetValue(kvp.Key, out GameObject panel)) {
-				kvp.Value.onValueChanged.AddListener(panel.SetActive);
+				PanelType panelType = kvp.Key;
+				kvp.Value.onValueChanged.AddListener(isOn => SetActivePanel(panel, panelType, isOn));
 			}
 		}
 
@@ -28,10 +31,26 @@ public class PanelsPresenter : IDisposable {
         
 		//bool isPlants = _networkService.MyRace.Value == Race.Plants;
 		// _togglesView.Toggles[PanelType.Farming].gameObject.SetActive(isPlants);
-		selectionService.SelectedReactive.Subscribe(CloseAllIfNoneSelected);
+		selectionService.SelectedReactive.Subscribe(_ => CloseAllPanels());
 		CloseAllPanels();
 	}
 
+	private void SetActivePanel(GameObject panel, PanelType type, bool isActive) {
+		if(isActive) {
+			CloseAllPanelsExcept(type);
+			_selection.Unselect();
+			panel.SetActive(true);
+		}
+		else panel.SetActive(false);
+	}
+
+	private void CloseAllPanelsExcept(PanelType type) {
+		foreach (KeyValuePair<PanelType, Toggle> kvp in _togglesView.Toggles) {
+			if (kvp.Key == type) continue;
+			kvp.Value.isOn = false;
+		}
+	}
+	
 	public void CloseAllPanels() {
 		foreach (KeyValuePair<PanelType, Toggle> kvp in _togglesView.Toggles) {
 			kvp.Value.isOn = false;
