@@ -628,9 +628,9 @@ MonoBehaviour:
             tiredThreshold: 30
             criticalTiredThreshold: 5
             energyChange: 0
-            defaultEnergyChange: -1
-            onGroundEnergyChange: 5
-            onBedEnergyChange: 10
+            defaultEnergyChange: -0.003125
+            onGroundEnergyChange: 2
+            onBedEnergyChange: 5
             isSleeping: 0
           StressData:
             maxStress: 100
@@ -648,15 +648,15 @@ MonoBehaviour:
             currentSatiety: 0
             lowSatietyThreshold: 20
             highSatietyThreshold: 90
-            satietyChange: -1
+            satietyChange: -0.0015625
             isDrinking: 0
           CareData:
             maxCare: 100
             currentCare: 70
             lowCareThreshold: 20
             highCareThreshold: 80
-            defaultCareChange: -1
-            onStationCareChange: 5
+            defaultCareChange: -0.00078125
+            onStationCareChange: 1
             careChange: 0
             isTakingCareOf: 0
       needsUpdateCooldown: 1
@@ -687,7 +687,7 @@ MonoBehaviour:
         resourceInHands:
           ResourceType: 0
           Amount: 1
-      IdleMoveCooldown: 0
+      IdleMoveCooldown: 3
       IdleMoveTimer: 0
       IsIdle: 0
       tactical:
