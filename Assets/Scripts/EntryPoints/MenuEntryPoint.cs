@@ -6,7 +6,7 @@ public class MenuEntryPoint : EntryPointBase {
     public static MenuEntryPoint Instance;
 
     [SerializeField]
-    private string _tgLink = "https://t.me/takeroot_pub";
+    private OutsideLinksConfig _outsideLinksConfig;
 
     private void Awake() {
         if (TrySwitchToLoading()) {
@@ -23,7 +23,15 @@ public class MenuEntryPoint : EntryPointBase {
     }
 
     public void OpenTG() {
-        Application.OpenURL(_tgLink);
+        Application.OpenURL(_outsideLinksConfig.TgLink);
+    }
+
+    public void OpenSteam() {
+        Application.OpenURL(_outsideLinksConfig.SteamLink);
+    }
+
+    public void OpenDiscord() {
+        Application.OpenURL(_outsideLinksConfig.DiscordLink);
     }
 
     public void Exit() {

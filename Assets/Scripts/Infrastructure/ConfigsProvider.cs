@@ -34,7 +34,7 @@ public class ConfigsProvider : IConfigsProvider {
         WorldConfig = Resources.LoadAll<WorldConfig>("Configs").FirstOrDefault();
         IngameTimeConfig = Resources.LoadAll<IngameTimeConfig>("Configs").FirstOrDefault();
         FogOfWarConfig = Resources.LoadAll<FogOfWarConfig>("Configs").FirstOrDefault();
-        
+
         OccurenceMainConfig = Resources.LoadAll<OccurenceMainConfig>("Configs").FirstOrDefault();
         OccurenceConfigs = Resources.LoadAll<OccurenceConfig>("Configs/Occurencies").ToList();
     }
