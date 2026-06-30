@@ -63,21 +63,38 @@ public class PrepareGamePanel : MonoBehaviour {
         _state = State.Choosing;
         _animation.Play(_stopServer.name);
         NetworkManager.Singleton.Shutdown();
+        SteamSessionService.Instance?.LeaveLobby();
     }
 
     private void StopJoining() {
         _state = State.Choosing;
         _animation.Play(_stopJoin.name);
         NetworkManager.Singleton.Shutdown();
+        SteamSessionService.Instance?.LeaveLobby();
     }
 
     public void Host() {
+        BeginHost(TransportKind.Unity);
+        _serverCode = NetworkBootstrap.GetLocalIp();
+        _codeText.text = _serverCode;
+    }
+
+    // Steam host: start the listen-server on the Steam transport and open a Friends-only lobby so a
+    // friend can be invited via the overlay. No IP code — the invite itself carries the connection.
+    public void HostViaSteam() {
+        BeginHost(TransportKind.Steam);
+        SteamSessionService.Instance.HostLobby();
+    }
+
+    public void InviteFriend() {
+        SteamSessionService.Instance.OpenInviteOverlay();
+    }
+
+    private void BeginHost(TransportKind kind) {
         _state = State.Hosting;
         _animation.Play(_startServer.name);
-        NetworkManager.Singleton.StartHost();
+        NetworkBootstrap.StartHost(kind);
         NetworkManager.Singleton.SpawnManager.InstantiateAndSpawn(_networkCanvas);
-        _serverCode = IpConnection.GetLocalIPAddress();
-        _codeText.text = _serverCode;
         SpawnDataHolder();
     }
 
@@ -134,8 +151,15 @@ public class PrepareGamePanel : MonoBehaviour {
     }
 
     public void Client(string serverIp) {
-        IpConnection.SetIpAddress(serverIp);
-        NetworkManager.Singleton.StartClient();
+        NetworkBootstrap.StartClient(ConnectTarget.ForIp(serverIp));
+        NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler(nameof(OpenChooseRace), OpenChooseRace);
+    }
+
+    // Entered from SteamSessionService when an accepted invite / lobby join resolves to a host
+    // SteamID. Mirrors Client() but connects over the Steam transport instead of an IP.
+    public void JoinViaSteam(ulong hostSteamId) {
+        _state = State.Joining;
+        NetworkBootstrap.StartClient(ConnectTarget.ForSteam(hostSteamId));
         NetworkManager.Singleton.CustomMessagingManager.RegisterNamedMessageHandler(nameof(OpenChooseRace), OpenChooseRace);
     }
 

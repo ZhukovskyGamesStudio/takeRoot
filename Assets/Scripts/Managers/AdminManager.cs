@@ -136,7 +136,7 @@ public class AdminManager : MonoBehaviour {
         if (NetworkDataHolder.Instance == null) {
             NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnected;
 
-            NetworkManager.Singleton.StartHost();
+            NetworkBootstrap.StartHost(TransportKind.Unity);
             // ничего не спавним и не трогаем RPC пока клиент не зарегистрируется
         }
 
